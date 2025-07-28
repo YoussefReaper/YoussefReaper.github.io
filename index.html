@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auro AI - Transforming Education Through Intelligence | Coming Soon</title>
+    <meta name="description" content="The future of learning is here. Auro AI combines cutting-edge artificial intelligence with beautiful design to create the ultimate educational companion.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --electric-blue: #00D4FF;
+            --cosmic-purple: #6366F1;
+            --sunset-orange: #F59E0B;
+            --mint-green: #10B981;
+            --rose-pink: #EC4899;
+            --deep-space: #0F172A;
+            --space-gray: #1E293B;
+            --star-white: #F8FAFC;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--deep-space);
+            color: var(--star-white);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Cosmic Background */
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(ellipse at top, #1e293b 0%, #0f172a 100%);
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Animated Gradient Waves */
+        .wave-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .wave {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, var(--electric-blue), var(--cosmic-purple), var(--sunset-orange), var(--mint-green), var(--rose-pink), var(--electric-blue));
+            animation: rotate 30s linear infinite;
+            border-radius: 50%;
+        }
+
+        .wave:nth-child(1) {
+            top: -50%;
+            left: -50%;
+            animation-duration: 25s;
+        }
+
+        .wave:nth-child(2) {
+            top: -30%;
+            right: -50%;
+            animation-duration: 35s;
+            animation-direction: reverse;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Main Container */
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+            max-width: 800px;
+        }
+
+        .logo-wrapper {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .main-logo {
+            width: 160px;
+            height: 160px;
+            background: linear-gradient(135deg, var(--electric-blue), var(--cosmic-purple), var(--rose-pink));
+            background-size: 300% 300%;
+            animation: gradientShift 6s ease infinite;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 
+                0 0 60px rgba(0, 212, 255, 0.3),
+                0 0 120px rgba(99, 102, 241, 0.2),
+                0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: perspective(1000px) rotateX(10deg);
+            transition: all 0.8s ease;
+        }
+
+        .main-logo:hover {
+            transform: perspective(1000px) rotateX(0deg) scale(1.1);
+            box-shadow: 
+                0 0 80px rgba(0, 212, 255, 0.5),
+                0 0 160px rgba(99, 102, 241, 0.3),
+                0 30px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .logo-icon {
+            font-size: 4.5rem;
+            color: white;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .brand-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 5.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--star-white) 0%, var(--electric-blue) 25%, var(--cosmic-purple) 50%, var(--rose-pink) 75%, var(--star-white) 100%);
+            background-size: 300% 300%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleShimmer 8s ease-in-out infinite;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+            line-height: 1;
+        }
+
+        @keyframes titleShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-size: 2rem;
+            font-weight: 400;
+            color: rgba(248, 250, 252, 0.8);
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        .description {
+            font-size: 1.2rem;
+            color: rgba(248, 250, 252, 0.7);
+            line-height: 1.6;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1s forwards;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, var(--electric-blue), var(--cosmic-purple));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+        }
+
+        /* Progress Section */
+        .progress-section {
+            width: 100%;
+            max-width: 700px;
+            margin-bottom: 4rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1.5s forwards;
+        }
+
+        .progress-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .progress-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--star-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-subtitle {
+            font-size: 1rem;
+            color: rgba(248, 250, 252, 0.6);
+        }
+
+        .progress-container {
+            background: rgba(248, 250, 252, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(248, 250, 252, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: rgb(41, 41, 41);
+            background-size: 400% 400%;
+            animation: borderFlow 8s ease infinite;
+            border-radius: 22px;
+            z-index: -1;
+        }
+
+        @keyframes borderFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .milestone-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .milestone {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background: rgba(248, 250, 252, 0.03);
+            border-radius: 15px;
+            border: 1px solid rgba(248, 250, 252, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .milestone:hover {
+            background: rgba(248, 250, 252, 0.08);
+            transform: translateY(-5px);
+        }
+
+        .milestone-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--electric-blue);
+        }
+
+        .milestone.completed .milestone-icon {
+            color: var(--mint-green);
+        }
+
+        .milestone-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--star-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .milestone-status {
+            font-size: 0.85rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .milestone.completed .milestone-status {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--mint-green);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .milestone.in-progress .milestone-status {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--sunset-orange);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .milestone.upcoming .milestone-status {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--cosmic-purple);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .overall-progress {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .progress-bar-container {
+            background: rgba(248, 250, 252, 0.1);
+            border-radius: 50px;
+            height: 12px;
+            margin: 1rem 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--mint-green), var(--electric-blue), var(--cosmic-purple));
+            height: 100%;
+            width: 75%;
+            border-radius: 50px;
+            position: relative;
+            animation: progressGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes progressGlow {
+            0%, 100% { box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.8); }
+        }
+
+        .progress-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--mint-green);
+        }
+
+        /* Feature Highlights */
+        .features-section {
+            margin-bottom: 4rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 2s forwards;
+        }
+
+        .features-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--star-white);
+            margin-bottom: 3rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+        }
+
+        .feature-card {
+            background: rgba(248, 250, 252, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(248, 250, 252, 0.1);
+            border-radius: 25px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 
+                0 0 40px rgba(0, 212, 255, 0.2),
+                0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--electric-blue), var(--cosmic-purple));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: iconPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--star-white);
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            font-size: 1rem;
+            color: rgba(248, 250, 252, 0.8);
+            line-height: 1.6;
+        }
+
+        /* Call to Action */
+        .cta-section {
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 2.5s forwards;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--electric-blue), var(--cosmic-purple));
+            border: none;
+            border-radius: 50px;
+            padding: 1.3rem 3.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid rgba(248, 250, 252, 0.3);
+            border-radius: 50px;
+            padding: 1.3rem 3.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--star-white);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(248, 250, 252, 0.1);
+            border-color: var(--electric-blue);
+            color: var(--electric-blue);
+            transform: translateY(-3px);
+        }
+
+        .cta-note {
+            font-size: 1rem;
+            color: rgba(248, 250, 252, 0.6);
+            margin-top: 1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .brand-title {
+                font-size: 4rem;
+            }
+            
+            .subtitle {
+                font-size: 1.6rem;
+            }
+            
+            .main-logo {
+                width: 130px;
+                height: 130px;
+            }
+            
+            .logo-icon {
+                font-size: 3.5rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand-title {
+                font-size: 3rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .progress-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .milestone-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cosmic Background -->
+    <div class="cosmic-bg"></div>
+    <div class="wave-container">
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+    <div class="stars" id="stars"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-wrapper">
+                <div class="main-logo">
+                    <i class="fas fa-brain logo-icon"></i>
+                </div>
+            </div>
+            <h1 class="brand-title">AURO</h1>
+            <p class="subtitle">The Future of Intelligent Learning</p>
+            <p class="description">
+                We're building more than just software – we're creating a <span class="highlight">revolutionary learning companion</span> 
+                that will transform how students study, learn, and achieve their academic dreams through the power of artificial intelligence.
+            </p>
+        </header>
+
+        <!-- Progress Section -->
+        <section class="progress-section">
+            <div class="progress-header">
+                <h2 class="progress-title">Development Journey</h2>
+                <p class="progress-subtitle">Building the future, one breakthrough at a time</p>
+            </div>
+            <div class="progress-container">
+                <div class="milestone-grid">
+                    <div class="milestone completed">
+                        <div class="milestone-icon">🎨</div>
+                        <div class="milestone-name">Design System</div>
+                        <div class="milestone-status">Completed</div>
+                    </div>
+                    <div class="milestone completed">
+                        <div class="milestone-icon">🧠</div>
+                        <div class="milestone-name">AI Core</div>
+                        <div class="milestone-status">Completed</div>
+                    </div>
+                    <div class="milestone in-progress">
+                        <div class="milestone-icon">⚡</div>
+                        <div class="milestone-name">Smart Features</div>
+                        <div class="milestone-status">In Progress</div>
+                    </div>
+                    <div class="milestone upcoming">
+                        <div class="milestone-icon">🚀</div>
+                        <div class="milestone-name">Beta Testing</div>
+                        <div class="milestone-status">Coming Soon</div>
+                    </div>
+                </div>
+                <div class="overall-progress">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <div class="progress-text">75% Complete</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2 class="features-title">Revolutionary Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3 class="feature-title">Adaptive AI Tutor</h3>
+                    <p class="feature-description">
+                        Personalized learning that adapts to your pace, style, and goals. 
+                        Like having a genius tutor available 24/7.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Progress Analytics</h3>
+                    <p class="feature-description">
+                        Beautiful insights that help you understand your learning patterns 
+                        and optimize your study sessions.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h3 class="feature-title">Seamless Experience</h3>
+                    <p class="feature-description">
+                        Intuitive design that makes learning feel effortless and enjoyable. 
+                        Every interaction is crafted for delight.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Create starfield
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = 100;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (2 + Math.random() * 2) + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Add parallax effect
+        document.addEventListener('mousemove', function(e) {
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            const logo = document.querySelector('.main-logo');
+            const translateX = (mouseX - 0.5) * 20;
+            const translateY = (mouseY - 0.5) * 20;
+            
+            logo.style.transform = `perspective(1000px) rotateX(${10 + translateY * 0.5}deg) rotateY(${translateX * 0.5}deg)`;
+        });
+
+        // Enhanced interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            
+            // Add click effects to feature cards
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'translateY(-15px) scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-15px) scale(1.05)';
+                    }, 150);
+                });
+            });
+
+            // Add milestone hover effects
+            document.querySelectorAll('.milestone').forEach(milestone => {
+                milestone.addEventListener('mouseenter', function() {
+                    const icon = this.querySelector('.milestone-icon');
+                    icon.style.transform = 'scale(1.2) rotate(10deg)';
+                });
+                
+                milestone.addEventListener('mouseleave', function() {
+                    const icon = this.querySelector('.milestone-icon');
+                    icon.style.transform = 'scale(1) rotate(0deg)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

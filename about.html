@@ -79,10 +79,75 @@
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
             position: relative;
             z-index: 2;
-            background-image: url('../../pfp/Youssef.png'), url('../../pfp/Youssef.jpg');
             background-size: cover;
             background-position: center;
             border: 4px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .profile-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .profile-avatar .initials {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        /* File input for profile picture */
+        .profile-upload {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 5;
+        }
+
+        .profile-upload-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 50%;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .profile-avatar:hover .profile-upload-overlay {
+            opacity: 1;
+        }
+
+        .profile-upload-overlay i {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-upload-overlay span {
+            font-size: 0.9rem;
+            font-weight: 600;
         }
 
         .hero-title {
@@ -343,28 +408,40 @@
                 scroll-behavior: smooth !important;
                 -webkit-overflow-scrolling: touch !important;
                 scrollbar-width: thin !important;
-                scrollbar-color: rgba(102, 126, 234, 0.3) transparent !important;
+                scrollbar-color: rgba(102, 126, 234, 0.5) rgba(255, 255, 255, 0.1) !important;
                 gap: 0.5rem !important;
                 min-width: max-content !important;
-                padding: 0.5rem 0 !important;
+                padding: 0.5rem 0 1rem 0 !important;
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                width: 100% !important;
             }
 
             .topbar-nav::-webkit-scrollbar {
-                height: 4px !important;
+                height: 6px !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                border-radius: 3px !important;
             }
 
             .topbar-nav::-webkit-scrollbar-track {
                 background: rgba(255, 255, 255, 0.1) !important;
-                border-radius: 2px !important;
+                border-radius: 3px !important;
+                margin: 0 10px !important;
             }
 
             .topbar-nav::-webkit-scrollbar-thumb {
-                background: rgba(102, 126, 234, 0.5) !important;
-                border-radius: 2px !important;
+                background: linear-gradient(90deg, rgba(102, 126, 234, 0.6), rgba(118, 75, 162, 0.6)) !important;
+                border-radius: 3px !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
             }
 
             .topbar-nav::-webkit-scrollbar-thumb:hover {
-                background: rgba(102, 126, 234, 0.7) !important;
+                background: linear-gradient(90deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8)) !important;
+                box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3) !important;
+            }
+
+            .topbar-nav::-webkit-scrollbar-thumb:active {
+                background: linear-gradient(90deg, rgba(102, 126, 234, 1), rgba(118, 75, 162, 1)) !important;
             }
 
             .topbar-nav-item {
@@ -372,9 +449,40 @@
                 white-space: nowrap !important;
                 padding: 0.5rem 0.75rem !important;
                 font-size: 0.9rem !important;
+                min-width: fit-content !important;
+                margin-right: 0.25rem !important;
+            }
+
+            /* Improve touch interaction on mobile */
+            .topbar-nav {
+                -webkit-user-select: none !important;
+                -moz-user-select: none !important;
+                -ms-user-select: none !important;
+                user-select: none !important;
+            }
+
+            /* Fade out edges for better scroll indication */
+            .topbar-nav::before,
+            .topbar-nav::after {
+                content: '' !important;
+                position: absolute !important;
+                top: 0 !important;
+                bottom: 0 !important;
+                width: 20px !important;
+                pointer-events: none !important;
+                z-index: 1 !important;
+            }
+
+            .topbar-nav::before {
+                left: 0 !important;
+                background: linear-gradient(to right, rgba(255, 255, 255, 0.95), transparent) !important;
+            }
+
+            .topbar-nav::after {
+                right: 0 !important;
+                background: linear-gradient(to left, rgba(255, 255, 255, 0.95), transparent) !important;
             }
         }
-<<<<<<< HEAD
 
         /* Default Topbar Styling - Fallback when no customization is applied */
         .topbar {
@@ -382,7 +490,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 70px;
+            height: 85px;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -537,8 +645,6 @@
             color: #43e97b;
             font-weight: 500;
         }
-=======
->>>>>>> 3d687cb6ac260b3d33c071192277ea05147c7968
     </style>
 </head>
 <body>
@@ -587,10 +693,17 @@
     </div>
 
     <!-- Main Content -->
-    <div class="main-content" style="margin-left: 0; margin-top: 70px;">
+    <div class="main-content" style="margin-left: 0; margin-top: 85px;">
         <!-- Hero Section -->
         <section class="hero-section">
-            <div class="profile-avatar">YM</div>
+            <div class="profile-avatar" id="profile-avatar">
+                <span class="initials" id="profile-initials">YM</span>
+                <input type="file" class="profile-upload" id="profile-upload" accept="image/*">
+                <div class="profile-upload-overlay">
+                    <i class="fas fa-camera"></i>
+                    <span>Change Photo</span>
+                </div>
+            </div>
             <h1 class="hero-title">Youssef Mohamed</h1>
             <p class="hero-subtitle">Creator of Auro | Building the Productive Revolution</p>
             <p style="color: rgba(255, 255, 255, 0.9); max-width: 700px; margin: 2rem auto 0; position: relative; z-index: 2; font-size: 1.3rem; line-height: 1.6;">
@@ -665,6 +778,253 @@
         </section>
     </div>
     </div>
+
+    <!-- Profile Picture Management with IndexedDB -->
+    <script>
+        class ProfilePictureManager {
+            constructor() {
+                this.dbName = 'AuroProfileDB';
+                this.dbVersion = 1;
+                this.storeName = 'profilePictures';
+                this.db = null;
+                this.init();
+            }
+
+            async init() {
+                try {
+                    await this.initDB();
+                    await this.loadProfilePicture();
+                    this.setupEventListeners();
+                } catch (error) {
+                    console.error('Failed to initialize profile picture manager:', error);
+                }
+            }
+
+            async initDB() {
+                return new Promise((resolve, reject) => {
+                    const request = indexedDB.open(this.dbName, this.dbVersion);
+                    
+                    request.onerror = () => reject(request.error);
+                    request.onsuccess = () => {
+                        this.db = request.result;
+                        resolve(this.db);
+                    };
+                    
+                    request.onupgradeneeded = (event) => {
+                        const db = event.target.result;
+                        if (!db.objectStoreNames.contains(this.storeName)) {
+                            const store = db.createObjectStore(this.storeName, { keyPath: 'id' });
+                            store.createIndex('timestamp', 'timestamp', { unique: false });
+                        }
+                    };
+                });
+            }
+
+            async saveProfilePicture(imageData) {
+                if (!this.db) return false;
+                
+                return new Promise((resolve, reject) => {
+                    const transaction = this.db.transaction([this.storeName], 'readwrite');
+                    const store = transaction.objectStore(this.storeName);
+                    
+                    const profileData = {
+                        id: 'main-profile',
+                        imageData: imageData,
+                        timestamp: Date.now()
+                    };
+                    
+                    const request = store.put(profileData);
+                    request.onsuccess = () => resolve(true);
+                    request.onerror = () => reject(request.error);
+                });
+            }
+
+            async getProfilePicture() {
+                if (!this.db) return null;
+                
+                return new Promise((resolve, reject) => {
+                    const transaction = this.db.transaction([this.storeName], 'readonly');
+                    const store = transaction.objectStore(this.storeName);
+                    const request = store.get('main-profile');
+                    
+                    request.onsuccess = () => {
+                        if (request.result) {
+                            resolve(request.result.imageData);
+                        } else {
+                            resolve(null);
+                        }
+                    };
+                    request.onerror = () => reject(request.error);
+                });
+            }
+
+            async loadProfilePicture() {
+                try {
+                    const imageData = await this.getProfilePicture();
+                    const profileAvatar = document.getElementById('profile-avatar');
+                    const profileInitials = document.getElementById('profile-initials');
+                    const topbarProfilePic = document.getElementById('topbar-profile-pic');
+                    
+                    if (imageData && profileAvatar) {
+                        // Create image element for main profile
+                        const img = document.createElement('img');
+                        img.src = imageData;
+                        img.alt = 'Profile Picture';
+                        
+                        // Replace initials with image
+                        profileInitials.style.display = 'none';
+                        
+                        // Remove any existing images
+                        const existingImg = profileAvatar.querySelector('img');
+                        if (existingImg) {
+                            existingImg.remove();
+                        }
+                        
+                        profileAvatar.appendChild(img);
+                        
+                        // Update topbar profile picture
+                        if (topbarProfilePic) {
+                            topbarProfilePic.innerHTML = `<img src="${imageData}" alt="Profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                        }
+                        
+                        console.log('Profile picture loaded from IndexedDB');
+                    } else {
+                        // Show initials if no image
+                        if (profileInitials) {
+                            profileInitials.style.display = 'flex';
+                        }
+                        if (topbarProfilePic) {
+                            topbarProfilePic.textContent = 'YM';
+                        }
+                    }
+                } catch (error) {
+                    console.error('Failed to load profile picture:', error);
+                }
+            }
+
+            setupEventListeners() {
+                const profileUpload = document.getElementById('profile-upload');
+                if (profileUpload) {
+                    profileUpload.addEventListener('change', (event) => {
+                        this.handleImageUpload(event);
+                    });
+                }
+            }
+
+            async handleImageUpload(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+
+                // Validate file type
+                if (!file.type.startsWith('image/')) {
+                    alert('Please select a valid image file.');
+                    return;
+                }
+
+                // Validate file size (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('Image size should be less than 5MB.');
+                    return;
+                }
+
+                try {
+                    // Convert to base64
+                    const imageData = await this.fileToBase64(file);
+                    
+                    // Save to IndexedDB
+                    await this.saveProfilePicture(imageData);
+                    
+                    // Update display
+                    await this.loadProfilePicture();
+                    
+                    // Show success message
+                    this.showNotification('Profile picture updated successfully!', 'success');
+                    
+                } catch (error) {
+                    console.error('Failed to upload profile picture:', error);
+                    this.showNotification('Failed to update profile picture. Please try again.', 'error');
+                }
+            }
+
+            fileToBase64(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            showNotification(message, type = 'info') {
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 90px;
+                    right: 20px;
+                    background: ${type === 'success' ? 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' : 'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)'};
+                    color: white;
+                    padding: 1rem 1.5rem;
+                    border-radius: 12px;
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+                    z-index: 10000;
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                    max-width: 300px;
+                    animation: slideIn 0.3s ease;
+                `;
+                
+                notification.textContent = message;
+                document.body.appendChild(notification);
+                
+                // Add slide-in animation
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes slideIn {
+                        from {
+                            transform: translateX(100%);
+                            opacity: 0;
+                        }
+                        to {
+                            transform: translateX(0);
+                            opacity: 1;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                // Remove after 3 seconds
+                setTimeout(() => {
+                    notification.style.animation = 'slideIn 0.3s ease reverse';
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.parentNode.removeChild(notification);
+                        }
+                    }, 300);
+                }, 3000);
+            }
+
+            // Public method to get profile picture for other pages
+            static async getStoredProfilePicture() {
+                try {
+                    const manager = new ProfilePictureManager();
+                    await manager.initDB();
+                    return await manager.getProfilePicture();
+                } catch (error) {
+                    console.error('Failed to get stored profile picture:', error);
+                    return null;
+                }
+            }
+        }
+
+        // Initialize profile picture manager when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new ProfilePictureManager();
+        });
+
+        // Make ProfilePictureManager globally available
+        window.ProfilePictureManager = ProfilePictureManager;
+    </script>
 
     <!-- Include Scripts -->
     <script src="../../scripts/global-navigation.js"></script>

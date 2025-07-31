@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Project - Help Build the Future | Youssef Mohamed</title>
+    <meta name="description" content="Support Auro's development and join the productive revolution. Exclusive perks for early supporters.">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/dashboard.css">
+    <link rel="stylesheet" href="../../styles/about.css">
+    <link rel="stylesheet" href="../../styles/floating-nav.css">
+    <link rel="stylesheet" href="../../styles/modern-navigation.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Modern Design System */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            --secondary-gradient: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            --success-gradient: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+            --warning-gradient: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow-light: 0 8px 32px rgba(31, 38, 135, 0.37);
+            --shadow-medium: 0 15px 35px rgba(31, 38, 135, 0.2);
+            --shadow-heavy: 0 20px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Enhanced Glass Morphism */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-heavy);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: var(--primary-gradient);
+            border-radius: 25px;
+            padding: 4rem 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            color: white;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Payment Section */
+        .payment-card {
+            padding: 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(238, 90, 82, 0.1));
+            border: 2px solid rgba(255, 107, 107, 0.2);
+        }
+
+        .payment-icon {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .payment-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .payment-description {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .payment-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem 3rem;
+            background: linear-gradient(135deg, #0070ba, #003087);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 112, 186, 0.3);
+        }
+
+        .payment-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 112, 186, 0.4);
+        }
+
+        /* Perks Grid */
+        .perks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .perk-card {
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .perk-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--secondary-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 20px;
+        }
+
+        .perk-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .perk-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 2;
+        }
+
+        .perk-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .perk-description {
+            color: #666;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Impact Stats */
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .impact-card {
+            padding: 2.5rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(76, 205, 196, 0.1), rgba(68, 160, 141, 0.1));
+            border: 1px solid rgba(76, 205, 196, 0.2);
+        }
+
+        .impact-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-label {
+            font-size: 1.2rem;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .impact-description {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Community Section */
+        .community-section {
+            background: linear-gradient(135deg, rgba(86, 171, 47, 0.1), rgba(168, 230, 207, 0.1));
+            border-radius: 25px;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 4rem 0;
+            border: 1px solid rgba(86, 171, 47, 0.2);
+        }
+
+        .community-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: var(--success-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .community-description {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .community-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem 3rem;
+            background: linear-gradient(135deg, #5865F2, #4752C4);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(88, 101, 242, 0.3);
+        }
+
+        .community-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(88, 101, 242, 0.4);
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .testimonial-card {
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .testimonial-quote {
+            font-size: 1.2rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .testimonial-role {
+            color: #ff6b6b;
+            font-size: 0.95rem;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .contact-card {
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: var(--success-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .contact-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--primary-gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .contact-link:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        /* Content Sections */
+        .content-section {
+            margin: 4rem 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .payment-title {
+                font-size: 2rem;
+            }
+            
+            .perks-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            /* Enhanced mobile topbar navigation */
+            .topbar-nav {
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                scroll-behavior: smooth !important;
+                -webkit-overflow-scrolling: touch !important;
+                scrollbar-width: thin !important;
+                scrollbar-color: rgba(102, 126, 234, 0.3) transparent !important;
+                gap: 0.5rem !important;
+                min-width: max-content !important;
+                padding: 0.5rem 0 !important;
+            }
+
+            .topbar-nav::-webkit-scrollbar {
+                height: 4px !important;
+            }
+
+            .topbar-nav::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.1) !important;
+                border-radius: 2px !important;
+            }
+
+            .topbar-nav::-webkit-scrollbar-thumb {
+                background: rgba(102, 126, 234, 0.5) !important;
+                border-radius: 2px !important;
+            }
+
+            .topbar-nav::-webkit-scrollbar-thumb:hover {
+                background: rgba(102, 126, 234, 0.7) !important;
+            }
+
+            .topbar-nav-item {
+                flex-shrink: 0 !important;
+                white-space: nowrap !important;
+                padding: 0.5rem 0.75rem !important;
+                font-size: 0.9rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Modern Topbar -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="page-breadcrumb">
+                <span class="breadcrumb-current">Support Project</span>
+            </div>
+        </div>
+        
+        <div class="topbar-nav">
+            <a href="about.html" class="topbar-nav-item">
+                <i class="fas fa-user"></i>
+                <span>About Me</span>
+            </a>
+            <a href="future-plans.html" class="topbar-nav-item">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="support-project.html" class="topbar-nav-item active">
+                <i class="fas fa-heart"></i>
+                <span>Support Project</span>
+            </a>
+            <a href="feedbacks.html" class="topbar-nav-item">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+            <a href="index.html" class="topbar-nav-item">
+                <i class="fas fa-clock"></i>
+                <span>Launch Countdown</span>
+            </a>
+        </div>
+        
+        <div class="topbar-actions">
+            <div class="user-menu">
+                <div class="user-trigger">
+                    <div class="user-avatar" id="topbar-profile-pic">A</div>
+                    <div class="user-info">
+                        <span class="user-name" id="topbar-username">Auro User</span>
+                        <span class="user-status">Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" style="margin-left: 0; margin-top: 70px;">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h1 class="hero-title">Support Auro</h1>
+            <p class="hero-subtitle">Help build something awesome</p>
+            <p style="color: rgba(255, 255, 255, 0.9); max-width: 700px; margin: 2rem auto 0; position: relative; z-index: 2; font-size: 1.3rem; line-height: 1.6;">
+                Want to help make Auro even better? Your support means the world and helps bring cool new features to life.
+            </p>
+        </section>
+
+        <!-- Simple PayPal Support -->
+        <section style="margin: 4rem 0;">
+            <div class="payment-card glass-card">
+                <div class="payment-icon">
+                    <i class="fab fa-paypal"></i>
+                </div>
+                <h2 class="payment-title">Support the Project</h2>
+                <p class="payment-description">
+                    Every bit helps fund development, new features, and keeps the creativity flowing.
+                </p>
+                <a href="https://paypal.me/YoussefDevOG" target="_blank" class="payment-btn">
+                    <i class="fab fa-paypal"></i>
+                    <span>Support via PayPal</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- What You Get -->
+        <section style="margin: 4rem 0;">
+            <h2 class="section-title">What You Get</h2>
+            <div class="contact-grid">
+                <div class="contact-card glass-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-discord"></i>
+                    </div>
+                    <h3 class="contact-title">Discord VIP</h3>
+                    <p style="color: #666; margin-bottom: 2rem;">Join our exclusive community and get early access to new stuff</p>
+                    <a href="https://discord.gg/SyhS85qSK6" target="_blank" class="contact-link">
+                        <i class="fab fa-discord"></i>
+                        <span>Join Discord</span>
+                    </a>
+                </div>
+                
+                <div class="contact-card glass-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3 class="contact-title">Alpha Testing</h3>
+                    <p style="color: #666; margin-bottom: 2rem;">Be the first to try mobile apps and new features before everyone else</p>
+                    <a href="future-plans.html" class="contact-link">
+                        <i class="fas fa-rocket"></i>
+                        <span>See What's Coming</span>
+                    </a>
+                </div>
+                
+                <div class="contact-card glass-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="contact-title">Good Vibes</h3>
+                    <p style="color: #666; margin-bottom: 2rem;">Know that you're helping build something that makes people's lives better</p>
+                    <a href="about.html" class="contact-link">
+                        <i class="fas fa-user"></i>
+                        <span>About the Creator</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Simple Thanks -->
+        <section class="content-section">
+            <div class="glass-card" style="padding: 3rem; text-align: center;">
+                <h2 class="section-title" style="margin-bottom: 2rem;">Much Love</h2>
+                <p style="font-size: 1.2rem; line-height: 1.8; color: #666; max-width: 800px; margin: 0 auto;">
+                    Whether you support financially, share feedback, or just use Auro — you're part of something bigger. 
+                    Thanks for being awesome and helping build the future of productivity tools.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Include Scripts -->
+    <script src="../../scripts/global-navigation.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+</body>
+</html>

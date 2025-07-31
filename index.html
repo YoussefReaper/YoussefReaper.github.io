@@ -3,758 +3,898 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auro AI - Transforming Education Through Intelligence | Coming Soon</title>
-    <meta name="description" content="The future of learning is here. Auro AI combines cutting-edge artificial intelligence with beautiful design to create the ultimate educational companion.">
+    <title>Auro Launch Countdown | The Productive Revolution Begins</title>
+    <meta name="description" content="The countdown to Auro's official launch has begun. Join the productive revolution.">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/dashboard.css">
+    <link rel="stylesheet" href="../../styles/about.css">
+    <link rel="stylesheet" href="../../styles/floating-nav.css">
+    <link rel="stylesheet" href="../../styles/modern-navigation.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* Modern Design System */
         :root {
-            --electric-blue: #00D4FF;
-            --cosmic-purple: #6366F1;
-            --sunset-orange: #F59E0B;
-            --mint-green: #10B981;
-            --rose-pink: #EC4899;
-            --deep-space: #0F172A;
-            --space-gray: #1E293B;
-            --star-white: #F8FAFC;
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warning-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --launch-gradient: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 50%, #feca57 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow-light: 0 8px 32px rgba(31, 38, 135, 0.37);
+            --shadow-medium: 0 15px 35px rgba(31, 38, 135, 0.2);
+            --shadow-heavy: 0 20px 50px rgba(0, 0, 0, 0.1);
         }
 
+        /* Enhanced Glass Morphism */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-heavy);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Animated Background */
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--deep-space);
-            color: var(--star-white);
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            min-height: 100vh;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        /* Enable scrolling for main content only */
+        .main-content {
+            overflow-y: auto;
             overflow-x: hidden;
-            min-height: 100vh;
-            position: relative;
+            height: calc(100vh - 70px);
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* Internet Explorer 10+ */
         }
 
-        /* Cosmic Background */
-        .cosmic-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background: radial-gradient(ellipse at top, #1e293b 0%, #0f172a 100%);
-        }
-
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 3s ease-in-out infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
-
-        /* Animated Gradient Waves */
-        .wave-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.1;
-        }
-
-        .wave {
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, var(--electric-blue), var(--cosmic-purple), var(--sunset-orange), var(--mint-green), var(--rose-pink), var(--electric-blue));
-            animation: rotate 30s linear infinite;
-            border-radius: 50%;
-        }
-
-        .wave:nth-child(1) {
-            top: -50%;
-            left: -50%;
-            animation-duration: 25s;
-        }
-
-        .wave:nth-child(2) {
-            top: -30%;
-            right: -50%;
-            animation-duration: 35s;
-            animation-direction: reverse;
-        }
-
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Main Container */
-        .container {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Header Section */
-        .header {
-            text-align: center;
-            margin-bottom: 4rem;
-            max-width: 800px;
-        }
-
-        .logo-wrapper {
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        .main-logo {
-            width: 160px;
-            height: 160px;
-            background: linear-gradient(135deg, var(--electric-blue), var(--cosmic-purple), var(--rose-pink));
-            background-size: 300% 300%;
-            animation: gradientShift 6s ease infinite;
-            border-radius: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            position: relative;
-            box-shadow: 
-                0 0 60px rgba(0, 212, 255, 0.3),
-                0 0 120px rgba(99, 102, 241, 0.2),
-                0 20px 40px rgba(0, 0, 0, 0.3);
-            transform: perspective(1000px) rotateX(10deg);
-            transition: all 0.8s ease;
-        }
-
-        .main-logo:hover {
-            transform: perspective(1000px) rotateX(0deg) scale(1.1);
-            box-shadow: 
-                0 0 80px rgba(0, 212, 255, 0.5),
-                0 0 160px rgba(99, 102, 241, 0.3),
-                0 30px 60px rgba(0, 0, 0, 0.4);
+        /* Hide scrollbar for webkit browsers */
+        .main-content::-webkit-scrollbar {
+            display: none;
         }
 
         @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
+            0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        .logo-icon {
-            font-size: 4.5rem;
-            color: white;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
-            animation: float 4s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .brand-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 5.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--star-white) 0%, var(--electric-blue) 25%, var(--cosmic-purple) 50%, var(--rose-pink) 75%, var(--star-white) 100%);
-            background-size: 300% 300%;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: titleShimmer 8s ease-in-out infinite;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.03em;
-            line-height: 1;
-        }
-
-        @keyframes titleShimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .subtitle {
-            font-size: 2rem;
-            font-weight: 400;
-            color: rgba(248, 250, 252, 0.8);
-            margin-bottom: 1rem;
-            opacity: 0;
-            animation: fadeInUp 1s ease-out 0.5s forwards;
-        }
-
-        .description {
-            font-size: 1.2rem;
-            color: rgba(248, 250, 252, 0.7);
-            line-height: 1.6;
-            opacity: 0;
-            animation: fadeInUp 1s ease-out 1s forwards;
-        }
-
-        .highlight {
-            background: linear-gradient(135deg, var(--electric-blue), var(--cosmic-purple));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 600;
-        }
-
-        /* Progress Section */
-        .progress-section {
-            width: 100%;
-            max-width: 700px;
-            margin-bottom: 4rem;
-            opacity: 0;
-            animation: fadeInUp 1s ease-out 1.5s forwards;
-        }
-
-        .progress-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .progress-title {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--star-white);
-            margin-bottom: 0.5rem;
-        }
-
-        .progress-subtitle {
-            font-size: 1rem;
-            color: rgba(248, 250, 252, 0.6);
-        }
-
-        .progress-container {
-            background: rgba(248, 250, 252, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(248, 250, 252, 0.1);
-            border-radius: 20px;
-            padding: 2.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .progress-container::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: rgb(41, 41, 41);
-            background-size: 400% 400%;
-            animation: borderFlow 8s ease infinite;
-            border-radius: 22px;
-            z-index: -1;
-        }
-
-        @keyframes borderFlow {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .milestone-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .milestone {
-            text-align: center;
-            padding: 1.5rem 1rem;
-            background: rgba(248, 250, 252, 0.03);
-            border-radius: 15px;
-            border: 1px solid rgba(248, 250, 252, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .milestone:hover {
-            background: rgba(248, 250, 252, 0.08);
-            transform: translateY(-5px);
-        }
-
-        .milestone-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--electric-blue);
-        }
-
-        .milestone.completed .milestone-icon {
-            color: var(--mint-green);
-        }
-
-        .milestone-name {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--star-white);
-            margin-bottom: 0.5rem;
-        }
-
-        .milestone-status {
-            font-size: 0.85rem;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            display: inline-block;
-        }
-
-        .milestone.completed .milestone-status {
-            background: rgba(16, 185, 129, 0.2);
-            color: var(--mint-green);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-
-        .milestone.in-progress .milestone-status {
-            background: rgba(245, 158, 11, 0.2);
-            color: var(--sunset-orange);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-        }
-
-        .milestone.upcoming .milestone-status {
-            background: rgba(99, 102, 241, 0.2);
-            color: var(--cosmic-purple);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-        }
-
-        .overall-progress {
-            margin-top: 2rem;
-            text-align: center;
-        }
-
-        .progress-bar-container {
-            background: rgba(248, 250, 252, 0.1);
-            border-radius: 50px;
-            height: 12px;
-            margin: 1rem 0;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .progress-bar {
-            background: linear-gradient(90deg, var(--mint-green), var(--electric-blue), var(--cosmic-purple));
-            height: 100%;
-            width: 75%;
-            border-radius: 50px;
-            position: relative;
-            animation: progressGlow 3s ease-in-out infinite;
-        }
-
-        @keyframes progressGlow {
-            0%, 100% { box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); }
-            50% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.8); }
-        }
-
-        .progress-text {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--mint-green);
-        }
-
-        /* Feature Highlights */
-        .features-section {
-            margin-bottom: 4rem;
-            opacity: 0;
-            animation: fadeInUp 1s ease-out 2s forwards;
-        }
-
-        .features-title {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--star-white);
-            margin-bottom: 3rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1000px;
-        }
-
-        .feature-card {
-            background: rgba(248, 250, 252, 0.03);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(248, 250, 252, 0.1);
+        /* Hero Section */
+        .countdown-hero {
+            background: var(--launch-gradient);
             border-radius: 25px;
-            padding: 2.5rem 2rem;
+            padding: 4rem 2rem;
+            margin: 2rem 0;
             text-align: center;
-            transition: all 0.5s ease;
-            cursor: pointer;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
         }
 
-        .feature-card::before {
+        .countdown-hero::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
-            transition: left 0.8s ease;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            animation: float 6s ease-in-out infinite;
         }
 
-        .feature-card:hover::before {
-            left: 100%;
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
 
-        .feature-card:hover {
-            transform: translateY(-15px) scale(1.05);
-            border-color: rgba(0, 212, 255, 0.3);
-            box-shadow: 
-                0 0 40px rgba(0, 212, 255, 0.2),
-                0 20px 40px rgba(0, 0, 0, 0.2);
+        .launch-icon {
+            font-size: 6rem;
+            margin-bottom: 2rem;
+            color: white;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        .feature-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--electric-blue), var(--cosmic-purple));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: iconPulse 3s ease-in-out infinite;
-        }
-
-        @keyframes iconPulse {
+        @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.1); }
         }
 
-        .feature-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--star-white);
-            margin-bottom: 1rem;
-        }
-
-        .feature-description {
-            font-size: 1rem;
-            color: rgba(248, 250, 252, 0.8);
-            line-height: 1.6;
-        }
-
-        /* Call to Action */
-        .cta-section {
-            text-align: center;
-            opacity: 0;
-            animation: fadeInUp 1s ease-out 2.5s forwards;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--electric-blue), var(--cosmic-purple));
-            border: none;
-            border-radius: 50px;
-            padding: 1.3rem 3.5rem;
-            font-size: 1.2rem;
-            font-weight: 600;
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
             color: white;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            letter-spacing: -2px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 2;
+            font-weight: 500;
+        }
+
+        /* Countdown Timer */
+        .countdown-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .countdown-unit {
+            padding: 2.5rem 1.5rem;
+            text-align: center;
             position: relative;
             overflow: hidden;
         }
 
-        .btn-primary::before {
+        .countdown-unit::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.6s ease;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--launch-gradient);
+            opacity: 0.1;
+            border-radius: 20px;
+            transition: opacity 0.3s ease;
         }
 
-        .btn-primary:hover::before {
-            left: 100%;
+        .countdown-unit:hover::before {
+            opacity: 0.2;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.5);
+        .countdown-number {
+            font-size: 4rem;
+            font-weight: 900;
+            background: var(--launch-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+            line-height: 1;
         }
 
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid rgba(248, 250, 252, 0.3);
-            border-radius: 50px;
-            padding: 1.3rem 3.5rem;
+        .countdown-label {
             font-size: 1.2rem;
+            color: #666;
             font-weight: 600;
-            color: var(--star-white);
-            cursor: pointer;
-            transition: all 0.4s ease;
-            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Launch Message */
+        .launch-message {
+            text-align: center;
+            margin: 4rem 0;
+            padding: 3rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            border-radius: 25px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .launch-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: var(--launch-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+        }
+
+        .launch-description {
+            font-size: 1.3rem;
+            line-height: 1.7;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Join Section */
+        .join-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .join-card {
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .join-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--success-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .join-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .join-link {
             display: inline-flex;
             align-items: center;
-            gap: 0.8rem;
-            backdrop-filter: blur(10px);
+            gap: 0.5rem;
+            padding: 1.2rem 2.5rem;
+            background: var(--launch-gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-medium);
         }
 
-        .btn-secondary:hover {
-            background: rgba(248, 250, 252, 0.1);
-            border-color: var(--electric-blue);
-            color: var(--electric-blue);
+        .join-link:hover {
             transform: translateY(-3px);
+            box-shadow: var(--shadow-heavy);
         }
 
-        .cta-note {
-            font-size: 1rem;
-            color: rgba(248, 250, 252, 0.6);
-            margin-top: 1rem;
+        /* Status Indicator */
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            padding: 1rem 2rem;
+            background: rgba(67, 233, 123, 0.1);
+            border: 2px solid #43e97b;
+            border-radius: 50px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            background: #43e97b;
+            border-radius: 50%;
+            animation: blink 2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .status-text {
+            color: #43e97b;
+            font-weight: 600;
+            font-size: 1.1rem;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .brand-title {
-                font-size: 4rem;
+            .hero-title {
+                font-size: 2.5rem;
             }
             
-            .subtitle {
-                font-size: 1.6rem;
+            .hero-subtitle {
+                font-size: 1.3rem;
             }
             
-            .main-logo {
-                width: 130px;
-                height: 130px;
-            }
-            
-            .logo-icon {
-                font-size: 3.5rem;
-            }
-            
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .brand-title {
+            .countdown-number {
                 font-size: 3rem;
             }
             
-            .container {
-                padding: 1rem;
+            .launch-title {
+                font-size: 2rem;
             }
             
-            .progress-container {
-                padding: 2rem 1.5rem;
+            /* Enhanced mobile topbar navigation */
+            .topbar-nav {
+                overflow-x: auto !important;
+                overflow-y: hidden !important;
+                scroll-behavior: smooth !important;
+                -webkit-overflow-scrolling: touch !important;
+                scrollbar-width: thin !important;
+                scrollbar-color: rgba(102, 126, 234, 0.3) transparent !important;
+                gap: 0.5rem !important;
+                min-width: max-content !important;
+                padding: 0.5rem 0 !important;
             }
-            
-            .milestone-grid {
-                grid-template-columns: 1fr;
+
+            .topbar-nav::-webkit-scrollbar {
+                height: 4px !important;
             }
+
+            .topbar-nav::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.1) !important;
+                border-radius: 2px !important;
+            }
+
+            .topbar-nav::-webkit-scrollbar-thumb {
+                background: rgba(102, 126, 234, 0.5) !important;
+                border-radius: 2px !important;
+            }
+
+            .topbar-nav::-webkit-scrollbar-thumb:hover {
+                background: rgba(102, 126, 234, 0.7) !important;
+            }
+
+            .topbar-nav-item {
+                flex-shrink: 0 !important;
+                white-space: nowrap !important;
+                padding: 0.5rem 0.75rem !important;
+                font-size: 0.9rem !important;
+            }
+        }
+
+        /* Error State */
+        .error-message {
+            background: rgba(238, 90, 36, 0.1);
+            border: 2px solid #ee5a24;
+            color: #ee5a24;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            text-align: center;
+            margin: 2rem 0;
+            font-weight: 600;
+        }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .loading::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid #667eea;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Default Topbar Styling - Fallback when no customization is applied */
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .page-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .breadcrumb-current {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .topbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .topbar-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            text-decoration: none;
+            color: #666;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .topbar-nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 12px;
+        }
+
+        .topbar-nav-item:hover::before,
+        .topbar-nav-item.active::before {
+            opacity: 0.1;
+        }
+
+        .topbar-nav-item:hover {
+            color: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        .topbar-nav-item.active {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .topbar-nav-item i {
+            font-size: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .topbar-nav-item span {
+            position: relative;
+            z-index: 2;
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-trigger {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 1rem;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .user-trigger:hover {
+            background: rgba(102, 126, 234, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+        }
+
+        .user-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .user-status {
+            font-size: 0.75rem;
+            color: #43e97b;
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
-    <!-- Cosmic Background -->
-    <div class="cosmic-bg"></div>
-    <div class="wave-container">
-        <div class="wave"></div>
-        <div class="wave"></div>
-    </div>
-    <div class="stars" id="stars"></div>
-
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="logo-wrapper">
-                <div class="main-logo">
-                    <i class="fas fa-brain logo-icon"></i>
+    <!-- Modern Topbar -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="page-breadcrumb">
+                <span class="breadcrumb-current">Launch Countdown</span>
+            </div>
+        </div>
+        
+        <div class="topbar-nav">
+            <a href="about.html" class="topbar-nav-item">
+                <i class="fas fa-user"></i>
+                <span>About Me</span>
+            </a>
+            <a href="future-plans.html" class="topbar-nav-item">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="support-project.html" class="topbar-nav-item">
+                <i class="fas fa-heart"></i>
+                <span>Support Project</span>
+            </a>
+            <a href="feedbacks.html" class="topbar-nav-item">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+            <a href="index.html" class="topbar-nav-item active">
+                <i class="fas fa-clock"></i>
+                <span>Launch Countdown</span>
+            </a>
+        </div>
+        
+        <div class="topbar-actions">
+            <div class="user-menu">
+                <div class="user-trigger">
+                    <div class="user-avatar" id="topbar-profile-pic">A</div>
+                    <div class="user-info">
+                        <span class="user-name" id="topbar-username">Auro User</span>
+                        <span class="user-status">Active</span>
+                    </div>
                 </div>
             </div>
-            <h1 class="brand-title">AURO</h1>
-            <p class="subtitle">The Future of Intelligent Learning</p>
-            <p class="description">
-                We're building more than just software – we're creating a <span class="highlight">revolutionary learning companion</span> 
-                that will transform how students study, learn, and achieve their academic dreams through the power of artificial intelligence.
-            </p>
-        </header>
-
-        <!-- Progress Section -->
-        <section class="progress-section">
-            <div class="progress-header">
-                <h2 class="progress-title">Development Journey</h2>
-                <p class="progress-subtitle">Building the future, one breakthrough at a time</p>
-            </div>
-            <div class="progress-container">
-                <div class="milestone-grid">
-                    <div class="milestone completed">
-                        <div class="milestone-icon">🎨</div>
-                        <div class="milestone-name">Design System</div>
-                        <div class="milestone-status">Completed</div>
-                    </div>
-                    <div class="milestone completed">
-                        <div class="milestone-icon">🧠</div>
-                        <div class="milestone-name">AI Core</div>
-                        <div class="milestone-status">Completed</div>
-                    </div>
-                    <div class="milestone in-progress">
-                        <div class="milestone-icon">⚡</div>
-                        <div class="milestone-name">Smart Features</div>
-                        <div class="milestone-status">In Progress</div>
-                    </div>
-                    <div class="milestone upcoming">
-                        <div class="milestone-icon">🚀</div>
-                        <div class="milestone-name">Beta Testing</div>
-                        <div class="milestone-status">Coming Soon</div>
-                    </div>
-                </div>
-                <div class="overall-progress">
-                    <div class="progress-bar-container">
-                        <div class="progress-bar"></div>
-                    </div>
-                    <div class="progress-text">75% Complete</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Features Section -->
-        <section class="features-section">
-            <h2 class="features-title">Revolutionary Features</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🤖</div>
-                    <h3 class="feature-title">Adaptive AI Tutor</h3>
-                    <p class="feature-description">
-                        Personalized learning that adapts to your pace, style, and goals. 
-                        Like having a genius tutor available 24/7.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3 class="feature-title">Progress Analytics</h3>
-                    <p class="feature-description">
-                        Beautiful insights that help you understand your learning patterns 
-                        and optimize your study sessions.
-                    </p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">✨</div>
-                    <h3 class="feature-title">Seamless Experience</h3>
-                    <p class="feature-description">
-                        Intuitive design that makes learning feel effortless and enjoyable. 
-                        Every interaction is crafted for delight.
-                    </p>
-                </div>
-            </div>
-        </section>
-
+        </div>
     </div>
 
-    <script>
-        // Create starfield
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            const starCount = 100;
+    <!-- Main Content -->
+    <div class="main-content" style="margin-left: 0; margin-top: 70px;">
+        <!-- Hero Section -->
+        <section class="countdown-hero">
+            <div class="launch-icon">
+                <i class="fas fa-rocket"></i>
+            </div>
+            <h1 class="hero-title">Auro Launch</h1>
+            <p class="hero-subtitle">The Productive Revolution Begins</p>
             
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                star.style.animationDuration = (2 + Math.random() * 2) + 's';
-                starsContainer.appendChild(star);
+            <!-- Status Indicator -->
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span class="status-text" id="status-text">Syncing with world time...</span>
+            </div>
+        </section>
+
+        <!-- Countdown Timer -->
+        <section class="countdown-container" id="countdown-container">
+            <div class="countdown-unit glass-card">
+                <div class="countdown-number loading" id="days">--</div>
+                <div class="countdown-label">Days</div>
+            </div>
+            <div class="countdown-unit glass-card">
+                <div class="countdown-number loading" id="hours">--</div>
+                <div class="countdown-label">Hours</div>
+            </div>
+            <div class="countdown-unit glass-card">
+                <div class="countdown-number loading" id="minutes">--</div>
+                <div class="countdown-label">Minutes</div>
+            </div>
+            <div class="countdown-unit glass-card">
+                <div class="countdown-number loading" id="seconds">--</div>
+                <div class="countdown-label">Seconds</div>
+            </div>
+        </section>
+
+        <!-- Error Message (hidden by default) -->
+        <div class="error-message" id="error-message" style="display: none;">
+            Unable to sync with world time. Using local time instead.
+        </div>
+
+        <!-- Launch Message -->
+        <section class="launch-message">
+            <h2 class="launch-title">Something Big is Coming</h2>
+            <p class="launch-description">
+                After months of building, testing, and perfecting — Auro is ready to change how you think about productivity. 
+                This isn't just another app launch. This is the beginning of a movement where technology actually serves your goals, 
+                not the other way around. Get ready for the productive revolution.
+            </p>
+        </section>
+
+        <!-- Join Section -->
+        <section class="join-section">
+            <div class="join-card glass-card">
+                <div class="join-icon">
+                    <i class="fab fa-discord"></i>
+                </div>
+                <h3 class="join-title">Join the Community</h3>
+                <p style="color: #666; margin-bottom: 2rem;">Be the first to know when we launch and get exclusive early access</p>
+                <a href="https://discord.gg/SyhS85qSK6" target="_blank" class="join-link">
+                    <i class="fab fa-discord"></i>
+                    <span>Join Discord</span>
+                </a>
+            </div>
+            
+            <div class="join-card glass-card">
+                <div class="join-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <h3 class="join-title">Get Notified</h3>
+                <p style="color: #666; margin-bottom: 2rem;">Stay updated on launch progress and behind-the-scenes updates</p>
+                <a href="feedbacks.html" class="join-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Subscribe</span>
+                </a>
+            </div>
+            
+            <div class="join-card glass-card">
+                <div class="join-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3 class="join-title">Support Launch</h3>
+                <p style="color: #666; margin-bottom: 2rem;">Help make this launch even more awesome and impactful</p>
+                <a href="support-project.html" class="join-link">
+                    <i class="fas fa-heart"></i>
+                    <span>Support Now</span>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Countdown Script -->
+    <script>
+        class LaunchCountdown {
+            constructor() {
+                this.launchTime = null;
+                this.intervalId = null;
+                this.isUsingWorldTime = true;
+                this.init();
+            }
+
+            async init() {
+                try {
+                    await this.setLaunchTime();
+                    this.startCountdown();
+                    this.updateStatus('Countdown to August 1, 9 PM Cairo time');
+                } catch (error) {
+                    console.error('Failed to set launch time:', error);
+                    this.fallbackToLocalTime();
+                }
+            }
+
+            async setLaunchTime() {
+                try {
+                    // Set launch time to August 1, 2025 at 9:00 PM Cairo time
+                    // Cairo is UTC+3 during summer (no DST change since 2014), so 9 PM Cairo = 6 PM UTC
+                    this.launchTime = new Date('2025-08-01T18:00:00.000Z'); // 6 PM UTC = 9 PM Cairo
+                    
+                    // Verify we have a valid date
+                    if (isNaN(this.launchTime.getTime())) {
+                        throw new Error('Invalid launch date');
+                    }
+                    
+                    this.isUsingWorldTime = true;
+                    
+                } catch (error) {
+                    throw new Error('Failed to set launch time');
+                }
+            }
+
+            fallbackToLocalTime() {
+                // Even in fallback, use the fixed launch time
+                this.launchTime = new Date('2025-08-01T18:00:00.000Z'); // 6 PM UTC = 9 PM Cairo
+                this.isUsingWorldTime = false;
+                this.updateStatus('Using fixed launch time (August 1, 9 PM Cairo)');
+                document.getElementById('error-message').style.display = 'none'; // Hide error since we have a valid time
+                this.startCountdown();
+            }
+
+            startCountdown() {
+                // Clear any existing interval
+                if (this.intervalId) {
+                    clearInterval(this.intervalId);
+                }
+
+                // Update immediately
+                this.updateDisplay();
+
+                // Update every second
+                this.intervalId = setInterval(() => {
+                    this.updateDisplay();
+                }, 1000);
+            }
+
+            updateDisplay() {
+                const now = new Date();
+                const timeLeft = this.launchTime - now;
+
+                if (timeLeft <= 0) {
+                    this.handleLaunchComplete();
+                    return;
+                }
+
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                // Update display with smooth animation
+                this.animateNumberChange('days', days);
+                this.animateNumberChange('hours', hours.toString().padStart(2, '0'));
+                this.animateNumberChange('minutes', minutes.toString().padStart(2, '0'));
+                this.animateNumberChange('seconds', seconds.toString().padStart(2, '0'));
+
+                // Remove loading state
+                document.querySelectorAll('.loading').forEach(el => {
+                    el.classList.remove('loading');
+                });
+            }
+
+            animateNumberChange(elementId, newValue) {
+                const element = document.getElementById(elementId);
+                if (element && element.textContent !== newValue.toString()) {
+                    element.style.transform = 'scale(1.1)';
+                    element.textContent = newValue;
+                    setTimeout(() => {
+                        element.style.transform = 'scale(1)';
+                    }, 150);
+                }
+            }
+
+            handleLaunchComplete() {
+                clearInterval(this.intervalId);
+                
+                // Show launch complete message
+                document.querySelector('.countdown-hero').innerHTML = `
+                    <div class="launch-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h1 class="hero-title">🚀 AURO IS LIVE! 🚀</h1>
+                    <p class="hero-subtitle">The Productive Revolution Has Begun!</p>
+                    <div class="status-indicator">
+                        <div class="status-dot" style="background: #43e97b;"></div>
+                        <span class="status-text">Auro is now officially launched!</span>
+                    </div>
+                `;
+
+                // Update countdown display
+                document.getElementById('countdown-container').innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 3rem;">
+                        <h2 style="font-size: 3rem; background: var(--launch-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem;">
+                            Welcome to the Future of Productivity!
+                        </h2>
+                        <p style="font-size: 1.3rem; color: #666; margin-bottom: 2rem;">
+                            Auro is now live and ready to revolutionize how you work and achieve your goals.
+                        </p>
+                        <a href="../../index.html" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 1.5rem 3rem; background: var(--launch-gradient); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.2rem; box-shadow: var(--shadow-heavy);">
+                            <i class="fas fa-rocket"></i>
+                            <span>Launch Auro Now</span>
+                        </a>
+                    </div>
+                `;
+            }
+
+            updateStatus(message) {
+                const statusElement = document.getElementById('status-text');
+                if (statusElement) {
+                    statusElement.textContent = message;
+                }
             }
         }
 
-        // Add parallax effect
-        document.addEventListener('mousemove', function(e) {
-            const mouseX = e.clientX / window.innerWidth;
-            const mouseY = e.clientY / window.innerHeight;
-            
-            const logo = document.querySelector('.main-logo');
-            const translateX = (mouseX - 0.5) * 20;
-            const translateY = (mouseY - 0.5) * 20;
-            
-            logo.style.transform = `perspective(1000px) rotateX(${10 + translateY * 0.5}deg) rotateY(${translateX * 0.5}deg)`;
+        // Initialize countdown when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new LaunchCountdown();
         });
 
-        // Enhanced interactions
-        document.addEventListener('DOMContentLoaded', function() {
-            createStars();
-            
-            // Add click effects to feature cards
-            document.querySelectorAll('.feature-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    this.style.transform = 'translateY(-15px) scale(0.98)';
-                    setTimeout(() => {
-                        this.style.transform = 'translateY(-15px) scale(1.05)';
-                    }, 150);
-                });
-            });
-
-            // Add milestone hover effects
-            document.querySelectorAll('.milestone').forEach(milestone => {
-                milestone.addEventListener('mouseenter', function() {
-                    const icon = this.querySelector('.milestone-icon');
-                    icon.style.transform = 'scale(1.2) rotate(10deg)';
-                });
+        // Add some visual flair
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add floating particles effect
+            const createParticle = () => {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: fixed;
+                    width: 4px;
+                    height: 4px;
+                    background: rgba(255, 255, 255, 0.6);
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: 1;
+                    left: ${Math.random() * 100}vw;
+                    animation: float-up 8s linear infinite;
+                `;
                 
-                milestone.addEventListener('mouseleave', function() {
-                    const icon = this.querySelector('.milestone-icon');
-                    icon.style.transform = 'scale(1) rotate(0deg)';
-                });
-            });
+                document.body.appendChild(particle);
+                
+                setTimeout(() => {
+                    particle.remove();
+                }, 8000);
+            };
+
+            // Add floating animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes float-up {
+                    from {
+                        transform: translateY(100vh) rotate(0deg);
+                        opacity: 0;
+                    }
+                    10% {
+                        opacity: 1;
+                    }
+                    90% {
+                        opacity: 1;
+                    }
+                    to {
+                        transform: translateY(-100px) rotate(360deg);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Create particles periodically
+            setInterval(createParticle, 300);
         });
     </script>
 </body>

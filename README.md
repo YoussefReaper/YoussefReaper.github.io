@@ -1,6 +1,6 @@
 # 🌟 Auro — Your AI-Powered Productivity Companion
 
-**Auro** is not just an assistant — it's a customizable AI-powered *productivity companion* built for students, creators, and lifelong learners who want to stay motivated, organized, and emotionally connected to their goals. Developed with love and 60+ hours of deep coding, Auro is a game-changing tool that merges artificial intelligence with cognitive science to reshape the way you learn, grow, and stay focused.
+**Auro** is not just an assistant — it's a customizable AI-powered *productivity companion* built for students, creators, and lifelong learners who want to stay motivated, organized, and emotionally connected to their goals. Developed with love and 160+ hours of deep coding, Auro is a game-changing tool that merges artificial intelligence with cognitive science to reshape the way you learn, grow, and stay focused.
 
 ---
 

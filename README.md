@@ -11,7 +11,7 @@
   “I have an English exam Thursday” → and it’ll be logged, tracked, and scheduled.
 
 - 🎯 **Smart Planner & Learning Paths**  
-  Set your goals and let Auro build milestone-based plans, complete with tasks, summaries, session notes, and AI-powered scheduling.
+  Set your goals and let Auro build milestone-based plans, complete with tasks, summaries, session notes, and AI-powered scheduling. (soon)
 
 - ⏱ **Advanced Task Tracking System**  
   Timer-powered task tracking using Pomodoro technique, integrated with animated and audio-enhanced UI.
@@ -23,10 +23,10 @@
   Organize ideas, summaries, links, attachments, and insights all in one beautiful space.
 
 - 🌱 **Self-Development Utilities**  
-  Includes Worry Time, Distraction Log, Daily Journaling, Random Acts of Kindness, Achievement Badges & Leveling system.
+  Includes Worry Time, Distraction Log, Daily Journaling, Random Acts of Kindness, Achievement Badges & Leveling system. (soon)
 
 - 👤 **Customizable AI Profiles**  
-  Switch between different AI personalities instantly for different vibes or study modes.
+  Switch between different AI personalities instantly for different vibes or study modes. (soon)
 
 - 🛍 **Rewards & Economy System**  
   Earn coins for your tasks, buy new themes, stickers, and customizations from the Auro Shop.
@@ -50,11 +50,5 @@
 
 - **Frontend**: HTML, CSS, JavaScript
 - **Backend**: Node.js (optional for secure API proxying)
-- **AI**: OpenAI GPT-based integration
 - **Database**: IndexedDB (client-side), future Firebase integration
 - **Storage**: LocalStorage + canvas-based image compression
-
----
-
-## 📂 Project Structure
-

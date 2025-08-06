@@ -221,7 +221,7 @@ body.maximize-mode .chat-messages {
     max-width: none;
     margin: 0;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 1rem;
     /* Add padding to bottom to ensure last message is visible */
     padding-bottom: 2rem;

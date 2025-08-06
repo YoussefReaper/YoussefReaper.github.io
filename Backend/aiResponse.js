@@ -1,14 +1,22 @@
 // Browser-compatible OpenAI API client
 // IMPORTANT: For production use, you should NOT expose your API key in client-side code
 // Consider moving this to a secure backend server that makes API calls on behalf of the client
-// For development/testing only:
-let OPENAI_API_KEY = "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"; // Replace with actual API key
+
+// Get API key from localStorage
+function getOpenAIKey() {
+  return localStorage.getItem('openai_api_key') || null;
+}
 
 // Function to set the API key securely (should be called from settings page)
 function setOpenAIKey(apiKey) {
-  OPENAI_API_KEY = apiKey;
   localStorage.setItem('openai_api_key', apiKey);
   return { success: true };
+}
+
+// Check if API key is available and valid
+function hasValidAPIKey() {
+  const apiKey = getOpenAIKey();
+  return apiKey && apiKey.trim().length > 0 && apiKey.startsWith('sk-');
 }
 
 // Get AI Profile Manager instance
@@ -479,14 +487,14 @@ function parseAIResponse(responseText) {
 // Main function to get AI response with OpenAI integration
 async function getAIResponse(userMessage, chatHistory = []) {
   try {
-    // Check if API key is set
-    if (!OPENAI_API_KEY || OPENAI_API_KEY === "") {
+    // Check if API key is available and valid
+    if (!hasValidAPIKey()) {
       return {
         message: "I need to be connected to my knowledge base to help you better. Please set an OpenAI API key in the settings.",
         commandResults: [{
           success: false,
           type: "system",
-          message: "⚠️ OpenAI API key not set. Please visit settings to configure your API key."
+          message: "⚠️ OpenAI API key not set. Please visit Settings > Advanced > OpenAI API Key to configure your API key."
         }],
         fullResponse: "",
         error: "API key not set"
@@ -629,6 +637,19 @@ Remember: You are ${remiProfile.name}, a real companion who genuinely cares abou
       }));
     }
 
+    // Get API key from localStorage
+    const apiKey = getOpenAIKey();
+    
+    // Check if API key is available
+    if (!apiKey) {
+      throw new Error('OpenAI API key not configured. Please add your API key in Settings > Advanced > OpenAI API Key.');
+    }
+    
+    // Validate API key format
+    if (!apiKey.startsWith('sk-')) {
+      throw new Error('Invalid API key format. Please check your OpenAI API key in Settings.');
+    }
+
     // Build conversation context including history
     const messages = [
       { "role": "system", "content": systemPrompt },
@@ -641,7 +662,7 @@ Remember: You are ${remiProfile.name}, a real companion who genuinely cares abou
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${OPENAI_API_KEY}`
+        'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify({
         model: "gpt-4o-mini", // Using GPT-4o-mini for improved performance
@@ -684,7 +705,7 @@ Remember: You are ${remiProfile.name}, a real companion who genuinely cares abou
   } catch (error) {
     console.error("❌ Error getting AI response:", error);
     return {
-      message: "Sorry, I'm having trouble connecting to my knowledge base right now. Please try again in a moment.",
+      message: "Sorry, I'm having trouble connecting to my knowledge base right now. Please try again in a moment. Make sure that you put the OpenAI key in the settings page",
       commandResults: [],
       fullResponse: "",
       error: error.message
@@ -701,5 +722,7 @@ export {
   saveMemoryFromAI,
   editTaskFromAI,
   deleteTaskFromAI,
-  setOpenAIKey
+  setOpenAIKey,
+  hasValidAPIKey,
+  getOpenAIKey
 };

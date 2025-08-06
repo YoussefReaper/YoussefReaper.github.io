@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Auro Settings</title>
+    <meta name="description" content="Manage your profile settings, customize Auro's appearance, and configure application preferences.">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/settings.css">
+    <link rel="stylesheet" href="styles/floating-nav.css">
+    <link rel="stylesheet" href="styles/modern-navigation.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Sci-fi enhancements for settings */
+        .settings-section {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(59, 130, 246, 0.1));
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .settings-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .settings-section:hover::before {
+            left: 100%;
+        }
+        
+        .settings-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.2);
+            border-color: rgba(168, 85, 247, 0.5);
+        }
+        
+        .setting-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .setting-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.02);
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-switch.active {
+            background: linear-gradient(45deg, #a855f7 0%, #3b82f6 100%);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+        }
+        
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .toggle-switch.active::after {
+            left: 33px;
+        }
+        
+        /* Coming Soon Section Styles */
+        .profile-editor {
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .profile-editor h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .profile-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .form-group label {
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .form-input, .form-textarea {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 0.75rem;
+            color: white;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .profile-avatar-section {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+        
+        .current-avatar-preview {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid rgba(168, 85, 247, 0.3);
+            flex-shrink: 0;
+        }
+        
+        .current-avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .avatar-upload-controls {
+            flex: 1;
+        }
+        
+        .char-counter {
+            text-align: right;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-start;
+            margin-top: 1rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #a855f7, #3b82f6);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .active-profile-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .active-profile-card .profile-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid rgba(168, 85, 247, 0.3);
+            flex-shrink: 0;
+        }
+        
+        .active-profile-card .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .active-profile-card .profile-details h4 {
+            color: white;
+            margin: 0 0 0.25rem 0;
+            font-size: 1.2rem;
+        }
+        
+        .active-profile-card .profile-details p {
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0 0 0.5rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .profile-description {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        
+        .coming-soon-note {
+            margin-top: 2rem;
+        }
+        
+        .coming-soon-note .coming-soon-card {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(59, 130, 246, 0.1));
+            border: 1px dashed rgba(168, 85, 247, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .coming-soon-note .coming-soon-icon {
+            font-size: 2rem;
+            color: #a855f7;
+            margin-bottom: 0.75rem;
+        }
+        
+        .coming-soon-note h4 {
+            color: white;
+            margin: 0 0 0.5rem 0;
+            font-size: 1.1rem;
+        }
+        
+        .coming-soon-note p {
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+</html>flare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  </head>
+  <body class="floating-nav-active">
+    <!-- Modern Sidebar -->
+    <div class="sidebar collapsed" id="main-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <div class="brand-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <span>Auro</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebar-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">Main</div>
+                <div class="nav-items">
+                    <a href="index.html" class="nav-item">
+                        <i class="fas fa-home"></i>
+                        <span class="nav-item-text">Dashboard</span>
+                    </a>
+                    <a href="chat.html" class="nav-item">
+                        <i class="fas fa-comments"></i>
+                        <span class="nav-item-text">Chat</span>
+                    </a>
+                    <a href="plans.html" class="nav-item">
+                        <i class="fas fa-map"></i>
+                        <span class="nav-item-text">Plans</span>
+                    </a>
+                    <a href="tasks.html" class="nav-item">
+                        <i class="fas fa-tasks"></i>
+                        <span class="nav-item-text">Tasks</span>
+                    </a>
+                    <a href="super-tracker.html" class="nav-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span class="nav-item-text">Tracker</span>
+                    </a>
+                    <a href="notes.html" class="nav-item">
+                        <i class="fas fa-sticky-note"></i>
+                        <span class="nav-item-text">Notes</span>
+                    </a>
+                    <a href="achievements.html" class="nav-item">
+                        <i class="fas fa-trophy"></i>
+                        <span class="nav-item-text">Achievements</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Personalization</div>
+                <div class="nav-items">
+                    <a href="customization.html" class="nav-item">
+                        <i class="fas fa-palette"></i>
+                        <span class="nav-item-text">Customization</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Store</div>
+                <div class="nav-items">
+                    <a href="shop.html" class="nav-item">
+                        <i class="fas fa-store"></i>
+                        <span class="nav-item-text">Shop</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">System</div>
+                <div class="nav-items">
+                    <a href="utilities.html" class="nav-item">
+                        <i class="fas fa-tools"></i>
+                        <span class="nav-item-text">Utilities</span>
+                    </a>
+                    <a href="settings.html" class="nav-item active">
+                        <i class="fas fa-cog"></i>
+                        <span class="nav-item-text">Settings</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Modern Topbar -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="page-breadcrumb">
+                <a href="index.html" class="breadcrumb-item">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Settings</span>
+            </div>
+        </div>
+        
+        <div class="topbar-nav">
+            <a href="about-me.html" class="topbar-nav-item">
+                <i class="fas fa-user"></i>
+                <span>About Me</span>
+            </a>
+            <a href="future-plans.html" class="topbar-nav-item">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="support-project.html" class="topbar-nav-item">
+                <i class="fas fa-heart"></i>
+                <span>Support Project</span>
+            </a>
+            <a href="feedbacks.html" class="topbar-nav-item">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+        </div>
+        
+        <div class="topbar-actions">
+            <div class="user-menu">
+                <div class="user-trigger">
+                    <div class="user-avatar" id="topbar-profile-pic">A</div>
+                    <div class="user-info">
+                        <span class="user-name" id="topbar-username"></span>
+                        <span class="user-status">Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="settings-container">
+        <!-- Settings Header -->
+        <div class="settings-header">
+          <div class="header-content">
+            <i class="fas fa-cog header-icon"></i>
+            <h1>Settings</h1>
+          </div>
+        </div>
+
+        <!-- Settings Navigation -->
+        <div class="settings-nav">
+          <button class="settings-nav-item active" data-section="user-profile">
+            <i class="fas fa-user-edit"></i>
+            <span>Your Profile</span>
+          </button>
+          <button class="settings-nav-item" data-section="profiles">
+            <i class="fas fa-user-circle"></i>
+            <span>AI Profiles</span>
+          </button>
+          <button class="settings-nav-item" data-section="appearance">
+            <i class="fas fa-palette"></i>
+            <span>Appearance</span>
+          </button>
+          <button class="settings-nav-item" data-section="notifications">
+            <i class="fas fa-bell"></i>
+            <span>Notifications</span>
+          </button>
+          <button class="settings-nav-item" data-section="privacy">
+            <i class="fas fa-shield-alt"></i>
+            <span>Privacy</span>
+          </button>
+          <button class="settings-nav-item" data-section="advanced">
+            <i class="fas fa-sliders-h"></i>
+            <span>Advanced</span>
+          </button>
+        </div>
+
+        <!-- Settings Content -->
+        <div class="settings-content">
+          
+          <!-- User Profile Section -->
+          <div class="settings-section active user-profile-section" id="user-profile-section">
+            <div class="section-header">
+              <h2>Your Profile</h2>
+              <p>Customize your personal information and avatar</p>
+            </div>
+            
+            <div class="section-content">
+              <div class="profile-editor-grid">
+                <!-- Current Profile Display -->
+                <div class="user-profile-display">
+                  <div class="profile-avatar-container">
+                    <div class="profile-avatar-preview" id="settings-profile-avatar-preview">
+                      <i class="fas fa-user"></i>
+                    </div>
+                    <button class="avatar-edit-btn" id="settings-avatar-edit-btn">
+                      <i class="fas fa-camera"></i>
+                    </button>
+                    <input type="file" id="settings-avatar-upload" accept="image/*" style="display: none;">
+                  </div>
+                  <div class="profile-info-display">
+                    <h4 id="settings-current-profile-name">Auro User</h4>
+                    <p class="profile-role">Productivity Enthusiast</p>
+                  </div>
+                </div>
+
+                <!-- Profile Edit Form -->
+                <div class="user-profile-edit-form">
+                  <div class="form-group">
+                    <label for="settings-profile-name-input">Display Name</label>
+                    <input type="text" id="settings-profile-name-input" class="form-input" placeholder="Enter your display name" maxlength="50">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="settings-profile-bio-input">Bio (Optional)</label>
+                    <textarea id="settings-profile-bio-input" class="form-textarea" placeholder="Tell us about yourself..." maxlength="200" rows="3"></textarea>
+                  </div>
+                  
+                  <div class="form-actions">
+                    <button class="btn btn-primary" id="settings-save-profile-btn">
+                      <i class="fas fa-save"></i> Save Changes
+                    </button>
+                    <button class="btn btn-secondary" id="settings-reset-profile-btn">
+                      <i class="fas fa-undo"></i> Reset
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- AI Profile Section -->
+          <div class="settings-section" id="profiles-section">
+            <div class="section-header">
+              <h2>AI Profile</h2>
+              <p>Customize your AI assistant's appearance and personality</p>
+            </div>
+
+            <!-- Current AI Profile Display -->
+            <div class="current-profile-display">
+              <h3><i class="fas fa-robot"></i> Current AI Profile</h3>
+              <div class="active-profile-card" id="activeProfileCard">
+                <div class="profile-avatar">
+                  <img src="pfp/Auro_Logo.png" alt="AI Profile" id="activeProfileImage">
+                </div>
+                <div class="profile-details">
+                  <h4 id="activeProfileName">AI Profile</h4>
+                  <p id="activeProfilePersonality">Please configure your AI profile</p>
+                  <div class="profile-description">
+                    <span id="activeProfileDescription">Please set up your AI profile first</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Profile Editor -->
+            <div class="profile-editor">
+              <h3><i class="fas fa-edit"></i> Edit Profile</h3>
+              <form id="aiProfileForm" class="profile-form">
+                <!-- Avatar Section -->
+                <div class="form-group">
+                  <label>Profile Picture</label>
+                  <div class="profile-avatar-section">
+                    <div class="current-avatar-preview" id="avatarPreview">
+                      <img src="pfp/Auro_Logo.png" alt="Profile Avatar" id="avatarImg">
+                    </div>
+                    <div class="avatar-upload-controls">
+                      <button type="button" class="btn btn-secondary" id="uploadAvatarBtn">
+                        <i class="fas fa-upload"></i> Upload Custom Avatar
+                      </button>
+                      <input type="file" id="avatarUploadInput" accept="image/*" style="display: none;">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Name Section -->
+                <div class="form-group">
+                  <label for="profileName">AI Name</label>
+                  <input type="text" id="profileName" class="form-input" placeholder="Enter AI name (e.g., Remi, Auro, Assistant)" maxlength="50">
+                </div>
+                
+                <!-- Personality Section -->
+                <div class="form-group">
+                  <label for="profilePersonality">Personality</label>
+                  <input type="text" id="profilePersonality" class="form-input" placeholder="Brief personality description (e.g., Friendly AI Assistant)" maxlength="100">
+                </div>
+                
+                <!-- Description Section -->
+                <div class="form-group">
+                  <label for="profileDescription">Description</label>
+                  <textarea id="profileDescription" class="form-textarea" placeholder="Describe your AI assistant's role and characteristics..." rows="4" maxlength="300"></textarea>
+                  <div class="char-counter">
+                    <span id="descriptionCounter">89</span>/300 characters
+                  </div>
+                </div>
+
+                <!-- Save Button -->
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary" id="saveProfileBtn">
+                    <i class="fas fa-save"></i> Save Profile
+                  </button>
+                  <button type="button" class="btn btn-secondary" id="resetProfileBtn">
+                    <i class="fas fa-undo"></i> Reset to Default
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Multi-Profiles Coming Soon Section -->
+            <div class="coming-soon-note">
+              <div class="coming-soon-card">
+                <div class="coming-soon-icon">
+                  <i class="fas fa-users"></i>
+                </div>
+                <h4>Multi-Profiles Coming Soon!</h4>
+                <p>Future update will include multiple AI personalities, specialized assistants, and profile switching.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Appearance Settings Section -->
+          <div class="settings-section" id="appearance-section">
+            <div class="section-header">
+              <h2>Appearance Settings</h2>
+              <p>Customize the visual appearance of the application</p>
+            </div>
+
+            <div class="settings-grid">
+              <div class="setting-item">
+                <div class="setting-header">
+                  <i class="fas fa-moon"></i>
+                  <h4>Theme</h4>
+                </div>
+                <div class="setting-content">
+                  <select id="themeSelect" class="form-select">
+                    <option value="auto">Auto (System)</option>
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="setting-item">
+                <div class="setting-header">
+                  <i class="fas fa-text-height"></i>
+                  <h4>Font Size</h4>
+                </div>
+                <div class="setting-content">
+                  <input type="range" id="fontSizeSlider" min="12" max="20" value="16" class="slider">
+                  <span id="fontSizeValue">16px</span>
+                </div>
+              </div>
+
+              <div class="setting-item">
+                <div class="setting-header">
+                  <i class="fas fa-compress-arrows-alt"></i>
+                  <h4>Compact Mode</h4>
+                </div>
+                <div class="setting-content">
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="compactModeToggle">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="setting-item">
+                <div class="setting-header">
+                  <i class="fas fa-eye-slash"></i>
+                  <h4>Auto-Hide Navigation</h4>
+                  <p class="setting-description">Hide topbar and sidebar until mouse approaches edges (Ctrl+H to toggle)</p>
+                </div>
+                <div class="setting-content">
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="autoHideToggle">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="setting-item">
+                <div class="setting-header">
+                  <i class="fas fa-magic"></i>
+                  <h4>Animations</h4>
+                </div>
+                <div class="setting-content">
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="animationsToggle" checked>
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notifications Settings Section -->
+          <div class="settings-section" id="notifications-section">
+            <div class="section-header">
+              <h2>Notification Settings</h2>
+              <p>Configure how and when you receive notifications</p>
+            </div>
+
+            <div class="settings-grid">
+              <div class="setting-item">
+                <div class="setting-header">
+                  <i class="fas fa-bell"></i>
+                  <h4>Task Reminders</h4>
+                </div>
+                <div class="setting-content">
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="taskRemindersToggle" checked>
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="setting-item">
+                <div class="setting-header">
+                  <i class="fas fa-trophy"></i>
+                  <h4>Achievement Notifications</h4>
+                </div>
+                <div class="setting-content">
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="achievementNotificationsToggle" checked>
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="setting-item">
+                <div class="setting-header">
+                  <i class="fas fa-volume-up"></i>
+                  <h4>Sound Effects</h4>
+                </div>
+                <div class="setting-content">
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="soundEffectsToggle" checked>
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Privacy Settings Section -->
+          <div class="settings-section" id="privacy-section">
+            <div class="section-header">
+              <h2>Privacy & Security</h2>
+              <p>Manage your privacy and data security settings</p>
+            </div>
+
+            <div class="settings-grid">
+              <div class="setting-item">
+                <div class="setting-header">
+                  <i class="fas fa-history"></i>
+                  <h4>Chat History</h4>
+                </div>
+                <div class="setting-content">
+                  <button class="btn btn-warning" id="clearChatHistoryBtn">
+                    <i class="fas fa-trash"></i>
+                    Clear History
+                  </button>
+                </div>
+              </div>
+
+              <div class="setting-item">
+                <div class="setting-header">
+                  <i class="fas fa-database"></i>
+                  <h4>Local Data</h4>
+                </div>
+                <div class="setting-content">
+                  <button class="btn btn-warning" id="clearLocalDataBtn">
+                    <i class="fas fa-trash"></i>
+                    Clear All Data
+                  </button>
+                </div>
+              </div>
+
+              <div class="setting-item">
+                <div class="setting-header">
+                  <i class="fas fa-user-secret"></i>
+                  <h4>Privacy Mode</h4>
+                </div>
+                <div class="setting-content">
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="privacyModeToggle">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Advanced Settings Section -->
+          <div class="settings-section" id="advanced-section">
+            <div class="section-header">
+              <h2>Advanced Settings</h2>
+              <p>Advanced configuration options for power users</p>
+            </div>
+
+            <div class="settings-grid">
+              <div class="setting-item">
+                <div class="setting-header">
+                  <i class="fas fa-code"></i>
+                  <h4>Developer Mode</h4>
+                </div>
+                <div class="setting-content">
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="developerModeToggle">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="setting-item">
+                <div class="setting-header">
+                  <i class="fas fa-download"></i>
+                  <h4>Auto-Save</h4>
+                </div>
+                <div class="setting-content">
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="autoSaveToggle" checked>
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="setting-item">
+                <div class="setting-header">
+                  <i class="fas fa-sync"></i>
+                  <h4>Auto Backup</h4>
+                </div>
+                <div class="setting-content">
+                  <select id="backupFrequency" class="form-select">
+                    <option value="never">Never</option>
+                    <option value="daily">Daily</option>
+                    <option value="weekly" selected>Weekly</option>
+                    <option value="monthly">Monthly</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="setting-item">
+                <div class="setting-header">
+                  <i class="fas fa-key"></i>
+                  <h4>OpenAI API Key</h4>
+                </div>
+                <div class="setting-content">
+                  <input type="password" id="openaiApiKey" class="form-input" placeholder="Enter your OpenAI API key">
+                  <button id="saveApiKey" class="small-button">Save Key</button>
+                </div>
+              </div>
+
+              <div class="setting-item">
+                <div class="setting-header">
+                  <i class="fas fa-cogs"></i>
+                  <h4>Reset Application</h4>
+                </div>
+                <div class="setting-content">
+                  <button class="btn btn-danger" id="resetAppBtn">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Factory Reset
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hidden file inputs for import functionality -->
+    <input type="file" id="importProfilesInput" accept=".json" style="display: none;">
+    
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" id="confirmationModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3 id="modalTitle">Confirm Action</h3>
+        </div>
+        <div class="modal-body">
+          <p id="modalMessage">Are you sure you want to perform this action?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" id="modalCancelBtn">Cancel</button>
+          <button class="btn btn-danger" id="modalConfirmBtn">Confirm</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Navigation Background -->
+    <div class="floating-nav-background" id="floating-nav-background"></div>
+
+    <!-- Floating Navigation Hub -->
+    <div class="floating-nav-hub" id="floating-nav-hub">
+        <button class="nav-hub-button" id="nav-hub-button">
+            <i class="fas fa-th"></i>
+        </button>
+        
+        <div class="nav-options" id="nav-options">
+            <a href="dashboard.html" class="nav-option">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="plans.html" class="nav-option">
+                <i class="fas fa-map"></i>
+                <span>Plans</span>
+            </a>
+            <a href="chat.html" class="nav-option registered-only">
+                <i class="fas fa-message"></i>
+                <span>Chat</span>
+            </a>
+            <a href="tasks.html" class="nav-option registered-only">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="schedule.html" class="nav-option registered-only">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Schedule</span>
+            </a>
+            <a href="achievements.html" class="nav-option registered-only">
+                <i class="fas fa-trophy"></i>
+                <span>Achievements</span>
+            </a>
+            <a href="super-tracker.html" class="nav-option registered-only">
+                <i class="fas fa-chart-line"></i>
+                <span>Tracker</span>
+            </a>
+            <a href="customization.html" class="nav-option registered-only">
+                <i class="fas fa-heart"></i>
+                <span>Customize</span>
+            </a>
+            <a href="shop.html" class="nav-option registered-only">
+                <i class="fas fa-store"></i>
+                <span>Shop</span>
+            </a>
+            <a href="about.html" class="nav-option">
+                <i class="fas fa-user-circle"></i>
+                <span>About</span>
+            </a>
+            <a href="settings.html" class="nav-option current-page">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/floating-navigation.js"></script>
+    <script src="scripts/global-profile-manager.js"></script>
+    <script src="scripts/image-storage.js"></script>
+    <script src="scripts/storage-manager.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+    <script src="scripts/global-navigation.js"></script>
+    <script src="scripts/settings.js"></script>
+    <script src="scripts/system.js"></script>
+    <script>
+        // Initialize sidebar toggle
+        document.getElementById('sidebar-toggle').addEventListener('click', function() {
+            document.getElementById('main-sidebar').classList.toggle('collapsed');
+        });
+        
+        // AI Profile Management
+        document.addEventListener('DOMContentLoaded', function() {
+            const profileForm = document.getElementById('aiProfileForm');
+            const avatarUploadBtn = document.getElementById('uploadAvatarBtn');
+            const avatarUploadInput = document.getElementById('avatarUploadInput');
+            const avatarPreview = document.getElementById('avatarImg');
+            const activeProfileImage = document.getElementById('activeProfileImage');
+            const descriptionCounter = document.getElementById('descriptionCounter');
+            const profileDescription = document.getElementById('profileDescription');
+            const resetProfileBtn = document.getElementById('resetProfileBtn');
+            
+            // Load saved profile data
+            loadProfileData();
+            
+            // Avatar upload functionality
+            avatarUploadBtn.addEventListener('click', () => {
+                avatarUploadInput.click();
+            });
+            
+            avatarUploadInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const imageData = e.target.result;
+                        avatarPreview.src = imageData;
+                        activeProfileImage.src = imageData;
+                        
+                        // Save to localStorage
+                        const profileData = getProfileData();
+                        profileData.avatar = imageData;
+                        profileData.isCustomAvatar = true;
+                        saveProfileData(profileData);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Character counter for description
+            profileDescription.addEventListener('input', updateCharCounter);
+            updateCharCounter();
+            
+            // Form submission
+            profileForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                saveProfile();
+            });
+            
+            // Reset to default
+            resetProfileBtn.addEventListener('click', () => {
+                if (confirm('Are you sure you want to reset the AI profile to default settings?')) {
+                    resetToDefault();
+                }
+            });
+            
+            function loadProfileData() {
+                const profileData = getProfileData();
+                
+                document.getElementById('profileName').value = profileData.name || '';
+                document.getElementById('profilePersonality').value = profileData.personality || '';
+                document.getElementById('profileDescription').value = profileData.description || '';
+                
+                // Update avatar
+                const avatarSrc = profileData.picture || profileData.avatar || 'pfp/Auro_Logo.png';
+                document.getElementById('avatarImg').src = avatarSrc;
+                document.getElementById('activeProfileImage').src = avatarSrc;
+                
+                // Update display
+                updateActiveProfileDisplay();
+                updateCharCounter();
+            }
+            
+            function saveProfile() {
+                const profileData = {
+                    name: document.getElementById('profileName').value || 'AI Assistant',
+                    personality: document.getElementById('profilePersonality').value || 'Helpful AI',
+                    description: document.getElementById('profileDescription').value || 'An AI companion to assist you.',
+                    avatar: document.getElementById('avatarImg').src,
+                    picture: document.getElementById('avatarImg').src,
+                    isCustomAvatar: true
+                };
+                
+                saveProfileData(profileData);
+                updateActiveProfileDisplay();
+                
+                // Mark as setup complete
+                localStorage.setItem('userProfileSetup', 'true');
+                
+                // Show success message
+                showNotification('Profile saved successfully!');
+                
+                // Dispatch event to notify other pages of profile update
+                window.dispatchEvent(new CustomEvent('profileUpdated', {
+                    detail: { profileType: 'remi', profiles: { remi: profileData } }
+                }));
+            }
+            
+            function resetToDefault() {
+                const defaultProfile = {
+                    name: '',
+                    personality: '',
+                    description: '',
+                    avatar: 'pfp/Auro_Logo.png',
+                    picture: 'pfp/Auro_Logo.png',
+                    isCustomAvatar: false
+                };
+                
+                saveProfileData(defaultProfile);
+                loadProfileData();
+                showNotification('Profile reset! Please configure your AI profile.');
+                
+                // Dispatch event to notify other pages of profile update
+                window.dispatchEvent(new CustomEvent('profileUpdated', {
+                    detail: { profileType: 'remi', profiles: { remi: defaultProfile } }
+                }));
+            }
+            
+            function getProfileData() {
+                try {
+                    const saved = localStorage.getItem('remiProfiles');
+                    if (saved) {
+                        const profiles = JSON.parse(saved);
+                        if (profiles.remi) {
+                            // Convert chat system format to settings format
+                            return {
+                                name: profiles.remi.name || '',
+                                personality: profiles.remi.personality || profiles.remi.description || '',
+                                description: profiles.remi.description || '',
+                                avatar: profiles.remi.picture || 'pfp/Auro_Logo.png',
+                                picture: profiles.remi.picture || 'pfp/Auro_Logo.png',
+                                isCustomAvatar: profiles.remi.isCustomAvatar || false
+                            };
+                        }
+                    }
+                } catch (error) {
+                    console.warn('Error loading profile from remiProfiles:', error);
+                }
+                
+                // Fallback to default
+                return {
+                    name: '',
+                    personality: '', 
+                    description: '',
+                    avatar: 'pfp/Auro_Logo.png',
+                    picture: 'pfp/Auro_Logo.png',
+                    isCustomAvatar: false
+                };
+            }
+            
+            function saveProfileData(data) {
+                try {
+                    // Get current profiles or create default structure
+                    let profiles = {
+                        user: { name: '', picture: '' },
+                        remi: { name: '', picture: 'pfp/Auro_Logo.png', description: '' }
+                    };
+                    
+                    const saved = localStorage.getItem('remiProfiles');
+                    if (saved) {
+                        profiles = JSON.parse(saved);
+                    }
+                    
+                    // Update the remi profile with new data
+                    profiles.remi = {
+                        ...profiles.remi,
+                        name: data.name,
+                        description: data.description,
+                        personality: data.personality,
+                        picture: data.avatar || data.picture,
+                        isCustomAvatar: data.isCustomAvatar
+                    };
+                    
+                    // Save back to localStorage using the same key as chat system
+                    localStorage.setItem('remiProfiles', JSON.stringify(profiles));
+                    
+                    console.log('Profile saved to remiProfiles:', profiles.remi);
+                } catch (error) {
+                    console.error('Error saving profile:', error);
+                }
+            }
+            
+            function updateActiveProfileDisplay() {
+                const profileData = getProfileData();
+                document.getElementById('activeProfileName').textContent = profileData.name;
+                document.getElementById('activeProfilePersonality').textContent = profileData.personality;
+                document.getElementById('activeProfileDescription').textContent = profileData.description;
+                document.getElementById('activeProfileImage').src = profileData.picture || profileData.avatar;
+            }
+            
+            function updateCharCounter() {
+                const current = profileDescription.value.length;
+                descriptionCounter.textContent = current;
+                
+                if (current > 250) {
+                    descriptionCounter.style.color = '#ef4444';
+                } else if (current > 200) {
+                    descriptionCounter.style.color = '#f59e0b';
+                } else {
+                    descriptionCounter.style.color = 'rgba(255, 255, 255, 0.6)';
+                }
+            }
+            
+            function showNotification(message) {
+                // Simple notification system
+                const notification = document.createElement('div');
+                notification.textContent = message;
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: linear-gradient(45deg, #a855f7, #3b82f6);
+                    color: white;
+                    padding: 1rem 1.5rem;
+                    border-radius: 8px;
+                    z-index: 10000;
+                    font-weight: 600;
+                    box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3);
+                `;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+            }
+        });
+    </script>
+
+    <!-- Global Theme Synchronization -->
+    <script src="scripts/universal-page-system.js"></script>
+    <script src="scripts/global-theme-sync.js"></script>
+  </body>
+</html>

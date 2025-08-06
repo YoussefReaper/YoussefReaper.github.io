@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productivity Economics - Remi AI Student Assistant</title>
+    <meta name="description" content="Time management economics, habit tracking, and productivity insights with ROI analysis">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/productivity-economics.css">
+    <link rel="stylesheet" href="styles/floating-nav.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="floating-nav-active">        <nav class="sidebar-icons">
+            <a href="index.html" class="sidebar-item">
+                <i class="fas fa-home"></i>
+                <span class="icon-description">Home</span>
+            </a>
+            <a href="chat.html" class="sidebar-item">
+                <i class="fas fa-message"></i>
+                <span class="icon-description">Chat</span>
+            </a>
+            <a href="tasks.html" class="sidebar-item">
+                <i class="fas fa-tasks"></i>
+                <span class="icon-description">Tasks</span>
+            </a>
+            <a href="schedule.html" class="sidebar-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span class="icon-description">Schedule</span>
+            </a>
+            <a href="achievements.html" class="sidebar-item">
+                <i class="fas fa-trophy"></i>
+                <span class="icon-description">Achievements</span>
+            </a>
+            <a href="super-tracker.html" class="sidebar-item">
+                <i class="fas fa-chart-line"></i>
+                <span class="icon-description">Tracker</span>
+            </a>
+            <a href="productivity-economics.html" class="sidebar-item active">
+                <i class="fas fa-chart-pie"></i>
+                <span class="icon-description">Economics</span>
+            </a>
+            <a href="customization.html" class="sidebar-item">
+                <i class="fas fa-heart"></i>
+                <span class="icon-description">Customization</span>
+            </a>
+            <a href="shop.html" class="sidebar-item">
+                <i class="fas fa-store"></i>
+                <span class="icon-description">Shop</span>
+            </a>
+            <a href="settings.html" class="sidebar-item">
+                <i class="fas fa-cog"></i>
+                <span class="icon-description">Settings</span>
+            </a>
+        </nav>
+    </div>
+    
+    <!-- Topbar -->
+    <div class="topbar-menu">
+        <img src="pfp/Shinobu-Sticker.png" class="topbar-logo" alt="Shinobu">
+        <div class="topbar-title">
+            <img src="pfp/Remi-Logo-removebg-preview (1).png" class="main-logo" alt="Remi Logo">
+        </div>
+        <div class="topbar-actions">
+            <div class="economic-stats">
+                <div class="stat-item">
+                    <i class="fas fa-dollar-sign"></i>
+                    <span id="timeValue">$0</span>
+                    <small>Today's Value</small>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-trending-up"></i>
+                    <span id="productivityROI">+0%</span>
+                    <small>ROI</small>
+                </div>
+            </div>
+            <button class="toggle-dark-button" title="Toggle Dark Mode">
+                <i class="fas fa-moon toggle-icon"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Background Effects -->
+    <div class="background-effects">
+        <div class="economic-particles">
+            <div class="particle coin"></div>
+            <div class="particle chart"></div>
+            <div class="particle growth"></div>
+            <div class="particle efficiency"></div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Hero Header -->
+        <div class="economics-hero">
+            <div class="hero-background">
+                <div class="financial-grid"></div>
+                <div class="data-streams"></div>
+            </div>
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="title-icon">📊</span>
+                    <span class="title-text">Productivity Economics</span>
+                    <span class="title-badge premium">💎 PREMIUM</span>
+                </h1>
+                <p class="hero-subtitle">Transform your time into measurable value with advanced analytics, habit tracking, and economic insights</p>
+                
+                <!-- Economic Overview Cards -->
+                <div class="economic-overview">
+                    <div class="overview-card primary">
+                        <div class="card-icon">💰</div>
+                        <div class="card-content">
+                            <div class="card-value" id="totalTimeValue">$0</div>
+                            <div class="card-label">Total Time Value</div>
+                            <div class="card-change positive" id="timeValueChange">+$0 today</div>
+                        </div>
+                    </div>
+                    <div class="overview-card secondary">
+                        <div class="card-icon">⚡</div>
+                        <div class="card-content">
+                            <div class="card-value" id="efficiencyScore">0%</div>
+                            <div class="card-label">Efficiency Score</div>
+                            <div class="card-change" id="efficiencyChange">0% vs yesterday</div>
+                        </div>
+                    </div>
+                    <div class="overview-card tertiary">
+                        <div class="card-icon">🎯</div>
+                        <div class="card-content">
+                            <div class="card-value" id="habitScore">0</div>
+                            <div class="card-label">Habit Score</div>
+                            <div class="card-change" id="habitChange">0 streak</div>
+                        </div>
+                    </div>
+                    <div class="overview-card quaternary">
+                        <div class="card-icon">📈</div>
+                        <div class="card-content">
+                            <div class="card-value" id="growthRate">+0%</div>
+                            <div class="card-label">Growth Rate</div>
+                            <div class="card-change" id="growthChange">Weekly trend</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Dashboard -->
+        <div class="economics-dashboard">
+            
+            <!-- Time Value Analysis -->
+            <div class="analysis-section">
+                <div class="section-header">
+                    <h2>💎 Time Value Analysis</h2>
+                    <div class="section-controls">
+                        <button class="control-btn active" data-period="today">Today</button>
+                        <button class="control-btn" data-period="week">Week</button>
+                        <button class="control-btn" data-period="month">Month</button>
+                        <button class="control-btn" data-period="year">Year</button>
+                    </div>
+                </div>
+                
+                <div class="analysis-grid">
+                    <!-- Value Calculator -->
+                    <div class="analysis-card premium">
+                        <div class="card-header">
+                            <h3><i class="fas fa-calculator"></i> Value Calculator</h3>
+                            <div class="card-badge">Real-time</div>
+                        </div>
+                        <div class="value-calculator">
+                            <div class="calculator-input">
+                                <label for="hourlyRate">Your Hourly Value ($)</label>
+                                <input type="number" id="hourlyRate" value="25" min="1" max="1000">
+                                <div class="input-suggestions">
+                                    <button class="suggestion-btn" data-rate="15">Student: $15</button>
+                                    <button class="suggestion-btn" data-rate="25">Entry: $25</button>
+                                    <button class="suggestion-btn" data-rate="50">Professional: $50</button>
+                                    <button class="suggestion-btn" data-rate="100">Expert: $100</button>
+                                </div>
+                            </div>
+                            <div class="calculator-results">
+                                <div class="result-item">
+                                    <span class="label">Today's Value:</span>
+                                    <span class="value" id="todayValue">$0.00</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="label">This Week:</span>
+                                    <span class="value" id="weekValue">$0.00</span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="label">This Month:</span>
+                                    <span class="value" id="monthValue">$0.00</span>
+                                </div>
+                                <div class="result-item highlight">
+                                    <span class="label">Potential Lost:</span>
+                                    <span class="value warning" id="lostValue">$0.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Time Investment Chart -->
+                    <div class="analysis-card premium">
+                        <div class="card-header">
+                            <h3><i class="fas fa-chart-area"></i> Time Investment</h3>
+                            <div class="chart-legend">
+                                <span class="legend-item productive">Productive</span>
+                                <span class="legend-item neutral">Neutral</span>
+                                <span class="legend-item wasteful">Wasteful</span>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="timeInvestmentChart"></canvas>
+                        </div>
+                        <div class="chart-insights">
+                            <div class="insight-item">
+                                <i class="fas fa-lightbulb"></i>
+                                <span id="primaryInsight">Focus on morning productivity sessions</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ROI Analysis -->
+                    <div class="analysis-card premium full-width">
+                        <div class="card-header">
+                            <h3><i class="fas fa-chart-line"></i> Return on Investment (ROI)</h3>
+                            <div class="roi-filter">
+                                <select id="roiCategory">
+                                    <option value="all">All Activities</option>
+                                    <option value="study">Study Sessions</option>
+                                    <option value="projects">Projects</option>
+                                    <option value="skills">Skill Development</option>
+                                    <option value="research">Research</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="roi-dashboard">
+                            <div class="roi-metrics">
+                                <div class="metric-card best">
+                                    <div class="metric-icon">🏆</div>
+                                    <div class="metric-content">
+                                        <div class="metric-value" id="bestROI">+450%</div>
+                                        <div class="metric-label">Best ROI Activity</div>
+                                        <div class="metric-detail" id="bestROIActivity">Deep Learning Sessions</div>
+                                    </div>
+                                </div>
+                                <div class="metric-card average">
+                                    <div class="metric-icon">📊</div>
+                                    <div class="metric-content">
+                                        <div class="metric-value" id="avgROI">+125%</div>
+                                        <div class="metric-label">Average ROI</div>
+                                        <div class="metric-detail">Across all activities</div>
+                                    </div>
+                                </div>
+                                <div class="metric-card potential">
+                                    <div class="metric-icon">🚀</div>
+                                    <div class="metric-content">
+                                        <div class="metric-value" id="potentialROI">+680%</div>
+                                        <div class="metric-label">Potential ROI</div>
+                                        <div class="metric-detail">With optimization</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="roi-chart">
+                                <canvas id="roiChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Habit Tracking System -->
+            <div class="habits-section">
+                <div class="section-header">
+                    <h2>🎯 Habit-Based Productivity</h2>
+                    <button class="add-habit-btn premium" id="addHabitBtn">
+                        <i class="fas fa-plus"></i> Add Habit
+                    </button>
+                </div>
+                
+                <div class="habits-dashboard">
+                    <!-- Habit Overview -->
+                    <div class="habits-overview">
+                        <div class="overview-stats">
+                            <div class="stat-card">
+                                <div class="stat-icon">🔥</div>
+                                <div class="stat-content">
+                                    <div class="stat-number" id="totalStreaks">0</div>
+                                    <div class="stat-label">Active Streaks</div>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">✅</div>
+                                <div class="stat-content">
+                                    <div class="stat-number" id="completionRate">0%</div>
+                                    <div class="stat-label">Completion Rate</div>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">⭐</div>
+                                <div class="stat-content">
+                                    <div class="stat-number" id="habitScore">0</div>
+                                    <div class="stat-label">Habit Score</div>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">💪</div>
+                                <div class="stat-content">
+                                    <div class="stat-number" id="strongestStreak">0</div>
+                                    <div class="stat-label">Best Streak</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active Habits -->
+                    <div class="active-habits premium">
+                        <h3><i class="fas fa-fire"></i> Active Habits</h3>
+                        <div class="habits-list" id="habitsList">
+                            <!-- Habits will be dynamically added here -->
+                        </div>
+                    </div>
+
+                    <!-- Habit Analytics -->
+                    <div class="habit-analytics premium">
+                        <h3><i class="fas fa-chart-bar"></i> Habit Analytics</h3>
+                        <div class="analytics-content">
+                            <div class="heatmap-container">
+                                <h4>Completion Heatmap</h4>
+                                <div class="habit-heatmap" id="habitHeatmap">
+                                    <!-- Heatmap will be generated here -->
+                                </div>
+                                <div class="heatmap-legend">
+                                    <span class="legend-label">Less</span>
+                                    <div class="legend-scale">
+                                        <div class="scale-item level-0"></div>
+                                        <div class="scale-item level-1"></div>
+                                        <div class="scale-item level-2"></div>
+                                        <div class="scale-item level-3"></div>
+                                        <div class="scale-item level-4"></div>
+                                    </div>
+                                    <span class="legend-label">More</span>
+                                </div>
+                            </div>
+                            <div class="trend-analysis">
+                                <canvas id="habitTrendChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Economic Insights -->
+            <div class="insights-section">
+                <div class="section-header">
+                    <h2>🧠 AI Economic Insights</h2>
+                    <div class="insights-controls">
+                        <button class="insight-btn active" data-type="opportunities">Opportunities</button>
+                        <button class="insight-btn" data-type="waste">Time Waste</button>
+                        <button class="insight-btn" data-type="optimization">Optimization</button>
+                        <button class="insight-btn" data-type="predictions">Predictions</button>
+                    </div>
+                </div>
+                
+                <div class="insights-grid">
+                    <div class="insight-card premium opportunity">
+                        <div class="insight-header">
+                            <div class="insight-icon">💡</div>
+                            <div class="insight-title">Opportunity Detected</div>
+                            <div class="insight-impact high">High Impact</div>
+                        </div>
+                        <div class="insight-content">
+                            <p><strong>Morning Deep Work Sessions</strong></p>
+                            <p>Your productivity is 340% higher between 9-11 AM. Scheduling critical tasks during this window could increase your weekly value by $156.</p>
+                            <div class="insight-metrics">
+                                <span class="metric">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    +$156/week
+                                </span>
+                                <span class="metric">
+                                    <i class="fas fa-chart-line"></i>
+                                    +340% efficiency
+                                </span>
+                            </div>
+                        </div>
+                        <div class="insight-actions">
+                            <button class="action-btn primary">Apply Recommendation</button>
+                            <button class="action-btn secondary">Learn More</button>
+                        </div>
+                    </div>
+
+                    <div class="insight-card premium waste">
+                        <div class="insight-header">
+                            <div class="insight-icon">⚠️</div>
+                            <div class="insight-title">Time Waste Alert</div>
+                            <div class="insight-impact medium">Medium Impact</div>
+                        </div>
+                        <div class="insight-content">
+                            <p><strong>Afternoon Energy Dips</strong></p>
+                            <p>You lose an average of 47 minutes daily to low-energy periods. Implementing strategic breaks could recover $78 in weekly value.</p>
+                            <div class="insight-metrics">
+                                <span class="metric warning">
+                                    <i class="fas fa-clock"></i>
+                                    -47 min/day
+                                </span>
+                                <span class="metric">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    -$78/week
+                                </span>
+                            </div>
+                        </div>
+                        <div class="insight-actions">
+                            <button class="action-btn primary">Set Break Reminders</button>
+                            <button class="action-btn secondary">View Details</button>
+                        </div>
+                    </div>
+
+                    <div class="insight-card premium optimization">
+                        <div class="insight-header">
+                            <div class="insight-icon">🚀</div>
+                            <div class="insight-title">Optimization Strategy</div>
+                            <div class="insight-impact high">High Impact</div>
+                        </div>
+                        <div class="insight-content">
+                            <p><strong>Batch Similar Tasks</strong></p>
+                            <p>Grouping similar activities reduces task-switching overhead by 23%. This optimization could save 2.3 hours weekly.</p>
+                            <div class="insight-metrics">
+                                <span class="metric">
+                                    <i class="fas fa-save"></i>
+                                    +2.3 hours/week
+                                </span>
+                                <span class="metric">
+                                    <i class="fas fa-percentage"></i>
+                                    -23% overhead
+                                </span>
+                            </div>
+                        </div>
+                        <div class="insight-actions">
+                            <button class="action-btn primary">Auto-Batch Tasks</button>
+                            <button class="action-btn secondary">Customize</button>
+                        </div>
+                    </div>
+
+                    <div class="insight-card premium prediction">
+                        <div class="insight-header">
+                            <div class="insight-icon">🔮</div>
+                            <div class="insight-title">AI Prediction</div>
+                            <div class="insight-confidence">87% confidence</div>
+                        </div>
+                        <div class="insight-content">
+                            <p><strong>Weekly Performance Forecast</strong></p>
+                            <p>Based on current trends, you're projected to complete 94% of planned tasks this week, generating $284 in productive value.</p>
+                            <div class="prediction-chart">
+                                <div class="chart-mini">
+                                    <div class="prediction-bar" style="height: 70%"></div>
+                                    <div class="prediction-bar" style="height: 85%"></div>
+                                    <div class="prediction-bar" style="height: 94%"></div>
+                                    <div class="prediction-bar forecast" style="height: 96%"></div>
+                                    <div class="prediction-bar forecast" style="height: 89%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="insight-actions">
+                            <button class="action-btn primary">View Full Forecast</button>
+                            <button class="action-btn secondary">Adjust Goals</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Goal Economics -->
+            <div class="goals-economics">
+                <div class="section-header">
+                    <h2>🎯 Goal Economics</h2>
+                    <button class="create-goal-btn premium">
+                        <i class="fas fa-bullseye"></i> Create Economic Goal
+                    </button>
+                </div>
+                
+                <div class="goals-dashboard">
+                    <div class="economic-goals">
+                        <div class="goal-card premium active">
+                            <div class="goal-header">
+                                <div class="goal-icon">💼</div>
+                                <div class="goal-info">
+                                    <h4>Skill Development ROI</h4>
+                                    <p>Increase hourly value by 20% through targeted learning</p>
+                                </div>
+                                <div class="goal-status on-track">On Track</div>
+                            </div>
+                            <div class="goal-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 68%"></div>
+                                </div>
+                                <div class="progress-stats">
+                                    <span>68% Complete</span>
+                                    <span>$5/hour increase achieved</span>
+                                </div>
+                            </div>
+                            <div class="goal-metrics">
+                                <div class="metric">
+                                    <span class="label">Investment:</span>
+                                    <span class="value">42 hours</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="label">Current ROI:</span>
+                                    <span class="value positive">+156%</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="label">Projected Value:</span>
+                                    <span class="value">$2,400/month</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="goal-card premium pending">
+                            <div class="goal-header">
+                                <div class="goal-icon">⚡</div>
+                                <div class="goal-info">
+                                    <h4>Efficiency Optimization</h4>
+                                    <p>Reduce task completion time by 30%</p>
+                                </div>
+                                <div class="goal-status behind">Behind</div>
+                            </div>
+                            <div class="goal-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill warning" style="width: 34%"></div>
+                                </div>
+                                <div class="progress-stats">
+                                    <span>34% Complete</span>
+                                    <span>12% efficiency gain</span>
+                                </div>
+                            </div>
+                            <div class="goal-metrics">
+                                <div class="metric">
+                                    <span class="label">Time Saved:</span>
+                                    <span class="value">3.2 hours/week</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="label">Value Recovery:</span>
+                                    <span class="value">$80/week</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="label">Need:</span>
+                                    <span class="value warning">18% more</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Habit Modal -->
+        <div class="modal-overlay" id="addHabitModal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Create New Habit</h3>
+                    <button class="modal-close" id="closeHabitModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="habitName">Habit Name</label>
+                        <input type="text" id="habitName" placeholder="e.g., Morning Deep Work Session">
+                    </div>
+                    <div class="form-group">
+                        <label for="habitCategory">Category</label>
+                        <select id="habitCategory">
+                            <option value="productivity">Productivity</option>
+                            <option value="health">Health & Wellness</option>
+                            <option value="learning">Learning</option>
+                            <option value="creativity">Creativity</option>
+                            <option value="social">Social</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="habitFrequency">Frequency</label>
+                        <select id="habitFrequency">
+                            <option value="daily">Daily</option>
+                            <option value="weekdays">Weekdays Only</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="custom">Custom Schedule</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="habitValue">Economic Value ($/hour)</label>
+                        <input type="number" id="habitValue" placeholder="25" min="0" max="1000">
+                    </div>
+                    <div class="form-group">
+                        <label for="habitDuration">Target Duration (minutes)</label>
+                        <input type="number" id="habitDuration" placeholder="30" min="5" max="480">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn secondary" id="cancelHabitBtn">Cancel</button>
+                    <button class="btn primary" id="createHabitBtn">Create Habit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/global-stats-manager.js"></script>
+    <script src="scripts/global-profile-manager.js"></script>
+    <script src="scripts/auto-hide-navigation.js"></script>
+    <script src="scripts/productivity-economics.js"></script>
+    <script src="scripts/first-time-setup.js"></script>
+    <script src="scripts/system.js"></script>
+
+    <!-- Floating Navigation Background -->
+    <div class="floating-nav-background" id="floating-nav-background"></div>
+
+    <!-- Floating Navigation Hub -->
+    <div class="floating-nav-hub" id="floating-nav-hub">
+        <button class="nav-hub-button" id="nav-hub-toggle">
+            <i class="fas fa-compass"></i>
+        </button>
+        
+        <div class="nav-options">
+            <a href="dashboard.html" class="nav-option">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="plans.html" class="nav-option">
+                <i class="fas fa-map"></i>
+                <span>Plans</span>
+            </a>
+            <a href="chat.html" class="nav-option registered-only">
+                <i class="fas fa-message"></i>
+                <span>Chat</span>
+            </a>
+            <a href="tasks.html" class="nav-option registered-only">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="schedule.html" class="nav-option registered-only">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Schedule</span>
+            </a>
+            <a href="achievements.html" class="nav-option registered-only">
+                <i class="fas fa-trophy"></i>
+                <span>Achievements</span>
+            </a>
+            <a href="super-tracker.html" class="nav-option registered-only">
+                <i class="fas fa-chart-line"></i>
+                <span>Tracker</span>
+            </a>
+            <a href="customization.html" class="nav-option registered-only">
+                <i class="fas fa-heart"></i>
+                <span>Customize</span>
+            </a>
+            <a href="shop.html" class="nav-option registered-only">
+                <i class="fas fa-store"></i>
+                <span>Shop</span>
+            </a>
+            <a href="about.html" class="nav-option">
+                <i class="fas fa-user-circle"></i>
+                <span>About Me</span>
+            </a>
+            <a href="settings.html" class="nav-option">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+        
+        <div class="quick-stats-overlay">
+            <div class="quick-stat">
+                <i class="fas fa-fire"></i>
+                <span>5 day streak</span>
+            </div>
+            <div class="quick-stat">
+                <i class="fas fa-check-circle"></i>
+                <span>12 tasks done</span>
+            </div>
+            <div class="quick-stat">
+                <i class="fas fa-star"></i>
+                <span>Level 3</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Navigation Script -->
+    <script src="scripts/floating-navigation.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+</body>
+</html>
+

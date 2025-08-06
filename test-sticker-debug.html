@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticker Debug Test</title>
+    <style>
+        body {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #1a1a1a;
+            color: white;
+        }
+        
+        .upload-area {
+            border: 2px dashed rgba(103, 197, 255, 0.3);
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            margin: 20px 0;
+        }
+        
+        .upload-area:hover {
+            border-color: rgba(103, 197, 255, 0.6);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .upload-area i {
+            font-size: 3rem;
+            color: rgba(103, 197, 255, 0.8);
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .upload-area span {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .debug-info {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        
+        .coins-display {
+            background: rgba(103, 197, 255, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <h1>🎨 Sticker Upload Debug Test</h1>
+    
+    <div class="coins-display">
+        <i class="fas fa-coins"></i>
+        <span id="userCoins">500</span> coins
+    </div>
+    
+    <div class="upload-area" id="uploadArea">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <span>Drop image or click to upload</span>
+        <input type="file" id="customStickerInput" accept="image/*" style="display: none;">
+    </div>
+    
+    <div class="debug-info">
+        <h3>🔍 Debug Information:</h3>
+        <div id="debugOutput">Waiting for events...</div>
+    </div>
+    
+    <div class="custom-upload-section" style="display: block;">
+        <!-- Custom stickers will be displayed here -->
+    </div>
+    
+    <script>
+        // Simple debug test for sticker upload functionality
+        let userCoins = parseInt(localStorage.getItem('userCoins')) || 500;
+        let customStickers = JSON.parse(localStorage.getItem('customStickers')) || [];
+        
+        function updateDebug(message) {
+            const debugOutput = document.getElementById('debugOutput');
+            debugOutput.innerHTML += '<br>' + new Date().toLocaleTimeString() + ': ' + message;
+        }
+        
+        function updateCoinsDisplay() {
+            document.getElementById('userCoins').textContent = userCoins;
+        }
+        
+        function showNotification(message, type = 'info') {
+            updateDebug(`NOTIFICATION (${type}): ${message}`);
+            alert(`${type.toUpperCase()}: ${message}`);
+        }
+        
+        function handleCustomStickerUpload(file) {
+            updateDebug(`Upload started: ${file.name} (${file.size} bytes, ${file.type})`);
+            
+            if (!file.type.startsWith('image/')) {
+                showNotification('Please upload an image file!', 'error');
+                return;
+            }
+            
+            const size = file.size;
+            let cost;
+            
+            if (size <= 50 * 1024) { // 50KB
+                cost = 25;
+            } else if (size <= 200 * 1024) { // 200KB
+                cost = 50;
+            } else if (size <= 500 * 1024) { // 500KB
+                cost = 100;
+            } else {
+                showNotification('File too large! Maximum size is 500KB.', 'error');
+                return;
+            }
+            
+            updateDebug(`Cost calculated: ${cost} coins (user has ${userCoins})`);
+            
+            if (userCoins < cost) {
+                showNotification('Not enough coins for this file size!', 'error');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                updateDebug(`File read successfully, creating sticker object`);
+                
+                // Save custom sticker to collection
+                const customSticker = {
+                    id: Date.now().toString(),
+                    name: file.name.split('.')[0],
+                    data: e.target.result,
+                    cost: cost
+                };
+                
+                customStickers.push(customSticker);
+                localStorage.setItem('customStickers', JSON.stringify(customStickers));
+                updateDebug(`Sticker saved to localStorage: ${customSticker.name}`);
+                
+                // Deduct coins
+                userCoins -= cost;
+                localStorage.setItem('userCoins', userCoins.toString());
+                updateCoinsDisplay();
+                
+                showNotification(`Custom sticker "${customSticker.name}" added to collection! (-${cost} coins)`, 'success');
+                updateDebug(`Upload completed successfully!`);
+            };
+            
+            reader.readAsDataURL(file);
+        }
+        
+        // Initialize
+        updateCoinsDisplay();
+        updateDebug('Debug test initialized');
+        
+        const uploadArea = document.getElementById('uploadArea');
+        const customStickerInput = document.getElementById('customStickerInput');
+        
+        if (uploadArea && customStickerInput) {
+            updateDebug('Upload elements found, setting up event listeners');
+            
+            uploadArea.addEventListener('click', () => {
+                updateDebug('Upload area clicked');
+                customStickerInput.click();
+            });
+            
+            customStickerInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    updateDebug(`File selected: ${e.target.files[0].name}`);
+                    handleCustomStickerUpload(e.target.files[0]);
+                }
+            });
+            
+            updateDebug('Event listeners set up successfully');
+        } else {
+            updateDebug('ERROR: Upload elements not found!');
+        }
+    </script>
+</body>
+</html>

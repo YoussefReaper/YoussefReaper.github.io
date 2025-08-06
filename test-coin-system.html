@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin System Test - Remi</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/coin-system.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .coin-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .coin-balance {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #3b82f6;
+            margin: 1rem 0;
+        }
+        
+        .test-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .test-button {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+        
+        .test-button.secondary {
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+        }
+        
+        .test-button.success {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+        
+        .test-button.danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+        }
+        
+        .preset-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .preset-option {
+            padding: 1rem;
+            border-radius: 10px;
+            border: 2px solid #e5e7eb;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .preset-option[data-preset] {
+            position: relative;
+        }
+        
+        .preset-colors-preview {
+            display: flex;
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        
+        .preset-colors-preview span {
+            flex: 1;
+        }
+        
+        .status-panel {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 1rem;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="coin-header">
+            <h1><i class="fas fa-coins" style="color: #fbbf24;"></i> Coin System Test</h1>
+            <div class="coin-display">
+                <i class="fas fa-coins"></i>
+                <span class="coin-balance" id="userCoins">0</span>
+                <span>coins</span>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>Coin Management</h3>
+            <button class="test-button success" onclick="giveTestCoins(50)">
+                <i class="fas fa-plus"></i> Add 50 Coins
+            </button>
+            <button class="test-button success" onclick="giveTestCoins(100)">
+                <i class="fas fa-plus"></i> Add 100 Coins
+            </button>
+            <button class="test-button success" onclick="giveTestCoins(500)">
+                <i class="fas fa-plus"></i> Add 500 Coins
+            </button>
+            <button class="test-button danger" onclick="resetAllCoins()">
+                <i class="fas fa-trash"></i> Reset Coins
+            </button>
+        </div>
+        
+        <div class="test-section">
+            <h3>Purchase System Test</h3>
+            <p>Test the purchase system with these sample color presets:</p>
+            <div class="preset-demo">
+                <div class="preset-option" data-preset="neon">
+                    <div class="preset-colors-preview">
+                        <span style="background: #00FFFF;"></span>
+                        <span style="background: #FF00FF;"></span>
+                        <span style="background: #F0F8FF;"></span>
+                    </div>
+                    <p>Neon Future (250 coins)</p>
+                </div>
+                <div class="preset-option" data-preset="royal">
+                    <div class="preset-colors-preview">
+                        <span style="background: #4B0082;"></span>
+                        <span style="background: #800080;"></span>
+                        <span style="background: #F5F0FF;"></span>
+                    </div>
+                    <p>Royal Purple (300 coins)</p>
+                </div>
+                <div class="preset-option" data-preset="gold">
+                    <div class="preset-colors-preview">
+                        <span style="background: #FFD700;"></span>
+                        <span style="background: #FFA500;"></span>
+                        <span style="background: #FFFACD;"></span>
+                    </div>
+                    <p>Golden Luxury (350 coins)</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>System Controls</h3>
+            <button class="test-button secondary" onclick="checkUnlocks()">
+                <i class="fas fa-check"></i> Check Unlocks
+            </button>
+            <button class="test-button secondary" onclick="resetPurchases()">
+                <i class="fas fa-undo"></i> Reset Purchases
+            </button>
+            <button class="test-button" onclick="showSystemInfo()">
+                <i class="fas fa-info"></i> System Info
+            </button>
+        </div>
+        
+        <div class="test-section">
+            <h3>Navigation Links</h3>
+            <button class="test-button" onclick="window.open('customization.html', '_blank')">
+                <i class="fas fa-palette"></i> Open Customization
+            </button>
+            <button class="test-button" onclick="window.open('customization.html#shop', '_blank')">
+                <i class="fas fa-shopping-cart"></i> Open Shop (in Customization)
+            </button>
+            <button class="test-button" onclick="window.open('chat.html', '_blank')">
+                <i class="fas fa-comments"></i> Open Chat
+            </button>
+        </div>
+        
+        <div class="status-panel" id="statusPanel">
+            <div><strong>System Status:</strong></div>
+            <div id="systemStatus">Loading...</div>
+        </div>
+    </div>
+
+    <script src="scripts/coin-system.js"></script>
+    <script>
+        function giveTestCoins(amount) {
+            if (window.coinSystem) {
+                window.coinSystem.addCoins(amount, `Test bonus: ${amount} coins`);
+            } else {
+                console.error('Coin system not available');
+                updateStatus('Error: Coin system not loaded');
+            }
+        }
+        
+        function resetAllCoins() {
+            if (window.coinSystem) {
+                window.coinSystem.coins = 0;
+                window.coinSystem.saveCoins();
+                window.coinSystem.updateCoinDisplay();
+                window.coinSystem.showNotification('Coins reset to 0', 'info');
+                updateStatus('Coins reset to 0');
+            }
+        }
+        
+        function checkUnlocks() {
+            if (window.coinSystem) {
+                window.coinSystem.checkUnlocks();
+                updateStatus('Checked unlocks and updated UI');
+            }
+        }
+        
+        function resetPurchases() {
+            if (window.coinSystem) {
+                window.coinSystem.resetPurchases();
+                updateStatus('All purchases reset');
+            }
+        }
+        
+        function showSystemInfo() {
+            if (window.coinSystem) {
+                const info = {
+                    coins: window.coinSystem.coins,
+                    unlockedItems: window.coinSystem.unlockedItems,
+                    purchases: window.coinSystem.purchases
+                };
+                console.log('Coin System Info:', info);
+                updateStatus(`System Info logged to console. Coins: ${info.coins}`);
+            }
+        }
+        
+        function updateStatus(message) {
+            const statusElement = document.getElementById('systemStatus');
+            const timestamp = new Date().toLocaleTimeString();
+            statusElement.innerHTML += `<br>[${timestamp}] ${message}`;
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                if (window.coinSystem) {
+                    updateStatus('Coin system loaded successfully');
+                    updateStatus(`Starting coins: ${window.coinSystem.coins}`);
+                    updateStatus(`Default unlocked presets: ${window.coinSystem.unlockedItems.colorPresets.join(', ')}`);
+                } else {
+                    updateStatus('Error: Coin system failed to load');
+                }
+            }, 500);
+        });
+    </script>
+</body>
+</html>

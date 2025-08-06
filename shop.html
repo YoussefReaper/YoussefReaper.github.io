@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Auro AI Cognitive Assistant</title>
+    <meta name="description" content="Spend your Auro Points on rewards, themes, and productivity boosters to enhance your cognitive experience.">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/shop.css">
+    <link rel="stylesheet" href="styles/coin-system.css">
+    <link rel="stylesheet" href="styles/floating-nav.css">
+    <link rel="stylesheet" href="styles/modern-navigation.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  </head>
+  <body class="floating-nav-active">
+
+    <!-- Modern Topbar -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="page-breadcrumb">
+                <a href="index.html" class="breadcrumb-item">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Shop</span>
+            </div>
+        </div>
+        
+        <div class="topbar-nav">
+            <a href="about-me.html" class="topbar-nav-item">
+                <i class="fas fa-user"></i>
+                <span>About Me</span>
+            </a>
+            <a href="future-plans.html" class="topbar-nav-item">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="support-project.html" class="topbar-nav-item">
+                <i class="fas fa-heart"></i>
+                <span>Support Project</span>
+            </a>
+            <a href="feedbacks.html" class="topbar-nav-item">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+        </div>
+        
+        <div class="topbar-actions">
+            <div class="coin-display">
+                <i class="fas fa-coins"></i>
+                <span id="userCoins">0</span>
+            </div>
+            <div class="user-menu">
+                <div class="user-trigger">
+                    <div class="user-avatar" id="topbar-profile-pic">A</div>
+                    <div class="user-info">
+                        <span class="user-name" id="topbar-username"></span>
+                        <span class="user-status">Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" style="margin-left: 0; margin-top: 70px;">
+      <!-- Shop Header -->
+      <div class="shop-header">
+        <div class="shop-title-section">
+          <h1 class="page-title">
+            <i class="fas fa-store"></i>
+            Customization Shop
+          </h1>
+          <p class="page-subtitle">Spend your coins on amazing themes, colors, and customization options!</p>
+        </div>
+        <div class="shop-stats">
+          <div class="stat-card primary">
+            <i class="fas fa-coins"></i>
+            <div class="stat-info">
+              <span class="stat-number" id="userCoins" data-stat="user-coins">0</span>
+              <span class="stat-label">Available Coins</span>
+            </div>
+          </div>
+          <div class="stat-card success">
+            <i class="fas fa-shopping-bag"></i>
+            <div class="stat-info">
+              <span class="stat-number" id="totalPurchases" data-stat="total-purchases">0</span>
+              <span class="stat-label">Items Purchased</span>
+            </div>
+          </div>
+          <div class="stat-card info">
+            <i class="fas fa-palette"></i>
+            <div class="stat-info">
+              <span class="stat-number" id="unlockedThemes" data-stat="unlocked-themes">3</span>
+              <span class="stat-label">Unlocked Themes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shop Content -->
+      <div class="shop-content">
+        <!-- Debug Panel (for testing) -->
+        <div class="debug-panel" style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 1rem; margin-bottom: 2rem; display: none;" id="debugPanel">
+          <h4 style="margin: 0 0 1rem 0; color: #495057;">🔧 Debug Panel</h4>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <button onclick="window.remiShop && window.remiShop.addTestPoints(100)" style="padding: 0.5rem 1rem; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">
+              Add 100 Points
+            </button>
+            <button onclick="window.remiShop && window.remiShop.addTestPoints(500)" style="padding: 0.5rem 1rem; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+              Add 500 Points
+            </button>
+            <button onclick="window.remiShop && window.remiShop.resetShop()" style="padding: 0.5rem 1rem; background: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">
+              Reset Shop
+            </button>
+            <button onclick="document.getElementById('debugPanel').style.display='none'" style="padding: 0.5rem 1rem; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer;">
+              Hide Debug
+            </button>
+          </div>
+        </div>
+        
+        <!-- Category Filter -->
+        <div class="category-filter">
+          <h3>Shop Categories</h3>
+          <div class="filter-buttons">
+            <button class="filter-btn active" data-category="all">
+              <i class="fas fa-th"></i>
+              All Items
+            </button>
+            <button class="filter-btn" data-category="color-presets">
+              <i class="fas fa-palette"></i>
+              Color Presets
+            </button>
+            <button class="filter-btn" data-category="topbar-styles">
+              <i class="fas fa-window-maximize"></i>
+              Topbar Styles
+            </button>
+            <button class="filter-btn" data-category="backgrounds">
+              <i class="fas fa-image"></i>
+              Backgrounds
+            </button>
+          </div>
+        </div>
+
+        <!-- Shop Items Grid -->
+        <div class="shop-items">
+          <!-- Color Presets Section -->
+          <div class="shop-section" data-category="color-presets">
+            <h3 class="section-title">
+              <i class="fas fa-palette"></i>
+              Color Presets
+            </h3>
+            <div class="items-grid">
+              <!-- All Color Presets -->
+              <div class="shop-item" data-item-id="lavender" data-category="color-presets" data-price="100">
+                <div class="item-image">
+                  <div class="preset-colors-preview">
+                    <span style="background: #B37FEB;"></span>
+                    <span style="background: #50C9C3;"></span>
+                    <span style="background: #FAF7FF;"></span>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Lavender Dream</h4>
+                  <p class="item-description">Soft lavender tones with aqua accents</p>
+                  <div class="item-actions">
+                    <button class="preview-btn" 
+                            data-preset="lavender" 
+                            data-colors='["#B37FEB", "#50C9C3", "#FAF7FF"]'
+                            onclick="previewColorPreset('lavender', ['#B37FEB', '#50C9C3', '#FAF7FF'])">
+                      <i class="fas fa-eye"></i>
+                      Preview
+                    </button>
+                  </div>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      100 Coins
+                    </span>
+                    <button class="buy-btn" data-item="lavender" data-type="colorPresets">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="ocean" data-category="color-presets" data-price="120">
+                <div class="item-image">
+                  <div class="preset-colors-preview">
+                    <span style="background: #0EA5E9;"></span>
+                    <span style="background: #06B6D4;"></span>
+                    <span style="background: #F0F9FF;"></span>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Deep Ocean</h4>
+                  <p class="item-description">Refreshing blue ocean theme</p>
+                  <div class="item-actions">
+                    <button class="preview-btn" 
+                            data-preset="ocean" 
+                            data-colors='["#0EA5E9", "#06B6D4", "#F0F9FF"]'
+                            onclick="previewColorPreset('ocean', ['#0EA5E9', '#06B6D4', '#F0F9FF'])">
+                      <i class="fas fa-eye"></i>
+                      Preview
+                    </button>
+                  </div>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      120 Coins
+                    </span>
+                    <button class="buy-btn" data-item="ocean" data-type="colorPresets">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="rose" data-category="color-presets" data-price="150">
+                <div class="item-image">
+                  <div class="preset-colors-preview">
+                    <span style="background: #F43F5E;"></span>
+                    <span style="background: #EC4899;"></span>
+                    <span style="background: #FFF1F2;"></span>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Rose Garden</h4>
+                  <p class="item-description">Elegant rose and pink gradient</p>
+                  <div class="item-actions">
+                    <button class="preview-btn" 
+                            data-preset="rose" 
+                            data-colors='["#F43F5E", "#EC4899", "#FFF1F2"]'
+                            onclick="previewColorPreset('rose', ['#F43F5E', '#EC4899', '#FFF1F2'])">
+                      <i class="fas fa-eye"></i>
+                      Preview
+                    </button>
+                  </div>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      150 Coins
+                    </span>
+                    <button class="buy-btn" data-item="rose" data-type="colorPresets">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="mint" data-category="color-presets" data-price="100">
+                <div class="item-image">
+                  <div class="preset-colors-preview">
+                    <span style="background: #10B981;"></span>
+                    <span style="background: #059669;"></span>
+                    <span style="background: #ECFDF5;"></span>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Fresh Mint</h4>
+                  <p class="item-description">Cool mint green theme</p>
+                  <div class="item-actions">
+                    <button class="preview-btn" 
+                            data-preset="mint" 
+                            data-colors='["#10B981", "#059669", "#ECFDF5"]'
+                            onclick="previewColorPreset('mint', ['#10B981', '#059669', '#ECFDF5'])">
+                      <i class="fas fa-eye"></i>
+                      Preview
+                    </button>
+                  </div>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      100 Coins
+                    </span>
+                    <button class="buy-btn" data-item="mint" data-type="colorPresets">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="cosmic" data-category="color-presets" data-price="200">
+                <div class="item-image">
+                  <div class="preset-colors-preview">
+                    <span style="background: #8B5CF6;"></span>
+                    <span style="background: #A855F7;"></span>
+                    <span style="background: #FAF5FF;"></span>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Cosmic Purple</h4>
+                  <p class="item-description">Deep space purple theme</p>
+                  <div class="item-actions">
+                    <button class="preview-btn" 
+                            data-preset="cosmic" 
+                            data-colors='["#8B5CF6", "#A855F7", "#FAF5FF"]'
+                            onclick="previewColorPreset('cosmic', ['#8B5CF6', '#A855F7', '#FAF5FF'])">
+                      <i class="fas fa-eye"></i>
+                      Preview
+                    </button>
+                  </div>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      200 Coins
+                    </span>
+                    <button class="buy-btn" data-item="cosmic" data-type="colorPresets">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="amber" data-category="color-presets" data-price="130">
+                <div class="item-image">
+                  <div class="preset-colors-preview">
+                    <span style="background: #F59E0B;"></span>
+                    <span style="background: #D97706;"></span>
+                    <span style="background: #FFFBEB;"></span>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Golden Amber</h4>
+                  <p class="item-description">Warm amber and gold tones</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      130 Coins
+                    </span>
+                    <button class="buy-btn" data-item="amber" data-type="colorPresets">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="coral" data-category="color-presets" data-price="140">
+                <div class="item-image">
+                  <div class="preset-colors-preview">
+                    <span style="background: #FF7849;"></span>
+                    <span style="background: #FF6B9D;"></span>
+                    <span style="background: #FFF8F5;"></span>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Coral Reef</h4>
+                  <p class="item-description">Vibrant coral and orange theme</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      140 Coins
+                    </span>
+                    <button class="buy-btn" data-item="coral" data-type="colorPresets">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="emerald" data-category="color-presets" data-price="180">
+                <div class="item-image">
+                  <div class="preset-colors-preview">
+                    <span style="background: #50C878;"></span>
+                    <span style="background: #00A86B;"></span>
+                    <span style="background: #F0FFF0;"></span>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Emerald Forest</h4>
+                  <p class="item-description">Rich emerald green theme</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      180 Coins
+                    </span>
+                    <button class="buy-btn" data-item="emerald" data-type="colorPresets">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="crimson" data-category="color-presets" data-price="220">
+                <div class="item-image">
+                  <div class="preset-colors-preview">
+                    <span style="background: #DC143C;"></span>
+                    <span style="background: #B22222;"></span>
+                    <span style="background: #FFF5F5;"></span>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Crimson Fire</h4>
+                  <p class="item-description">Bold crimson red theme</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      220 Coins
+                    </span>
+                    <button class="buy-btn" data-item="crimson" data-type="colorPresets">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="neon" data-category="color-presets" data-price="250">
+                <div class="item-image">
+                  <div class="preset-colors-preview">
+                    <span style="background: #00FFFF;"></span>
+                    <span style="background: #FF00FF;"></span>
+                    <span style="background: #F0F8FF;"></span>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Neon Future</h4>
+                  <p class="item-description">Cyberpunk neon theme with glowing effects</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      250 Coins
+                    </span>
+                    <button class="buy-btn" data-item="neon" data-type="colorPresets">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="royal" data-category="color-presets" data-price="300">
+                <div class="item-image">
+                  <div class="preset-colors-preview">
+                    <span style="background: #4B0082;"></span>
+                    <span style="background: #800080;"></span>
+                    <span style="background: #F5F0FF;"></span>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Royal Purple</h4>
+                  <p class="item-description">Majestic royal purple theme</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      300 Coins
+                    </span>
+                    <button class="buy-btn" data-item="royal" data-type="colorPresets">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="sapphire" data-category="color-presets" data-price="280">
+                <div class="item-image">
+                  <div class="preset-colors-preview">
+                    <span style="background: #0F52BA;"></span>
+                    <span style="background: #1E90FF;"></span>
+                    <span style="background: #F0F8FF;"></span>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Sapphire Ocean</h4>
+                  <p class="item-description">Deep sapphire blue luxury theme</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      280 Coins
+                    </span>
+                    <button class="buy-btn" data-item="sapphire" data-type="colorPresets">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="gold" data-category="color-presets" data-price="350">
+                <div class="item-image">
+                  <div class="preset-colors-preview">
+                    <span style="background: #FFD700;"></span>
+                    <span style="background: #FFA500;"></span>
+                    <span style="background: #FFFACD;"></span>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Golden Luxury</h4>
+                  <p class="item-description">Ultimate luxury gold theme</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      350 Coins
+                    </span>
+                    <button class="buy-btn" data-item="gold" data-type="colorPresets">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="midnight" data-category="color-presets" data-price="320">
+                <div class="item-image">
+                  <div class="preset-colors-preview">
+                    <span style="background: #191970;"></span>
+                    <span style="background: #483D8B;"></span>
+                    <span style="background: #F8F8FF;"></span>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Midnight Sky</h4>
+                  <p class="item-description">Mysterious midnight blue theme</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      320 Coins
+                    </span>
+                    <button class="buy-btn" data-item="midnight" data-type="colorPresets">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="cherry" data-category="color-presets" data-price="270">
+                <div class="item-image">
+                  <div class="preset-colors-preview">
+                    <span style="background: #FF69B4;"></span>
+                    <span style="background: #FF1493;"></span>
+                    <span style="background: #FFF0F5;"></span>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Cherry Blossom</h4>
+                  <p class="item-description">Beautiful cherry blossom pink theme</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      270 Coins
+                    </span>
+                    <button class="buy-btn" data-item="cherry" data-type="colorPresets">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Topbar Styles Section -->
+          <div class="shop-section" data-category="topbar-styles">
+            <h3 class="section-title">
+              <i class="fas fa-window-maximize"></i>
+              Topbar Styles
+            </h3>
+            <div class="items-grid">
+              <!-- Modern Glass Themes -->
+              <div class="shop-item" data-item-id="modern-glass-blue" data-category="topbar-styles" data-price="100">
+                <div class="item-image">
+                  <div class="topbar-preview" style="background: rgba(103, 197, 255, 0.15); border: 1px solid rgba(103, 197, 255, 0.3); padding: 1rem; border-radius: 8px; backdrop-filter: blur(10px);">
+                    <div class="preview-content" style="color: #125E8E; font-weight: 600;">Glass Blue</div>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Glass Blue</h4>
+                  <p class="item-description">Modern glass effect with blue tint</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      100 Coins
+                    </span>
+                    <button class="buy-btn" data-item="modern-glass-blue" data-type="topbarStyles">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="modern-glass-purple" data-category="topbar-styles" data-price="120">
+                <div class="item-image">
+                  <div class="topbar-preview" style="background: rgba(170, 121, 249, 0.15); border: 1px solid rgba(170, 121, 249, 0.3); padding: 1rem; border-radius: 8px; backdrop-filter: blur(10px);">
+                    <div class="preview-content" style="color: #6B46C1; font-weight: 600;">Glass Purple</div>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Glass Purple</h4>
+                  <p class="item-description">Elegant purple glass morphism</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      120 Coins
+                    </span>
+                    <button class="buy-btn" data-item="modern-glass-purple" data-type="topbarStyles">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="modern-glass-white" data-category="topbar-styles" data-price="80">
+                <div class="item-image">
+                  <div class="topbar-preview" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); padding: 1rem; border-radius: 8px; backdrop-filter: blur(10px);">
+                    <div class="preview-content" style="color: #333333; font-weight: 600;">Glass White</div>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Glass White</h4>
+                  <p class="item-description">Clean transparent glass effect</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      80 Coins
+                    </span>
+                    <button class="buy-btn" data-item="modern-glass-white" data-type="topbarStyles">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Solid Classic Themes -->
+              <div class="shop-item" data-item-id="solid-white" data-category="topbar-styles" data-price="50">
+                <div class="item-image">
+                  <div class="topbar-preview" style="background: #ffffff; border: none; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); padding: 1rem; border-radius: 8px;">
+                    <div class="preview-content" style="color: #333333; font-weight: 600;">Clean White</div>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Clean White</h4>
+                  <p class="item-description">Classic clean white design</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      50 Coins
+                    </span>
+                    <button class="buy-btn" data-item="solid-white" data-type="topbarStyles">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="solid-gray" data-category="topbar-styles" data-price="60">
+                <div class="item-image">
+                  <div class="topbar-preview" style="background: #F8F9FA; border: 1px solid rgba(0, 0, 0, 0.1); padding: 1rem; border-radius: 8px;">
+                    <div class="preview-content" style="color: #495057; font-weight: 600;">Light Gray</div>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Light Gray</h4>
+                  <p class="item-description">Soft gray professional look</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      60 Coins
+                    </span>
+                    <button class="buy-btn" data-item="solid-gray" data-type="topbarStyles">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="solid-blue" data-category="topbar-styles" data-price="70">
+                <div class="item-image">
+                  <div class="topbar-preview" style="background: #EEF8FF; border: 1px solid rgba(103, 197, 255, 0.2); padding: 1rem; border-radius: 8px;">
+                    <div class="preview-content" style="color: #125E8E; font-weight: 600;">Soft Blue</div>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Soft Blue</h4>
+                  <p class="item-description">Calming blue solid background</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      70 Coins
+                    </span>
+                    <button class="buy-btn" data-item="solid-blue" data-type="topbarStyles">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Gradient Themes -->
+              <div class="shop-item" data-item-id="gradient-blue" data-category="topbar-styles" data-price="150">
+                <div class="item-image">
+                  <div class="topbar-preview" style="background: linear-gradient(90deg, #3B82F6, #1D4ED8); padding: 1rem; border-radius: 8px;">
+                    <div class="preview-content" style="color: white; font-weight: 600;">Ocean Blue</div>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Ocean Blue</h4>
+                  <p class="item-description">Dynamic blue gradient</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      150 Coins
+                    </span>
+                    <button class="buy-btn" data-item="gradient-blue" data-type="topbarStyles">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="gradient-purple" data-category="topbar-styles" data-price="160">
+                <div class="item-image">
+                  <div class="topbar-preview" style="background: linear-gradient(90deg, #8B5CF6, #7C3AED); padding: 1rem; border-radius: 8px;">
+                    <div class="preview-content" style="color: white; font-weight: 600;">Royal Purple</div>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Royal Purple</h4>
+                  <p class="item-description">Majestic purple gradient</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      160 Coins
+                    </span>
+                    <button class="buy-btn" data-item="gradient-purple" data-type="topbarStyles">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="gradient-sunset" data-category="topbar-styles" data-price="180">
+                <div class="item-image">
+                  <div class="topbar-preview" style="background: linear-gradient(90deg, #F59E0B, #EF4444); padding: 1rem; border-radius: 8px;">
+                    <div class="preview-content" style="color: white; font-weight: 600;">Sunset</div>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Sunset</h4>
+                  <p class="item-description">Warm sunset gradient</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      180 Coins
+                    </span>
+                    <button class="buy-btn" data-item="gradient-sunset" data-type="topbarStyles">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Dark Themes -->
+              <div class="shop-item" data-item-id="dark-carbon" data-category="topbar-styles" data-price="120">
+                <div class="item-image">
+                  <div class="topbar-preview" style="background: #1F2937; border: 1px solid rgba(255, 255, 255, 0.1); padding: 1rem; border-radius: 8px;">
+                    <div class="preview-content" style="color: #F9FAFB; font-weight: 600;">Carbon Dark</div>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Carbon Dark</h4>
+                  <p class="item-description">Sleek dark carbon fiber look</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      120 Coins
+                    </span>
+                    <button class="buy-btn" data-item="dark-carbon" data-type="topbarStyles">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="dark-midnight" data-category="topbar-styles" data-price="140">
+                <div class="item-image">
+                  <div class="topbar-preview" style="background: #0F172A; border: 1px solid rgba(148, 163, 184, 0.2); padding: 1rem; border-radius: 8px;">
+                    <div class="preview-content" style="color: #E2E8F0; font-weight: 600;">Midnight</div>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Midnight</h4>
+                  <p class="item-description">Deep midnight black theme</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      140 Coins
+                    </span>
+                    <button class="buy-btn" data-item="dark-midnight" data-type="topbarStyles">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+                <div class="item-info">
+                  <h4 class="item-name">Neon Green Topbar</h4>
+                  <p class="item-description">Vibrant green neon effect</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      200 Coins
+                    </span>
+                    <button class="buy-btn" data-item="modern.Neon Green" data-type="topbarStyles">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="classic-white" data-category="topbar-styles" data-price="100">
+                <div class="item-image">
+                  <div class="topbar-preview" style="background: rgba(255, 255, 255, 0.95); border: 1px solid rgba(0, 0, 0, 0.1); padding: 1rem; border-radius: 8px;">
+                    <div class="preview-content" style="color: #374151; font-weight: 600;">Classic White</div>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Classic White</h4>
+                  <p class="item-description">Clean white classic style</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      100 Coins
+                    </span>
+                    <button class="buy-btn" data-item="classic.Classic White" data-type="topbarStyles">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="shop-item" data-item-id="minimal-clean" data-category="topbar-styles" data-price="80">
+                <div class="item-image">
+                  <div class="topbar-preview" style="background: rgba(248, 250, 252, 0.9); border: 1px solid rgba(148, 163, 184, 0.2); padding: 1rem; border-radius: 8px;">
+                    <div class="preview-content" style="color: #475569; font-weight: 600;">Clean Lines</div>
+                  </div>
+                </div>
+                <div class="item-info">
+                  <h4 class="item-name">Clean Lines</h4>
+                  <p class="item-description">Minimalist clean design</p>
+                  <div class="item-footer">
+                    <span class="item-price">
+                      <i class="fas fa-coins"></i>
+                      80 Coins
+                    </span>
+                    <button class="buy-btn" data-item="minimal.Clean Lines" data-type="topbarStyles">
+                      <i class="fas fa-shopping-cart"></i>
+                      Buy
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+    <!-- Purchase Confirmation Modal -->
+    <div class="modal-overlay" id="purchaseModal">
+      <div class="modal-container">
+        <div class="modal-header">
+          <h2>Confirm Purchase</h2>
+          <button class="modal-close-btn" id="closePurchaseModal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-content">
+          <div class="purchase-item-info">
+            <div class="item-preview" id="modalItemPreview"></div>
+            <div class="item-details">
+              <h3 id="modalItemName"></h3>
+              <p id="modalItemDescription"></p>
+              <div class="price-breakdown">
+                <div class="current-points">
+                  <span>Current Points: </span>
+                  <span id="modalCurrentPoints">0</span>
+                </div>
+                <div class="item-cost">
+                  <span>Item Cost: </span>
+                  <span id="modalItemCost">0</span>
+                </div>
+                <div class="remaining-points">
+                  <span>After Purchase: </span>
+                  <span id="modalRemainingPoints">0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button class="confirm-purchase-btn" id="confirmPurchase">
+              <i class="fas fa-shopping-cart"></i>
+              Confirm Purchase
+            </button>
+            <button class="cancel-purchase-btn" id="cancelPurchase">
+              <i class="fas fa-times"></i>
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <!-- Floating Navigation Background -->
+    <div class="floating-nav-background" id="floating-nav-background"></div>
+
+    <!-- Floating Navigation Hub -->
+    <div class="floating-nav-hub" id="floating-nav-hub">
+        <button class="nav-hub-button" id="nav-hub-toggle">
+            <i class="fas fa-th"></i>
+        </button>
+        
+        <div class="nav-options">
+            <a href="index.html" class="nav-option">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="plans.html" class="nav-option">
+                <i class="fas fa-map"></i>
+                <span>Plans</span>
+            </a>
+            <a href="chat.html" class="nav-option registered-only">
+                <i class="fas fa-message"></i>
+                <span>Chat</span>
+            </a>
+            <a href="tasks.html" class="nav-option registered-only">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="schedule.html" class="nav-option registered-only">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Schedule</span>
+            </a>
+            <a href="achievements.html" class="nav-option registered-only">
+                <i class="fas fa-trophy"></i>
+                <span>Achievements</span>
+            </a>
+            <a href="super-tracker.html" class="nav-option registered-only">
+                <i class="fas fa-chart-line"></i>
+                <span>Tracker</span>
+            </a>
+            <a href="customization.html" class="nav-option registered-only">
+                <i class="fas fa-heart"></i>
+                <span>Customize</span>
+            </a>
+            <a href="shop.html" class="nav-option current-page registered-only">
+                <i class="fas fa-store"></i>
+                <span>Shop</span>
+            </a>
+            <a href="about.html" class="nav-option">
+                <i class="fas fa-user-circle"></i>
+                <span>About Me</span>
+            </a>
+            <a href="future-plans.html" class="nav-option">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="support-project.html" class="nav-option">
+                <i class="fas fa-heart-circle-bolt"></i>
+                <span>Support Project</span>
+            </a>
+            <a href="feedbacks.html" class="nav-option">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+            <a href="settings.html" class="nav-option">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/floating-navigation.js"></script>
+    <script src="scripts/global-stats-manager.js"></script>
+    <script src="scripts/global-profile-manager.js"></script>
+    <script src="scripts/global-navigation.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+    <script src="scripts/coin-system.js"></script>
+    <script src="scripts/shop.js"></script>
+    
+    <script>
+        // Auto-add preview buttons to color presets on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Color preset data
+            const colorPresets = {
+                amber: ['#F59E0B', '#D97706', '#FFFBEB'],
+                coral: ['#FF7849', '#FF6B9D', '#FFF8F5'],
+                emerald: ['#50C878', '#00A86B', '#F0FFF0'],
+                crimson: ['#DC143C', '#B22222', '#FFF5F5'],
+                neon: ['#00FFFF', '#FF00FF', '#F0F8FF'],
+                royal: ['#4B0082', '#800080', '#F5F0FF'],
+                sapphire: ['#0F52BA', '#1E90FF', '#F0F8FF'],
+                gold: ['#FFD700', '#FFA500', '#FFFACD'],
+                midnight: ['#191970', '#483D8B', '#F8F8FF'],
+                cherry: ['#FF69B4', '#FF1493', '#FFF0F5']
+            };
+
+            // Add preview buttons to items that don't have them
+            Object.keys(colorPresets).forEach(presetId => {
+                const shopItem = document.querySelector(`[data-item-id="${presetId}"]`);
+                if (shopItem && !shopItem.querySelector('.preview-btn')) {
+                    const itemInfo = shopItem.querySelector('.item-info');
+                    const itemFooter = shopItem.querySelector('.item-footer');
+                    
+                    if (itemInfo && itemFooter) {
+                        const colors = colorPresets[presetId];
+                        const presetName = shopItem.querySelector('.item-name').textContent;
+                        
+                        // Create preview button container
+                        const itemActions = document.createElement('div');
+                        itemActions.className = 'item-actions';
+                        
+                        const previewBtn = document.createElement('button');
+                        previewBtn.className = 'preview-btn';
+                        previewBtn.setAttribute('data-preset', presetId);
+                        previewBtn.setAttribute('data-colors', JSON.stringify(colors));
+                        previewBtn.onclick = function() {
+                            previewColorPreset(presetId, colors);
+                        };
+                        
+                        previewBtn.innerHTML = `
+                            <i class="fas fa-eye"></i>
+                            Preview
+                        `;
+                        
+                        itemActions.appendChild(previewBtn);
+                        itemInfo.insertBefore(itemActions, itemFooter);
+                    }
+                }
+            });
+
+            // Update purchased items display
+            updatePurchasedItemsDisplay();
+        });
+
+        // Function to show purchased status
+        function updatePurchasedItemsDisplay() {
+            const purchasedItems = JSON.parse(localStorage.getItem('purchasedItems') || '{}');
+            const colorPresets = purchasedItems.colorPresets || [];
+            const topbarThemes = purchasedItems.topbarThemes || [];
+            
+            // Mark color presets as purchased
+            colorPresets.forEach(presetId => {
+                const shopItem = document.querySelector(`[data-item-id="${presetId}"][data-category="color-presets"]`);
+                if (shopItem) {
+                    const buyBtn = shopItem.querySelector('.buy-btn');
+                    if (buyBtn) {
+                        buyBtn.innerHTML = '<i class="fas fa-check"></i> Purchased';
+                        buyBtn.classList.add('purchased');
+                        buyBtn.disabled = true;
+                    }
+                    shopItem.classList.add('owned');
+                }
+            });
+            
+            // Mark topbar themes as purchased
+            topbarThemes.forEach(themeId => {
+                const shopItem = document.querySelector(`[data-item-id="${themeId}"][data-category="topbar-themes"]`);
+                if (shopItem) {
+                    const buyBtn = shopItem.querySelector('.buy-btn');
+                    if (buyBtn) {
+                        buyBtn.innerHTML = '<i class="fas fa-check"></i> Purchased';
+                        buyBtn.classList.add('purchased');
+                        buyBtn.disabled = true;
+                    }
+                    shopItem.classList.add('owned');
+                }
+            });
+        }
+    </script>
+    <script src="scripts/system.js"></script>
+
+    <!-- Global Theme Synchronization -->
+    <script src="scripts/universal-page-system.js"></script>
+    <script src="scripts/global-theme-sync.js"></script>
+  </body>
+</html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Tasks - Remi</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/tasks-refined.css">
+    <link rel="stylesheet" href="styles/floating-nav.css">
+    <link rel="stylesheet" href="styles/modern-navigation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body data-page="tasks">
+    <!-- Floating Navigation Background -->
+    <div class="floating-nav-background" id="floating-nav-background"></div>
+
+    <!-- Floating Navigation Hub -->
+    <div class="floating-nav-hub" id="floating-nav-hub">
+        <button class="nav-hub-button" id="nav-hub-button">
+            <i class="fas fa-th"></i>
+        </button>
+        
+        <div class="nav-options" id="nav-options">
+            <a href="dashboard.html" class="nav-option">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="plans.html" class="nav-option">
+                <i class="fas fa-map"></i>
+                <span>Plans</span>
+            </a>
+            <a href="chat.html" class="nav-option registered-only">
+                <i class="fas fa-message"></i>
+                <span>Chat</span>
+            </a>
+            <a href="tasks-new.html" class="nav-option current-page registered-only">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="schedule.html" class="nav-option registered-only">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Schedule</span>
+            </a>
+            <a href="achievements.html" class="nav-option registered-only">
+                <i class="fas fa-trophy"></i>
+                <span>Achievements</span>
+            </a>
+            <a href="super-tracker.html" class="nav-option registered-only">
+                <i class="fas fa-chart-line"></i>
+                <span>Tracker</span>
+            </a>
+            <a href="customization.html" class="nav-option registered-only">
+                <i class="fas fa-heart"></i>
+                <span>Customize</span>
+            </a>
+            <a href="shop.html" class="nav-option registered-only">
+                <i class="fas fa-store"></i>
+                <span>Shop</span>
+            </a>
+            <a href="about.html" class="nav-option">
+                <i class="fas fa-user-circle"></i>
+                <span>About Me</span>
+            </a>
+            <a href="future-plans.html" class="nav-option">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="support-project.html" class="nav-option">
+                <i class="fas fa-heart-circle-bolt"></i>
+                <span>Support Project</span>
+            </a>
+            <a href="feedbacks.html" class="nav-option">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+            <a href="settings.html" class="nav-option">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Modern Topbar -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="page-breadcrumb">
+                <a href="index.html" class="breadcrumb-item">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Tasks</span>
+            </div>
+        </div>
+        
+        <div class="topbar-nav">
+            <a href="about-me.html" class="topbar-nav-item">
+                <i class="fas fa-user"></i>
+                <span>About Me</span>
+            </a>
+            <a href="future-plans.html" class="topbar-nav-item">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="support-project.html" class="topbar-nav-item">
+                <i class="fas fa-heart"></i>
+                <span>Support Project</span>
+            </a>
+            <a href="feedbacks.html" class="topbar-nav-item">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+        </div>
+        
+        <div class="topbar-actions">
+            <div class="coin-display">
+                <i class="fas fa-coins"></i>
+                <span id="userCoins">0</span>
+            </div>
+            <div class="user-menu">
+                <div class="user-trigger">
+                    <div class="user-avatar" id="topbar-profile-pic">A</div>
+                    <div class="user-info">
+                        <span class="user-name" id="topbar-username">Auro User</span>
+                        <span class="user-status">Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-background">
+                <div class="floating-particles"></div>
+            </div>
+            <div class="hero-content">
+                <div class="hero-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h1 class="hero-title">Modern Task Management</h1>
+                <p class="hero-subtitle">Organize, track, and achieve your goals with style</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="total-tasks">0</span>
+                        <span class="stat-label">Total Tasks</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="completed-tasks">0</span>
+                        <span class="stat-label">Completed</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="active-milestones">0</span>
+                        <span class="stat-label">Milestones</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <div class="view-switcher">
+                <button class="view-btn active" data-view="kanban">
+                    <i class="fas fa-columns"></i>
+                    Kanban
+                </button>
+                <button class="view-btn" data-view="timeline">
+                    <i class="fas fa-chart-gantt"></i>
+                    Timeline
+                </button>
+                <button class="view-btn" data-view="milestones">
+                    <i class="fas fa-mountain"></i>
+                    Milestones
+                </button>
+            </div>
+            <div class="panel-right">
+                <div class="filter-dropdown">
+                    <button class="filter-btn" id="filter-btn">
+                        <i class="fas fa-filter"></i>
+                        Filters
+                    </button>
+                    <div class="filter-menu" id="filter-menu">
+                        <div class="filter-group">
+                            <label>Priority</label>
+                            <div class="filter-options">
+                                <label><input type="checkbox" value="high"> High Priority</label>
+                                <label><input type="checkbox" value="medium"> Medium Priority</label>
+                                <label><input type="checkbox" value="low"> Low Priority</label>
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label>Status</label>
+                            <div class="filter-options">
+                                <label><input type="checkbox" value="todo"> To Do</label>
+                                <label><input type="checkbox" value="progress"> In Progress</label>
+                                <label><input type="checkbox" value="review"> In Review</label>
+                                <label><input type="checkbox" value="done"> Completed</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="action-btn" id="create-task-btn">
+                    <i class="fas fa-plus"></i>
+                    New Task
+                </button>
+                <button class="action-btn" id="create-milestone-btn">
+                    <i class="fas fa-flag"></i>
+                    New Milestone
+                </button>
+            </div>
+        </div>
+
+        <!-- Views Container -->
+        <div class="views-container">
+            <!-- Kanban View -->
+            <div class="view-content active" id="kanban-view">
+                <div class="kanban-board">
+                    <!-- Todo Column -->
+                    <div class="kanban-column" data-status="todo">
+                        <div class="column-header">
+                            <i class="column-icon fas fa-clipboard-list"></i>
+                            <h3>To Do</h3>
+                            <span class="task-count">0</span>
+                        </div>
+                        <div class="column-content" id="todo-column">
+                            <!-- Tasks will be inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- In Progress Column -->
+                    <div class="kanban-column" data-status="progress">
+                        <div class="column-header">
+                            <i class="column-icon fas fa-cog fa-spin"></i>
+                            <h3>In Progress</h3>
+                            <span class="task-count">0</span>
+                        </div>
+                        <div class="column-content" id="progress-column">
+                            <!-- Tasks will be inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- In Review Column -->
+                    <div class="kanban-column" data-status="review">
+                        <div class="column-header">
+                            <i class="column-icon fas fa-search"></i>
+                            <h3>In Review</h3>
+                            <span class="task-count">0</span>
+                        </div>
+                        <div class="column-content" id="review-column">
+                            <!-- Tasks will be inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- Done Column -->
+                    <div class="kanban-column" data-status="done">
+                        <div class="column-header">
+                            <i class="column-icon fas fa-check-circle"></i>
+                            <h3>Completed</h3>
+                            <span class="task-count">0</span>
+                        </div>
+                        <div class="column-content" id="done-column">
+                            <!-- Tasks will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline View -->
+            <div class="view-content" id="timeline-view">
+                <div class="timeline-container">
+                    <div class="timeline-header">
+                        <h3>Project Timeline</h3>
+                        <div class="timeline-controls">
+                            <button class="timeline-zoom active" data-zoom="week">Week</button>
+                            <button class="timeline-zoom" data-zoom="month">Month</button>
+                            <button class="timeline-zoom" data-zoom="quarter">Quarter</button>
+                        </div>
+                    </div>
+                    <div class="timeline-content" id="timeline-content">
+                        <!-- Timeline will be rendered here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Milestones View -->
+            <div class="view-content" id="milestones-view">
+                <div class="milestones-container">
+                    <div class="milestones-progress">
+                        <div class="progress-ring">
+                            <svg class="progress-svg">
+                                <defs>
+                                    <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#2196F3;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                                <circle class="progress-bg" cx="70" cy="70" r="50"></circle>
+                                <circle class="progress-bar" cx="70" cy="70" r="50" id="milestone-progress"></circle>
+                            </svg>
+                            <div class="progress-text">
+                                <span class="progress-percentage" id="milestone-percentage">0%</span>
+                                <span class="progress-label">Complete</span>
+                            </div>
+                        </div>
+                        <div class="milestones-summary">
+                            <h3>Milestone Progress</h3>
+                            <p>Track your major goals and achievements</p>
+                            <div class="milestone-stats">
+                                <div class="milestone-stat">
+                                    <span class="stat-value" id="completed-milestones">0</span>
+                                    <span class="stat-label">Completed</span>
+                                </div>
+                                <div class="milestone-stat">
+                                    <span class="stat-value" id="pending-milestones">0</span>
+                                    <span class="stat-label">Pending</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="milestones-grid" id="milestones-grid">
+                        <!-- Milestones will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Task Creation Modal -->
+    <div class="modal-overlay" id="task-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Create New Task</h3>
+                <button class="modal-close" id="close-task-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="task-form">
+                    <div class="form-group">
+                        <label for="task-title">Task Title *</label>
+                        <input type="text" id="task-title" placeholder="Enter task title..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="task-description">Description</label>
+                        <textarea id="task-description" rows="3" placeholder="Add task description..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="task-priority">Priority</label>
+                            <select id="task-priority">
+                                <option value="low">Low Priority</option>
+                                <option value="medium" selected>Medium Priority</option>
+                                <option value="high">High Priority</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="task-status">Status</label>
+                            <select id="task-status">
+                                <option value="todo" selected>To Do</option>
+                                <option value="progress">In Progress</option>
+                                <option value="review">In Review</option>
+                                <option value="done">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="task-due-date">Due Date</label>
+                            <input type="date" id="task-due-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="task-category">Category</label>
+                            <select id="task-category">
+                                <option value="personal">Personal</option>
+                                <option value="work">Work</option>
+                                <option value="learning">Learning</option>
+                                <option value="health">Health</option>
+                                <option value="creative">Creative</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="task-duration">Estimated Duration (minutes) <span class="optional">- Optional</span></label>
+                            <input type="number" id="task-duration" min="1" max="480" placeholder="e.g., 60 for 1 hour">
+                            <small class="help-text">For use with the tracker. Leave empty for tasks without time tracking.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="task-difficulty">Difficulty Level</label>
+                            <select id="task-difficulty">
+                                <option value="easy">Easy (Quick task)</option>
+                                <option value="medium" selected>Medium (Standard effort)</option>
+                                <option value="hard">Hard (Requires focus)</option>
+                                <option value="expert">Expert (Challenging)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="task-tags">Tags (comma-separated)</label>
+                        <input type="text" id="task-tags" placeholder="urgent, important, quick...">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" id="cancel-task">Cancel</button>
+                <button type="button" class="btn-primary" id="save-task">Create Task</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Milestone Creation Modal -->
+    <div class="modal-overlay" id="milestone-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create New Milestone</h3>
+                <button class="modal-close" id="close-milestone-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="milestone-form">
+                    <div class="form-group">
+                        <label for="milestone-title">Milestone Title *</label>
+                        <input type="text" id="milestone-title" placeholder="Enter milestone title..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="milestone-description">Description</label>
+                        <textarea id="milestone-description" rows="3" placeholder="Describe your milestone..."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="milestone-target-date">Target Date *</label>
+                            <input type="date" id="milestone-target-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="milestone-category">Category</label>
+                            <select id="milestone-category">
+                                <option value="personal">Personal</option>
+                                <option value="career">Career</option>
+                                <option value="education">Education</option>
+                                <option value="health">Health</option>
+                                <option value="financial">Financial</option>
+                                <option value="creative">Creative</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="milestone-reward">Reward (optional)</label>
+                        <input type="text" id="milestone-reward" placeholder="How will you celebrate?">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" id="cancel-milestone">Cancel</button>
+                <button type="button" class="btn-primary" id="save-milestone">Create Milestone</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/floating-navigation.js"></script>
+    <script src="scripts/global-profile-manager.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+    <script src="scripts/global-navigation.js"></script>
+    <script src="scripts/universal-page-system.js"></script>
+    <script src="scripts/global-stats-manager.js"></script>
+    <script src="scripts/modern-tasks.js"></script>
+</body>
+</html>

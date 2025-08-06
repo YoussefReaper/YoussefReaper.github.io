@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Settings Fix Test - Remi</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .test-section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .test-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .status {
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .status.success {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.5);
+        }
+        
+        .status.error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+        }
+        
+        pre {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🔧 Mobile Settings Fix Test</h1>
+        <p>Testing the mobile optimization settings fix</p>
+        
+        <div class="test-section">
+            <h3>Settings Migration Test</h3>
+            <p>This test verifies that mobile settings are properly created and loaded.</p>
+            
+            <button class="test-button" onclick="testSettingsLoad()">Test Settings Load</button>
+            <button class="test-button" onclick="testMobileDefaults()">Test Mobile Defaults</button>
+            <button class="test-button" onclick="clearSettings()">Clear Settings</button>
+            
+            <div id="settingsStatus" class="status" style="display: none;"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>Mobile Optimization Functions</h3>
+            <p>Test individual mobile optimization functions.</p>
+            
+            <button class="test-button" onclick="testMobileDetection()">Test Mobile Detection</button>
+            <button class="test-button" onclick="testMobileOptimizations()">Test Optimizations</button>
+            
+            <div id="functionsStatus" class="status" style="display: none;"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>Current Settings State</h3>
+            <button class="test-button" onclick="showCurrentSettings()">Show Current Settings</button>
+            <pre id="settingsOutput" style="display: none;"></pre>
+        </div>
+        
+        <div class="test-section">
+            <h3>Test Results</h3>
+            <div id="testResults"></div>
+        </div>
+    </div>
+
+    <script src="scripts/customization.js"></script>
+    <script>
+        let testResults = [];
+        
+        function addResult(test, status, message) {
+            const timestamp = new Date().toLocaleTimeString();
+            testResults.push({ test, status, message, timestamp });
+            updateResults();
+        }
+        
+        function updateResults() {
+            const resultsDiv = document.getElementById('testResults');
+            resultsDiv.innerHTML = testResults.map(result => {
+                const statusColor = result.status === 'success' ? '#10b981' : 
+                                   result.status === 'error' ? '#ef4444' : '#3b82f6';
+                const statusIcon = result.status === 'success' ? '✅' : 
+                                  result.status === 'error' ? '❌' : 'ℹ️';
+                
+                return `<div style="margin-bottom: 0.5rem; padding: 0.5rem; background: rgba(255,255,255,0.05); border-radius: 5px;">
+                    <span style="color: ${statusColor};">${statusIcon}</span>
+                    <strong>${result.test}</strong> - ${result.message}
+                    <div style="font-size: 0.8rem; opacity: 0.7;">${result.timestamp}</div>
+                </div>`;
+            }).join('');
+        }
+        
+        function testSettingsLoad() {
+            try {
+                // Simulate loading settings
+                if (typeof currentSettings === 'undefined') {
+                    addResult('Settings Load', 'error', 'currentSettings is undefined');
+                    return;
+                }
+                
+                // Check if mobile settings exist
+                if (!currentSettings.backgrounds.mobile) {
+                    addResult('Mobile Settings', 'error', 'Mobile settings missing before migration');
+                    // Try to migrate
+                    migrateMobileSettings();
+                    
+                    if (currentSettings.backgrounds.mobile) {
+                        addResult('Migration', 'success', 'Mobile settings created successfully');
+                    } else {
+                        addResult('Migration', 'error', 'Migration failed');
+                    }
+                } else {
+                    addResult('Mobile Settings', 'success', 'Mobile settings already exist');
+                }
+                
+                showStatus('settingsStatus', 'success', 'Settings load test completed');
+            } catch (error) {
+                addResult('Settings Load', 'error', `Error: ${error.message}`);
+                showStatus('settingsStatus', 'error', `Test failed: ${error.message}`);
+            }
+        }
+        
+        function testMobileDefaults() {
+            try {
+                const defaults = {
+                    optimizeForMobile: true,
+                    reduceMotion: false,
+                    chatOptimization: true,
+                    mainOptimization: true
+                };
+                
+                let allMatch = true;
+                const issues = [];
+                
+                Object.keys(defaults).forEach(key => {
+                    if (currentSettings.backgrounds.mobile[key] !== defaults[key]) {
+                        allMatch = false;
+                        issues.push(`${key}: expected ${defaults[key]}, got ${currentSettings.backgrounds.mobile[key]}`);
+                    }
+                });
+                
+                if (allMatch) {
+                    addResult('Default Values', 'success', 'All mobile defaults match expected values');
+                    showStatus('functionsStatus', 'success', 'Mobile defaults are correct');
+                } else {
+                    addResult('Default Values', 'error', `Mismatched values: ${issues.join(', ')}`);
+                    showStatus('functionsStatus', 'error', 'Some defaults are incorrect');
+                }
+            } catch (error) {
+                addResult('Default Values', 'error', `Error: ${error.message}`);
+                showStatus('functionsStatus', 'error', `Test failed: ${error.message}`);
+            }
+        }
+        
+        function testMobileDetection() {
+            try {
+                const isMobileResult = isMobile();
+                const isTouchResult = isTouchDevice();
+                const optimizations = getMobileOptimizations();
+                
+                addResult('Mobile Detection', 'success', `isMobile: ${isMobileResult}, isTouch: ${isTouchResult}`);
+                addResult('Optimizations', 'info', `Connection: ${optimizations.connectionSpeed}, WebP: ${optimizations.supportsWebP}`);
+                
+                showStatus('functionsStatus', 'success', 'Mobile detection functions working');
+            } catch (error) {
+                addResult('Mobile Detection', 'error', `Error: ${error.message}`);
+                showStatus('functionsStatus', 'error', `Detection failed: ${error.message}`);
+            }
+        }
+        
+        function testMobileOptimizations() {
+            try {
+                // Test the populateMobileOptimizations function
+                populateMobileOptimizations();
+                addResult('Populate Mobile', 'success', 'populateMobileOptimizations executed without error');
+                
+                // Test background application with mobile settings
+                const dummyBackground = {
+                    type: 'image',
+                    url: 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='
+                };
+                
+                // This should not throw an error now
+                applyBackgroundToElement('body', dummyBackground);
+                addResult('Background Apply', 'success', 'applyBackgroundToElement executed without error');
+                
+                showStatus('functionsStatus', 'success', 'All mobile optimization functions working');
+            } catch (error) {
+                addResult('Mobile Optimizations', 'error', `Error: ${error.message}`);
+                showStatus('functionsStatus', 'error', `Optimization test failed: ${error.message}`);
+            }
+        }
+        
+        function showCurrentSettings() {
+            const output = document.getElementById('settingsOutput');
+            output.style.display = 'block';
+            output.textContent = JSON.stringify(currentSettings.backgrounds.mobile, null, 2);
+            addResult('Settings Display', 'info', 'Current mobile settings shown');
+        }
+        
+        function clearSettings() {
+            localStorage.removeItem('remiCustomization');
+            addResult('Clear Settings', 'info', 'Settings cleared from localStorage');
+            showStatus('settingsStatus', 'info', 'Settings cleared - reload page to test migration');
+        }
+        
+        function showStatus(elementId, type, message) {
+            const element = document.getElementById(elementId);
+            element.className = `status ${type}`;
+            element.textContent = message;
+            element.style.display = 'block';
+        }
+        
+        // Auto-run initial test when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                addResult('Page Load', 'success', 'Test page loaded successfully');
+                testSettingsLoad();
+            }, 500);
+        });
+    </script>
+</body>
+</html>

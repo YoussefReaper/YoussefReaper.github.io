@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customization - Auro Customization</title>
+    <meta name="description" content="Customize your Auro experience with themes, colors, and personal settings.">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/customization.css">
+    <link rel="stylesheet" href="styles/coin-system.css">
+    <link rel="stylesheet" href="styles/floating-nav.css">
+    <link rel="stylesheet" href="styles/modern-navigation.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Sci-fi enhancements for customization */
+        .theme-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1));
+            backdrop-filter: blur(10px);
+        }
+        
+        .theme-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent-purple, #a855f7);
+            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.3);
+        }
+        
+        .theme-card.active {
+            border-color: var(--accent-blue, #3b82f6);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+        }
+        
+        .color-picker-glow {
+            transition: all 0.3s ease;
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.5);
+        }
+        
+        .color-picker-glow:hover {
+            box-shadow: 0 0 20px 5px rgba(168, 85, 247, 0.7);
+            transform: scale(1.1);
+        }
+        
+        .customization-section {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.08), rgba(59, 130, 246, 0.08));
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .customization-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .customization-section:hover::before {
+            left: 100%;
+        }
+        
+        /* Locked feature styling */
+        .btn-locked {
+            opacity: 0.6 !important;
+            cursor: not-allowed !important;
+            position: relative;
+        }
+        
+        .btn-locked:hover {
+            opacity: 0.7 !important;
+            transform: none !important;
+        }
+        
+        /* Mobile optimization info styling */
+        .mobile-optimization-info {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .mobile-optimization-info .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color, #125E8E);
+            font-size: 0.9rem;
+        }
+        
+        /* Preset Lock Styling */
+        .preset-option {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .preset-option.locked {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .preset-lock-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+        
+        .preset-option.locked:hover .preset-lock-overlay {
+            opacity: 1;
+        }
+        
+        .preset-lock-overlay i {
+            font-size: 1.5rem;
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .unlock-info {
+            text-align: center;
+            color: white;
+        }
+        
+        .unlock-info .price {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #ffd700;
+        }
+        
+        .unlock-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .unlock-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .preset-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .preset-badge.free {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        
+        .section-description {
+            color: var(--text-color, #125E8E);
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+            font-size: 0.9rem;
+        }
+        
+        .section-description i {
+            color: #3b82f6;
+            margin-right: 0.5rem;
+        }
+        
+        .mobile-optimization-info .info-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .mobile-optimization-info .info-item i {
+            color: var(--accent-primary, #67C5FF);
+            width: 16px;
+            text-align: center;
+        }
+        
+        /* Theme indicators for active colors */
+        .theme-indicator {
+            margin-left: 8px;
+            font-size: 16px;
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+        }
+        
+        .theme-indicator.active {
+            opacity: 1;
+        }
+        
+        .light-active {
+            color: #FFA500;
+        }
+        
+        .dark-active {
+            color: #6366F1;
+        }
+        
+        /* Color control styling */
+        .color-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+        
+        .color-control[data-theme-target] {
+            padding: 8px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .color-control[data-theme-target].current-theme {
+            background-color: rgba(var(--accent-primary-rgb, 103, 197, 255), 0.1);
+            border: 1px solid rgba(var(--accent-primary-rgb, 103, 197, 255), 0.3);
+        }
+        
+        /* Topbar preset categories */
+        .preset-category {
+            margin-bottom: 2rem;
+        }
+        
+        .preset-category h4 {
+            color: var(--accent-primary, #67C5FF);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .section-description {
+            color: var(--text-color, #125E8E);
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .topbar-preset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .topbar-preset-option {
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+        
+        .topbar-preset-option:hover {
+            border-color: var(--accent-primary, #67C5FF);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(103, 197, 255, 0.2);
+        }
+        
+        .topbar-preset-option.selected {
+            border-color: var(--accent-secondary, #AA79F9);
+            background: rgba(170, 121, 249, 0.1);
+        }
+        
+        .topbar-preview {
+            height: 40px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        
+        .preview-topbar-bg {
+            height: 100%;
+            width: 100%;
+            border-radius: 8px;
+        }
+        
+        .preview-topbar-nav {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 8px;
+        }
+        
+        .preview-nav-item {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            opacity: 0.8;
+        }
+        
+        .topbar-preset-option p {
+            margin: 0;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-align: center;
+            color: var(--text-color, #125E8E);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Modern Topbar -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="page-breadcrumb">
+                <a href="index.html" class="breadcrumb-item">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Customization</span>
+            </div>
+        </div>
+        
+        <div class="topbar-nav">
+            <a href="about-me.html" class="topbar-nav-item">
+                <i class="fas fa-user"></i>
+                <span>About Me</span>
+            </a>
+            <a href="future-plans.html" class="topbar-nav-item">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="support-project.html" class="topbar-nav-item">
+                <i class="fas fa-heart"></i>
+                <span>Support Project</span>
+            </a>
+            <a href="feedbacks.html" class="topbar-nav-item">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+        </div>
+        
+        <div class="topbar-actions">
+            <div class="coin-display">
+                <i class="fas fa-coins"></i>
+                <span id="userCoins">0</span>
+            </div>
+            <div class="user-menu">
+                <div class="user-trigger">
+                    <div class="user-avatar" id="topbar-profile-pic">A</div>
+                    <div class="user-info">
+                        <span class="user-name" id="topbar-username">Auro User</span>
+                        <span class="user-status">Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="customization-container">
+        <!-- Header Section -->
+        <div class="customization-header">
+          <div class="header-content">
+            <h1>Customize Your Remi Experience</h1>
+          </div>
+          <div class="preview-card">
+            <div class="preview-avatar">
+              <img src="pfp/Remi-pfp.png" alt="Remi" id="previewAvatar">
+              <div class="preview-status online"></div>
+            </div>
+            <div class="preview-info">
+              <h3 id="previewName">Remi</h3>
+              <p id="previewRelationship">Your AI Study Companion</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Customization Sections -->
+        <div class="customization-sections">
+          
+          <!-- Theme Customization -->
+          <div class="customization-section">
+            <div class="section-header">
+              <i class="fas fa-paint-brush"></i>
+              <h2>Theme & Appearance</h2>
+              <p>Choose your preferred visual style</p>
+            </div>
+            <div class="section-content">
+              <div class="theme-grid">
+                <div class="theme-option" data-theme="light">
+                  <div class="theme-preview light-theme">
+                    <div class="preview-topbar"></div>
+                    <div class="preview-sidebar"></div>
+                    <div class="preview-content"></div>
+                  </div>
+                  <h4>Light Theme</h4>
+                  <p>Clean and bright interface</p>
+                </div>
+                <div class="theme-option" data-theme="dark">
+                  <div class="theme-preview dark-theme">
+                    <div class="preview-topbar"></div>
+                    <div class="preview-sidebar"></div>
+                    <div class="preview-content"></div>
+                  </div>
+                  <h4>Dark Theme</h4>
+                  <p>Easy on the eyes</p>
+                </div>
+                <div class="theme-option" data-theme="auto">
+                  <div class="theme-preview auto-theme">
+                    <div class="preview-topbar"></div>
+                    <div class="preview-sidebar"></div>
+                    <div class="preview-content"></div>
+                  </div>
+                  <h4>Auto Theme</h4>
+                  <p>Follows system preference</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Color Customization -->
+          <div class="customization-section">
+            <div class="section-header">
+              <i class="fas fa-color-lens"></i>
+              <h2>Color Palette</h2>
+              <p>Customize your color scheme</p>
+            </div>
+            <div class="section-content">
+              <div class="color-groups">
+                <div class="color-group">
+                  <h3>Primary Colors</h3>
+                  <div class="color-controls">
+                    <div class="color-control">
+                      <label for="accentPrimary">Primary Accent</label>
+                      <input type="color" id="accentPrimary" value="#67C5FF">
+                      <span class="color-value">#67C5FF</span>
+                    </div>
+                    <div class="color-control">
+                      <label for="accentSecondary">Secondary Accent</label>
+                      <input type="color" id="accentSecondary" value="#AA79F9">
+                      <span class="color-value">#AA79F9</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="color-group">
+                  <h3>Interface Colors</h3>
+                  <div class="color-controls">
+                    <div class="color-control" data-theme-target="light">
+                      <label for="backgroundColor">Background (Light Mode)</label>
+                      <input type="color" id="backgroundColor" value="#EEF8FF">
+                      <span class="color-value">#EEF8FF</span>
+                      <span class="theme-indicator light-active">●</span>
+                    </div>
+                    <div class="color-control" data-theme-target="dark">
+                      <label for="backgroundColorDark">Background (Dark Mode)</label>
+                      <input type="color" id="backgroundColorDark" value="#1a1a1a">
+                      <span class="color-value">#1a1a1a</span>
+                      <span class="theme-indicator dark-active">●</span>
+                    </div>
+                    <div class="color-control" data-theme-target="light">
+                      <label for="textColor">Text Color (Light Mode)</label>
+                      <input type="color" id="textColor" value="#125E8E">
+                      <span class="color-value">#125E8E</span>
+                      <span class="theme-indicator light-active">●</span>
+                    </div>
+                    <div class="color-control" data-theme-target="dark">
+                      <label for="textColorDark">Text Color (Dark Mode)</label>
+                      <input type="color" id="textColorDark" value="#E5F4FF">
+                      <span class="color-value">#E5F4FF</span>
+                      <span class="theme-indicator dark-active">●</span>
+                    </div>
+                    <div class="color-control">
+                      <label for="sidebarBorderColor">Sidebar Border</label>
+                      <input type="color" id="sidebarBorderColor" value="#18BEFF">
+                      <span class="color-value">#18BEFF</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="color-group">
+                  <h3>Status Colors</h3>
+                  <div class="color-controls">
+                    <div class="color-control">
+                      <label for="successColor">Success</label>
+                      <input type="color" id="successColor" value="#10B981">
+                      <span class="color-value">#10B981</span>
+                    </div>
+                    <div class="color-control">
+                      <label for="warningColor">Warning</label>
+                      <input type="color" id="warningColor" value="#F59E0B">
+                      <span class="color-value">#F59E0B</span>
+                    </div>
+                    <div class="color-control">
+                      <label for="errorColor">Error</label>
+                      <input type="color" id="errorColor" value="#EF4444">
+                      <span class="color-value">#EF4444</span>
+                    </div>
+                  </div>
+                </div>
+              </div>              <div class="preset-colors">
+                <div class="presets-header">
+                  <h3>Color Presets</h3>
+                  <button class="add-more-btn" onclick="window.location.href='shop.html#color-presets'">
+                    <i class="fas fa-plus"></i>
+                    Add More
+                  </button>
+                </div>
+                <p class="section-description">
+                  <i class="fas fa-info-circle"></i>
+                  Only your purchased presets are shown here. Visit the shop to explore more themes!
+                </p>
+                <div class="preset-grid">
+                  <!-- Free/Default Presets -->
+                  <div class="preset-option" data-preset="default">
+                    <div class="preset-colors-preview">
+                      <span style="background: #67C5FF;"></span>
+                      <span style="background: #AA79F9;"></span>
+                      <span style="background: #EEF8FF;"></span>
+                    </div>
+                    <p>Ocean Breeze</p>
+                    <span class="preset-badge free">Free</span>
+                  </div>
+                  <div class="preset-option" data-preset="sunset">
+                    <div class="preset-colors-preview">
+                      <span style="background: #FF6B6B;"></span>
+                      <span style="background: #4ECDC4;"></span>
+                      <span style="background: #FFF5E1;"></span>
+                    </div>
+                    <p>Sunset Glow</p>
+                    <span class="preset-badge free">Free</span>
+                  </div>
+                  <div class="preset-option" data-preset="forest">
+                    <div class="preset-colors-preview">
+                      <span style="background: #52C41A;"></span>
+                      <span style="background: #1890FF;"></span>
+                      <span style="background: #F6FFED;"></span>
+                    </div>
+                    <p>Forest Fresh</p>
+                    <span class="preset-badge free">Free</span>
+                  </div>
+                  
+                  <!-- Purchased presets will be loaded dynamically by JavaScript -->
+                </div>
+              </div>
+
+              <!-- Topbar Presets -->
+              <div class="topbar-presets">
+                <div class="presets-header">
+                  <h3>Topbar Presets</h3>
+                  <button class="add-more-btn" onclick="window.location.href='shop.html#topbar-themes'">
+                    <i class="fas fa-plus"></i>
+                    Add More
+                  </button>
+                </div>
+                <p class="section-description">Only your purchased topbar themes are shown here. Visit the shop to explore more styles!</p>
+                
+                <!-- Default/Free Topbar Options -->
+                <div class="preset-category">
+                  <h4>Free Styles</h4>
+                  <div class="topbar-preset-grid">
+                    <div class="topbar-preset-option" data-topbar-preset="modern" data-preset-index="0">
+                      <div class="topbar-preview modern-glass-blue">
+                        <div class="preview-topbar-bg" style="background: rgba(103, 197, 255, 0.15); border: 1px solid rgba(103, 197, 255, 0.3);"></div>
+                        <div class="preview-topbar-nav">
+                          <div class="preview-nav-item" style="color: #125E8E;"></div>
+                          <div class="preview-nav-item" style="color: #125E8E;"></div>
+                        </div>
+                      </div>
+                      <p>Glass Blue</p>
+                      <span class="preset-badge free">Free</span>
+                    </div>
+                    <div class="topbar-preset-option" data-topbar-preset="solid" data-preset-index="0">
+                      <div class="topbar-preview solid-white">
+                        <div class="preview-topbar-bg" style="background: #ffffff; border: none; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);"></div>
+                        <div class="preview-topbar-nav">
+                          <div class="preview-nav-item" style="color: #333333;"></div>
+                          <div class="preview-nav-item" style="color: #333333;"></div>
+                        </div>
+                      </div>
+                      <p>Clean White</p>
+                      <span class="preset-badge free">Free</span>
+                    </div>
+                    <div class="topbar-preset-option" data-topbar-preset="gradient" data-preset-index="0">
+                      <div class="topbar-preview gradient-ocean">
+                        <div class="preview-topbar-bg" style="background: linear-gradient(135deg, #0EA5E9 0%, #06B6D4 100%);"></div>
+                        <div class="preview-topbar-nav">
+                          <div class="preview-nav-item" style="color: #ffffff;"></div>
+                          <div class="preview-nav-item" style="color: #ffffff;"></div>
+                        </div>
+                      </div>
+                      <p>Ocean Wave</p>
+                      <span class="preset-badge free">Free</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Purchased topbar themes will be loaded dynamically by JavaScript -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Background Customization -->
+          <div class="customization-section">
+            <div class="section-header">
+              <i class="fas fa-image"></i>
+              <h2>Background & Wallpaper</h2>
+              <p>Set custom backgrounds for different pages</p>
+            </div>
+            <div class="section-content">
+              <div class="background-options">
+                <div class="background-group">
+                  <h3>Chat Background</h3>
+                  <div class="background-controls">
+                    <div class="current-background" id="chatBackground">
+                      <img src="" alt="Current background" style="display: none;">
+                      <div class="no-background">
+                        <i class="fas fa-image"></i>
+                        <p>No background set</p>
+                      </div>
+                    </div>
+                    <div class="background-buttons">
+                      <button class="btn-secondary" onclick="selectBackground('chat')">
+                        <i class="fas fa-image"></i> 
+                        <span>Upload Background</span>
+                      </button>
+                      <button class="btn-primary btn-locked" onclick="showLockedFeature('Live Wallpaper')" disabled>
+                        <i class="fas fa-video"></i> 
+                        <span>Live Wallpaper</span>
+                        <i class="fas fa-lock" style="margin-left: 0.5rem; font-size: 0.8em;"></i>
+                      </button>
+                      <button class="btn-outline" onclick="removeBackground('chat')" title="Remove background">
+                        <i class="fas fa-trash"></i> Remove
+                      </button>
+                    </div>
+                    <input type="file" id="chatBackgroundInput" accept="image/*" style="display: none;">
+                    
+                    <!-- Mobile Optimization Info -->
+                    <div class="mobile-optimization-info">
+                      <div class="info-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Auto-optimized for mobile vertical display</span>
+                      </div>
+                      <div class="info-item">
+                        <i class="fas fa-compress-arrows-alt"></i>
+                        <span>Single background for all devices</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="background-group">
+                  <h3>Main Background</h3>
+                  <div class="background-controls">
+                    <div class="current-background" id="mainBackground">
+                      <img src="" alt="Current background" style="display: none;">
+                      <div class="no-background">
+                        <i class="fas fa-image"></i>
+                        <p>No background set</p>
+                      </div>
+                    </div>
+                    <div class="background-buttons">
+                      <button class="btn-secondary" onclick="selectBackground('main')">
+                        <i class="fas fa-image"></i> 
+                        <span>Upload Background</span>
+                      </button>
+                      <button class="btn-primary btn-locked" onclick="showLockedFeature('Live Wallpaper')" disabled>
+                        <i class="fas fa-video"></i> 
+                        <span>Live Wallpaper</span>
+                        <i class="fas fa-lock" style="margin-left: 0.5rem; font-size: 0.8em;"></i>
+                      </button>
+                      <button class="btn-outline" onclick="removeBackground('main')" title="Remove background">
+                        <i class="fas fa-trash"></i> Remove
+                      </button>
+                    </div>
+                    <input type="file" id="mainBackgroundInput" accept="image/*" style="display: none;">
+                    
+                    <!-- Mobile Optimization Info -->
+                    <div class="mobile-optimization-info">
+                      <div class="info-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Auto-optimized for mobile vertical display</span>
+                      </div>
+                      <div class="info-item">
+                        <i class="fas fa-compress-arrows-alt"></i>
+                        <span>Single background for all devices</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Save Actions Section -->
+          <div class="customization-section">
+            <div class="section-header">
+              <i class="fas fa-save"></i>
+              <h2>Save Your Customizations</h2>
+              <p>Apply and save all your changes</p>
+            </div>
+            <div class="section-content">
+              <div class="save-actions">
+                <div class="save-info">
+                  <div class="unsaved-indicator" id="unsavedIndicator" style="display: none;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>You have unsaved changes</span>
+                  </div>
+                  <div class="saved-indicator" id="savedIndicator" style="display: none;">
+                    <i class="fas fa-check-circle"></i>
+                    <span>All changes saved successfully</span>
+                  </div>
+                </div>
+                <div class="save-buttons">
+                  <button class="btn-primary save-btn" id="saveCustomizations">
+                    <i class="fas fa-save"></i>
+                    Save Changes
+                  </button>
+                  <button class="btn-secondary" id="resetToDefaults">
+                    <i class="fas fa-undo"></i>
+                    Reset to Defaults
+                  </button>
+                  <button class="btn-outline" id="exportSettings">
+                    <i class="fas fa-download"></i>
+                    Export Settings
+                  </button>
+                  <button class="btn-outline" id="importSettingsBtn">
+                    <i class="fas fa-upload"></i>
+                    Import Settings
+                  </button>
+                  <input type="file" id="importInput" accept=".json" style="display: none;">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coming Soon Section -->
+          <div class="customization-section">
+            <div class="section-header">
+              <i class="fas fa-clock"></i>
+              <h2>More Customizable Options Soon</h2>
+              <p>We're working on bringing you more amazing customization features!</p>
+            </div>
+            <div class="section-content">
+              <div class="coming-soon-content">
+                <div class="coming-soon-icon">
+                  <i class="fas fa-magic"></i>
+                </div>
+                <h3>Stay Tuned!</h3>
+                <p>We're actively developing exciting new customization options including personality settings, advanced interface preferences, and much more. Check back soon for updates!</p>
+                <div class="coming-soon-features">
+                  <div class="feature-item">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Personality Customization</span>
+                  </div>
+                  <div class="feature-item">
+                    <i class="fas fa-cogs"></i>
+                    <span>Advanced Interface Settings</span>
+                  </div>
+                  <div class="feature-item">
+                    <i class="fas fa-palette"></i>
+                    <span>Extended Theme Options</span>
+                  </div>
+                  <div class="feature-item">
+                    <i class="fas fa-magic"></i>
+                    <span>And Much More...</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Navigation Background -->
+    <div class="floating-nav-background" id="floating-nav-background"></div>
+
+    <!-- Floating Navigation Hub -->
+    <div class="floating-nav-hub" id="floating-nav-hub">
+        <button class="nav-hub-button" id="nav-hub-button">
+            <i class="fas fa-th"></i>
+        </button>
+        
+        <div class="nav-options" id="nav-options">
+            <a href="dashboard.html" class="nav-option">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="plans.html" class="nav-option">
+                <i class="fas fa-map"></i>
+                <span>Plans</span>
+            </a>
+            <a href="chat.html" class="nav-option registered-only">
+                <i class="fas fa-message"></i>
+                <span>Chat</span>
+            </a>
+            <a href="tasks.html" class="nav-option registered-only">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="schedule.html" class="nav-option registered-only">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Schedule</span>
+            </a>
+            <a href="achievements.html" class="nav-option registered-only">
+                <i class="fas fa-trophy"></i>
+                <span>Achievements</span>
+            </a>
+            <a href="super-tracker.html" class="nav-option registered-only">
+                <i class="fas fa-chart-line"></i>
+                <span>Tracker</span>
+            </a>
+            <a href="customization.html" class="nav-option current-page registered-only">
+                <i class="fas fa-heart"></i>
+                <span>Customize</span>
+            </a>
+            <a href="shop.html" class="nav-option registered-only">
+                <i class="fas fa-store"></i>
+                <span>Shop</span>
+            </a>
+            <a href="about.html" class="nav-option">
+                <i class="fas fa-user-circle"></i>
+                <span>About Me</span>
+            </a>
+            <a href="future-plans.html" class="nav-option">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="support-project.html" class="nav-option">
+                <i class="fas fa-heart-circle-bolt"></i>
+                <span>Support Project</span>
+            </a>
+            <a href="feedbacks.html" class="nav-option">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+            <a href="settings.html" class="nav-option">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/floating-navigation.js"></script>
+    <script src="scripts/global-profile-manager.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+    <script src="scripts/global-navigation.js"></script>
+    <script src="scripts/coin-system.js"></script>
+    <script src="scripts/customization.js"></script>
+    <script src="scripts/system.js"></script>
+    <script>
+        // Initialize sidebar toggle (with null check)
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const mainSidebar = document.getElementById('main-sidebar');
+        
+        if (sidebarToggle && mainSidebar) {
+            sidebarToggle.addEventListener('click', function() {
+                mainSidebar.classList.toggle('collapsed');
+            });
+        }
+        
+        // Go to shop function for locked presets
+        function goToShop(itemId) {
+            const shopUrl = `shop.html#${itemId}`;
+            window.location.href = shopUrl;
+        }
+        
+        // Check for unlocked items and update UI when coin system loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait a bit for coin system to initialize
+            setTimeout(function() {
+                if (window.coinSystem) {
+                    updateLockedPresets();
+                    
+                    // Listen for purchase events
+                    document.addEventListener('itemPurchased', function(event) {
+                        if (event.detail.category === 'colorPresets') {
+                            updateLockedPresets();
+                        }
+                    });
+                }
+            }, 500);
+        });
+        
+        function updateLockedPresets() {
+            if (!window.coinSystem) return;
+            
+            const lockedPresets = document.querySelectorAll('.preset-option.locked');
+            lockedPresets.forEach(preset => {
+                const presetId = preset.getAttribute('data-preset');
+                if (window.coinSystem.hasUnlocked('colorPresets', presetId)) {
+                    preset.classList.remove('locked');
+                    const overlay = preset.querySelector('.preset-lock-overlay');
+                    if (overlay) {
+                        overlay.remove();
+                    }
+                    // Add unlocked badge
+                    if (!preset.querySelector('.preset-badge')) {
+                        const badge = document.createElement('span');
+                        badge.className = 'preset-badge';
+                        badge.textContent = 'Unlocked';
+                        preset.appendChild(badge);
+                    }
+                }
+            });
+        }
+    </script>
+  </body>
+</html>

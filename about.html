@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me - Youssef Mohamed | Creator of Auro</title>
     <meta name="description" content="Meet Youssef Mohamed, the creator of Auro productivity platform. Learn about the vision behind the productive revolution.">
-    <link rel="stylesheet" href="../../styles/main.css">
-    <link rel="stylesheet" href="../../styles/dashboard.css">
-    <link rel="stylesheet" href="../../styles/about.css">
-    <link rel="stylesheet" href="../../styles/floating-nav.css">
-    <link rel="stylesheet" href="../../styles/modern-navigation.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/about.css">
+    <link rel="stylesheet" href="styles/floating-nav.css">
+    <link rel="stylesheet" href="styles/modern-navigation.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         /* Modern Design System */
@@ -79,75 +79,10 @@
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
             position: relative;
             z-index: 2;
+            background-image: url('pfp/Youssef.png'), url('pfp/Youssef.jpg');
             background-size: cover;
             background-position: center;
             border: 4px solid rgba(255, 255, 255, 0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
-
-        .profile-avatar:hover {
-            transform: scale(1.05);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-        }
-
-        .profile-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
-        .profile-avatar .initials {
-            font-size: 4rem;
-            font-weight: 700;
-            color: #667eea;
-        }
-
-        /* File input for profile picture */
-        .profile-upload {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
-            z-index: 5;
-        }
-
-        .profile-upload-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            border-radius: 50%;
-            z-index: 3;
-            pointer-events: none;
-        }
-
-        .profile-avatar:hover .profile-upload-overlay {
-            opacity: 1;
-        }
-
-        .profile-upload-overlay i {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .profile-upload-overlay span {
-            font-size: 0.9rem;
-            font-weight: 600;
         }
 
         .hero-title {
@@ -408,40 +343,28 @@
                 scroll-behavior: smooth !important;
                 -webkit-overflow-scrolling: touch !important;
                 scrollbar-width: thin !important;
-                scrollbar-color: rgba(102, 126, 234, 0.5) rgba(255, 255, 255, 0.1) !important;
+                scrollbar-color: rgba(102, 126, 234, 0.3) transparent !important;
                 gap: 0.5rem !important;
                 min-width: max-content !important;
-                padding: 0.5rem 0 1rem 0 !important;
-                display: flex !important;
-                flex-wrap: nowrap !important;
-                width: 100% !important;
+                padding: 0.5rem 0 !important;
             }
 
             .topbar-nav::-webkit-scrollbar {
-                height: 6px !important;
-                background: rgba(255, 255, 255, 0.1) !important;
-                border-radius: 3px !important;
+                height: 4px !important;
             }
 
             .topbar-nav::-webkit-scrollbar-track {
                 background: rgba(255, 255, 255, 0.1) !important;
-                border-radius: 3px !important;
-                margin: 0 10px !important;
+                border-radius: 2px !important;
             }
 
             .topbar-nav::-webkit-scrollbar-thumb {
-                background: linear-gradient(90deg, rgba(102, 126, 234, 0.6), rgba(118, 75, 162, 0.6)) !important;
-                border-radius: 3px !important;
-                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                background: rgba(102, 126, 234, 0.5) !important;
+                border-radius: 2px !important;
             }
 
             .topbar-nav::-webkit-scrollbar-thumb:hover {
-                background: linear-gradient(90deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8)) !important;
-                box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3) !important;
-            }
-
-            .topbar-nav::-webkit-scrollbar-thumb:active {
-                background: linear-gradient(90deg, rgba(102, 126, 234, 1), rgba(118, 75, 162, 1)) !important;
+                background: rgba(102, 126, 234, 0.7) !important;
             }
 
             .topbar-nav-item {
@@ -449,201 +372,7 @@
                 white-space: nowrap !important;
                 padding: 0.5rem 0.75rem !important;
                 font-size: 0.9rem !important;
-                min-width: fit-content !important;
-                margin-right: 0.25rem !important;
             }
-
-            /* Improve touch interaction on mobile */
-            .topbar-nav {
-                -webkit-user-select: none !important;
-                -moz-user-select: none !important;
-                -ms-user-select: none !important;
-                user-select: none !important;
-            }
-
-            /* Fade out edges for better scroll indication */
-            .topbar-nav::before,
-            .topbar-nav::after {
-                content: '' !important;
-                position: absolute !important;
-                top: 0 !important;
-                bottom: 0 !important;
-                width: 20px !important;
-                pointer-events: none !important;
-                z-index: 1 !important;
-            }
-
-            .topbar-nav::before {
-                left: 0 !important;
-                background: linear-gradient(to right, rgba(255, 255, 255, 0.95), transparent) !important;
-            }
-
-            .topbar-nav::after {
-                right: 0 !important;
-                background: linear-gradient(to left, rgba(255, 255, 255, 0.95), transparent) !important;
-            }
-        }
-
-        /* Default Topbar Styling - Fallback when no customization is applied */
-        .topbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 85px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 2rem;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .topbar-left {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .page-breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .breadcrumb-current {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #333;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .topbar-nav {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex: 1;
-            justify-content: center;
-        }
-
-        .topbar-nav-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.25rem;
-            text-decoration: none;
-            color: #666;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            font-size: 0.95rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .topbar-nav-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--primary-gradient);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            border-radius: 12px;
-        }
-
-        .topbar-nav-item:hover::before,
-        .topbar-nav-item.active::before {
-            opacity: 0.1;
-        }
-
-        .topbar-nav-item:hover {
-            color: #333;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
-        }
-
-        .topbar-nav-item.active {
-            color: #667eea;
-            font-weight: 600;
-        }
-
-        .topbar-nav-item i {
-            font-size: 1rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .topbar-nav-item span {
-            position: relative;
-            z-index: 2;
-        }
-
-        .topbar-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .user-menu {
-            display: flex;
-            align-items: center;
-        }
-
-        .user-trigger {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.5rem 1rem;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .user-trigger:hover {
-            background: rgba(102, 126, 234, 0.15);
-            transform: translateY(-1px);
-        }
-
-        .user-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--primary-gradient);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .user-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.1rem;
-        }
-
-        .user-name {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .user-status {
-            font-size: 0.75rem;
-            color: #43e97b;
-            font-weight: 500;
         }
     </style>
 </head>
@@ -673,7 +402,7 @@
                 <i class="fas fa-comments"></i>
                 <span>Feedbacks</span>
             </a>
-            <a href="index.html" class="topbar-nav-item">
+            <a href="countdown.html" class="topbar-nav-item">
                 <i class="fas fa-clock"></i>
                 <span>Launch Countdown</span>
             </a>
@@ -684,7 +413,7 @@
                 <div class="user-trigger">
                     <div class="user-avatar" id="topbar-profile-pic">A</div>
                     <div class="user-info">
-                        <span class="user-name" id="topbar-username">Auro User</span>
+                        <span class="user-name" id="topbar-username"></span>
                         <span class="user-status">Active</span>
                     </div>
                 </div>
@@ -693,21 +422,14 @@
     </div>
 
     <!-- Main Content -->
-    <div class="main-content" style="margin-left: 0; margin-top: 85px;">
+    <div class="main-content" style="margin-left: 0; margin-top: 70px;">
         <!-- Hero Section -->
         <section class="hero-section">
-            <div class="profile-avatar" id="profile-avatar">
-                <span class="initials" id="profile-initials">YM</span>
-                <input type="file" class="profile-upload" id="profile-upload" accept="image/*">
-                <div class="profile-upload-overlay">
-                    <i class="fas fa-camera"></i>
-                    <span>Change Photo</span>
-                </div>
-            </div>
+            <div class="profile-avatar">YM</div>
             <h1 class="hero-title">Youssef Mohamed</h1>
             <p class="hero-subtitle">Creator of Auro | Building the Productive Revolution</p>
             <p style="color: rgba(255, 255, 255, 0.9); max-width: 700px; margin: 2rem auto 0; position: relative; z-index: 2; font-size: 1.3rem; line-height: 1.6;">
-                I'm Youssef — a builder of ideas, seeker of knowledge, and someone who strives to grow both in mind and soul. I create to help, I learn to serve, and I walk my path with purpose — for people and for the sake of Allah.
+                I’m Youssef — a builder of ideas, seeker of knowledge, and someone who strives to grow both in mind and soul. I create to help, I learn to serve, and I walk my path with purpose — for people and for the sake of Allah.
             </p>
         </section>
 
@@ -779,255 +501,12 @@
     </div>
     </div>
 
-    <!-- Profile Picture Management with IndexedDB -->
-    <script>
-        class ProfilePictureManager {
-            constructor() {
-                this.dbName = 'AuroProfileDB';
-                this.dbVersion = 1;
-                this.storeName = 'profilePictures';
-                this.db = null;
-                this.init();
-            }
-
-            async init() {
-                try {
-                    await this.initDB();
-                    await this.loadProfilePicture();
-                    this.setupEventListeners();
-                } catch (error) {
-                    console.error('Failed to initialize profile picture manager:', error);
-                }
-            }
-
-            async initDB() {
-                return new Promise((resolve, reject) => {
-                    const request = indexedDB.open(this.dbName, this.dbVersion);
-                    
-                    request.onerror = () => reject(request.error);
-                    request.onsuccess = () => {
-                        this.db = request.result;
-                        resolve(this.db);
-                    };
-                    
-                    request.onupgradeneeded = (event) => {
-                        const db = event.target.result;
-                        if (!db.objectStoreNames.contains(this.storeName)) {
-                            const store = db.createObjectStore(this.storeName, { keyPath: 'id' });
-                            store.createIndex('timestamp', 'timestamp', { unique: false });
-                        }
-                    };
-                });
-            }
-
-            async saveProfilePicture(imageData) {
-                if (!this.db) return false;
-                
-                return new Promise((resolve, reject) => {
-                    const transaction = this.db.transaction([this.storeName], 'readwrite');
-                    const store = transaction.objectStore(this.storeName);
-                    
-                    const profileData = {
-                        id: 'main-profile',
-                        imageData: imageData,
-                        timestamp: Date.now()
-                    };
-                    
-                    const request = store.put(profileData);
-                    request.onsuccess = () => resolve(true);
-                    request.onerror = () => reject(request.error);
-                });
-            }
-
-            async getProfilePicture() {
-                if (!this.db) return null;
-                
-                return new Promise((resolve, reject) => {
-                    const transaction = this.db.transaction([this.storeName], 'readonly');
-                    const store = transaction.objectStore(this.storeName);
-                    const request = store.get('main-profile');
-                    
-                    request.onsuccess = () => {
-                        if (request.result) {
-                            resolve(request.result.imageData);
-                        } else {
-                            resolve(null);
-                        }
-                    };
-                    request.onerror = () => reject(request.error);
-                });
-            }
-
-            async loadProfilePicture() {
-                try {
-                    const imageData = await this.getProfilePicture();
-                    const profileAvatar = document.getElementById('profile-avatar');
-                    const profileInitials = document.getElementById('profile-initials');
-                    const topbarProfilePic = document.getElementById('topbar-profile-pic');
-                    
-                    if (imageData && profileAvatar) {
-                        // Create image element for main profile
-                        const img = document.createElement('img');
-                        img.src = imageData;
-                        img.alt = 'Profile Picture';
-                        
-                        // Replace initials with image
-                        profileInitials.style.display = 'none';
-                        
-                        // Remove any existing images
-                        const existingImg = profileAvatar.querySelector('img');
-                        if (existingImg) {
-                            existingImg.remove();
-                        }
-                        
-                        profileAvatar.appendChild(img);
-                        
-                        // Update topbar profile picture
-                        if (topbarProfilePic) {
-                            topbarProfilePic.innerHTML = `<img src="${imageData}" alt="Profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
-                        }
-                        
-                        console.log('Profile picture loaded from IndexedDB');
-                    } else {
-                        // Show initials if no image
-                        if (profileInitials) {
-                            profileInitials.style.display = 'flex';
-                        }
-                        if (topbarProfilePic) {
-                            topbarProfilePic.textContent = 'YM';
-                        }
-                    }
-                } catch (error) {
-                    console.error('Failed to load profile picture:', error);
-                }
-            }
-
-            setupEventListeners() {
-                const profileUpload = document.getElementById('profile-upload');
-                if (profileUpload) {
-                    profileUpload.addEventListener('change', (event) => {
-                        this.handleImageUpload(event);
-                    });
-                }
-            }
-
-            async handleImageUpload(event) {
-                const file = event.target.files[0];
-                if (!file) return;
-
-                // Validate file type
-                if (!file.type.startsWith('image/')) {
-                    alert('Please select a valid image file.');
-                    return;
-                }
-
-                // Validate file size (max 5MB)
-                if (file.size > 5 * 1024 * 1024) {
-                    alert('Image size should be less than 5MB.');
-                    return;
-                }
-
-                try {
-                    // Convert to base64
-                    const imageData = await this.fileToBase64(file);
-                    
-                    // Save to IndexedDB
-                    await this.saveProfilePicture(imageData);
-                    
-                    // Update display
-                    await this.loadProfilePicture();
-                    
-                    // Show success message
-                    this.showNotification('Profile picture updated successfully!', 'success');
-                    
-                } catch (error) {
-                    console.error('Failed to upload profile picture:', error);
-                    this.showNotification('Failed to update profile picture. Please try again.', 'error');
-                }
-            }
-
-            fileToBase64(file) {
-                return new Promise((resolve, reject) => {
-                    const reader = new FileReader();
-                    reader.onload = () => resolve(reader.result);
-                    reader.onerror = reject;
-                    reader.readAsDataURL(file);
-                });
-            }
-
-            showNotification(message, type = 'info') {
-                // Create notification element
-                const notification = document.createElement('div');
-                notification.style.cssText = `
-                    position: fixed;
-                    top: 90px;
-                    right: 20px;
-                    background: ${type === 'success' ? 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' : 'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)'};
-                    color: white;
-                    padding: 1rem 1.5rem;
-                    border-radius: 12px;
-                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-                    z-index: 10000;
-                    font-weight: 600;
-                    font-size: 0.9rem;
-                    max-width: 300px;
-                    animation: slideIn 0.3s ease;
-                `;
-                
-                notification.textContent = message;
-                document.body.appendChild(notification);
-                
-                // Add slide-in animation
-                const style = document.createElement('style');
-                style.textContent = `
-                    @keyframes slideIn {
-                        from {
-                            transform: translateX(100%);
-                            opacity: 0;
-                        }
-                        to {
-                            transform: translateX(0);
-                            opacity: 1;
-                        }
-                    }
-                `;
-                document.head.appendChild(style);
-                
-                // Remove after 3 seconds
-                setTimeout(() => {
-                    notification.style.animation = 'slideIn 0.3s ease reverse';
-                    setTimeout(() => {
-                        if (notification.parentNode) {
-                            notification.parentNode.removeChild(notification);
-                        }
-                    }, 300);
-                }, 3000);
-            }
-
-            // Public method to get profile picture for other pages
-            static async getStoredProfilePicture() {
-                try {
-                    const manager = new ProfilePictureManager();
-                    await manager.initDB();
-                    return await manager.getProfilePicture();
-                } catch (error) {
-                    console.error('Failed to get stored profile picture:', error);
-                    return null;
-                }
-            }
-        }
-
-        // Initialize profile picture manager when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            new ProfilePictureManager();
-        });
-
-        // Make ProfilePictureManager globally available
-        window.ProfilePictureManager = ProfilePictureManager;
-    </script>
-
     <!-- Include Scripts -->
-    <script src="../../scripts/global-navigation.js"></script>
-    <script src="../../scripts/customization-loader.js"></script>
+    <script src="scripts/global-navigation.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+
+    <!-- Global Theme Synchronization -->
+    <script src="scripts/universal-page-system.js"></script>
+    <script src="scripts/global-theme-sync.js"></script>
 </body>
 </html>

@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedbacks - Community Voices by Youssef Mohamed</title>
+    <meta name="description" content="Share your feedback and help shape the future of Auro - Your voice matters in the productive revolution.">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/floating-nav.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/about.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Modern Design System */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warning-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow-light: 0 8px 32px rgba(31, 38, 135, 0.37);
+            --shadow-medium: 0 15px 35px rgba(31, 38, 135, 0.2);
+            --shadow-heavy: 0 20px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Enhanced Glass Morphism */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-heavy);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: var(--secondary-gradient);
+            border-radius: 25px;
+            padding: 4rem 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 25% 75%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 75% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            color: white;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .stat-card {
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 20px;
+        }
+
+        .stat-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .stat-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #333;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: #666;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .testimonial-card {
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--success-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 20px;
+        }
+
+        .testimonial-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .testimonial-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            background: var(--success-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonial-quote {
+            font-size: 1.3rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonial-author {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonial-role {
+            color: #667eea;
+            font-size: 1rem;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Feedback Form */
+        .feedback-form {
+            padding: 4rem;
+            margin: 4rem 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .form-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: #333;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .submit-btn {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 1.5rem 3rem;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 0 auto;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        /* Guidelines Section */
+        .guidelines-section {
+            background: var(--warning-gradient);
+            border-radius: 25px;
+            padding: 4rem 2rem;
+            margin: 4rem 0;
+            text-align: center;
+            color: white;
+        }
+
+        .guidelines-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .guidelines-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .guideline-item {
+            text-align: center;
+        }
+
+        .guideline-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .guideline-text {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Community CTA */
+        .community-cta {
+            background: linear-gradient(135deg, rgba(240, 147, 251, 0.1), rgba(245, 87, 108, 0.1));
+            border-radius: 25px;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 4rem 0;
+            border: 1px solid rgba(240, 147, 251, 0.2);
+        }
+
+        .community-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .community-description {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .community-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .community-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem 3rem;
+            background: var(--secondary-gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .community-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .feedback-form {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <div class="topbar">
+        <div class="topbar-content">
+            <div class="logo-section">
+                <img src="pfp/Auro_Logo.png" alt="Auro Logo" class="logo">
+                <span class="app-name">Auro</span>
+            </div>
+            
+            <nav class="topbar-nav">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="tasks.html" class="nav-link">
+                    <i class="fas fa-tasks"></i>
+                    <span>Tasks</span>
+                </a>
+                <a href="schedule.html" class="nav-link">
+                    <i class="fas fa-calendar"></i>
+                    <span>Schedule</span>
+                </a>
+                <a href="tracker.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Tracker</span>
+                </a>
+                <a href="chat.html" class="nav-link">
+                    <i class="fas fa-comments"></i>
+                    <span>AI Chat</span>
+                </a>
+                <a href="shop.html" class="nav-link">
+                    <i class="fas fa-store"></i>
+                    <span>Shop</span>
+                </a>
+            </nav>
+            
+            <div class="topbar-actions">
+                <button class="action-btn" id="settings-btn">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button class="action-btn" id="user-menu-btn">
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="main-sidebar">
+        <div class="sidebar-header">
+            <div class="user-info">
+                <img src="pfp/Auro_Logo.png" alt="Profile" class="user-avatar">
+                <div class="user-details">
+                    <h3 class="user-name">Youssef Mohamed</h3>
+                    <span class="user-status">Creator & Developer</span>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="tasks.html" class="nav-item">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="schedule.html" class="nav-item">
+                <i class="fas fa-calendar"></i>
+                <span>Schedule</span>
+            </a>
+            <a href="tracker.html" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Tracker</span>
+            </a>
+            <a href="chat.html" class="nav-item">
+                <i class="fas fa-comments"></i>
+                <span>AI Chat</span>
+            </a>
+            <a href="shop.html" class="nav-item">
+                <i class="fas fa-store"></i>
+                <span>Shop</span>
+            </a>
+            
+            <div class="nav-divider"></div>
+            
+            <a href="about.html" class="nav-item">
+                <i class="fas fa-user"></i>
+                <span>About Me</span>
+            </a>
+            <a href="support-project.html" class="nav-item">
+                <i class="fas fa-heart"></i>
+                <span>Support</span>
+            </a>
+            <a href="future-plans.html" class="nav-item">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="feedbacks.html" class="nav-item active">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-icon">
+                <i class="fas fa-comments"></i>
+            </div>
+            <h1 class="hero-title">Community Voices</h1>
+            <p class="hero-subtitle">Your feedback shapes the future with Youssef Mohamed</p>
+            <p style="color: rgba(255, 255, 255, 0.8); max-width: 700px; margin: 0 auto; position: relative; z-index: 2;">
+                Every suggestion, every idea, every piece of feedback helps build a better Auro. 
+                Join the productive revolution by sharing your thoughts and helping shape what's next.
+            </p>
+        </section>
+
+        <!-- Community Impact -->
+        <section style="margin: 4rem 0;">
+            <h2 class="section-title">Community Impact</h2>
+            <div class="stats-grid">
+                <div class="stat-card glass-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="stat-number">247</div>
+                    <div class="stat-label">Ideas Shared</div>
+                </div>
+                
+                <div class="stat-card glass-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-number">156</div>
+                    <div class="stat-label">Features Implemented</div>
+                </div>
+                
+                <div class="stat-card glass-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number">1,420</div>
+                    <div class="stat-label">Active Contributors</div>
+                </div>
+                
+                <div class="stat-card glass-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="stat-number">99%</div>
+                    <div class="stat-label">Satisfaction Rate</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Community Testimonials -->
+        <section style="margin: 4rem 0;">
+            <h2 class="section-title">What Our Community Says</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card glass-card">
+                    <div class="testimonial-avatar">👩‍💻</div>
+                    <p class="testimonial-quote">
+                        "Youssef truly listens to our feedback! My suggestion for better task organization was implemented within weeks. Auro keeps getting better because of this amazing community-driven approach."
+                    </p>
+                    <div class="testimonial-author">Sarah Chen</div>
+                    <div class="testimonial-role">UX Designer & Power User</div>
+                </div>
+                
+                <div class="testimonial-card glass-card">
+                    <div class="testimonial-avatar">🎨</div>
+                    <p class="testimonial-quote">
+                        "The feedback system here is incredible. I've never felt so heard by a developer! My ideas for themes and customization became real features. This is how software should be built."
+                    </p>
+                    <div class="testimonial-author">Marcus Rodriguez</div>
+                    <div class="testimonial-role">Creative Director</div>
+                </div>
+                
+                <div class="testimonial-card glass-card">
+                    <div class="testimonial-avatar">📊</div>
+                    <p class="testimonial-quote">
+                        "Being part of Auro's evolution has been amazing. Every feedback counts, and you can see how your suggestions directly impact millions of users. The productive revolution is real!"
+                    </p>
+                    <div class="testimonial-author">Emily Johnson</div>
+                    <div class="testimonial-role">Product Manager</div>
+                </div>
+                
+                <div class="testimonial-card glass-card">
+                    <div class="testimonial-avatar">🚀</div>
+                    <p class="testimonial-quote">
+                        "I suggested the AI chat feature last year, and now it's one of Auro's most loved features! Youssef and his team are building something truly revolutionary."
+                    </p>
+                    <div class="testimonial-author">David Kim</div>
+                    <div class="testimonial-role">Startup Founder</div>
+                </div>
+                
+                <div class="testimonial-card glass-card">
+                    <div class="testimonial-avatar">💡</div>
+                    <p class="testimonial-quote">
+                        "The community here is so supportive and innovative. Everyone's working together to make productivity tools that actually work for real people. It's inspiring!"
+                    </p>
+                    <div class="testimonial-author">Lisa Parker</div>
+                    <div class="testimonial-role">Freelance Consultant</div>
+                </div>
+                
+                <div class="testimonial-card glass-card">
+                    <div class="testimonial-avatar">🎯</div>
+                    <p class="testimonial-quote">
+                        "From mobile app suggestions to desktop features, every idea gets considered. This isn't just feedback - it's collaborative innovation at its finest!"
+                    </p>
+                    <div class="testimonial-author">Ahmed Hassan</div>
+                    <div class="testimonial-role">Software Engineer</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feedback Form -->
+        <section class="feedback-form glass-card">
+            <h2 class="form-title">Share Your Voice</h2>
+            <form id="feedback-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="feedback-name">Your Name</label>
+                        <input type="text" id="feedback-name" name="name" placeholder="Enter your name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="feedback-email">Email (Optional)</label>
+                        <input type="email" id="feedback-email" name="email" placeholder="your@email.com">
+                    </div>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="feedback-type">Feedback Type</label>
+                        <select id="feedback-type" name="type" required>
+                            <option value="">Select feedback type</option>
+                            <option value="feature-request">💡 Feature Request</option>
+                            <option value="improvement">⚡ Improvement Suggestion</option>
+                            <option value="bug-report">🐛 Bug Report</option>
+                            <option value="testimonial">⭐ Testimonial</option>
+                            <option value="mobile-app">📱 Mobile App Ideas</option>
+                            <option value="desktop-app">💻 Desktop App Ideas</option>
+                            <option value="ai-features">🤖 AI Enhancement Ideas</option>
+                            <option value="general">💬 General Feedback</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="feedback-priority">Impact Level</label>
+                        <select id="feedback-priority" name="priority">
+                            <option value="">How important is this?</option>
+                            <option value="low">💭 Nice to have</option>
+                            <option value="medium">🔥 Would improve my workflow</option>
+                            <option value="high">⚡ Essential for productivity</option>
+                            <option value="critical">🚀 Game-changing feature</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="feedback-title">Title</label>
+                    <input type="text" id="feedback-title" name="title" placeholder="Brief title for your feedback" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="feedback-message">Your Feedback</label>
+                    <textarea id="feedback-message" name="message" rows="6" placeholder="Share your thoughts, suggestions, or experiences with Auro. Be as detailed as you'd like - every word helps shape the future!" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="feedback-use-case">Use Case (Optional)</label>
+                    <textarea id="feedback-use-case" name="use-case" rows="3" placeholder="How would this help you or others? What problem does it solve?"></textarea>
+                </div>
+                
+                <div style="text-align: center; margin-top: 3rem;">
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Send Feedback</span>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Community Guidelines -->
+        <section class="guidelines-section">
+            <h2 class="guidelines-title">Community Guidelines</h2>
+            <p style="font-size: 1.3rem; opacity: 0.9; margin-bottom: 2rem;">
+                Help us build an amazing community where everyone's voice is heard and valued
+            </p>
+            
+            <div class="guidelines-grid">
+                <div class="guideline-item">
+                    <div class="guideline-icon">🤝</div>
+                    <p class="guideline-text">Be respectful and constructive in your feedback</p>
+                </div>
+                
+                <div class="guideline-item">
+                    <div class="guideline-icon">💡</div>
+                    <p class="guideline-text">Share specific ideas with real-world examples</p>
+                </div>
+                
+                <div class="guideline-item">
+                    <div class="guideline-icon">🔍</div>
+                    <p class="guideline-text">Check if your suggestion already exists</p>
+                </div>
+                
+                <div class="guideline-item">
+                    <div class="guideline-icon">🌟</div>
+                    <p class="guideline-text">Focus on improvements that benefit everyone</p>
+                </div>
+                
+                <div class="guideline-item">
+                    <div class="guideline-icon">🚀</div>
+                    <p class="guideline-text">Think big - help us build the future</p>
+                </div>
+                
+                <div class="guideline-item">
+                    <div class="guideline-icon">❤️</div>
+                    <p class="guideline-text">Celebrate others' contributions and ideas</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Community CTA -->
+        <section class="community-cta">
+            <h2 class="community-title">Join the Revolution</h2>
+            <p class="community-description">
+                Connect with fellow innovators, get exclusive updates, and be part of building the future of productivity. 
+                Your voice matters in shaping Auro's journey to mobile apps, desktop applications, and beyond!
+            </p>
+            <div class="community-buttons">
+                <a href="https://discord.gg/SyhS85qSK6" target="_blank" class="community-btn">
+                    <i class="fab fa-discord"></i>
+                    <span>Join Discord Community</span>
+                </a>
+                <a href="support-project.html" class="community-btn">
+                    <i class="fas fa-heart"></i>
+                    <span>Support the Project</span>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Include Scripts -->
+    <script src="scripts/global-navigation.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+    <script>
+        // Enhanced feedback form submission
+        document.getElementById('feedback-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const feedbackData = Object.fromEntries(formData);
+            
+            // Simulate sending to backend
+            console.log('Feedback submitted:', feedbackData);
+            
+            // Show enhanced success message
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalContent = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<i class="fas fa-check"></i><span>Sent Successfully!</span>';
+            submitBtn.style.background = 'linear-gradient(135deg, #43e97b, #38f9d7)';
+            
+            setTimeout(() => {
+                alert('🎉 Thank you for your feedback! Your input is invaluable in building the productive revolution. Youssef Mohamed and the team will review your suggestion, and you might see it in future updates!');
+                
+                // Reset form and button
+                this.reset();
+                submitBtn.innerHTML = originalContent;
+                submitBtn.style.background = 'var(--primary-gradient)';
+            }, 1500);
+        });
+
+        // Add form validation and enhancement
+        const formInputs = document.querySelectorAll('#feedback-form input, #feedback-form textarea, #feedback-form select');
+        formInputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>

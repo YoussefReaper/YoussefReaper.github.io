@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Tracker - Remi AI Student Assistant</title>
+    <meta name="description" content="Advanced task tracking with Pomodoro technique, stopwatch, and detailed analytics">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/tracker-enhanced.css">
+    <link rel="stylesheet" href="styles/floating-nav.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+      // Redirect to Super Tracker by default
+      window.location.href = 'super-tracker.html';
+    </script>
+  </head>
+  <body class="floating-nav-active">      <nav class="sidebar-icons">
+        <a href="index.html" class="sidebar-item">
+          <i class="fas fa-home"></i>
+          <span class="icon-description">Home</span>
+        </a>
+        <a href="chat.html" class="sidebar-item">
+          <i class="fas fa-message"></i>
+          <span class="icon-description">Chat</span>
+        </a>
+        <a href="tasks.html" class="sidebar-item">
+          <i class="fas fa-tasks"></i>
+          <span class="icon-description">Tasks</span>
+        </a>
+        <a href="schedule.html" class="sidebar-item">
+          <i class="fas fa-calendar-alt"></i>
+          <span class="icon-description">Schedule</span>
+        </a>
+        <a href="achievements.html" class="sidebar-item">
+          <i class="fas fa-trophy"></i>
+          <span class="icon-description">Achievements</span>
+        </a>
+        <a href="tracker.html" class="sidebar-item active">
+          <i class="fas fa-clock"></i>
+          <span class="icon-description">Basic Tracker</span>
+        </a>
+        <a href="super-tracker.html" class="sidebar-item">
+          <i class="fas fa-chart-line"></i>
+          <span class="icon-description">Super Tracker</span>
+        </a>
+        <a href="productivity-economics.html" class="sidebar-item">
+          <i class="fas fa-chart-pie"></i>
+          <span class="icon-description">Economics</span>
+        </a>
+        <a href="customization.html" class="sidebar-item">
+          <i class="fas fa-heart"></i>
+          <span class="icon-description">Customization</span>
+        </a>
+        <a href="settings.html" class="sidebar-item">
+          <i class="fas fa-cog"></i>
+          <span class="icon-description">Settings</span>
+        </a>
+      </nav>
+    </div>
+    
+    <!-- Topbar -->
+    <div class="topbar-menu">
+      <img src="pfp/Shinobu-Sticker.png" class="topbar-logo" alt="Shinobu">
+      <div class="topbar-title">
+        <img src="pfp/Remi-Logo-removebg-preview (1).png" class="main-logo" alt="Remi Logo">
+      </div>
+      <div class="topbar-actions">
+        <button class="toggle-dark-button" title="Toggle Dark Mode">
+          <i class="fas fa-moon toggle-icon"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Tracker Header -->
+      <div class="tracker-header">
+        <div class="tracker-title-section">
+          <h1 class="page-title">
+            <i class="fas fa-clock"></i>
+            Basic Task Tracker
+            <span class="version-badge">v2.0</span>
+          </h1>
+          <p class="page-subtitle">Simple and focused productivity tracking with smart analytics</p>
+          <div class="tracker-actions">
+            <button class="action-btn upgrade-btn" onclick="window.location.href='super-tracker.html'">
+              <i class="fas fa-rocket"></i>
+              <span>Upgrade to Super Tracker</span>
+            </button>
+            <button class="action-btn export-btn" onclick="taskTracker.exportData()">
+              <i class="fas fa-download"></i>
+              <span>Export Data</span>
+            </button>
+          </div>
+        </div>
+        <div class="tracker-stats">
+          <div class="stat-card today">
+            <i class="fas fa-clock"></i>
+            <div class="stat-info">
+              <span class="stat-number" id="totalTrackedTime">0h 0m</span>
+              <span class="stat-label">Today</span>
+              <div class="stat-progress">
+                <div class="progress-fill" id="todayProgressFill" style="width: 0%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-card streak">
+            <i class="fas fa-fire"></i>
+            <div class="stat-info">
+              <span class="stat-number" data-stat="streak" id="streakDays">0</span>
+              <span class="stat-label">Day Streak</span>
+              <div class="streak-indicator">
+                <div class="flame-icon">🔥</div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-card sessions">
+            <i class="fas fa-trophy"></i>
+            <div class="stat-info">
+              <span class="stat-number" id="sessionsCompleted">0</span>
+              <span class="stat-label">Sessions</span>
+              <div class="session-badges" id="sessionBadges">
+                <!-- Session achievement badges -->
+              </div>
+            </div>
+          </div>
+          <div class="stat-card focus">
+            <i class="fas fa-target"></i>
+            <div class="stat-info">
+              <span class="stat-number" id="focusScore">95%</span>
+              <span class="stat-label">Focus Score</span>
+              <div class="focus-meter">
+                <div class="meter-fill" id="focusMeterFill" style="width: 95%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tracker Content -->
+      <div class="tracker-content">
+        <!-- Active Session View -->
+        <div class="active-session-panel" id="activeSessionPanel" style="display: none;">
+          <div class="session-header">
+            <div class="session-info">
+              <h2 class="session-title" id="activeSessionTitle">Study Session</h2>
+              <p class="session-task" id="activeSessionTask">Select a task to begin</p>
+            </div>
+            <div class="session-mode">
+              <span class="mode-badge" id="sessionModeBadge">Stopwatch</span>
+            </div>
+          </div>
+          
+          <div class="timer-container enhanced">
+            <div class="timer-background">
+              <div class="timer-glow" id="timerGlow"></div>
+              <div class="pulse-rings">
+                <div class="pulse-ring pulse-1"></div>
+                <div class="pulse-ring pulse-2"></div>
+                <div class="pulse-ring pulse-3"></div>
+              </div>
+            </div>
+            <div class="timer-circle">
+              <svg class="progress-ring" width="300" height="300">
+                <defs>
+                  <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#667eea"/>
+                    <stop offset="100%" style="stop-color:#764ba2"/>
+                  </linearGradient>
+                </defs>
+                <circle class="progress-ring-background" stroke="rgba(255,255,255,0.1)" stroke-width="12" fill="transparent" r="135" cx="150" cy="150"/>
+                <circle class="progress-ring-progress" stroke="url(#progressGradient)" stroke-width="12" fill="transparent" r="135" cx="150" cy="150" id="progressCircle" stroke-linecap="round"/>
+              </svg>
+              <div class="timer-content">
+                <div class="timer-display" id="timerDisplay">00:00:00</div>
+                <div class="timer-phase" id="timerPhase">Ready to Start</div>
+                <div class="timer-mode-indicator" id="timerModeIndicator">
+                  <i class="fas fa-stopwatch"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="session-controls enhanced">
+            <button class="control-btn primary play-pause-btn" id="playPauseBtn">
+              <div class="btn-icon">
+                <i class="fas fa-play"></i>
+              </div>
+              <span class="btn-text">Start</span>
+              <div class="btn-ripple"></div>
+            </button>
+            <button class="control-btn secondary stop-btn" id="stopBtn">
+              <div class="btn-icon">
+                <i class="fas fa-stop"></i>
+              </div>
+              <span class="btn-text">Stop</span>
+              <div class="btn-ripple"></div>
+            </button>
+            <button class="control-btn tertiary skip-btn" id="skipBtn" style="display: none;">
+              <div class="btn-icon">
+                <i class="fas fa-forward"></i>
+              </div>
+              <span class="btn-text">Skip Break</span>
+              <div class="btn-ripple"></div>
+            </button>
+            <button class="control-btn quaternary focus-btn" id="focusBtn" title="Enable Focus Mode">
+              <div class="btn-icon">
+                <i class="fas fa-eye"></i>
+              </div>
+              <span class="btn-text">Focus</span>
+              <div class="btn-ripple"></div>
+            </button>
+          </div>
+
+          <div class="session-progress">
+            <div class="progress-stats">
+              <div class="progress-item">
+                <span class="progress-label">Elapsed</span>
+                <span class="progress-value" id="elapsedTime">0:00</span>
+              </div>
+              <div class="progress-item">
+                <span class="progress-label">Remaining</span>
+                <span class="progress-value" id="remainingTime">--:--</span>
+              </div>
+              <div class="progress-item">
+                <span class="progress-label">Completion</span>
+                <span class="progress-value" id="completionPercent">0%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Dashboard -->
+        <div class="tracker-dashboard" id="trackerDashboard">
+          <div class="dashboard-grid">
+            <!-- Task Selection -->
+            <div class="dashboard-card task-selection-card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-tasks"></i>
+                  Select Task
+                </h3>
+              </div>
+              <div class="card-content">
+                <div class="task-selector">
+                  <select id="taskSelector" class="task-select">
+                    <option value="">Choose a task to track</option>
+                  </select>
+                  <button class="refresh-tasks-btn" id="refreshTasksBtn" title="Refresh Tasks">
+                    <i class="fas fa-sync-alt"></i>
+                  </button>
+                </div>
+                <div class="task-details" id="taskDetails" style="display: none;">
+                  <div class="task-info">
+                    <div class="task-meta">
+                      <span class="task-duration">Duration: <span id="taskDuration">--</span></span>
+                      <span class="task-priority">Priority: <span id="taskPriority">--</span></span>
+                    </div>
+                    <div class="task-progress">
+                      <div class="progress-bar">
+                        <div class="progress-fill" id="taskProgressFill"></div>
+                      </div>
+                      <span class="progress-text" id="taskProgressText">Not started</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Timer Mode Selection -->
+            <div class="dashboard-card mode-selection-card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-clock"></i>
+                  Timer Mode
+                </h3>
+              </div>
+              <div class="card-content">
+                <div class="mode-options">
+                  <label class="mode-option">
+                    <input type="radio" name="timerMode" value="stopwatch" checked>
+                    <div class="mode-card">
+                      <i class="fas fa-stopwatch"></i>
+                      <span class="mode-name">Stopwatch</span>
+                      <span class="mode-description">Track time freely</span>
+                    </div>
+                  </label>
+                  <label class="mode-option">
+                    <input type="radio" name="timerMode" value="pomodoro">
+                    <div class="mode-card">
+                      <i class="fas fa-tomato"></i>
+                      <span class="mode-name">Pomodoro</span>
+                      <span class="mode-description">25min focus + 5min break</span>
+                    </div>
+                  </label>
+                  <label class="mode-option">
+                    <input type="radio" name="timerMode" value="custom">
+                    <div class="mode-card">
+                      <i class="fas fa-cog"></i>
+                      <span class="mode-name">Custom</span>
+                      <span class="mode-description">Set your own duration</span>
+                    </div>
+                  </label>
+                </div>
+                <div class="custom-duration" id="customDuration" style="display: none;">
+                  <label for="customMinutes">Duration (minutes):</label>
+                  <input type="number" id="customMinutes" min="1" max="300" value="25" class="duration-input">
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="dashboard-card quick-actions-card enhanced">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-bolt"></i>
+                  Smart Quick Actions
+                </h3>
+                <div class="quick-action-badge">AI Powered</div>
+              </div>
+              <div class="card-content">
+                <div class="quick-actions grid">
+                  <button class="quick-action-btn primary" id="startTrackingBtn">
+                    <div class="action-icon">
+                      <i class="fas fa-play"></i>
+                    </div>
+                    <div class="action-content">
+                      <span class="action-title">Start Tracking</span>
+                      <span class="action-subtitle">Begin focus session</span>
+                    </div>
+                  </button>
+                  <button class="quick-action-btn secondary" id="quickPomodoroBtn">
+                    <div class="action-icon">
+                      <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="action-content">
+                      <span class="action-title">Quick Pomodoro</span>
+                      <span class="action-subtitle">25min focus</span>
+                    </div>
+                  </button>
+                  <button class="quick-action-btn tertiary" id="deepWorkBtn">
+                    <div class="action-icon">
+                      <i class="fas fa-mountain"></i>
+                    </div>
+                    <div class="action-content">
+                      <span class="action-title">Deep Work</span>
+                      <span class="action-subtitle">90min session</span>
+                    </div>
+                  </button>
+                  <button class="quick-action-btn quaternary" id="breakReminderBtn">
+                    <div class="action-icon">
+                      <i class="fas fa-coffee"></i>
+                    </div>
+                    <div class="action-content">
+                      <span class="action-title">Smart Break</span>
+                      <span class="action-subtitle">AI suggested</span>
+                    </div>
+                  </button>
+                  <button class="quick-action-btn info" id="viewStatsBtn">
+                    <div class="action-icon">
+                      <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="action-content">
+                      <span class="action-title">View Analytics</span>
+                      <span class="action-subtitle">Detailed insights</span>
+                    </div>
+                  </button>
+                  <button class="quick-action-btn success" id="habitTrackingBtn">
+                    <div class="action-icon">
+                      <i class="fas fa-target"></i>
+                    </div>
+                    <div class="action-content">
+                      <span class="action-title">Track Habit</span>
+                      <span class="action-subtitle">Build streaks</span>
+                    </div>
+                  </button>
+                </div>
+                <div class="smart-suggestions" id="smartSuggestions">
+                  <div class="suggestion-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Based on your patterns, 9 AM is your peak focus time</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Today's Progress -->
+            <div class="dashboard-card progress-card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-calendar-day"></i>
+                  Today's Progress
+                </h3>
+              </div>
+              <div class="card-content">
+                <div class="daily-progress">
+                  <div class="progress-circle">
+                    <svg width="100" height="100">
+                      <circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.1)" stroke-width="6" fill="none"/>
+                      <circle cx="50" cy="50" r="40" stroke="var(--accent-primary)" stroke-width="6" fill="none" 
+                              stroke-dasharray="251" stroke-dashoffset="189" id="dailyProgressCircle"/>
+                    </svg>
+                    <div class="progress-percentage" id="dailyProgressPercentage">25%</div>
+                  </div>
+                  <div class="progress-details">
+                    <div class="progress-item">
+                      <span class="label">Goal:</span>
+                      <span class="value" id="dailyGoal">4h 0m</span>
+                    </div>
+                    <div class="progress-item">
+                      <span class="label">Tracked:</span>
+                      <span class="value" id="dailyTracked">1h 0m</span>
+                    </div>
+                    <div class="progress-item">
+                      <span class="label">Remaining:</span>
+                      <span class="value" id="dailyRemaining">3h 0m</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recent Sessions -->
+            <div class="dashboard-card sessions-card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-history"></i>
+                  Recent Sessions
+                </h3>
+                <button class="view-all-btn" id="viewAllSessionsBtn">View All</button>
+              </div>
+              <div class="card-content">
+                <div class="sessions-list" id="recentSessionsList">
+                  <div class="empty-sessions">
+                    <i class="fas fa-clock"></i>
+                    <p>No sessions yet today</p>
+                    <span>Start tracking to see your sessions here</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Weekly Stats -->
+            <div class="dashboard-card stats-card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-chart-line"></i>
+                  Weekly Overview
+                </h3>
+              </div>
+              <div class="card-content">
+                <div class="weekly-chart">
+                  <div class="chart-bars" id="weeklyChart">
+                    <!-- Chart bars will be generated by JavaScript -->
+                  </div>
+                  <div class="chart-labels">
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                    <span>Sun</span>
+                  </div>
+                </div>
+                <div class="weekly-summary">
+                  <div class="summary-item">
+                    <span class="label">This Week:</span>
+                    <span class="value" id="weeklyTotal">12h 30m</span>
+                  </div>
+                  <div class="summary-item">
+                    <span class="label">Daily Avg:</span>
+                    <span class="value" id="dailyAverage">1h 47m</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enhanced Analytics Section -->
+        <div class="enhanced-analytics">
+          <div class="analytics-header">
+            <h3><i class="fas fa-brain"></i> Smart Analytics</h3>
+            <div class="analytics-actions">
+              <button class="btn btn-secondary" onclick="taskTracker.showProductivityInsights()">
+                <i class="fas fa-lightbulb"></i> Get Insights
+              </button>
+              <button class="btn btn-secondary" onclick="taskTracker.generateProductivityInsights()">
+                <i class="fas fa-sync"></i> Refresh Analysis
+              </button>
+            </div>
+          </div>
+          
+          <div class="quick-insights">
+            <div class="insight-card mini">
+              <div class="insight-icon">🕐</div>
+              <div class="insight-content">
+                <div class="insight-label">Peak Hours</div>
+                <div id="peakHoursDisplay" class="insight-value">9-11 AM</div>
+              </div>
+            </div>
+            <div class="insight-card mini">
+              <div class="insight-icon">📈</div>
+              <div class="insight-content">
+                <div class="insight-label">Focus Trend</div>
+                <div id="focusTrendDisplay" class="insight-value">↗️ Improving</div>
+              </div>
+            </div>
+            <div class="insight-card mini">
+              <div class="insight-icon">🎯</div>
+              <div class="insight-content">
+                <div class="insight-label">Success Rate</div>
+                <div id="successRateDisplay" class="insight-value">85%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Productivity Tips -->
+        <div class="productivity-tips">
+          <h4><i class="fas fa-graduation-cap"></i> Smart Suggestions</h4>
+          <div id="smartSuggestions" class="suggestions-container">
+            <div class="suggestion-tip">
+              <i class="fas fa-clock"></i>
+              <span>Try scheduling important tasks during your peak hours (9-11 AM)</span>
+            </div>
+            <div class="suggestion-tip">
+              <i class="fas fa-running"></i>
+              <span>Take a 5-minute movement break every hour for better focus</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enhanced Features Section -->
+        <div class="enhanced-features-section">
+          <div class="section-header">
+            <h2>
+              <i class="fas fa-magic"></i>
+              Enhanced Productivity Features
+            </h2>
+            <div class="feature-badges">
+              <span class="badge ai">AI Powered</span>
+              <span class="badge new">New</span>
+            </div>
+          </div>
+          
+          <div class="features-grid">
+            <!-- Focus Insights -->
+            <div class="feature-card insight-card">
+              <div class="feature-icon">
+                <i class="fas fa-brain"></i>
+              </div>
+              <div class="feature-content">
+                <h3>Focus Insights</h3>
+                <p>AI-powered analysis of your focus patterns and productivity peaks</p>
+                <div class="insight-preview" id="insightPreview">
+                  <div class="insight-item">
+                    <span class="insight-label">Peak Hours:</span>
+                    <span class="insight-value" id="peakHours">9-11 AM</span>
+                  </div>
+                  <div class="insight-item">
+                    <span class="insight-label">Avg. Session:</span>
+                    <span class="insight-value" id="avgSession">32 min</span>
+                  </div>
+                </div>
+                <button class="feature-btn" onclick="taskTracker.showDetailedInsights()">
+                  <i class="fas fa-search"></i> View Details
+                </button>
+              </div>
+            </div>
+
+            <!-- Smart Breaks -->
+            <div class="feature-card break-card">
+              <div class="feature-icon">
+                <i class="fas fa-leaf"></i>
+              </div>
+              <div class="feature-content">
+                <h3>Smart Break Reminders</h3>
+                <p>Adaptive break suggestions based on your work intensity</p>
+                <div class="break-settings">
+                  <div class="setting-toggle">
+                    <label class="toggle-switch">
+                      <input type="checkbox" id="smartBreaksToggle" checked>
+                      <span class="toggle-slider"></span>
+                    </label>
+                    <span>Enable Smart Breaks</span>
+                  </div>
+                  <div class="next-break-info">
+                    <span class="next-break-label">Next suggested break:</span>
+                    <span class="next-break-time" id="nextBreakTime">In 47 minutes</span>
+                  </div>
+                </div>
+                <button class="feature-btn" onclick="taskTracker.configureBreaks()">
+                  <i class="fas fa-cog"></i> Configure
+                </button>
+              </div>
+            </div>
+
+            <!-- Habit Integration -->
+            <div class="feature-card habit-card">
+              <div class="feature-icon">
+                <i class="fas fa-target"></i>
+              </div>
+              <div class="feature-content">
+                <h3>Habit Integration</h3>
+                <p>Connect your tracking sessions with productivity habits</p>
+                <div class="habit-quick-view">
+                  <div class="habit-item">
+                    <span class="habit-name">Daily Focus</span>
+                    <div class="habit-progress">
+                      <div class="progress-bar">
+                        <div class="progress-fill" style="width: 67%"></div>
+                      </div>
+                      <span class="progress-text">67%</span>
+                    </div>
+                  </div>
+                </div>
+                <button class="feature-btn" onclick="window.location.href='productivity-economics.html'">
+                  <i class="fas fa-chart-pie"></i> View Habits
+                </button>
+              </div>
+            </div>
+
+            <!-- Session Templates -->
+            <div class="feature-card template-card">
+              <div class="feature-icon">
+                <i class="fas fa-bookmark"></i>
+              </div>
+              <div class="feature-content">
+                <h3>Session Templates</h3>
+                <p>Pre-configured session types for different work modes</p>
+                <div class="template-quick-list">
+                  <div class="template-item" onclick="taskTracker.useTemplate('deep-work')">
+                    <i class="fas fa-mountain"></i>
+                    <span>Deep Work (90min)</span>
+                  </div>
+                  <div class="template-item" onclick="taskTracker.useTemplate('creative')">
+                    <i class="fas fa-palette"></i>
+                    <span>Creative Flow (120min)</span>
+                  </div>
+                  <div class="template-item" onclick="taskTracker.useTemplate('review')">
+                    <i class="fas fa-search"></i>
+                    <span>Review Session (30min)</span>
+                  </div>
+                </div>
+                <button class="feature-btn" onclick="taskTracker.manageTemplates()">
+                  <i class="fas fa-plus"></i> Create Template
+                </button>
+              </div>
+            </div>
+
+            <!-- Environment Control -->
+            <div class="feature-card environment-card">
+              <div class="feature-icon">
+                <i class="fas fa-volume-down"></i>
+              </div>
+              <div class="feature-content">
+                <h3>Focus Environment</h3>
+                <p>Control your digital environment during focus sessions</p>
+                <div class="environment-controls">
+                  <div class="control-item">
+                    <label class="toggle-switch">
+                      <input type="checkbox" id="notificationBlockToggle">
+                      <span class="toggle-slider"></span>
+                    </label>
+                    <span>Block Notifications</span>
+                  </div>
+                  <div class="control-item">
+                    <label class="toggle-switch">
+                      <input type="checkbox" id="ambientSoundToggle">
+                      <span class="toggle-slider"></span>
+                    </label>
+                    <span>Focus Sounds</span>
+                  </div>
+                </div>
+                <button class="feature-btn" onclick="taskTracker.openFocusMode()">
+                  <i class="fas fa-eye"></i> Enter Focus Mode
+                </button>
+              </div>
+            </div>
+
+            <!-- Performance Analytics -->
+            <div class="feature-card analytics-card">
+              <div class="feature-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="feature-content">
+                <h3>Performance Analytics</h3>
+                <p>Advanced metrics and trends analysis</p>
+                <div class="analytics-preview">
+                  <div class="metric-mini">
+                    <span class="metric-label">Efficiency Trend</span>
+                    <div class="trend-indicator positive">
+                      <i class="fas fa-arrow-up"></i>
+                      <span>+12%</span>
+                    </div>
+                  </div>
+                  <div class="metric-mini">
+                    <span class="metric-label">Weekly Goal</span>
+                    <div class="goal-progress">
+                      <span>14h / 20h</span>
+                    </div>
+                  </div>
+                </div>
+                <button class="feature-btn" onclick="taskTracker.openAdvancedAnalytics()">
+                  <i class="fas fa-chart-bar"></i> Full Analytics
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Session Complete Modal -->
+        <div id="sessionCompleteModal" class="modal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3><i class="fas fa-trophy"></i> Session Complete!</h3>
+            </div>
+            <div class="modal-body">
+              <div class="completion-celebration">
+                <div class="celebration-icon">🎉</div>
+                <p id="completionMessage">Great work! You've completed your session.</p>
+                <div class="rewards">
+                  <div class="reward-item">
+                    <i class="fas fa-coins"></i>
+                    <span id="coinsEarned">+10 coins</span>
+                  </div>
+                  <div class="reward-item">
+                    <i class="fas fa-star"></i>
+                    <span id="xpEarned">+25 XP</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" onclick="taskTracker.closeSessionModal()">
+                <i class="fas fa-check"></i> Continue
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detailed Statistics Modal -->
+        <div id="detailedStatsModal" class="modal">
+          <div class="modal-content large">
+            <div class="modal-header">
+              <h3><i class="fas fa-chart-line"></i> Detailed Analytics</h3>
+              <button class="modal-close" onclick="taskTracker.closeDetailedStats()">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="stats-tabs">
+                <button class="tab-btn active" onclick="taskTracker.switchStatsTab('overview')">Overview</button>
+                <button class="tab-btn" onclick="taskTracker.switchStatsTab('productivity')">Productivity</button>
+                <button class="tab-btn" onclick="taskTracker.switchStatsTab('patterns')">Patterns</button>
+              </div>
+              
+              <div id="statsTabOverview" class="stats-tab-content active">
+                <div class="stats-grid">
+                  <div class="stat-card">
+                    <h4>Total Sessions</h4>
+                    <div class="stat-value" id="totalSessionsDetailed">0</div>
+                  </div>
+                  <div class="stat-card">
+                    <h4>Total Time</h4>
+                    <div class="stat-value" id="totalTimeDetailed">0h 0m</div>
+                  </div>
+                  <div class="stat-card">
+                    <h4>Average Session</h4>
+                    <div class="stat-value" id="averageSessionDetailed">0m</div>
+                  </div>
+                  <div class="stat-card">
+                    <h4>Best Streak</h4>
+                    <div class="stat-value" id="bestStreakDetailed">0 days</div>
+                  </div>
+                </div>
+                
+                <div class="chart-section">
+                  <h4>30-Day Progress</h4>
+                  <div id="monthlyChart" class="monthly-chart"></div>
+                </div>
+              </div>
+              
+              <div id="statsTabProductivity" class="stats-tab-content">
+                <div class="productivity-metrics">
+                  <div class="metric-card">
+                    <h4>Task Completion Rate</h4>
+                    <div class="progress-ring">
+                      <div id="completionRate" class="rate-value">0%</div>
+                    </div>
+                  </div>
+                  <div class="metric-card">
+                    <h4>Focus Efficiency</h4>
+                    <div class="efficiency-bars">
+                      <div class="efficiency-bar">
+                        <span>Short Sessions (&lt;30m)</span>
+                        <div class="bar">
+                          <div id="shortSessionBar" class="bar-fill"></div>
+                        </div>
+                      </div>
+                      <div class="efficiency-bar">
+                        <span>Medium Sessions (30-60m)</span>
+                        <div class="bar">
+                          <div id="mediumSessionBar" class="bar-fill"></div>
+                        </div>
+                      </div>
+                      <div class="efficiency-bar">
+                        <span>Long Sessions (&gt;60m)</span>
+                        <div class="bar">
+                          <div id="longSessionBar" class="bar-fill"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div id="statsTabPatterns" class="stats-tab-content">
+                <div class="patterns-section">
+                  <h4>Time Patterns</h4>
+                  <div id="hourlyHeatmap" class="heatmap"></div>
+                  
+                  <h4>Most Productive Days</h4>
+                  <div id="weekdayChart" class="weekday-chart"></div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" onclick="taskTracker.exportData()">
+                <i class="fas fa-download"></i> Export Data
+              </button>
+              <button class="btn btn-primary" onclick="taskTracker.closeDetailedStats()">
+                <i class="fas fa-check"></i> Close
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Session History Modal -->
+        <div id="sessionHistoryModal" class="modal">
+          <div class="modal-content large">
+            <div class="modal-header">
+              <h3><i class="fas fa-history"></i> Session History</h3>
+              <button class="modal-close" onclick="taskTracker.closeSessionHistory()">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="history-filters">
+                <select id="historyFilter" onchange="taskTracker.filterHistory()">
+                  <option value="all">All Sessions</option>
+                  <option value="today">Today</option>
+                  <option value="week">This Week</option>
+                  <option value="month">This Month</option>
+                </select>
+                <input type="search" id="historySearch" placeholder="Search sessions..." 
+                       oninput="taskTracker.searchHistory()">
+              </div>
+              
+              <div id="sessionHistoryList" class="session-history-list">
+                <!-- Sessions will be populated here -->
+              </div>
+              
+              <div class="history-summary">
+                <div class="summary-stat">
+                  <span>Filtered Sessions:</span>
+                  <span id="filteredCount">0</span>
+                </div>
+                <div class="summary-stat">
+                  <span>Total Time:</span>
+                  <span id="filteredTime">0h 0m</span>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" onclick="taskTracker.clearAllSessions()">
+                <i class="fas fa-trash"></i> Clear History
+              </button>
+              <button class="btn btn-primary" onclick="taskTracker.closeSessionHistory()">
+                <i class="fas fa-check"></i> Close
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scripts -->
+        <script src="scripts/global-profile-manager.js"></script>
+        <script src="scripts/global-stats-manager.js"></script>
+        <script src="scripts/auto-hide-navigation.js"></script>
+        <script src="scripts/tracker.js"></script>
+        <script src="scripts/system.js"></script>
+      
+    <!-- Floating Navigation Background -->
+    <div class="floating-nav-background" id="floating-nav-background"></div>
+
+    <!-- Floating Navigation Hub -->
+    <div class="floating-nav-hub" id="floating-nav-hub">
+        <button class="nav-hub-button" id="nav-hub-toggle">
+            <i class="fas fa-compass"></i>
+        </button>
+        
+        <div class="nav-options">
+            <a href="dashboard.html" class="nav-option">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="plans.html" class="nav-option">
+                <i class="fas fa-map"></i>
+                <span>Plans</span>
+            </a>
+            <a href="chat.html" class="nav-option registered-only">
+                <i class="fas fa-message"></i>
+                <span>Chat</span>
+            </a>
+            <a href="tasks.html" class="nav-option registered-only">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="schedule.html" class="nav-option registered-only">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Schedule</span>
+            </a>
+            <a href="achievements.html" class="nav-option registered-only">
+                <i class="fas fa-trophy"></i>
+                <span>Achievements</span>
+            </a>
+            <a href="super-tracker.html" class="nav-option registered-only">
+                <i class="fas fa-chart-line"></i>
+                <span>Tracker</span>
+            </a>
+            <a href="customization.html" class="nav-option registered-only">
+                <i class="fas fa-heart"></i>
+                <span>Customize</span>
+            </a>
+            <a href="about.html" class="nav-option">
+                <i class="fas fa-user-circle"></i>
+                <span>About Me</span>
+            </a>
+            <a href="settings.html" class="nav-option">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+        
+        <div class="quick-stats-overlay">
+            <div class="quick-stat">
+                <i class="fas fa-fire"></i>
+                <span>5 day streak</span>
+            </div>
+            <div class="quick-stat">
+                <i class="fas fa-check-circle"></i>
+                <span>12 tasks done</span>
+            </div>
+            <div class="quick-stat">
+                <i class="fas fa-star"></i>
+                <span>Level 3</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Navigation Script -->
+    <script src="scripts/floating-navigation.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+
+    <!-- Global Theme Synchronization -->
+    <script src="scripts/universal-page-system.js"></script>
+    <script src="scripts/global-theme-sync.js"></script>
+</body>
+    </html>

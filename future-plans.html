@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Future Plans - What's Coming Next | Youssef Mohamed</title>
     <meta name="description" content="Discover what's coming next for Auro - mobile apps, desktop tools, and more cool stuff ahead.">
-    <link rel="stylesheet" href="../../styles/main.css">
-    <link rel="stylesheet" href="../../styles/floating-nav.css">
-    <link rel="stylesheet" href="../../styles/dashboard.css">
-    <link rel="stylesheet" href="../../styles/about.css">
-    <link rel="stylesheet" href="../../styles/modern-navigation.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/floating-nav.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/about.css">
+    <link rel="stylesheet" href="styles/modern-navigation.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         /* Modern Design System */
@@ -204,40 +204,28 @@
                 scroll-behavior: smooth !important;
                 -webkit-overflow-scrolling: touch !important;
                 scrollbar-width: thin !important;
-                scrollbar-color: rgba(102, 126, 234, 0.5) rgba(255, 255, 255, 0.1) !important;
+                scrollbar-color: rgba(102, 126, 234, 0.3) transparent !important;
                 gap: 0.5rem !important;
                 min-width: max-content !important;
-                padding: 0.5rem 0 1rem 0 !important;
-                display: flex !important;
-                flex-wrap: nowrap !important;
-                width: 100% !important;
+                padding: 0.5rem 0 !important;
             }
 
             .topbar-nav::-webkit-scrollbar {
-                height: 6px !important;
-                background: rgba(255, 255, 255, 0.1) !important;
-                border-radius: 3px !important;
+                height: 4px !important;
             }
 
             .topbar-nav::-webkit-scrollbar-track {
                 background: rgba(255, 255, 255, 0.1) !important;
-                border-radius: 3px !important;
-                margin: 0 10px !important;
+                border-radius: 2px !important;
             }
 
             .topbar-nav::-webkit-scrollbar-thumb {
-                background: linear-gradient(90deg, rgba(102, 126, 234, 0.6), rgba(118, 75, 162, 0.6)) !important;
-                border-radius: 3px !important;
-                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                background: rgba(102, 126, 234, 0.5) !important;
+                border-radius: 2px !important;
             }
 
             .topbar-nav::-webkit-scrollbar-thumb:hover {
-                background: linear-gradient(90deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8)) !important;
-                box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3) !important;
-            }
-
-            .topbar-nav::-webkit-scrollbar-thumb:active {
-                background: linear-gradient(90deg, rgba(102, 126, 234, 1), rgba(118, 75, 162, 1)) !important;
+                background: rgba(102, 126, 234, 0.7) !important;
             }
 
             .topbar-nav-item {
@@ -245,215 +233,23 @@
                 white-space: nowrap !important;
                 padding: 0.5rem 0.75rem !important;
                 font-size: 0.9rem !important;
-                min-width: fit-content !important;
-                margin-right: 0.25rem !important;
             }
-
-            /* Improve touch interaction on mobile */
-            .topbar-nav {
-                -webkit-user-select: none !important;
-                -moz-user-select: none !important;
-                -ms-user-select: none !important;
-                user-select: none !important;
-            }
-
-            /* Fade out edges for better scroll indication */
-            .topbar-nav::before,
-            .topbar-nav::after {
-                content: '' !important;
-                position: absolute !important;
-                top: 0 !important;
-                bottom: 0 !important;
-                width: 20px !important;
-                pointer-events: none !important;
-                z-index: 1 !important;
-            }
-
-            .topbar-nav::before {
-                left: 0 !important;
-                background: linear-gradient(to right, rgba(255, 255, 255, 0.95), transparent) !important;
-            }
-
-            .topbar-nav::after {
-                right: 0 !important;
-                background: linear-gradient(to left, rgba(255, 255, 255, 0.95), transparent) !important;
-            }
-        }
-
-        /* Default Topbar Styling - Fallback when no customization is applied */
-        .topbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 85px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 2rem;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .topbar-left {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .page-breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .breadcrumb-current {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #333;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .topbar-nav {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex: 1;
-            justify-content: center;
-        }
-
-        .topbar-nav-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.25rem;
-            text-decoration: none;
-            color: #666;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            font-size: 0.95rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .topbar-nav-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--primary-gradient);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            border-radius: 12px;
-        }
-
-        .topbar-nav-item:hover::before,
-        .topbar-nav-item.active::before {
-            opacity: 0.1;
-        }
-
-        .topbar-nav-item:hover {
-            color: #333;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
-        }
-
-        .topbar-nav-item.active {
-            color: #667eea;
-            font-weight: 600;
-        }
-
-        .topbar-nav-item i {
-            font-size: 1rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .topbar-nav-item span {
-            position: relative;
-            z-index: 2;
-        }
-
-        .topbar-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .user-menu {
-            display: flex;
-            align-items: center;
-        }
-
-        .user-trigger {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.5rem 1rem;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .user-trigger:hover {
-            background: rgba(102, 126, 234, 0.15);
-            transform: translateY(-1px);
-        }
-
-        .user-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--primary-gradient);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .user-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.1rem;
-        }
-
-        .user-name {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .user-status {
-            font-size: 0.75rem;
-            color: #43e97b;
-            font-weight: 500;
         }
     </style>
 </head>
-<body>
+<body class="floating-nav-active" data-page="future-plans">
     <!-- Modern Topbar -->
     <div class="topbar">
         <div class="topbar-left">
             <div class="page-breadcrumb">
+                <a href="index.html" class="breadcrumb-item">Home</a>
+                <span class="breadcrumb-separator">/</span>
                 <span class="breadcrumb-current">Future Plans</span>
             </div>
         </div>
         
         <div class="topbar-nav">
-            <a href="about.html" class="topbar-nav-item">
+            <a href="about-me.html" class="topbar-nav-item">
                 <i class="fas fa-user"></i>
                 <span>About Me</span>
             </a>
@@ -469,9 +265,34 @@
                 <i class="fas fa-comments"></i>
                 <span>Feedbacks</span>
             </a>
-            <a href="index.html" class="topbar-nav-item">
-                <i class="fas fa-clock"></i>
-                <span>Launch Countdown</span>
+        </div>
+        
+        <div class="topbar-actions">
+            <div class="user-menu">
+                <div class="user-trigger">
+                    <div class="user-avatar" id="topbar-profile-pic">A</div>
+                    <div class="user-info">
+                        <span class="user-name" id="topbar-username"></span>
+                        <span class="user-status">Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                <i class="fas fa-user"></i>
+                <span>About Me</span>
+            </a>
+            <a href="future-plans.html" class="topbar-nav-item active">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="support-project.html" class="topbar-nav-item">
+                <i class="fas fa-heart"></i>
+                <span>Support Project</span>
+            </a>
+            <a href="feedbacks.html" class="topbar-nav-item">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
             </a>
         </div>
         
@@ -480,7 +301,7 @@
                 <div class="user-trigger">
                     <div class="user-avatar" id="topbar-profile-pic">A</div>
                     <div class="user-info">
-                        <span class="user-name" id="topbar-username">Auro User</span>
+                        <span class="user-name" id="topbar-username"></span>
                         <span class="user-status">Active</span>
                     </div>
                 </div>
@@ -489,7 +310,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class="main-content" style="margin-left: 0; margin-top: 85px;">
+    <div class="main-content" style="margin-left: 0; margin-top: 70px;">
         <!-- Hero Section -->
         <section class="hero-section">
             <div class="hero-icon">
@@ -598,38 +419,44 @@
         </section>
     </div>
 
-    <!-- Profile Picture Loader -->
-    <script>
-        // Load profile picture from IndexedDB
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                // Try to access IndexedDB directly
-                const request = indexedDB.open('AuroProfileDB', 1);
-                request.onsuccess = () => {
-                    const db = request.result;
-                    if (db.objectStoreNames.contains('profilePictures')) {
-                        const transaction = db.transaction(['profilePictures'], 'readonly');
-                        const store = transaction.objectStore('profilePictures');
-                        const getRequest = store.get('main-profile');
-                        
-                        getRequest.onsuccess = () => {
-                            if (getRequest.result) {
-                                const topbarProfilePic = document.getElementById('topbar-profile-pic');
-                                if (topbarProfilePic) {
-                                    topbarProfilePic.innerHTML = `<img src="${getRequest.result.imageData}" alt="Profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
-                                }
-                            }
-                        };
-                    }
-                };
-            } catch (error) {
-                console.log('Profile picture not available or error loading:', error);
-            }
-        });
-    </script>
+    <!-- Floating Navigation Background -->
+    <div class="floating-nav-background" id="floating-nav-background"></div>
+
+    <!-- Floating Navigation Hub -->
+    <div class="floating-nav-hub" id="floating-nav-hub">
+        <button class="nav-hub-button" id="nav-hub-button">
+            <i class="fas fa-th"></i>
+        </button>
+        
+        <div class="nav-options" id="nav-options">
+            <!-- Navigation items will be dynamically generated by floating-navigation.js -->
+        </div>
+    </div>
 
     <!-- Include Scripts -->
-    <script src="../../scripts/global-navigation.js"></script>
-    <script src="../../scripts/customization-loader.js"></script>
+    <script src="scripts/floating-navigation.js"></script>
+    <script src="scripts/global-stats-manager.js"></script>
+    <script src="scripts/global-profile-manager.js"></script>
+    <script src="scripts/global-navigation.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+    <script src="scripts/system.js"></script>
+
+    <!-- Global Theme Synchronization -->
+    <script src="scripts/universal-page-system.js"></script>
+    <script src="scripts/global-theme-sync.js"></script>
+    
+    <!-- Profile Initialization Fix -->
+    <script>
+        // Ensure proper profile loading after all scripts are loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait a bit for all scripts to load
+            setTimeout(() => {
+                if (window.GlobalProfileManager) {
+                    window.GlobalProfileManager.init();
+                    window.GlobalProfileManager.applyProfiles();
+                }
+            }, 200);
+        });
+    </script>
 </body>
 </html>

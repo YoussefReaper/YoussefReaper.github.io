@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0">
+    <title>Notes & Ideas - Remi</title>
+    <meta name="description" content="Capture your thoughts, ideas, and notes with Remi's intelligent note-taking system.">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/notes.css">
+    <link rel="stylesheet" href="styles/floating-nav.css">
+    <link rel="stylesheet" href="styles/modern-navigation.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="floating-nav-active">
+
+    <!-- Modern Topbar -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="page-breadcrumb">
+                <a href="index.html" class="breadcrumb-item">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Notes</span>
+            </div>
+        </div>
+        
+        <div class="topbar-nav">
+            <a href="about-me.html" class="topbar-nav-item">
+                <i class="fas fa-user"></i>
+                <span>About Me</span>
+            </a>
+            <a href="future-plans.html" class="topbar-nav-item">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="support-project.html" class="topbar-nav-item">
+                <i class="fas fa-heart"></i>
+                <span>Support Project</span>
+            </a>
+            <a href="feedbacks.html" class="topbar-nav-item">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+        </div>
+        
+        <div class="topbar-actions">
+            <div class="user-menu">
+                <div class="user-trigger">
+                    <div class="user-avatar" id="topbar-profile-pic">A</div>
+                    <div class="user-info">
+                        <span class="user-name" id="topbar-username"></span>
+                        <span class="user-status">Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" style="margin-left: 0; margin-top: 70px;">
+        <!-- Notes Header -->
+        <div class="notes-header">
+            <div class="notes-title-section">
+                <h1 class="page-title">
+                    <i class="fas fa-sticky-note"></i>
+                    Notes & Ideas
+                </h1>
+                <p class="page-subtitle">Capture your thoughts, organize your ideas, and boost your creativity</p>
+            </div>
+            
+            <div class="notes-stats">
+                <div class="stat-card">
+                    <i class="fas fa-sticky-note"></i>
+                    <div class="stat-info">
+                        <span class="stat-number" id="totalNotes">0</span>
+                        <span class="stat-label">Notes</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <div class="stat-info">
+                        <span class="stat-number" id="totalIdeas">0</span>
+                        <span class="stat-label">Ideas</span>
+                    </div>
+                </div>
+                <div class="stat-card warning">
+                    <i class="fas fa-star"></i>
+                    <div class="stat-info">
+                        <span class="stat-number" id="totalFavorites">0</span>
+                        <span class="stat-label">Favorites</span>
+                    </div>
+                </div>
+                <div class="stat-card info">
+                    <i class="fas fa-tags"></i>
+                    <div class="stat-info">
+                        <span class="stat-number" id="totalTags">0</span>
+                        <span class="stat-label">Tags</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notes Actions Bar -->
+        <div class="notes-actions-bar">
+            <div class="actions-left">
+                <button class="action-btn primary" id="createNoteBtn">
+                    <i class="fas fa-plus"></i>
+                    New Note
+                </button>
+                <button class="action-btn secondary" id="createIdeaBtn">
+                    <i class="fas fa-lightbulb"></i>
+                    New Idea
+                </button>
+            </div>
+            
+            <div class="actions-right">
+                <div class="search-container">
+                    <input type="text" id="searchNotes" placeholder="Search notes and ideas..." class="search-input">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notes Toolbar -->
+        <div class="notes-toolbar">
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all">
+                    <i class="fas fa-list"></i>
+                    All Items
+                </button>
+                <button class="filter-tab" data-filter="notes">
+                    <i class="fas fa-sticky-note"></i>
+                    Notes
+                </button>
+                <button class="filter-tab" data-filter="ideas">
+                    <i class="fas fa-lightbulb"></i>
+                    Ideas
+                </button>
+                <button class="filter-tab" data-filter="favorites">
+                    <i class="fas fa-star"></i>
+                    Favorites
+                </button>
+                <button class="filter-tab" data-filter="archived">
+                    <i class="fas fa-archive"></i>
+                    Archived
+                </button>
+            </div>
+            
+            <div class="view-options">
+                <button class="view-toggle active" data-view="grid" title="Grid View">
+                    <i class="fas fa-th"></i>
+                </button>
+                <button class="view-toggle" data-view="list" title="List View">
+                    <i class="fas fa-list"></i>
+                </button>
+            </div>
+            
+            <div class="sort-options">
+                <select id="sortBy" class="sort-select">
+                    <option value="modified">Recently Modified</option>
+                    <option value="created">Recently Created</option>
+                    <option value="title">Title A-Z</option>
+                    <option value="type">Type</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Notes Container -->
+        <div class="notes-container">
+            <!-- Notes Grid/List will be populated by JavaScript -->
+            <div class="notes-grid" id="notesGrid">
+                <!-- Notes will be dynamically added here -->
+            </div>
+            
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState">
+                <div class="empty-icon">
+                    <i class="fas fa-sticky-note"></i>
+                </div>
+                <h3>Start Capturing Your Ideas</h3>
+                <p>Create your first note or idea to get started with your digital brain</p>
+                <button class="action-btn primary" id="createFirstNote">
+                    <i class="fas fa-plus"></i>
+                    Create Your First Note
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Note Creation/Edit Modal -->
+    <div class="modal-overlay" id="noteModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 id="modalTitle">Create New Note</h2>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <form id="noteForm">
+                    <div class="form-group">
+                        <input type="text" id="noteTitle" placeholder="Enter title..." class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="note-type-selector">
+                            <label class="type-option">
+                                <input type="radio" name="noteType" value="note" checked>
+                                <span class="type-label">
+                                    <i class="fas fa-sticky-note"></i>
+                                    Note
+                                </span>
+                            </label>
+                            <label class="type-option">
+                                <input type="radio" name="noteType" value="idea">
+                                <span class="type-label">
+                                    <i class="fas fa-lightbulb"></i>
+                                    Idea
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Task Connection Section -->
+                    <div class="form-group" id="taskConnectionSection">
+                        <label class="form-label">
+                            <i class="fas fa-link"></i>
+                            Connect to Task (Optional)
+                        </label>
+                        <div class="task-selector-container">
+                            <select id="taskSelector" class="form-input">
+                                <option value="">Select a task...</option>
+                            </select>
+                            <div class="task-connection-info" id="taskConnectionInfo" style="display: none;">
+                                <i class="fas fa-check-circle"></i>
+                                <span id="connectedTaskName">Connected to task</span>
+                                <button type="button" class="disconnect-task-btn" id="disconnectTaskBtn">
+                                    <i class="fas fa-unlink"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="editor-toolbar">
+                            <button type="button" class="editor-btn" data-action="bold" title="Bold">
+                                <i class="fas fa-bold"></i>
+                            </button>
+                            <button type="button" class="editor-btn" data-action="italic" title="Italic">
+                                <i class="fas fa-italic"></i>
+                            </button>
+                            <button type="button" class="editor-btn" data-action="underline" title="Underline">
+                                <i class="fas fa-underline"></i>
+                            </button>
+                            <div class="editor-divider"></div>
+                            <button type="button" class="editor-btn" data-action="insertUnorderedList" title="Bullet List">
+                                <i class="fas fa-list-ul"></i>
+                            </button>
+                            <button type="button" class="editor-btn" data-action="insertOrderedList" title="Numbered List">
+                                <i class="fas fa-list-ol"></i>
+                            </button>
+                            <div class="editor-divider"></div>
+                            <button type="button" class="editor-btn" data-action="link" title="Add Link">
+                                <i class="fas fa-link"></i>
+                            </button>
+                            <button type="button" class="editor-btn" data-action="code" title="Code">
+                                <i class="fas fa-code"></i>
+                            </button>
+                            <button type="button" class="editor-btn" id="imageUploadBtn" title="Add Image">
+                                <i class="fas fa-image"></i>
+                            </button>
+                        </div>
+                        <div class="editor-container">
+                            <div id="noteContent" class="rich-editor" contenteditable="true" placeholder="Start writing your note..."></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Image Upload Section -->
+                    <div class="form-group" id="imageUploadSection" style="display: none;">
+                        <label class="form-label">
+                            <i class="fas fa-image"></i>
+                            Attach Image
+                        </label>
+                        <div class="image-upload-container">
+                            <input type="file" id="imageInput" accept="image/*" class="file-input">
+                            <div class="image-preview" id="imagePreview"></div>
+                            <button type="button" class="remove-image-btn" id="removeImageBtn" style="display: none;">
+                                <i class="fas fa-times"></i>
+                                Remove Image
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="tags-container">
+                            <label class="form-label">Tags</label>
+                            <div class="tags-input-container">
+                                <input type="text" id="tagInput" placeholder="Add tags..." class="tags-input">
+                                <div class="tags-list" id="tagsList"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="note-options">
+                            <label class="option-toggle">
+                                <input type="checkbox" id="isFavorite">
+                                <span class="toggle-slider"></span>
+                                <span class="toggle-label">
+                                    <i class="fas fa-star"></i>
+                                    Add to Favorites
+                                </span>
+                            </label>
+                            
+                            <label class="option-toggle">
+                                <input type="checkbox" id="isPrivate">
+                                <span class="toggle-slider"></span>
+                                <span class="toggle-label">
+                                    <i class="fas fa-lock"></i>
+                                    Private Note
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="action-btn secondary" id="cancelNote">Cancel</button>
+                <button type="button" class="action-btn primary" id="saveNote">
+                    <i class="fas fa-save"></i>
+                    Save Note
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Note View Modal -->
+    <div class="modal-overlay" id="noteViewModal">
+        <div class="modal-container large">
+            <div class="modal-header">
+                <div class="note-view-header">
+                    <h2 id="viewNoteTitle"></h2>
+                    <div class="note-meta">
+                        <span class="note-type-badge" id="viewNoteType"></span>
+                        <span class="note-date" id="viewNoteDate"></span>
+                    </div>
+                </div>
+                <div class="note-actions">
+                    <button class="action-btn small" id="editNoteBtn">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="action-btn small" id="favoriteNoteBtn">
+                        <i class="fas fa-star"></i>
+                    </button>
+                    <button class="action-btn small" id="shareNoteBtn">
+                        <i class="fas fa-share"></i>
+                    </button>
+                    <button class="action-btn small danger" id="deleteNoteBtn">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    <button class="modal-close" id="closeViewModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="modal-body">
+                <div class="note-content-view" id="viewNoteContent">
+                    <!-- Note content will be displayed here -->
+                </div>
+                
+                <div class="note-tags-view" id="viewNoteTags">
+                    <!-- Tags will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Navigation Background -->
+    <div class="floating-nav-background" id="floating-nav-background"></div>
+
+    <!-- Floating Navigation Hub -->
+    <div class="floating-nav-hub" id="floating-nav-hub">
+        <button class="nav-hub-button" id="nav-hub-button">
+            <i class="fas fa-th"></i>
+        </button>
+        
+        <div class="nav-options" id="nav-options">
+            <a href="dashboard.html" class="nav-option">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="plans.html" class="nav-option">
+                <i class="fas fa-map"></i>
+                <span>Plans</span>
+            </a>
+            <a href="chat.html" class="nav-option registered-only">
+                <i class="fas fa-message"></i>
+                <span>Chat</span>
+            </a>
+            <a href="tasks.html" class="nav-option registered-only">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="schedule.html" class="nav-option registered-only">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Schedule</span>
+            </a>
+            <a href="achievements.html" class="nav-option registered-only">
+                <i class="fas fa-trophy"></i>
+                <span>Achievements</span>
+            </a>
+            <a href="super-tracker.html" class="nav-option registered-only">
+                <i class="fas fa-chart-line"></i>
+                <span>Tracker</span>
+            </a>
+            <a href="customization.html" class="nav-option registered-only">
+                <i class="fas fa-heart"></i>
+                <span>Customize</span>
+            </a>
+            <a href="notes.html" class="nav-option current-page registered-only">
+                <i class="fas fa-sticky-note"></i>
+                <span>Notes</span>
+            </a>
+            <a href="customization.html" class="nav-option registered-only">
+                <i class="fas fa-palette"></i>
+                <span>Customization Shop</span>
+            </a>
+            <a href="about.html" class="nav-option">
+                <i class="fas fa-user-circle"></i>
+                <span>About Me</span>
+            </a>
+            <a href="future-plans.html" class="nav-option">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="support-project.html" class="nav-option">
+                <i class="fas fa-heart-circle-bolt"></i>
+                <span>Support Project</span>
+            </a>
+            <a href="feedbacks.html" class="nav-option">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+            <a href="settings.html" class="nav-option">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/floating-navigation.js"></script>
+    <script src="scripts/auth-guard.js"></script>
+    <script src="scripts/global-navigation.js"></script>
+    <script src="scripts/global-profile-manager.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+    <script src="scripts/notes.js"></script>
+
+    <!-- Global Theme Synchronization -->
+    <script src="scripts/universal-page-system.js"></script>
+    <script src="scripts/global-theme-sync.js"></script>
+    
+    <script>
+        // Ensure profile manager runs after page load
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.GlobalProfileManager) {
+                // Force update profile display
+                setTimeout(() => {
+                    window.GlobalProfileManager.applyProfiles();
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,930 @@
+/* ===== STICKER SYSTEM STYLES ===== */
+
+/* Sticker Canvas */
+.sticker-canvas {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    pointer-events: none !important;
+    z-index: 99998 !important;
+}
+
+/* Placed Stickers */
+.placed-sticker {
+    position: fixed !important;
+    pointer-events: all !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease, cursor 0.2s ease !important;
+    border-radius: 12px !important;
+    overflow: visible !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 999999 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.placed-sticker.static {
+    opacity: 0.8 !important;
+    cursor: default !important;
+    pointer-events: all !important;
+}
+
+.placed-sticker.static:hover {
+    transform: none !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+}
+
+.placed-sticker:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+    border-color: rgba(103, 197, 255, 0.8) !important;
+}
+
+.placed-sticker.dragging {
+    transform: scale(1.1) !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important;
+    z-index: 1000000 !important;
+    border-color: #67c5ff !important;
+}
+
+/* Custom stickers - transparent background for realistic look */
+.placed-sticker[data-sticker="custom"] {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+.placed-sticker[data-sticker="custom"]:hover {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.placed-sticker[data-sticker="custom"].dragging {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Sticker Edit Panel */
+.sticker-edit-panel {
+    animation: editPanelAppear 0.3s ease-out;
+}
+
+@keyframes editPanelAppear {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+}
+
+.sticker-edit-panel button:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+/* Sticker Item Enhancements */
+.sticker-item {
+    position: relative;
+    overflow: visible;
+}
+
+.sticker-quantity {
+    animation: quantityPulse 0.5s ease-out;
+}
+
+@keyframes quantityPulse {
+    0% { transform: scale(0.8); opacity: 0; }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.quantity-increase-btn:hover {
+    transform: scale(1.1);
+    background: rgba(16, 185, 129, 1) !important;
+}
+
+/* Modal Styling */
+.sticker-edit-modal {
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    0% {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+    100% {
+        opacity: 1;
+        backdrop-filter: blur(5px);
+    }
+}
+
+.sticker-edit-modal > div {
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    0% {
+        transform: translateY(-50px) scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Enhanced Hover Effects */
+.placed-sticker.static:hover {
+    transform: scale(1.05) !important;
+    filter: brightness(1.1) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)) !important;
+    transition: all 0.2s ease !important;
+}
+
+.placed-sticker.editing {
+    border-color: #34d399 !important;
+    box-shadow: 0 0 20px rgba(52, 211, 153, 0.4) !important;
+}
+
+.placed-sticker.new {
+    animation: stickerAppear 0.6s ease-out !important;
+}
+
+@keyframes stickerAppear {
+    0% {
+        transform: scale(0) rotate(-180deg) !important;
+        opacity: 0 !important;
+    }
+    60% {
+        transform: scale(1.2) rotate(-10deg) !important;
+        opacity: 0.8 !important;
+    }
+    100% {
+        transform: scale(1) rotate(0deg) !important;
+        opacity: 1 !important;
+    }
+}
+
+/* Remove Button */
+.sticker-remove {
+    position: absolute !important;
+    top: -10px !important;
+    right: -10px !important;
+    width: 24px !important;
+    height: 24px !important;
+    border-radius: 50% !important;
+    background: #ff4444 !important;
+    color: white !important;
+    border: 2px solid white !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    display: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 100000 !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+.sticker-remove:hover {
+    background: #ff2222 !important;
+    transform: scale(1.1) !important;
+}
+
+/* Resize Handle */
+.resize-handle {
+    position: absolute !important;
+    bottom: -6px !important;
+    right: -6px !important;
+    width: 16px !important;
+    height: 16px !important;
+    background: #67c5ff !important;
+    border: 2px solid white !important;
+    border-radius: 50% !important;
+    cursor: nw-resize !important;
+    opacity: 0 !important;
+    transition: all 0.2s ease !important;
+    z-index: 100001 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+.resize-handle:hover {
+    background: #4fa8d8 !important;
+    transform: scale(1.2) !important;
+}
+
+/* Sticker Sidebar - Redesigned to match customization theme */
+.sticker-sidebar {
+    position: fixed;
+    right: -380px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 350px;
+    max-height: 85vh;
+    background: var(--glass-bg, rgba(255, 255, 255, 0.1));
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
+    border-radius: 20px 0 0 20px;
+    box-shadow: var(--glass-shadow, 0 8px 32px rgba(0, 0, 0, 0.4));
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 500000 !important;
+    overflow: hidden;
+    border-right: none;
+}
+
+.sticker-sidebar.active {
+    right: 0;
+    box-shadow: var(--glass-shadow, 0 8px 32px rgba(0, 0, 0, 0.4)), 
+                0 0 40px rgba(103, 197, 255, 0.2);
+}
+
+/* Left-side positioning */
+.sticker-sidebar.panel-left {
+    right: auto;
+    left: -380px;
+    border-radius: 0 20px 20px 0;
+    border-right: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
+    border-left: none;
+}
+
+.sticker-sidebar.panel-left.active {
+    left: 0;
+    right: auto;
+}
+
+.sticker-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+.sticker-header h3 {
+    color: var(--title-text-color, #ffffff);
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, var(--accent-primary, #67c5ff), var(--accent-secondary, #764ba2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.sticker-header h3 i {
+    background: linear-gradient(135deg, var(--accent-primary, #67c5ff), var(--accent-secondary, #764ba2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.2rem;
+}
+
+.sticker-header-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.sticker-header-btn {
+    background: var(--glass-bg, rgba(255, 255, 255, 0.1));
+    backdrop-filter: blur(10px);
+    color: var(--text-color, #ffffff);
+    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
+    border-radius: 10px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 14px;
+}
+
+.sticker-header-btn:hover {
+    background: var(--accent-primary, #67c5ff);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(103, 197, 255, 0.4);
+    border-color: var(--accent-primary, #67c5ff);
+}
+
+/* Sticker Controls Section */
+.sticker-controls {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+    display: flex;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.sticker-control-btn {
+    flex: 1;
+    background: var(--glass-bg, rgba(255, 255, 255, 0.1));
+    backdrop-filter: blur(10px);
+    color: var(--text-color, #ffffff);
+    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.sticker-control-btn:hover {
+    background: linear-gradient(135deg, var(--accent-primary, #67c5ff), var(--accent-secondary, #764ba2));
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(103, 197, 255, 0.3);
+    border-color: transparent;
+}
+
+.sticker-control-btn:active {
+    transform: translateY(0);
+}
+
+.sticker-control-btn i {
+    font-size: 0.9rem;
+}
+
+/* Categories Section */
+.sticker-categories {
+    padding: 1rem 1.5rem 0;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.category-tab {
+    background: var(--glass-bg, rgba(255, 255, 255, 0.1));
+    backdrop-filter: blur(10px);
+    color: var(--text-color, #ffffff);
+    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
+    border-radius: 15px;
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.9rem;
+    font-weight: 500;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.category-tab:hover {
+    background: rgba(103, 197, 255, 0.2);
+    border-color: var(--accent-primary, #67c5ff);
+    transform: translateY(-1px);
+}
+
+.category-tab.active {
+    background: linear-gradient(135deg, var(--accent-primary, #67c5ff), var(--accent-secondary, #764ba2));
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 15px rgba(103, 197, 255, 0.3);
+}
+
+.category-tab.active::before {
+    content: '✓';
+    margin-right: 0.25rem;
+    font-weight: bold;
+}
+
+.category-tab i {
+    font-size: 0.9rem;
+}
+
+/* Upload Section */
+.custom-upload-section {
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.upload-area {
+    background: var(--glass-bg, rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(10px);
+    border: 2px dashed var(--glass-border, rgba(255, 255, 255, 0.2));
+    border-radius: 15px;
+    padding: 2rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 1.5rem;
+}
+
+.upload-area:hover {
+    background: rgba(103, 197, 255, 0.1);
+    border-color: var(--accent-primary, #67c5ff);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(103, 197, 255, 0.2);
+}
+
+.upload-area i {
+    font-size: 2.5rem;
+    color: var(--accent-primary, #67c5ff);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.upload-area span {
+    color: var(--text-color, #ffffff);
+    font-size: 1rem;
+    font-weight: 500;
+    display: block;
+}
+
+/* Upload Pricing */
+.upload-pricing {
+    background: var(--glass-bg, rgba(255, 255, 255, 0.05));
+    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.price-tier {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+}
+
+.price-tier:last-child {
+    border-bottom: none;
+}
+
+.size-label {
+    color: var(--text-color, #ffffff);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.price {
+    color: var(--accent-primary, #67c5ff);
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: rgba(103, 197, 255, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(103, 197, 255, 0.2);
+}
+
+/* Custom Stickers Grid */
+.custom-stickers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 0.75rem;
+    max-height: 250px;
+    overflow-y: auto;
+    padding: 0.5rem;
+}
+
+.custom-sticker-item {
+    background: var(--glass-bg, rgba(255, 255, 255, 0.1));
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
+    border-radius: 12px;
+    padding: 0.75rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-sticker-item:hover {
+    background: rgba(103, 197, 255, 0.2);
+    border-color: var(--accent-primary, #67c5ff);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(103, 197, 255, 0.3);
+}
+
+.custom-sticker-item img {
+    width: 100%;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+}
+
+.custom-sticker-item div {
+    color: var(--text-color, #ffffff);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* Sticker Grid Upload Button */
+.custom-sticker-upload {
+    background: var(--glass-bg, rgba(255, 255, 255, 0.05));
+    border: 2px dashed var(--glass-border, rgba(255, 255, 255, 0.3));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 1rem;
+}
+
+.custom-sticker-upload:hover {
+    background: rgba(103, 197, 255, 0.1);
+    border-color: var(--accent-primary, #67c5ff);
+}
+
+.upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-color, #ffffff);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+}
+
+.upload-label i {
+    font-size: 1.5rem;
+    color: var(--accent-primary, #67c5ff);
+}
+
+/* User Coins Display */
+.user-coins {
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, var(--accent-primary, #67c5ff), var(--accent-secondary, #764ba2));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-top: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+    margin-top: auto;
+}
+
+.user-coins i {
+    font-size: 1.1rem;
+    color: #ffd700;
+}
+
+/* Modern Sticker Grid - Redesigned */
+.sticker-grid {
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.sticker-item {
+    background: var(--glass-bg, rgba(255, 255, 255, 0.1));
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.2));
+    border-radius: 12px;
+    padding: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+}
+
+.sticker-item:hover {
+    background: rgba(103, 197, 255, 0.2);
+    border-color: var(--accent-primary, #67c5ff);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(103, 197, 255, 0.3);
+}
+
+.sticker-item.locked {
+    opacity: 0.6;
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.sticker-item.locked:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.sticker-emoji {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.sticker-info {
+    font-size: 0.75rem;
+    color: var(--text-color, #ffffff);
+    opacity: 0.8;
+}
+
+.sticker-cost {
+    color: var(--accent-primary, #67c5ff);
+    font-weight: 600;
+    background: rgba(103, 197, 255, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(103, 197, 255, 0.2);
+    margin-top: 0.25rem;
+    font-size: 0.7rem;
+}
+
+.sticker-status.unlocked {
+    color: var(--success-color, #10b981);
+    font-weight: 600;
+    background: rgba(16, 185, 129, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    margin-top: 0.25rem;
+    font-size: 0.7rem;
+}
+
+/* Scrollbar Styling for Sidebar */
+.sticker-sidebar::-webkit-scrollbar,
+.custom-stickers-grid::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sticker-sidebar::-webkit-scrollbar-track,
+.custom-stickers-grid::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.sticker-sidebar::-webkit-scrollbar-thumb,
+.custom-stickers-grid::-webkit-scrollbar-thumb {
+    background: var(--accent-primary, #67c5ff);
+    border-radius: 3px;
+    opacity: 0.6;
+}
+
+.sticker-sidebar::-webkit-scrollbar-thumb:hover,
+.custom-stickers-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-secondary, #764ba2);
+    opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sticker-sidebar {
+        width: 320px;
+        right: -320px;
+    }
+    
+    .sticker-sidebar.panel-left {
+        left: -320px;
+    }
+    
+    .custom-stickers-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 0.5rem;
+    }
+    
+    .sticker-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .upload-area {
+        padding: 1.5rem 0.75rem;
+    }
+    
+    .upload-area i {
+        font-size: 2rem;
+    }
+}
+
+/* Animation for sidebar opening */
+@keyframes slideInRight {
+    from {
+        transform: translateY(-50%) translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(-50%) translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateY(-50%) translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(-50%) translateX(0);
+        opacity: 1;
+    }
+}
+
+.sticker-sidebar.active {
+    animation: slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sticker-sidebar.panel-left.active {
+    animation: slideInLeft 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Coins Display - Modern Style */
+.coins-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #ffd700;
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: rgba(255, 215, 0, 0.1);
+    padding: 0.5rem 0.75rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+/* Ensure stickers are always on top */
+.placed-sticker, .placed-sticker * {
+    pointer-events: all !important;
+    position: relative !important;
+}
+
+/* Override any conflicting styles */
+.sticker-canvas .placed-sticker {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: flex !important;
+}
+
+/* Force stickers above all UI elements */
+.placed-sticker {
+    z-index: 99999 !important;
+}
+
+.sticker-remove, .resize-handle {
+    z-index: 1000001 !important;
+}
+
+/* Make sure stickers appear above navigation, sidebars, modals, etc. */
+.sidebar, .navbar, .modal, .dropdown, .tooltip, .popover {
+    z-index: 9999 !important;
+}
+
+/* Modern Loading Animation */
+@keyframes shimmer {
+    0% {
+        background-position: -200px 0;
+    }
+    100% {
+        background-position: calc(200px + 100%) 0;
+    }
+}
+
+.loading-shimmer {
+    background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0.1) 0%, 
+        rgba(255, 255, 255, 0.2) 50%, 
+        rgba(255, 255, 255, 0.1) 100%);
+    background-size: 200px 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+/* Pulse Animation for New Elements */
+@keyframes gentlePulse {
+    0%, 100% { 
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% { 
+        transform: scale(1.02);
+        opacity: 0.9;
+    }
+}
+
+.pulse-new {
+    animation: gentlePulse 2s infinite;
+}
+
+/* Glass Effect Enhancement */
+.glass-enhance {
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-enhance::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.1), 
+        transparent);
+    transition: left 0.5s ease;
+}
+
+.glass-enhance:hover::before {
+    left: 100%;
+}
+
+/* Ensure sticker animations work smoothly */
+@keyframes stickerPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Success feedback animation */
+@keyframes successFeedback {
+    0% {
+        transform: scale(1);
+        background: var(--glass-bg, rgba(255, 255, 255, 0.1));
+    }
+    50% {
+        transform: scale(1.02);
+        background: rgba(16, 185, 129, 0.2);
+    }
+    100% {
+        transform: scale(1);
+        background: var(--glass-bg, rgba(255, 255, 255, 0.1));
+    }
+}
+
+.success-flash {
+    animation: successFeedback 0.6s ease-out;
+}
+
+.placed-sticker.highlight {
+    animation: stickerPulse 1s ease-in-out;
+}
+
+/* Sticker Button Positioning - Bottom Right */
+.sticker-btn {
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 50% !important;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border: 3px solid rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+    font-size: 24px !important;
+    cursor: pointer !important;
+    z-index: 500001 !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+    transition: all 0.3s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.sticker-btn:hover {
+    transform: scale(1.1) !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4) !important;
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%) !important;
+}
+
+.sticker-btn:active {
+    transform: scale(0.95) !important;
+}
+
+/* Override maximize controls positioning when sticker button is present */
+.maximize-controls {
+    position: relative !important;
+}
+
+.maximize-controls .sticker-btn {
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    margin: 0 !important;
+}

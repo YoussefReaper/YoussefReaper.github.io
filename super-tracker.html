@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Tracker - Simple Productivity Timer</title>
+    <meta name="description" content="Simple, focused productivity tracking with Pomodoro technique and task-based timing">
+    
+    <!-- External Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Local Styles -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/super-tracker.css">
+    <link rel="stylesheet" href="styles/floating-nav.css">
+    <link rel="stylesheet" href="styles/modern-navigation.css">
+</head>
+<body class="floating-nav-active" data-page="tracker">
+
+    <!-- Modern Topbar -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="page-breadcrumb">
+                <a href="index.html" class="breadcrumb-item">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Tracker</span>
+            </div>
+        </div>
+        
+        <div class="topbar-nav">
+            <a href="about-me.html" class="topbar-nav-item">
+                <i class="fas fa-user"></i>
+                <span>About Me</span>
+            </a>
+            <a href="future-plans.html" class="topbar-nav-item">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="support-project.html" class="topbar-nav-item">
+                <i class="fas fa-heart"></i>
+                <span>Support Project</span>
+            </a>
+            <a href="feedbacks.html" class="topbar-nav-item">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+        </div>
+        
+        <div class="topbar-actions">
+            <div class="user-menu">
+                <div class="user-trigger">
+                    <div class="user-avatar" id="topbar-profile-pic">A</div>
+                    <div class="user-info">
+                        <span class="user-name" id="topbar-username"></span>
+                        <span class="user-status">Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" style="margin-left: 0; margin-top: 70px;">
+        <!-- Fixed Two-Panel Layout -->
+        <div class="tracker-layout">
+            <!-- Left Panel - Control Options -->
+            <div class="left-panel">
+                <!-- Enhanced Slide Container -->
+                <div class="slide-container">
+                    <!-- Slide Navigation -->
+                    <div class="slide-nav">
+                        <button class="slide-nav-btn active" data-slide="tasks">
+                            <i class="fas fa-tasks"></i>
+                            <span>Tasks</span>
+                        </button>
+                        <button class="slide-nav-btn" data-slide="mode">
+                            <i class="fas fa-cog"></i>
+                            <span>Mode</span>
+                        </button>
+                        <button class="slide-nav-btn" data-slide="progress">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Progress</span>
+                        </button>
+                        <button class="slide-nav-btn" data-slide="settings">
+                            <i class="fas fa-sliders-h"></i>
+                            <span>Settings</span>
+                        </button>
+                    </div>
+
+                    <!-- Slides Content -->
+                    <div class="slides-wrapper">
+                        <!-- Task Management Slide -->
+                        <div class="slide active" id="tasks-slide" style="display: block; position: relative; opacity: 1; transform: translateX(0);">
+                            <div class="slide-header">
+                                <h3><i class="fas fa-tasks"></i> Task Tracker</h3>
+                                <p>Manage and track your tasks with precision</p>
+                            </div>
+                            
+                            <!-- Task Selection -->
+                            <div class="task-selection-enhanced">
+                                <div class="task-header-controls">
+                                    <h4><i class="fas fa-list"></i> Active Tasks</h4>
+                                    <div class="task-controls">
+                                        <button class="refresh-tasks-btn" id="refresh-tasks" title="Refresh tasks">
+                                            <i class="fas fa-sync-alt"></i>
+                                        </button>
+                                        <button class="create-task-btn" onclick="window.open('tasks-new.html', '_blank')" title="Create new task">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Enhanced Task List -->
+                                <div class="enhanced-task-list" id="enhanced-task-list">
+                                    <!-- Tasks will be loaded here with progress bars -->
+                                </div>
+                                
+                                <!-- Empty State -->
+                                <div class="empty-state" id="empty-tasks" style="display: none;">
+                                    <i class="fas fa-clipboard-list"></i>
+                                    <h4>No Active Tasks</h4>
+                                    <p>Create tasks to start tracking your progress</p>
+                                    <a href="tasks-new.html" class="create-task-link">
+                                        <i class="fas fa-plus"></i> Create Your First Task
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Task Progress Summary -->
+                            <div class="task-progress-summary" id="task-progress-summary" style="display: none;">
+                                <div class="progress-header">
+                                    <h4><i class="fas fa-bullseye"></i> Current Task</h4>
+                                    <div class="task-status" id="current-task-status">Ready to start</div>
+                                </div>
+                                
+                                <div class="task-details" id="current-task-details">
+                                    <div class="task-name" id="current-task-name">No task selected</div>
+                                    <div class="task-progress-bar">
+                                        <div class="progress-track">
+                                            <div class="progress-fill" id="task-progress-fill" style="width: 0%"></div>
+                                        </div>
+                                        <div class="progress-text">
+                                            <span id="task-progress-percentage">0%</span>
+                                            <span id="task-time-info">0m / 0m</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="task-actions">
+                                        <button class="action-btn start-task-btn" id="start-task-btn" disabled>
+                                            <i class="fas fa-play"></i>
+                                            <span>Start Task</span>
+                                        </button>
+                                        <button class="action-btn pause-task-btn" id="pause-task-btn" style="display: none;">
+                                            <i class="fas fa-pause"></i>
+                                            <span>Pause</span>
+                                        </button>
+                                        <button class="action-btn complete-task-btn" id="complete-task-btn" style="display: none;">
+                                            <i class="fas fa-check"></i>
+                                            <span>Complete Task</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mode Selection Slide -->
+                        <div class="slide" id="mode-slide" style="display: none; position: absolute; opacity: 0; transform: translateX(-100%);">
+                            <div class="slide-header">
+                                <h3><i class="fas fa-cog"></i> Timer Mode</h3>
+                                <p>Choose your productivity approach</p>
+                            </div>
+                            
+                            <div class="mode-selection">
+                                <div class="mode-option active" data-mode="task-focused">
+                                    <div class="mode-icon">
+                                        <i class="fas fa-bullseye"></i>
+                                    </div>
+                                    <div class="mode-info">
+                                        <div class="mode-title">Task-Focused</div>
+                                        <div class="mode-description">Track time based on estimated task duration</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mode-option" data-mode="pomodoro">
+                                    <div class="mode-icon">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="mode-info">
+                                        <div class="mode-title">Pomodoro</div>
+                                        <div class="mode-description">25-minute focused work sessions</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mode-option" data-mode="stopwatch">
+                                    <div class="mode-icon">
+                                        <i class="fas fa-stopwatch"></i>
+                                    </div>
+                                    <div class="mode-info">
+                                        <div class="mode-title">Stopwatch</div>
+                                        <div class="mode-description">Earn 20 coins for every hour completed</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mode-option" data-mode="custom">
+                                    <div class="mode-icon">
+                                        <i class="fas fa-edit"></i>
+                                    </div>
+                                    <div class="mode-info">
+                                        <div class="mode-title">Custom Timer</div>
+                                        <div class="mode-description">Set your own work and break intervals</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Custom Timer Settings -->
+                            <div class="custom-timer-settings" id="custom-timer-settings" style="display: none;">
+                                <h4><i class="fas fa-sliders-h"></i> Custom Timer</h4>
+                                <div class="timer-inputs">
+                                    <div class="input-group">
+                                        <label for="custom-work-time">Work Duration (minutes)</label>
+                                        <input type="number" id="custom-work-time" min="1" max="240" value="25">
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="custom-break-time">Break Duration (minutes)</label>
+                                        <input type="number" id="custom-break-time" min="1" max="60" value="5">
+                                    </div>
+                                    <button class="apply-custom-timer" id="apply-custom-timer">
+                                        <i class="fas fa-check"></i> Apply Settings
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Progress Analytics Slide -->
+                        <div class="slide" id="progress-slide" style="display: none; position: absolute; opacity: 0; transform: translateX(-100%);">
+                            <div class="slide-header">
+                                <h3><i class="fas fa-chart-line"></i> Progress Analytics</h3>
+                                <p>Track your productivity and achievements</p>
+                            </div>
+                            
+                            <!-- Daily Progress -->
+                            <div class="progress-section">
+                                <h4><i class="fas fa-calendar-day"></i> Today's Progress</h4>
+                                <div class="progress-cards">
+                                    <div class="progress-card">
+                                        <div class="progress-icon">✅</div>
+                                        <div class="progress-info">
+                                            <div class="progress-value" id="tasks-completed-today">0</div>
+                                            <div class="progress-label">Tasks Completed</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="progress-card">
+                                        <div class="progress-icon">⏱️</div>
+                                        <div class="progress-info">
+                                            <div class="progress-value" id="time-focused-today">0m</div>
+                                            <div class="progress-label">Time Focused</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="progress-card">
+                                        <div class="progress-icon">🪙</div>
+                                        <div class="progress-info">
+                                            <div class="progress-value" id="coins-earned-today">0</div>
+                                            <div class="progress-label">Coins Earned</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Weekly Overview -->
+                            <div class="progress-section">
+                                <h4><i class="fas fa-chart-bar"></i> Weekly Overview</h4>
+                                <div class="weekly-chart" id="weekly-chart">
+                                    <!-- Weekly progress visualization -->
+                                    <div class="chart-placeholder">
+                                        <i class="fas fa-chart-line"></i>
+                                        <p>Weekly progress chart will appear here</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Achievement Progress -->
+                            <div class="progress-section">
+                                <h4><i class="fas fa-trophy"></i> Achievements</h4>
+                                <div class="achievement-progress">
+                                    <div class="achievement-item">
+                                        <div class="achievement-icon">🔥</div>
+                                        <div class="achievement-info">
+                                            <div class="achievement-name">Task Master</div>
+                                            <div class="achievement-description">Complete 10 tasks (0/10)</div>
+                                            <div class="achievement-progress-bar">
+                                                <div class="progress-track">
+                                                    <div class="progress-fill" style="width: 0%"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="achievement-item">
+                                        <div class="achievement-icon">⏰</div>
+                                        <div class="achievement-info">
+                                            <div class="achievement-name">Time Tracker</div>
+                                            <div class="achievement-description">Log 100 minutes of focus time (0/100)</div>
+                                            <div class="achievement-progress-bar">
+                                                <div class="progress-track">
+                                                    <div class="progress-fill" style="width: 0%"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Settings Slide -->
+                        <div class="slide" id="settings-slide" style="display: none; position: absolute; opacity: 0; transform: translateX(-100%);">
+                            <div class="slide-header">
+                                <h3><i class="fas fa-sliders-h"></i> Timer Settings</h3>
+                                <p>Customize your focus experience</p>
+                            </div>
+                            
+                            <div class="settings-grid">
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <div>
+                                            <i class="fas fa-volume-up"></i>
+                                            <span>Sound Notifications</span>
+                                        </div>
+                                        <small>Play sound when sessions complete</small>
+                                    </div>
+                                    <label class="toggle">
+                                        <input type="checkbox" id="sound-enabled" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <div>
+                                            <i class="fas fa-bell"></i>
+                                            <span>Desktop Notifications</span>
+                                        </div>
+                                        <small>Show system notifications</small>
+                                    </div>
+                                    <label class="toggle">
+                                        <input type="checkbox" id="desktop-notifications" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <div>
+                                            <i class="fas fa-save"></i>
+                                            <span>Auto-save Progress</span>
+                                        </div>
+                                        <small>Automatically save task progress</small>
+                                    </div>
+                                    <label class="toggle">
+                                        <input type="checkbox" id="auto-save" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <div>
+                                            <i class="fas fa-eye-slash"></i>
+                                            <span>Focus Mode</span>
+                                        </div>
+                                        <small>Hide distractions during sessions</small>
+                                    </div>
+                                    <label class="toggle">
+                                        <input type="checkbox" id="focus-mode-enabled" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <div>
+                                            <i class="fas fa-clock"></i>
+                                            <span>Show Seconds</span>
+                                        </div>
+                                        <small>Display seconds on timer</small>
+                                    </div>
+                                    <label class="toggle">
+                                        <input type="checkbox" id="show-seconds">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="setting-item">
+                                    <div class="setting-label">
+                                        <div>
+                                            <i class="fas fa-palette"></i>
+                                            <span>Sync with Theme</span>
+                                        </div>
+                                        <small>Use global customization settings</small>
+                                    </div>
+                                    <label class="toggle">
+                                        <input type="checkbox" id="theme-sync" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - Enhanced Timer Display -->
+            <div class="right-panel">
+                <div class="timer-section">
+                    <!-- Page Header -->
+                    <div class="timer-header">
+                        <h1 class="timer-title">
+                            <i class="fas fa-stopwatch"></i>
+                            <span id="timer-mode-title">Task Tracker</span>
+                        </h1>
+                        <div class="session-info">
+                            <div class="current-session" id="current-session">Select a task to begin</div>
+                            <div class="session-progress" id="session-progress">Ready to start</div>
+                        </div>
+                    </div>
+
+                    <!-- Task Progress Summary -->
+                    <div class="task-progress-display" id="task-progress-display" style="display: none;">
+                        <div class="task-info-header">
+                            <div class="task-name-display" id="timer-task-name">No task selected</div>
+                            <div class="task-completion-status" id="task-completion-status">0% Complete</div>
+                        </div>
+                        
+                        <div class="task-time-breakdown">
+                            <div class="time-stat">
+                                <span class="time-label">Time Spent:</span>
+                                <span class="time-value" id="time-spent-display">0m</span>
+                            </div>
+                            <div class="time-stat">
+                                <span class="time-label">Remaining:</span>
+                                <span class="time-value" id="time-remaining-display">--</span>
+                            </div>
+                            <div class="time-stat">
+                                <span class="time-label">Estimated Total:</span>
+                                <span class="time-value" id="estimated-time-display">--</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Dual Progress Bars -->
+                        <div class="progress-bars-container">
+                            <div class="progress-bar-section">
+                                <div class="progress-label">Overall Task Progress</div>
+                                <div class="progress-bar task-progress-bar">
+                                    <div class="progress-fill" id="overall-task-progress" style="width: 0%"></div>
+                                    <div class="progress-text" id="overall-progress-text">0%</div>
+                                </div>
+                            </div>
+                            
+                            <div class="progress-bar-section">
+                                <div class="progress-label">Current Session Progress</div>
+                                <div class="progress-bar session-progress-bar">
+                                    <div class="progress-fill" id="current-session-progress" style="width: 0%"></div>
+                                    <div class="progress-text" id="session-progress-text">Ready</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enhanced Circular Timer -->
+                    <div class="timer-display">
+                        <div class="circular-timer">
+                            <svg class="progress-ring" width="280" height="280">
+                                <!-- Background circle -->
+                                <circle class="progress-ring-background" cx="140" cy="140" r="120"></circle>
+                                <!-- Task overall progress circle (blue) -->
+                                <circle class="progress-ring-task" cx="140" cy="140" r="120" id="task-progress-circle"></circle>
+                                <!-- Current session progress circle (green) -->
+                                <circle class="progress-ring-session" cx="140" cy="140" r="120" id="session-progress-circle"></circle>
+                            </svg>
+                            <div class="timer-content">
+                                <div class="time-value" id="timer-display">00:00</div>
+                                <div class="mode-indicator" id="mode-indicator">Select a task</div>
+                                <div class="timer-description" id="timer-description">Choose a mode to begin</div>
+                                <div class="session-indicator" id="session-indicator"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Enhanced Timer Controls -->
+                    <div class="timer-controls">
+                        <button class="control-btn start-btn" id="start-btn">
+                            <i class="fas fa-play"></i>
+                            <span>Start</span>
+                        </button>
+                        <button class="control-btn pause-btn" id="pause-btn" style="display: none;">
+                            <i class="fas fa-pause"></i>
+                            <span>Pause</span>
+                        </button>
+                        <button class="control-btn complete-btn" id="complete-btn" style="display: none;">
+                            <i class="fas fa-check"></i>
+                            <span>Complete Task</span>
+                        </button>
+                        <button class="control-btn reset-btn" id="reset-btn">
+                            <i class="fas fa-refresh"></i>
+                            <span>Reset</span>
+                        </button>
+                        <button class="control-btn maximize-btn" id="maximize-btn" title="Enter Maximize Mode">
+                            <i class="fas fa-expand"></i>
+                            <span>Maximize</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Completion Celebration -->
+                    <div class="completion-celebration" id="completion-celebration" style="display: none;">
+                        <div class="celebration-content">
+                            <div class="celebration-icon">🎉</div>
+                            <div class="celebration-title">Task Completed!</div>
+                            <div class="celebration-message" id="celebration-message">Great work! You've earned 20 coins!</div>
+                            <div class="celebration-stats">
+                                <div class="stat">
+                                    <span class="stat-label">Time Spent:</span>
+                                    <span class="stat-value" id="final-time-spent">--</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label">Coins Earned:</span>
+                                    <span class="stat-value coin-value">+20 🪙</span>
+                                </div>
+                            </div>
+                            <button class="celebration-continue" id="celebration-continue">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Maximize Mode Overlay -->
+    <div class="maximize-overlay" id="maximize-overlay" style="display: none;">
+        <!-- Background Layer -->
+        <div class="maximize-background">
+            <video class="background-video" id="background-video" muted loop autoplay style="display: none;"></video>
+            <div class="background-image" id="background-image"></div>
+        </div>
+        
+        <!-- Transparent Timer - centered and clean -->
+        <div class="transparent-timer-container">
+            <div class="transparent-timer">
+                <div class="timer-display" id="maximize-timer">25:00</div>
+                <div class="timer-mode-indicator" id="maximize-mode-indicator">Focus Session</div>
+            </div>
+        </div>
+        
+        <!-- Enhanced Controls System -->
+        <div class="maximize-controls-system" id="maximize-controls-system">
+            <!-- Exit button - top right -->
+            <button class="exit-maximize-btn" id="exit-maximize" title="Exit Maximize Mode (ESC)">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <!-- Settings Panel Toggle -->
+            <button class="settings-panel-toggle" id="settings-panel-toggle" title="Settings (S)">
+                <i class="fas fa-cog"></i>
+            </button>
+            
+            <!-- Main Settings Panel -->
+            <div class="enhanced-settings-panel" id="enhanced-settings-panel" style="display: none;">
+                <div class="settings-header">
+                    <h3><i class="fas fa-cog"></i> Maximize Mode Settings</h3>
+                    <button class="close-settings-btn" id="close-settings-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="settings-content">
+                    <!-- Background Settings -->
+                    <div class="settings-section">
+                        <h4><i class="fas fa-image"></i> Background</h4>
+                        <div class="settings-grid">
+                            <div class="setting-item">
+                                <label>Background Type</label>
+                                <div class="button-group">
+                                    <button class="setting-btn" data-action="upload-image" title="Upload Image">
+                                        <i class="fas fa-image"></i> Image
+                                    </button>
+                                    <button class="setting-btn" data-action="upload-video" title="Upload Video">
+                                        <i class="fas fa-video"></i> Video
+                                    </button>
+                                    <button class="setting-btn active" data-action="use-preset" title="Use Preset">
+                                        <i class="fas fa-palette"></i> Preset
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="preset-backgrounds-grid">
+                                <div class="preset-bg-option" data-bg="forest" style="background: linear-gradient(135deg, #134e5e, #71b280);" title="Forest">
+                                    <span>Forest</span>
+                                </div>
+                                <div class="preset-bg-option" data-bg="ocean" style="background: linear-gradient(135deg, #1e3c72, #2a5298);" title="Ocean">
+                                    <span>Ocean</span>
+                                </div>
+                                <div class="preset-bg-option" data-bg="space" style="background: linear-gradient(135deg, #000428, #004e92);" title="Space">
+                                    <span>Space</span>
+                                </div>
+                                <div class="preset-bg-option" data-bg="sunset" style="background: linear-gradient(135deg, #ff6b6b, #feca57);" title="Sunset">
+                                    <span>Sunset</span>
+                                </div>
+                                <div class="preset-bg-option" data-bg="mountains" style="background: linear-gradient(135deg, #4a90e2, #7b68ee);" title="Mountains">
+                                    <span>Mountains</span>
+                                </div>
+                                <div class="preset-bg-option" data-bg="none" style="background: linear-gradient(135deg, #2a2a2a, #1a1a1a);" title="None">
+                                    <span>None</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Audio Settings -->
+                    <div class="settings-section">
+                        <h4><i class="fas fa-music"></i> Audio</h4>
+                        <div class="settings-grid">
+                            <div class="setting-item">
+                                <label>Background Audio</label>
+                                <div class="button-group">
+                                    <button class="setting-btn" id="audio-control-btn" title="Play/Pause Audio">
+                                        <i class="fas fa-play"></i> Play
+                                    </button>
+                                    <button class="setting-btn" id="stop-audio-btn" title="Stop Audio">
+                                        <i class="fas fa-stop"></i> Stop
+                                    </button>
+                                    <button class="setting-btn" data-action="upload-audio" title="Upload Audio">
+                                        <i class="fas fa-upload"></i> Upload
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="volume-control">
+                                <label>Volume</label>
+                                <div class="volume-slider">
+                                    <i class="fas fa-volume-down"></i>
+                                    <input type="range" id="enhanced-volume-control" min="0" max="100" step="5" value="50">
+                                    <i class="fas fa-volume-up"></i>
+                                    <span class="volume-value" id="volume-display">50%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Timer Settings -->
+                    <div class="settings-section">
+                        <h4><i class="fas fa-clock"></i> Timer Display</h4>
+                        <div class="settings-grid">
+                            <div class="setting-item">
+                                <label>Timer Opacity</label>
+                                <div class="opacity-slider">
+                                    <input type="range" id="enhanced-timer-opacity" min="10" max="100" step="10" value="90">
+                                    <span class="opacity-value" id="opacity-display">90%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <label>Timer Size</label>
+                                <div class="size-slider">
+                                    <input type="range" id="enhanced-timer-size" min="50" max="200" step="10" value="100">
+                                    <span class="size-value" id="size-display">100%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <label>Display Options</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="show-mode-indicator" checked>
+                                        <span>Show mode indicator</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="minimal-mode">
+                                        <span>Minimal mode</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mode & Task Selection -->
+                    <div class="settings-section">
+                        <h4><i class="fas fa-tasks"></i> Mode & Task Selection</h4>
+                        <div class="settings-grid">
+                            <!-- Timer Mode Selection -->
+                            <div class="setting-item">
+                                <label>Timer Mode</label>
+                                <div class="mode-selection-compact">
+                                    <button class="mode-btn active" data-mode="task-focused" title="Task-Focused Mode">
+                                        <i class="fas fa-bullseye"></i>
+                                        <span>Task</span>
+                                    </button>
+                                    <button class="mode-btn" data-mode="pomodoro" title="Pomodoro Mode">
+                                        <i class="fas fa-clock"></i>
+                                        <span>Pomodoro</span>
+                                    </button>
+                                    <button class="mode-btn" data-mode="stopwatch" title="Stopwatch Mode">
+                                        <i class="fas fa-stopwatch"></i>
+                                        <span>Stopwatch</span>
+                                    </button>
+                                    <button class="mode-btn" data-mode="custom" title="Custom Timer">
+                                        <i class="fas fa-edit"></i>
+                                        <span>Custom</span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Task Selection -->
+                            <div class="setting-item">
+                                <label>Active Task</label>
+                                <div class="task-selection-compact">
+                                    <div class="current-task-display" id="maximize-current-task">
+                                        <div class="task-icon">
+                                            <i class="fas fa-clipboard-list"></i>
+                                        </div>
+                                        <div class="task-info">
+                                            <div class="task-name" id="maximize-task-name">No task selected</div>
+                                            <div class="task-progress" id="maximize-task-progress">Select a task to begin</div>
+                                        </div>
+                                        <button class="change-task-btn" id="change-task-btn" title="Change Task">
+                                            <i class="fas fa-exchange-alt"></i>
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Task List Dropdown -->
+                                    <div class="task-list-dropdown" id="maximize-task-list" style="display: none;">
+                                        <div class="task-list-header">
+                                            <h5><i class="fas fa-tasks"></i> Select Task</h5>
+                                            <button class="close-task-list" id="close-task-list">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                        <div class="task-items-container" id="maximize-task-items">
+                                            <!-- Tasks will be loaded here -->
+                                            <div class="no-tasks-message" style="display: none;">
+                                                <i class="fas fa-clipboard-list"></i>
+                                                <p>No active tasks available</p>
+                                                <button class="create-task-btn-mini" onclick="window.open('tasks-new.html', '_blank')">
+                                                    <i class="fas fa-plus"></i> Create Task
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Custom Timer Settings (shown when custom mode is selected) -->
+                            <div class="setting-item custom-timer-maximize" id="custom-timer-maximize" style="display: none;">
+                                <label>Custom Timer Settings</label>
+                                <div class="custom-timer-inputs">
+                                    <div class="input-row">
+                                        <div class="input-group-mini">
+                                            <label for="maximize-work-time">Work (min)</label>
+                                            <input type="number" id="maximize-work-time" min="1" max="240" value="25">
+                                        </div>
+                                        <div class="input-group-mini">
+                                            <label for="maximize-break-time">Break (min)</label>
+                                            <input type="number" id="maximize-break-time" min="1" max="60" value="5">
+                                        </div>
+                                    </div>
+                                    <button class="apply-custom-maximize" id="apply-custom-maximize">
+                                        <i class="fas fa-check"></i> Apply Settings
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Control Settings -->
+                    <div class="settings-section">
+                        <h4><i class="fas fa-gamepad"></i> Controls</h4>
+                        <div class="settings-grid">
+                            <div class="timer-controls">
+                                <button class="enhanced-control-btn" id="enhanced-play-btn" title="Play/Pause">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <button class="enhanced-control-btn" id="enhanced-reset-btn" title="Reset">
+                                    <i class="fas fa-refresh"></i>
+                                </button>
+                                <button class="enhanced-control-btn" id="enhanced-fullscreen-btn" title="Fullscreen">
+                                    <i class="fas fa-expand"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <label>Quick Actions</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="auto-fullscreen">
+                                        <span>Auto fullscreen</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="notifications-enabled" checked>
+                                        <span>Show notifications</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Keyboard Shortcuts -->
+                    <div class="settings-section">
+                        <h4><i class="fas fa-keyboard"></i> Keyboard Shortcuts</h4>
+                        <div class="shortcuts-grid">
+                            <div class="shortcut-item">
+                                <kbd>Space</kbd> <span>Play/Pause</span>
+                            </div>
+                            <div class="shortcut-item">
+                                <kbd>ESC</kbd> <span>Exit Maximize</span>
+                            </div>
+                            <div class="shortcut-item">
+                                <kbd>S</kbd> <span>Toggle Settings</span>
+                            </div>
+                            <div class="shortcut-item">
+                                <kbd>Ctrl</kbd> + <kbd>F</kbd> <span>Fullscreen</span>
+                            </div>
+                            <div class="shortcut-item">
+                                <kbd>Ctrl</kbd> + <kbd>R</kbd> <span>Reset Timer</span>
+                            </div>
+                            <div class="shortcut-item">
+                                <kbd>?</kbd> <span>Show All Shortcuts</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hidden file inputs for uploads -->
+        <input type="file" id="maximize-image-upload" accept="image/*" style="display: none;">
+        <input type="file" id="maximize-video-upload" accept="video/*" style="display: none;">
+        <input type="file" id="maximize-audio-upload" accept="audio/*" style="display: none;">
+        
+        <!-- Background audio element -->
+        <audio id="background-audio" loop style="display: none;"></audio>
+    </div>
+
+    <!-- Floating Navigation Background -->
+    <div class="floating-nav-background" id="floating-nav-background"></div>
+
+    <!-- Floating Navigation Hub -->
+    <div class="floating-nav-hub" id="floating-nav-hub">
+        <button class="nav-hub-button" id="nav-hub-button">
+            <i class="fas fa-th"></i>
+        </button>
+        
+        <div class="nav-options" id="nav-options">
+            <!-- Navigation items will be dynamically generated by floating-navigation.js -->
+        </div>
+    </div>
+
+    <!-- Include required scripts -->
+    <script src="scripts/universal-page-system.js"></script>
+    <script src="scripts/floating-navigation.js"></script>
+    <script src="scripts/global-stats-manager.js"></script>
+    <script src="scripts/global-profile-manager.js"></script>
+    <script src="scripts/global-navigation.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+    <script src="scripts/enhanced-super-tracker.js"></script>
+    <script src="scripts/system.js"></script>
+</body>
+</html>

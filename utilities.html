@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utilities - Auro Tools</title>
+    <meta name="description" content="Access useful utilities and tools to enhance your Auro experience.">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/modern-navigation.css">
+    <link rel="stylesheet" href="styles/navigation-fix.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Modern Sidebar -->
+    <div class="sidebar collapsed" id="main-sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <div class="brand-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <span>Auro</span>
+            </div>
+            <button class="sidebar-toggle" id="sidebar-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">Main</div>
+                <div class="nav-items">
+                    <a href="index.html" class="nav-item">
+                        <i class="fas fa-home"></i>
+                        <span class="nav-item-text">Dashboard</span>
+                    </a>
+                    <a href="chat.html" class="nav-item">
+                        <i class="fas fa-comments"></i>
+                        <span class="nav-item-text">Chat</span>
+                    </a>
+                    <a href="plans.html" class="nav-item">
+                        <i class="fas fa-map"></i>
+                        <span class="nav-item-text">Plans</span>
+                    </a>
+                    <a href="tasks.html" class="nav-item">
+                        <i class="fas fa-tasks"></i>
+                        <span class="nav-item-text">Tasks</span>
+                    </a>
+                    <a href="super-tracker.html" class="nav-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span class="nav-item-text">Tracker</span>
+                    </a>
+                    <a href="notes.html" class="nav-item">
+                        <i class="fas fa-sticky-note"></i>
+                        <span class="nav-item-text">Notes</span>
+                    </a>
+                    <a href="achievements.html" class="nav-item">
+                        <i class="fas fa-trophy"></i>
+                        <span class="nav-item-text">Achievements</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Personalization</div>
+                <div class="nav-items">
+                    <a href="customization.html" class="nav-item">
+                        <i class="fas fa-palette"></i>
+                        <span class="nav-item-text">Customization</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Store</div>
+                <div class="nav-items">
+                    <a href="shop.html" class="nav-item">
+                        <i class="fas fa-store"></i>
+                        <span class="nav-item-text">Shop</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">System</div>
+                <div class="nav-items">
+                    <a href="utilities.html" class="nav-item active">
+                        <i class="fas fa-tools"></i>
+                        <span class="nav-item-text">Utilities</span>
+                    </a>
+                    <a href="settings.html" class="nav-item">
+                        <i class="fas fa-cog"></i>
+                        <span class="nav-item-text">Settings</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Modern Topbar -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="page-breadcrumb">
+                <a href="index.html" class="breadcrumb-item">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Utilities</span>
+            </div>
+        </div>
+        
+        <div class="topbar-nav">
+            <a href="about-me.html" class="topbar-nav-item">
+                <i class="fas fa-user"></i>
+                <span>About Me</span>
+            </a>
+            <a href="future-plans.html" class="topbar-nav-item">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="support-project.html" class="topbar-nav-item">
+                <i class="fas fa-heart"></i>
+                <span>Support Project</span>
+            </a>
+            <a href="feedbacks.html" class="topbar-nav-item">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+        </div>
+        
+        <div class="topbar-actions">
+            <div class="user-menu">
+                <div class="user-trigger">
+                    <div class="user-avatar" id="topbar-profile-pic">A</div>
+                    <div class="user-info">
+                        <span class="user-name" id="topbar-username"></span>
+                        <span class="user-status">Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="header-content">
+                <div class="header-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <div class="header-text">
+                    <h1 class="page-title">Utilities</h1>
+                    <p class="page-subtitle">Helpful tools and utilities for your productivity workflow</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Utilities Grid -->
+        <div class="dashboard-grid utilities-grid">
+            <!-- Data Management -->
+            <div class="dashboard-card utility-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-database"></i> Data Management</h3>
+                </div>
+                <div class="card-content">
+                    <div class="utility-list">
+                        <div class="utility-item">
+                            <div class="utility-icon">
+                                <i class="fas fa-download"></i>
+                            </div>
+                            <div class="utility-info">
+                                <h4>Export Data</h4>
+                                <p>Download your tasks, plans, and progress data</p>
+                            </div>
+                            <button class="utility-btn" onclick="exportData()">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/customization-loader.js"></script>
+    <script src="scripts/global-navigation.js"></script>
+    <script>
+        // Initialize sidebar toggle
+        document.getElementById('sidebar-toggle').addEventListener('click', function() {
+            document.getElementById('main-sidebar').classList.toggle('collapsed');
+        });
+        
+        function exportData() {
+            alert('Export functionality will be available soon!');
+        }
+    </script>
+
+    <!-- Global Theme Synchronization -->
+    <script src="scripts/universal-page-system.js"></script>
+    <script src="scripts/global-theme-sync.js"></script>
+</body>
+</html>

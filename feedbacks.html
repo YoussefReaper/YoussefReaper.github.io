@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feedbacks - Share Your Thoughts | Youssef Mohamed</title>
     <meta name="description" content="Share your feedback and help shape the future of Auro - Your voice matters in the productive revolution.">
-    <link rel="stylesheet" href="../../styles/main.css">
-    <link rel="stylesheet" href="../../styles/floating-nav.css">
-    <link rel="stylesheet" href="../../styles/dashboard.css">
-    <link rel="stylesheet" href="../../styles/about.css">
-    <link rel="stylesheet" href="../../styles/modern-navigation.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/floating-nav.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/about.css">
+    <link rel="stylesheet" href="styles/modern-navigation.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         /* Modern Design System */
@@ -275,40 +275,28 @@
                 scroll-behavior: smooth !important;
                 -webkit-overflow-scrolling: touch !important;
                 scrollbar-width: thin !important;
-                scrollbar-color: rgba(102, 126, 234, 0.5) rgba(255, 255, 255, 0.1) !important;
+                scrollbar-color: rgba(102, 126, 234, 0.3) transparent !important;
                 gap: 0.5rem !important;
                 min-width: max-content !important;
-                padding: 0.5rem 0 1rem 0 !important;
-                display: flex !important;
-                flex-wrap: nowrap !important;
-                width: 100% !important;
+                padding: 0.5rem 0 !important;
             }
 
             .topbar-nav::-webkit-scrollbar {
-                height: 6px !important;
-                background: rgba(255, 255, 255, 0.1) !important;
-                border-radius: 3px !important;
+                height: 4px !important;
             }
 
             .topbar-nav::-webkit-scrollbar-track {
                 background: rgba(255, 255, 255, 0.1) !important;
-                border-radius: 3px !important;
-                margin: 0 10px !important;
+                border-radius: 2px !important;
             }
 
             .topbar-nav::-webkit-scrollbar-thumb {
-                background: linear-gradient(90deg, rgba(102, 126, 234, 0.6), rgba(118, 75, 162, 0.6)) !important;
-                border-radius: 3px !important;
-                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                background: rgba(102, 126, 234, 0.5) !important;
+                border-radius: 2px !important;
             }
 
             .topbar-nav::-webkit-scrollbar-thumb:hover {
-                background: linear-gradient(90deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8)) !important;
-                box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3) !important;
-            }
-
-            .topbar-nav::-webkit-scrollbar-thumb:active {
-                background: linear-gradient(90deg, rgba(102, 126, 234, 1), rgba(118, 75, 162, 1)) !important;
+                background: rgba(102, 126, 234, 0.7) !important;
             }
 
             .topbar-nav-item {
@@ -316,215 +304,23 @@
                 white-space: nowrap !important;
                 padding: 0.5rem 0.75rem !important;
                 font-size: 0.9rem !important;
-                min-width: fit-content !important;
-                margin-right: 0.25rem !important;
             }
-
-            /* Improve touch interaction on mobile */
-            .topbar-nav {
-                -webkit-user-select: none !important;
-                -moz-user-select: none !important;
-                -ms-user-select: none !important;
-                user-select: none !important;
-            }
-
-            /* Fade out edges for better scroll indication */
-            .topbar-nav::before,
-            .topbar-nav::after {
-                content: '' !important;
-                position: absolute !important;
-                top: 0 !important;
-                bottom: 0 !important;
-                width: 20px !important;
-                pointer-events: none !important;
-                z-index: 1 !important;
-            }
-
-            .topbar-nav::before {
-                left: 0 !important;
-                background: linear-gradient(to right, rgba(255, 255, 255, 0.95), transparent) !important;
-            }
-
-            .topbar-nav::after {
-                right: 0 !important;
-                background: linear-gradient(to left, rgba(255, 255, 255, 0.95), transparent) !important;
-            }
-        }
-
-        /* Default Topbar Styling - Fallback when no customization is applied */
-        .topbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 85px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 2rem;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .topbar-left {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .page-breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .breadcrumb-current {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #333;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .topbar-nav {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex: 1;
-            justify-content: center;
-        }
-
-        .topbar-nav-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.25rem;
-            text-decoration: none;
-            color: #666;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            font-size: 0.95rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .topbar-nav-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--primary-gradient);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            border-radius: 12px;
-        }
-
-        .topbar-nav-item:hover::before,
-        .topbar-nav-item.active::before {
-            opacity: 0.1;
-        }
-
-        .topbar-nav-item:hover {
-            color: #333;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
-        }
-
-        .topbar-nav-item.active {
-            color: #667eea;
-            font-weight: 600;
-        }
-
-        .topbar-nav-item i {
-            font-size: 1rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .topbar-nav-item span {
-            position: relative;
-            z-index: 2;
-        }
-
-        .topbar-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .user-menu {
-            display: flex;
-            align-items: center;
-        }
-
-        .user-trigger {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.5rem 1rem;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .user-trigger:hover {
-            background: rgba(102, 126, 234, 0.15);
-            transform: translateY(-1px);
-        }
-
-        .user-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--primary-gradient);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .user-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.1rem;
-        }
-
-        .user-name {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .user-status {
-            font-size: 0.75rem;
-            color: #43e97b;
-            font-weight: 500;
         }
     </style>
 </head>
-<body>
+<body class="floating-nav-active" data-page="feedbacks">
     <!-- Modern Topbar -->
     <div class="topbar">
         <div class="topbar-left">
             <div class="page-breadcrumb">
+                <a href="index.html" class="breadcrumb-item">Home</a>
+                <span class="breadcrumb-separator">/</span>
                 <span class="breadcrumb-current">Feedbacks</span>
             </div>
         </div>
         
         <div class="topbar-nav">
-            <a href="about.html" class="topbar-nav-item">
+            <a href="about-me.html" class="topbar-nav-item">
                 <i class="fas fa-user"></i>
                 <span>About Me</span>
             </a>
@@ -540,9 +336,25 @@
                 <i class="fas fa-comments"></i>
                 <span>Feedbacks</span>
             </a>
-            <a href="index.html" class="topbar-nav-item">
-                <i class="fas fa-clock"></i>
-                <span>Launch Countdown</span>
+        </div>
+        
+        <div class="topbar-actions">
+            <div class="user-menu">
+                <div class="user-trigger">
+                    <div class="user-avatar" id="topbar-profile-pic">A</div>
+                    <div class="user-info">
+                        <span class="user-name" id="topbar-username"></span>
+                        <span class="user-status">Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                <span>Support Project</span>
+            </a>
+            <a href="feedbacks.html" class="topbar-nav-item active">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
             </a>
         </div>
         
@@ -551,7 +363,7 @@
                 <div class="user-trigger">
                     <div class="user-avatar" id="topbar-profile-pic">A</div>
                     <div class="user-info">
-                        <span class="user-name" id="topbar-username">Auro User</span>
+                        <span class="user-name" id="topbar-username"></span>
                         <span class="user-status">Active</span>
                     </div>
                 </div>
@@ -579,55 +391,31 @@
             <p style="color: #666;">Thanks for reaching out! I'll get back to you soon.</p>
         </div>
 
-        <!-- Simple Feedback Form -->
+        <!-- Google Forms Feedback -->
         <section style="margin: 4rem 0;">
             <div class="feedback-form glass-card">
-                <h2 class="form-title">Send Message</h2>
-                <form id="feedback-form" action="https://formsubmit.co/auronewai@gmail.com" method="POST">
-                    <!-- Hidden fields for FormSubmit configuration -->
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_subject" value="New Auro Feedback from Website">
-                    <input type="hidden" name="_next" value="https://youssefReaper.github.io/Remi/pre-page/YoussefReaper/feedbacks.html?success=true">
-                    <input type="hidden" name="_autoresponse" value="Thank you for your feedback! I'll get back to you soon. - Youssef">
-                    
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="feedback-name">Your Name</label>
-                            <input type="text" id="feedback-name" name="name" placeholder="Your name" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="feedback-email">Email</label>
-                            <input type="email" id="feedback-email" name="email" placeholder="your@email.com" required>
-                        </div>
+                <h2 class="form-title">Share Your Feedback</h2>
+                <div style="text-align: center; padding: 2rem;">
+                    <div style="margin-bottom: 2rem;">
+                        <i class="fas fa-external-link-alt" style="font-size: 3rem; color: #667eea; margin-bottom: 1rem;"></i>
+                        <p style="font-size: 1.1rem; line-height: 1.6; color: #666; margin-bottom: 2rem;">
+                            We've created a comprehensive feedback form to better understand your needs and suggestions. 
+                            Your input helps us build a better Auro experience for everyone!
+                        </p>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="feedback-type">What's this about?</label>
-                        <select id="feedback-type" name="type" required>
-                            <option value="">Choose one</option>
-                            <option value="feature-idea">💡 Feature Idea</option>
-                            <option value="bug-report">🐛 Bug Report</option>
-                            <option value="improvement">⚡ Improvement</option>
-                            <option value="mobile-app">📱 Mobile App Idea</option>
-                            <option value="just-saying-hi">👋 Just Saying Hi</option>
-                            <option value="other">💬 Other</option>
-                        </select>
-                    </div>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeq9P1ndPQsIzcgISZrabEpeGc6zsCp0yuGj7O2jKlqNmmQsQ/viewform?usp=dialog" 
+                       target="_blank" 
+                       class="submit-btn" 
+                       style="display: inline-block; text-decoration: none;">
+                        <i class="fas fa-comments"></i>
+                        <span>Open Feedback Form</span>
+                    </a>
                     
-                    <div class="form-group">
-                        <label for="feedback-message">Your Message</label>
-                        <textarea id="feedback-message" name="message" rows="6" placeholder="What's on your mind? I'd love to hear from you!" required></textarea>
-                    </div>
-                    
-                    <div style="text-align: center; margin-top: 2rem;">
-                        <button type="submit" class="submit-btn">
-                            <i class="fas fa-paper-plane"></i>
-                            <span>Send Message</span>
-                        </button>
-                    </div>
-                </form>
+                    <p style="font-size: 0.9rem; color: #888; margin-top: 1rem;">
+                        Opens in a new tab • Takes 2-3 minutes to complete
+                    </p>
+                </div>
             </div>
         </section>
 
@@ -673,13 +461,6 @@
             </div>
         </section>
 
-        <!-- Success Message -->
-        <div id="success-message" class="success-banner" style="display: none; margin: 2rem 0; padding: 2rem; background: rgba(67, 233, 123, 0.1); border: 2px solid #43e97b; border-radius: 15px; text-align: center;">
-            <i class="fas fa-check-circle" style="font-size: 3rem; color: #43e97b; margin-bottom: 1rem;"></i>
-            <h3 style="color: #43e97b; margin-bottom: 1rem;">Message Sent Successfully! 🎉</h3>
-            <p style="color: #666;">Thank you for your feedback! I'll get back to you soon.</p>
-        </div>
-
         <!-- Simple Thank You -->
         <section class="content-section">
             <div class="glass-card" style="padding: 3rem; text-align: center;">
@@ -692,58 +473,55 @@
         </section>
     </div>
 
+    <!-- Floating Navigation Background -->
+    <div class="floating-nav-background" id="floating-nav-background"></div>
+
+    <!-- Floating Navigation Hub -->
+    <div class="floating-nav-hub" id="floating-nav-hub">
+        <button class="nav-hub-button" id="nav-hub-button">
+            <i class="fas fa-th"></i>
+        </button>
+        
+        <div class="nav-options" id="nav-options">
+            <!-- Navigation items will be dynamically generated by floating-navigation.js -->
+        </div>
+    </div>
+
+    <!-- Include Scripts -->
+    <script src="scripts/floating-navigation.js"></script>
+    <script src="scripts/global-stats-manager.js"></script>
+    <script src="scripts/global-profile-manager.js"></script>
+    <script src="scripts/global-navigation.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+    <script src="scripts/system.js"></script>
     <script>
         // Check for success parameter in URL
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('success') === 'true') {
             const successMessage = document.getElementById('success-message');
-            successMessage.style.display = 'block';
-            // Scroll to success message
-            successMessage.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Form submission handling
-        document.getElementById('feedback-form').addEventListener('submit', function(e) {
-            const submitBtn = this.querySelector('.submit-btn');
-            const originalContent = submitBtn.innerHTML;
-            
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Sending...</span>';
-            submitBtn.style.background = '#43e97b';
-            submitBtn.disabled = true;
-            
-            // Re-enable button after a delay in case of errors
-            setTimeout(() => {
-                submitBtn.innerHTML = originalContent;
-                submitBtn.style.background = '';
-                submitBtn.disabled = false;
-            }, 10000);
-        });
-
-        // Load profile picture from IndexedDB
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                // Try to access IndexedDB directly
-                const request = indexedDB.open('AuroProfileDB', 1);
-                request.onsuccess = () => {
-                    const db = request.result;
-                    if (db.objectStoreNames.contains('profilePictures')) {
-                        const transaction = db.transaction(['profilePictures'], 'readonly');
-                        const store = transaction.objectStore('profilePictures');
-                        const getRequest = store.get('main-profile');
-                        
-                        getRequest.onsuccess = () => {
-                            if (getRequest.result) {
-                                const topbarProfilePic = document.getElementById('topbar-profile-pic');
-                                if (topbarProfilePic) {
-                                    topbarProfilePic.innerHTML = `<img src="${getRequest.result.imageData}" alt="Profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
-                                }
-                            }
-                        };
-                    }
-                };
-            } catch (error) {
-                console.log('Profile picture not available or error loading:', error);
+            if (successMessage) {
+                successMessage.classList.add('show');
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth' });
             }
+        }
+    </script>
+
+    <!-- Global Theme Synchronization -->
+    <script src="scripts/universal-page-system.js"></script>
+    <script src="scripts/global-theme-sync.js"></script>
+    
+    <!-- Profile Initialization Fix -->
+    <script>
+        // Ensure proper profile loading after all scripts are loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait a bit for all scripts to load
+            setTimeout(() => {
+                if (window.GlobalProfileManager) {
+                    window.GlobalProfileManager.init();
+                    window.GlobalProfileManager.applyProfiles();
+                }
+            }, 200);
         });
     </script>
 </body>

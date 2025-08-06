@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customization - Auro Customization</title>
+    <meta name="description" content="Customize your Auro experience with themes, colors, and personal settings.">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/customization.css">
+    <link rel="stylesheet" href="styles/coin-system.css">
+    <link rel="stylesheet" href="styles/floating-nav.css">
+    <link rel="stylesheet" href="styles/modern-navigation.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* New Theme Cards Styling */
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .theme-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(103, 197, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(103, 197, 255, 0.2);
+        }
+
+        .theme-card.active {
+            border-color: #67C5FF;
+            background: rgba(103, 197, 255, 0.1);
+            box-shadow: 0 15px 30px rgba(103, 197, 255, 0.3);
+        }
+
+        .theme-card.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #67C5FF, #AA79F9);
+        }
+
+        .theme-preview {
+            height: 120px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .preview-header {
+            height: 24px;
+            display: flex;
+            align-items: center;
+            padding: 0 0.5rem;
+            position: relative;
+        }
+
+        .preview-header::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #ff5f57;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .preview-header::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #ffbd2e;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            position: absolute;
+            left: 20px;
+        }
+
+        .preview-body {
+            height: 96px;
+            display: flex;
+        }
+
+        .preview-sidebar {
+            width: 60px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .preview-content {
+            flex: 1;
+            padding: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .preview-text-line {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .preview-text-line.short {
+            width: 60%;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Light Theme Colors */
+        .light-header {
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .light-body {
+            background: #ffffff;
+        }
+
+        .light-sidebar {
+            background: #f1f5f9;
+        }
+
+        .light-content {
+            background: #ffffff;
+        }
+
+        .light-header::before {
+            background: #ff5f57;
+        }
+
+        .light-header::after {
+            background: #ffbd2e;
+        }
+
+        /* Dark Theme Colors */
+        .dark-header {
+            background: #1e293b;
+            border-bottom: 1px solid #334155;
+        }
+
+        .dark-body {
+            background: #0f172a;
+        }
+
+        .dark-sidebar {
+            background: #1e293b;
+        }
+
+        .dark-content {
+            background: #0f172a;
+        }
+
+        /* Auto Theme Colors (Gradient) */
+        .auto-header {
+            background: linear-gradient(90deg, #f8fafc 0%, #1e293b 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .auto-body {
+            background: linear-gradient(90deg, #ffffff 0%, #0f172a 100%);
+        }
+
+        .auto-sidebar {
+            background: linear-gradient(180deg, #f1f5f9 0%, #1e293b 100%);
+        }
+
+        .auto-content {
+            background: linear-gradient(135deg, #ffffff 0%, #0f172a 100%);
+        }
+
+        .theme-info {
+            text-align: center;
+        }
+
+        .theme-info h3 {
+            color: var(--text-color, #125E8E);
+            margin: 0 0 0.5rem 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .theme-info p {
+            color: var(--text-color, rgba(18, 94, 142, 0.7));
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .theme-indicator {
+            margin-top: 0.75rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+
+        .theme-card.active .theme-indicator {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        .theme-settings {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .setting-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .setting-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .setting-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-color, #125E8E);
+            margin-bottom: 0.5rem;
+        }
+
+        .toggle-slider {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="checkbox"]:checked + .toggle-slider {
+            background: #67C5FF;
+        }
+
+        input[type="checkbox"]:checked + .toggle-slider::before {
+            transform: translateX(26px);
+        }
+
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        .setting-description {
+            color: var(--text-color, rgba(18, 94, 142, 0.6));
+            font-size: 0.85rem;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* Sci-fi enhancements for customization */
+        .theme-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1));
+            backdrop-filter: blur(10px);
+        }
+        
+        .theme-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--accent-purple, #a855f7);
+            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.3);
+        }
+        
+        .theme-card.active {
+            border-color: var(--accent-blue, #3b82f6);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+        }
+        
+        .color-picker-glow {
+            transition: all 0.3s ease;
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.5);
+        }
+        
+        .color-picker-glow:hover {
+            box-shadow: 0 0 20px 5px rgba(168, 85, 247, 0.7);
+            transform: scale(1.1);
+        }
+        
+        .customization-section {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.08), rgba(59, 130, 246, 0.08));
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .customization-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .customization-section:hover::before {
+            left: 100%;
+        }
+        
+        /* Locked feature styling */
+        .btn-locked {
+            opacity: 0.6 !important;
+            cursor: not-allowed !important;
+            position: relative;
+        }
+        
+        .btn-locked:hover {
+            opacity: 0.7 !important;
+            transform: none !important;
+        }
+        
+        /* Mobile optimization info styling */
+        .mobile-optimization-info {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .mobile-optimization-info .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color, #125E8E);
+            font-size: 0.9rem;
+        }
+        
+        /* Preset Lock Styling */
+        .preset-option {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .preset-option.locked {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .preset-lock-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+        
+        .preset-option.locked:hover .preset-lock-overlay {
+            opacity: 1;
+        }
+        
+        .preset-lock-overlay i {
+            font-size: 1.5rem;
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .unlock-info {
+            text-align: center;
+            color: white;
+        }
+        
+        .unlock-info .price {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #ffd700;
+        }
+        
+        .unlock-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .unlock-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .preset-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .preset-badge.free {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        
+        .section-description {
+            color: var(--text-color, #125E8E);
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+            font-size: 0.9rem;
+        }
+        
+        .section-description i {
+            color: #3b82f6;
+            margin-right: 0.5rem;
+        }
+        
+        .mobile-optimization-info .info-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .mobile-optimization-info .info-item i {
+            color: var(--accent-primary, #67C5FF);
+            width: 16px;
+            text-align: center;
+        }
+        
+        /* Theme indicators for active colors */
+        .theme-indicator {
+            margin-left: 8px;
+            font-size: 16px;
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+        }
+        
+        .theme-indicator.active {
+            opacity: 1;
+        }
+        
+        .light-active {
+            color: #FFA500;
+        }
+        
+        .dark-active {
+            color: #6366F1;
+        }
+        
+        /* Color control styling */
+        .color-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+        
+        .color-control[data-theme-target] {
+            padding: 8px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .color-control[data-theme-target].current-theme {
+            background-color: rgba(var(--accent-primary-rgb, 103, 197, 255), 0.1);
+            border: 1px solid rgba(var(--accent-primary-rgb, 103, 197, 255), 0.3);
+        }
+        
+        /* Topbar preset categories */
+        .preset-category {
+            margin-bottom: 2rem;
+        }
+        
+        .preset-category h4 {
+            color: var(--accent-primary, #67C5FF);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .section-description {
+            color: var(--text-color, #125E8E);
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .topbar-preset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .topbar-preset-option {
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+        
+        .topbar-preset-option:hover {
+            border-color: var(--accent-primary, #67C5FF);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(103, 197, 255, 0.2);
+        }
+        
+        .topbar-preset-option.selected {
+            border-color: var(--accent-secondary, #AA79F9);
+            background: rgba(170, 121, 249, 0.1);
+        }
+        
+        .topbar-preview {
+            height: 40px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        
+        .preview-topbar-bg {
+            height: 100%;
+            width: 100%;
+            border-radius: 8px;
+        }
+        
+        .preview-topbar-nav {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 8px;
+        }
+        
+        .preview-nav-item {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            opacity: 0.8;
+        }
+        
+        .topbar-preset-option p {
+            margin: 0;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-align: center;
+            color: var(--text-color, #125E8E);
+        }
+        
+        /* Theme Mode Indicators */
+        .theme-mode-indicator {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 2;
+        }
+        
+        .theme-mode-indicator i.fa-sun {
+            color: #F59E0B;
+            background: rgba(251, 191, 36, 0.1);
+            border-radius: inherit;
+            padding: 4px;
+        }
+        
+        .theme-mode-indicator i.fa-moon {
+            color: #6366F1;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: inherit;
+            padding: 4px;
+        }
+        
+        .theme-mode-indicator.dual i.fa-adjust {
+            color: #8B5CF6;
+            background: linear-gradient(90deg, #F59E0B 50%, #6366F1 50%);
+            border-radius: inherit;
+            padding: 4px;
+        }
+        
+        /* Enhanced preset grid for better layout */
+        .preset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .preset-option {
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .preset-option:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-primary, #67C5FF);
+            box-shadow: 0 10px 25px rgba(103, 197, 255, 0.2);
+        }
+        
+        .preset-option.selected {
+            border-color: var(--accent-secondary, #AA79F9);
+            background: rgba(170, 121, 249, 0.1);
+            box-shadow: 0 8px 20px rgba(170, 121, 249, 0.3);
+        }
+        
+        .preset-colors-preview {
+            display: flex;
+            height: 40px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .preset-colors-preview span {
+            flex: 1;
+            transition: transform 0.3s ease;
+        }
+        
+        .preset-option:hover .preset-colors-preview span {
+            transform: scale(1.05);
+        }
+        
+        .preset-option p {
+            margin: 0;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            color: var(--text-color, #125E8E);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Notification Animations */
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Modern Topbar -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="page-breadcrumb">
+                <a href="index.html" class="breadcrumb-item">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Customization</span>
+            </div>
+        </div>
+        
+        <div class="topbar-nav">
+            <a href="about-me.html" class="topbar-nav-item">
+                <i class="fas fa-user"></i>
+                <span>About Me</span>
+            </a>
+            <a href="future-plans.html" class="topbar-nav-item">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="support-project.html" class="topbar-nav-item">
+                <i class="fas fa-heart"></i>
+                <span>Support Project</span>
+            </a>
+            <a href="feedbacks.html" class="topbar-nav-item">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+        </div>
+        
+        <div class="topbar-actions">
+            <div class="coin-display">
+                <i class="fas fa-coins"></i>
+                <span id="userCoins">0</span>
+            </div>
+            <div class="user-menu">
+                <div class="user-trigger">
+                    <div class="user-avatar" id="topbar-profile-pic">A</div>
+                    <div class="user-info">
+                        <span class="user-name" id="topbar-username"></span>
+                        <span class="user-status">Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="customization-container">
+        <!-- Header Section -->
+        <div class="customization-header">
+          <div class="header-content">
+            <h1>Customize Your Auro Experience</h1>
+          </div>
+          <div class="preview-card">
+            <div class="preview-avatar">
+              <img src="pfp/Auro.png" alt="Auro" id="previewAvatar">
+              <div class="preview-status online"></div>
+            </div>
+            <div class="preview-info">
+              <h3 id="previewName">Auro</h3>
+              <p id="previewRelationship">Your AI Study Companion</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Customization Sections -->
+        <div class="customization-sections">
+          
+          <!-- Premium Shop Section -->
+          <div class="customization-section">
+            <div class="section-header">
+              <i class="fas fa-store"></i>
+              <h2>Premium Customizations</h2>
+              <p>Unlock amazing themes and styles with your coins</p>
+              <div class="shop-coins-display">
+                <i class="fas fa-coins"></i>
+                <span id="shopCoinsDisplay">0</span>
+                <span>Coins</span>
+              </div>
+            </div>
+            <div class="section-content">
+              <!-- Shop Categories Tabs -->
+              <div class="shop-categories">
+                <button class="shop-tab active" data-category="color-presets">
+                  <i class="fas fa-palette"></i>
+                  Color Themes
+                </button>
+                <button class="shop-tab" data-category="topbar-styles">
+                  <i class="fas fa-window-maximize"></i>
+                  Topbar Styles
+                </button>
+                <button class="shop-tab" data-category="special-effects">
+                  <i class="fas fa-magic"></i>
+                  Special Effects
+                </button>
+              </div>
+
+              <!-- Shop Items Container -->
+              <div class="shop-items-container">
+                <!-- Color Presets Category -->
+                <div class="shop-category-content" id="color-presets-shop" style="display: block;">
+                  <div class="shop-items-grid">
+                    <!-- Premium color presets will be loaded here -->
+                  </div>
+                </div>
+
+                <!-- Topbar Styles Category -->
+                <div class="shop-category-content" id="topbar-styles-shop" style="display: none;">
+                  <div class="shop-items-grid">
+                    <!-- Premium topbar styles will be loaded here -->
+                  </div>
+                </div>
+
+                <!-- Special Effects Category -->
+                <div class="shop-category-content" id="special-effects-shop" style="display: none;">
+                  <div class="shop-items-grid">
+                    <div class="shop-item coming-soon">
+                      <div class="shop-item-preview">
+                        <div class="coming-soon-icon">
+                          <i class="fas fa-sparkles"></i>
+                        </div>
+                      </div>
+                      <div class="shop-item-info">
+                        <h4>Particle Effects</h4>
+                        <p>Animated background particles</p>
+                        <div class="coming-soon-badge">Coming Soon</div>
+                      </div>
+                    </div>
+                    <div class="shop-item coming-soon">
+                      <div class="shop-item-preview">
+                        <div class="coming-soon-icon">
+                          <i class="fas fa-moon"></i>
+                        </div>
+                      </div>
+                      <div class="shop-item-info">
+                        <h4>Dark Mode+</h4>
+                        <p>Enhanced dark mode with animations</p>
+                        <div class="coming-soon-badge">Coming Soon</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Background Customization -->
+          <div class="customization-section">
+            <div class="section-header">
+              <i class="fas fa-image"></i>
+              <h2>Background & Wallpaper</h2>
+              <p>Custom backgrounds coming soon</p>
+            </div>
+            <div class="section-content">
+              <div class="coming-soon-content">
+                <div class="coming-soon-card">
+                  <div class="coming-soon-icon">
+                    <i class="fas fa-wrench"></i>
+                  </div>
+                  <h3>Under Development</h3>
+                  <p>Background customization is currently being improved with better optimization and performance. This feature will be available in a future update!</p>
+                  <div class="coming-soon-features">
+                    <div class="feature-item">
+                      <i class="fas fa-mobile-alt"></i>
+                      <span>Mobile-optimized backgrounds</span>
+                    </div>
+                    <div class="feature-item">
+                      <i class="fas fa-video"></i>
+                      <span>Live wallpaper support</span>
+                    </div>
+                    <div class="feature-item">
+                      <i class="fas fa-compress-arrows-alt"></i>
+                      <span>Automatic compression</span>
+                    </div>
+                    <div class="feature-item">
+                      <i class="fas fa-palette"></i>
+                      <span>Color-matched themes</span>
+                    </div>
+                  </div>
+                  <div class="coming-soon-note">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Follow our development updates for release announcements!</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Save Actions Section -->
+          <div class="customization-section">
+            <div class="section-header">
+              <i class="fas fa-save"></i>
+              <h2>Save Your Customizations</h2>
+              <p>Apply and save all your changes</p>
+            </div>
+            <div class="section-content">
+              <div class="save-actions">
+                <div class="save-info">
+                  <div class="unsaved-indicator" id="unsavedIndicator" style="display: none;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>You have unsaved changes</span>
+                  </div>
+                  <div class="saved-indicator" id="savedIndicator" style="display: none;">
+                    <i class="fas fa-check-circle"></i>
+                    <span>All changes saved successfully</span>
+                  </div>
+                </div>
+                <div class="save-buttons">
+                  <button class="btn-primary save-btn" id="saveCustomizations">
+                    <i class="fas fa-save"></i>
+                    Save Changes
+                  </button>
+                  <button class="btn-secondary" id="resetToDefaults">
+                    <i class="fas fa-undo"></i>
+                    Reset to Defaults
+                  </button>
+                  <button class="btn-outline" id="exportSettings">
+                    <i class="fas fa-download"></i>
+                    Export Settings
+                  </button>
+                  <button class="btn-outline" id="importSettingsBtn">
+                    <i class="fas fa-upload"></i>
+                    Import Settings
+                  </button>
+                  <input type="file" id="importInput" accept=".json" style="display: none;">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coming Soon Section -->
+          <div class="customization-section">
+            <div class="section-header">
+              <i class="fas fa-clock"></i>
+              <h2>More Customizable Options Soon</h2>
+              <p>We're working on bringing you more amazing customization features!</p>
+            </div>
+            <div class="section-content">
+              <div class="coming-soon-content">
+                <div class="coming-soon-icon">
+                  <i class="fas fa-magic"></i>
+                </div>
+                <h3>Stay Tuned!</h3>
+                <p>We're actively developing exciting new customization options including personality settings, advanced interface preferences, and much more. Check back soon for updates!</p>
+                <div class="coming-soon-features">
+                  <div class="feature-item">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Personality Customization</span>
+                  </div>
+                  <div class="feature-item">
+                    <i class="fas fa-cogs"></i>
+                    <span>Advanced Interface Settings</span>
+                  </div>
+                  <div class="feature-item">
+                    <i class="fas fa-palette"></i>
+                    <span>Extended Theme Options</span>
+                  </div>
+                  <div class="feature-item">
+                    <i class="fas fa-magic"></i>
+                    <span>And Much More...</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Navigation Background -->
+    <div class="floating-nav-background" id="floating-nav-background"></div>
+
+    <!-- Floating Navigation Hub -->
+    <div class="floating-nav-hub" id="floating-nav-hub">
+        <button class="nav-hub-button" id="nav-hub-button">
+            <i class="fas fa-th"></i>
+        </button>
+        
+        <div class="nav-options" id="nav-options">
+            <!-- Navigation items will be dynamically generated by floating-navigation.js -->
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/floating-navigation.js"></script>
+    <script src="scripts/global-profile-manager.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+    <script src="scripts/global-navigation.js"></script>
+    <script src="scripts/coin-system.js"></script>
+    <script src="scripts/customization.js"></script>
+    <script src="scripts/system.js"></script>
+    <script>
+        // Initialize sidebar toggle (with null check)
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const mainSidebar = document.getElementById('main-sidebar');
+        
+        if (sidebarToggle && mainSidebar) {
+            sidebarToggle.addEventListener('click', function() {
+                mainSidebar.classList.toggle('collapsed');
+            });
+        }
+        
+        // Go to shop function for locked presets
+        function goToShop(itemId) {
+            const shopUrl = `customization.html#shop`;  // Navigate to shop section within customization
+            window.location.href = shopUrl;
+        }
+        
+        // Check for unlocked items and update UI when coin system loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait a bit for coin system to initialize
+            setTimeout(function() {
+                if (window.coinSystem) {
+                    updateLockedPresets();
+                    
+                    // Listen for purchase events
+                    document.addEventListener('itemPurchased', function(event) {
+                        if (event.detail.category === 'colorPresets') {
+                            updateLockedPresets();
+                        }
+                    });
+                }
+            }, 500);
+        });
+        
+        function updateLockedPresets() {
+            if (!window.coinSystem) return;
+            
+            const lockedPresets = document.querySelectorAll('.preset-option.locked');
+            lockedPresets.forEach(preset => {
+                const presetId = preset.getAttribute('data-preset');
+                if (window.coinSystem.hasUnlocked('colorPresets', presetId)) {
+                    preset.classList.remove('locked');
+                    const overlay = preset.querySelector('.preset-lock-overlay');
+                    if (overlay) {
+                        overlay.remove();
+                    }
+                    // Add unlocked badge
+                    if (!preset.querySelector('.preset-badge')) {
+                        const badge = document.createElement('span');
+                        badge.className = 'preset-badge';
+                        badge.textContent = 'Unlocked';
+                        preset.appendChild(badge);
+                    }
+                }
+            });
+        }
+    </script>
+
+    <!-- Global Theme Synchronization -->
+    <script src="scripts/universal-page-system.js"></script>
+    <script src="scripts/global-theme-sync.js"></script>
+    
+    <!-- New Theme Management Script -->
+    <script>
+        // Simple and clean theme management
+        class ThemeManager {
+            constructor() {
+                this.currentTheme = localStorage.getItem('selectedTheme') || 'auto';
+                this.currentColorPreset = localStorage.getItem('selectedColorPreset') || 'ocean';
+                this.init();
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.updateThemeDisplay();
+                this.applyTheme();
+                this.loadColorPreset();
+            }
+
+            setupEventListeners() {
+                // Theme card clicks
+                document.querySelectorAll('.theme-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const theme = card.dataset.theme;
+                        this.setTheme(theme);
+                    });
+                });
+
+                // Color preset clicks
+                document.querySelectorAll('.preset-option').forEach(preset => {
+                    preset.addEventListener('click', () => {
+                        if (!preset.classList.contains('locked')) {
+                            const presetId = preset.dataset.preset;
+                            this.applyColorPreset(presetId);
+                            this.updatePresetSelection(preset);
+                        }
+                    });
+                });
+
+                // System theme change detection
+                if (window.matchMedia) {
+                    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+                        if (this.currentTheme === 'auto') {
+                            this.applyTheme();
+                        }
+                    });
+                }
+
+                // Toggle switches
+                document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.addEventListener('change', () => {
+                        this.saveSettings();
+                    });
+                });
+            }
+
+            setTheme(theme) {
+                this.currentTheme = theme;
+                localStorage.setItem('selectedTheme', theme);
+                this.updateThemeDisplay();
+                this.applyTheme();
+                this.showNotification(`Theme changed to ${this.getThemeName(theme)}`);
+            }
+
+            getThemeName(theme) {
+                const names = {
+                    'light': 'Light',
+                    'dark': 'Dark',
+                    'auto': 'Auto'
+                };
+                return names[theme] || theme;
+            }
+
+            updateThemeDisplay() {
+                // Update active state for theme cards
+                document.querySelectorAll('.theme-card').forEach(card => {
+                    card.classList.toggle('active', card.dataset.theme === this.currentTheme);
+                });
+            }
+
+            applyTheme() {
+                const body = document.body;
+                const html = document.documentElement;
+                
+                let effectiveTheme = this.currentTheme;
+                
+                if (this.currentTheme === 'auto') {
+                    effectiveTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                }
+
+                // Apply theme attributes
+                body.setAttribute('data-theme', effectiveTheme);
+                html.setAttribute('data-theme', effectiveTheme);
+
+                // Apply the current color preset with the new theme
+                if (this.currentColorPreset) {
+                    this.applyColorPreset(this.currentColorPreset, false);
+                }
+
+                // Dispatch theme change event
+                window.dispatchEvent(new CustomEvent('themeChanged', {
+                    detail: { theme: this.currentTheme, effectiveTheme }
+                }));
+
+                console.log(`Theme applied: ${this.currentTheme} (effective: ${effectiveTheme})`);
+            }
+
+            saveSettings() {
+                const settings = {
+                    themeTransitions: document.getElementById('theme-transitions')?.checked ?? true,
+                    autoThemeDetect: document.getElementById('auto-theme-detect')?.checked ?? true
+                };
+                localStorage.setItem('themeSettings', JSON.stringify(settings));
+            }
+
+            loadSettings() {
+                try {
+                    const settings = JSON.parse(localStorage.getItem('themeSettings') || '{}');
+                    
+                    if (document.getElementById('theme-transitions')) {
+                        document.getElementById('theme-transitions').checked = settings.themeTransitions ?? true;
+                    }
+                    if (document.getElementById('auto-theme-detect')) {
+                        document.getElementById('auto-theme-detect').checked = settings.autoThemeDetect ?? true;
+                    }
+                } catch (error) {
+                    console.warn('Failed to load theme settings:', error);
+                }
+            }
+
+            showNotification(message) {
+                // Simple notification
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: linear-gradient(135deg, #67C5FF, #AA79F9);
+                    color: white;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+                    z-index: 10000;
+                    font-weight: 500;
+                    animation: slideIn 0.3s ease;
+                `;
+                notification.textContent = message;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.animation = 'slideOut 0.3s ease forwards';
+                    setTimeout(() => notification.remove(), 300);
+                }, 3000);
+            }
+
+            applyColorPreset(presetId, showNotification = true) {
+                const colorPresets = {
+                    'ocean': {
+                        light: {
+                            '--accent-primary': '#67C5FF',
+                            '--accent-secondary': '#AA79F9',
+                            '--bg-color': '#F8FCFF',
+                            '--text-color': '#125E8E',
+                            '--border-color': '#E1F5FE',
+                            '--chat-bg-color': '#F0F9FF',
+                            '--chat-message-bg': '#FFFFFF'
+                        },
+                        dark: {
+                            '--accent-primary': '#4A9FE7',
+                            '--accent-secondary': '#8B5CF6',
+                            '--bg-color': '#0F172A',
+                            '--text-color': '#E2E8F0',
+                            '--border-color': '#334155',
+                            '--chat-bg-color': '#1E293B',
+                            '--chat-message-bg': '#334155'
+                        }
+                    },
+                    'sunset': {
+                        light: {
+                            '--accent-primary': '#FF6B6B',
+                            '--accent-secondary': '#4ECDC4',
+                            '--bg-color': '#FFF9F5',
+                            '--text-color': '#8B4513',
+                            '--border-color': '#FFEEE6',
+                            '--chat-bg-color': '#FEF7F0',
+                            '--chat-message-bg': '#FFFFFF'
+                        },
+                        dark: {
+                            '--accent-primary': '#E55555',
+                            '--accent-secondary': '#45B7B8',
+                            '--bg-color': '#1A1A1A',
+                            '--text-color': '#FFF5E1',
+                            '--border-color': '#3D2914',
+                            '--chat-bg-color': '#2D1B0E',
+                            '--chat-message-bg': '#3D2914'
+                        }
+                    },
+                    'forest': {
+                        light: {
+                            '--accent-primary': '#52C41A',
+                            '--accent-secondary': '#1890FF',
+                            '--bg-color': '#F6FFED',
+                            '--text-color': '#2F5D13',
+                            '--border-color': '#E6F7D6',
+                            '--chat-bg-color': '#F0FDF4',
+                            '--chat-message-bg': '#FFFFFF'
+                        },
+                        dark: {
+                            '--accent-primary': '#389E0D',
+                            '--accent-secondary': '#1668DC',
+                            '--bg-color': '#111827',
+                            '--text-color': '#D1F2A5',
+                            '--border-color': '#1F2937',
+                            '--chat-bg-color': '#1C2617',
+                            '--chat-message-bg': '#2D4A22'
+                        }
+                    },
+                    'nebula': {
+                        light: {
+                            '--accent-primary': '#8B5CF6',
+                            '--accent-secondary': '#EC4899',
+                            '--bg-color': '#FAF5FF',
+                            '--text-color': '#581C87',
+                            '--border-color': '#E9D5FF',
+                            '--chat-bg-color': '#F5F3FF',
+                            '--chat-message-bg': '#FFFFFF'
+                        },
+                        dark: {
+                            '--accent-primary': '#7C3AED',
+                            '--accent-secondary': '#DB2777',
+                            '--bg-color': '#1E1B2E',
+                            '--text-color': '#DDD6FE',
+                            '--border-color': '#4C1D95',
+                            '--chat-bg-color': '#2D1B3D',
+                            '--chat-message-bg': '#4C1D95'
+                        }
+                    },
+                    'mint': {
+                        light: {
+                            '--accent-primary': '#10B981',
+                            '--accent-secondary': '#06B6D4',
+                            '--bg-color': '#F0FDF4',
+                            '--text-color': '#065F46',
+                            '--border-color': '#D1FAE5',
+                            '--chat-bg-color': '#ECFDF5',
+                            '--chat-message-bg': '#FFFFFF'
+                        },
+                        dark: {
+                            '--accent-primary': '#059669',
+                            '--accent-secondary': '#0891B2',
+                            '--bg-color': '#0C1E15',
+                            '--text-color': '#A7F3D0',
+                            '--border-color': '#1F2937',
+                            '--chat-bg-color': '#14532D',
+                            '--chat-message-bg': '#166534'
+                        }
+                    },
+                    'rosegold': {
+                        light: {
+                            '--accent-primary': '#F59E0B',
+                            '--accent-secondary': '#EF4444',
+                            '--bg-color': '#FFFBEB',
+                            '--text-color': '#92400E',
+                            '--border-color': '#FEF3C7',
+                            '--chat-bg-color': '#FEFCE8',
+                            '--chat-message-bg': '#FFFFFF'
+                        },
+                        dark: {
+                            '--accent-primary': '#D97706',
+                            '--accent-secondary': '#DC2626',
+                            '--bg-color': '#1C1917',
+                            '--text-color': '#FED7AA',
+                            '--border-color': '#451A03',
+                            '--chat-bg-color': '#292524',
+                            '--chat-message-bg': '#451A03'
+                        }
+                    },
+                    'lavender': {
+                        light: {
+                            '--accent-primary': '#A78BFA',
+                            '--accent-secondary': '#F472B6',
+                            '--bg-color': '#F5F3FF',
+                            '--text-color': '#6B21A8',
+                            '--border-color': '#E9D5FF',
+                            '--chat-bg-color': '#FAF5FF',
+                            '--chat-message-bg': '#FFFFFF'
+                        },
+                        dark: {
+                            '--accent-primary': '#8B5CF6',
+                            '--accent-secondary': '#EC4899',
+                            '--bg-color': '#2D1B69',
+                            '--text-color': '#C4B5FD',
+                            '--border-color': '#5B21B6',
+                            '--chat-bg-color': '#3C2A78',
+                            '--chat-message-bg': '#5B21B6'
+                        }
+                    },
+                    'coral': {
+                        light: {
+                            '--accent-primary': '#FB7185',
+                            '--accent-secondary': '#60A5FA',
+                            '--bg-color': '#FFF1F2',
+                            '--text-color': '#BE123C',
+                            '--border-color': '#FECDD3',
+                            '--chat-bg-color': '#FEF2F2',
+                            '--chat-message-bg': '#FFFFFF'
+                        },
+                        dark: {
+                            '--accent-primary': '#F43F5E',
+                            '--accent-secondary': '#3B82F6',
+                            '--bg-color': '#1E293B',
+                            '--text-color': '#FDA4AF',
+                            '--border-color': '#BE123C',
+                            '--chat-bg-color': '#334155',
+                            '--chat-message-bg': '#475569'
+                        }
+                    }
+                };
+
+                const preset = colorPresets[presetId];
+                if (preset) {
+                    // Get current effective theme
+                    let effectiveTheme = this.currentTheme;
+                    if (this.currentTheme === 'auto') {
+                        effectiveTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                    }
+                    
+                    // Apply the appropriate variant based on current theme
+                    const variant = preset[effectiveTheme];
+                    if (variant) {
+                        const html = document.documentElement;
+                        Object.entries(variant).forEach(([property, value]) => {
+                            html.style.setProperty(property, value);
+                        });
+                        
+                        this.currentColorPreset = presetId;
+                        localStorage.setItem('selectedColorPreset', presetId);
+                        
+                        // Show notification if requested
+                        if (showNotification) {
+                            this.showNotification(`Applied ${this.getPresetName(presetId)} theme (${effectiveTheme} mode)`);
+                        }
+                        
+                        // Dispatch color preset change event
+                        window.dispatchEvent(new CustomEvent('colorPresetChanged', {
+                            detail: { presetId, variant, theme: effectiveTheme }
+                        }));
+                    }
+                }
+            }
+
+            updatePresetSelection(selectedPreset) {
+                // Remove selection from all presets
+                document.querySelectorAll('.preset-option').forEach(preset => {
+                    preset.classList.remove('selected');
+                });
+                
+                // Add selection to clicked preset
+                selectedPreset.classList.add('selected');
+            }
+
+            getPresetName(presetId) {
+                const names = {
+                    'ocean': 'Ocean Breeze',
+                    'sunset': 'Sunset Glow',
+                    'forest': 'Forest Fresh',
+                    'nebula': 'Purple Nebula',
+                    'mint': 'Mint Fresh',
+                    'rosegold': 'Rose Gold',
+                    'lavender': 'Lavender Dream',
+                    'coral': 'Coral Reef'
+                };
+                return names[presetId] || presetId;
+            }
+
+            loadColorPreset() {
+                // Apply the saved color preset on page load
+                if (this.currentColorPreset) {
+                    this.applyColorPreset(this.currentColorPreset, false);
+                    
+                    // Update UI to show selected preset
+                    const presetElement = document.querySelector(`[data-preset="${this.currentColorPreset}"]`);
+                    if (presetElement) {
+                        this.updatePresetSelection(presetElement);
+                    }
+                }
+            }
+        }
+
+        // Initialize theme manager when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            window.themeManager = new ThemeManager();
+            console.log('Theme Manager initialized');
+        });
+    </script>
+    
+    <!-- Profile Initialization Fix -->
+    <script>
+        // Ensure proper profile loading after all scripts are loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait a bit for all scripts to load
+            setTimeout(() => {
+                if (window.GlobalProfileManager) {
+                    window.GlobalProfileManager.init();
+                    window.GlobalProfileManager.applyProfiles();
+                }
+            }, 200);
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plans - Auro AI Cognitive Assistant</title>
+    <meta name="description" content="Create and manage your strategic plans with Auro. Transform your dreams into reality with intelligent planning.">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/plans.css">
+    <link rel="stylesheet" href="styles/floating-nav.css">
+    <link rel="stylesheet" href="styles/modern-navigation.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="floating-nav-active">
+    <!-- Modern Topbar -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="page-breadcrumb">
+                <a href="index.html" class="breadcrumb-item">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Plans</span>
+            </div>
+        </div>
+        
+        <div class="topbar-nav">
+            <a href="about-me.html" class="topbar-nav-item">
+                <i class="fas fa-user"></i>
+                <span>About Me</span>
+            </a>
+            <a href="future-plans.html" class="topbar-nav-item">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="support-project.html" class="topbar-nav-item">
+                <i class="fas fa-heart"></i>
+                <span>Support Project</span>
+            </a>
+            <a href="feedbacks.html" class="topbar-nav-item">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+        </div>
+        
+        <div class="topbar-actions">
+            <div class="user-menu">
+                <div class="user-trigger">
+                    <div class="user-avatar" id="topbar-profile-pic">A</div>
+                    <div class="user-info">
+                        <div class="user-name" id="topbar-user-name">Anonymous</div>
+                        <div class="user-status">online</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main Content -->
+    <div class="main-content">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center; padding: 2rem;">
+            <div style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1)); border-radius: 20px; padding: 3rem; max-width: 600px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                <div style="font-size: 4rem; margin-bottom: 1.5rem; opacity: 0.7;">🚀</div>
+                <h1 style="font-size: 2.5rem; font-weight: 700; color: var(--title-text-color, #fff); margin-bottom: 1rem;">Strategic Plans</h1>
+                <h2 style="font-size: 1.8rem; font-weight: 600; color: var(--accent-primary, #f59e0b); margin-bottom: 1.5rem;">Temporarily Unavailable</h2>
+                <p style="font-size: 1.2rem; color: var(--text-color, rgba(255, 255, 255, 0.8)); line-height: 1.6; margin-bottom: 2rem;">
+                    The strategic planning system is currently closed due to no database connection. This feature requires a backend database to store and manage your long-term goals, milestones, and action plans.
+                </p>
+                <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+                    <h3 style="color: var(--warning-color, #f59e0b); margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                        <i class="fas fa-database"></i> Database Required
+                    </h3>
+                    <p style="color: var(--text-color, rgba(255, 255, 255, 0.7)); margin: 0;">
+                        Plan creation, goal tracking, and progress monitoring need persistent storage to function properly.
+                    </p>
+                </div>
+                <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent-primary, #3b82f6); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">
+                    <i class="fas fa-home"></i> Return to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Navigation Background -->
+    <div class="floating-nav-background" id="floating-nav-background"></div>
+
+    <!-- Floating Navigation Hub -->
+    <div class="floating-nav-hub" id="floating-nav-hub">
+        <button class="nav-hub-button" id="nav-hub-toggle">
+            <i class="fas fa-th"></i>
+        </button>
+        
+        <div class="nav-options">
+            <a href="dashboard.html" class="nav-option">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="plans.html" class="nav-option current-page">
+                <i class="fas fa-map"></i>
+                <span>Plans</span>
+            </a>
+            <a href="chat.html" class="nav-option registered-only">
+                <i class="fas fa-message"></i>
+                <span>Chat</span>
+            </a>
+            <a href="tasks.html" class="nav-option registered-only">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="schedule.html" class="nav-option registered-only">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Schedule</span>
+            </a>
+            <a href="achievements.html" class="nav-option registered-only">
+                <i class="fas fa-trophy"></i>
+                <span>Achievements</span>
+            </a>
+            <a href="super-tracker.html" class="nav-option registered-only">
+                <i class="fas fa-chart-line"></i>
+                <span>Tracker</span>
+            </a>
+            <a href="customization.html" class="nav-option registered-only">
+                <i class="fas fa-heart"></i>
+                <span>Customize</span>
+            </a>
+            <a href="shop.html" class="nav-option registered-only">
+                <i class="fas fa-store"></i>
+                <span>Shop</span>
+            </a>
+            <a href="about.html" class="nav-option">
+                <i class="fas fa-user-circle"></i>
+                <span>About</span>
+            </a>
+            <a href="settings.html" class="nav-option">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/universal-page-system.js"></script>
+    <script src="scripts/global-stats-manager.js"></script>
+    <script src="scripts/global-profile-manager.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+    <script src="scripts/plans.js"></script>
+    <script src="scripts/system.js"></script>
+</body>
+</html>
+                                        <option value="financial">💰 Financial Goals</option>
+                                        <option value="education">📚 Education & Learning</option>
+                                        <option value="creative">🎨 Creative Projects</option>
+                                        <option value="business">🚀 Business & Entrepreneurship</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="plan-description">Vision & Description</label>
+                                <textarea id="plan-description" placeholder="Describe your vision and what you want to achieve..." maxlength="500"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Timeline & Goals -->
+                        <div class="form-section">
+                            <h3 class="section-title">Timeline & Goals</h3>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="plan-start-date">Start Date</label>
+                                    <input type="date" id="plan-start-date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="plan-target-date">Target Completion</label>
+                                    <input type="date" id="plan-target-date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="plan-priority">Priority Level</label>
+                                    <select id="plan-priority" required>
+                                        <option value="high">🔴 High Priority</option>
+                                        <option value="medium">🟡 Medium Priority</option>
+                                        <option value="low">🟢 Low Priority</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="plan-goals">Key Goals & Milestones</label>
+                                <textarea id="plan-goals" placeholder="List your main goals and milestones..." maxlength="300"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Advanced Options -->
+                        <div class="form-section advanced-section">
+                            <div class="section-header">
+                                <h3 class="section-title">Advanced Options</h3>
+                                <button type="button" class="advanced-toggle-button" id="advancedToggle">
+                                    <i class="fas fa-chevron-down"></i>
+                                    <span>Show Advanced</span>
+                                </button>
+                            </div>
+                            
+                            <div class="advanced-options" id="advancedOptions">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="plan-budget">Budget (Optional)</label>
+                                        <input type="number" id="plan-budget" placeholder="Enter budget amount">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="plan-resources">Required Resources</label>
+                                        <input type="text" id="plan-resources" placeholder="Books, courses, tools, etc.">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="plan-tags">Tags</label>
+                                    <input type="text" id="plan-tags" placeholder="Enter tags separated by commas">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="plan-notes">Additional Notes</label>
+                                    <textarea id="plan-notes" placeholder="Any additional thoughts or notes..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-actions">
+                            <button type="submit" class="create-plan-button">
+                                <i class="fas fa-plus"></i>
+                                Create Plan
+                            </button>
+                            <button type="button" class="reset-form-button" id="resetForm">
+                                <i class="fas fa-undo"></i>
+                                Reset
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Plans List Panel -->
+            <div class="plans-list-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">
+                        <i class="fas fa-list"></i>
+                        Your Strategic Plans
+                    </h2>
+                    <div class="plan-controls">
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="all">All</button>
+                            <button class="filter-btn" data-filter="active">Active</button>
+                            <button class="filter-btn" data-filter="completed">Completed</button>
+                            <button class="filter-btn" data-filter="paused">Paused</button>
+                        </div>
+                        <div class="sort-dropdown">
+                            <select id="sortPlans">
+                                <option value="priority">Sort by Priority</option>
+                                <option value="date">Sort by Date</option>
+                                <option value="name">Sort by Name</option>
+                                <option value="progress">Sort by Progress</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="plans-list" id="plansList">
+                    <!-- Empty state -->
+                    <div class="empty-state" id="emptyState">
+                        <div class="empty-state-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>Ready to Launch Your Dreams?</h3>
+                        <p>Create your first strategic plan and start turning your vision into reality!</p>
+                        <button class="empty-state-action" onclick="document.getElementById('plan-name').focus()">
+                            <i class="fas fa-plus"></i>
+                            Create Your First Plan
+                        </button>
+                    </div>
+                    
+                    <!-- Sample plan for reference -->
+                    <div class="plan-card sample-plan" style="display: none;">
+                        <div class="plan-header">
+                            <h3 class="plan-title">Sample Strategic Plan</h3>
+                            <div class="plan-priority high">High</div>
+                        </div>
+                        <p class="plan-description">This is a sample plan description</p>
+                        <div class="plan-meta">
+                            <div class="plan-due-date">
+                                <i class="fas fa-calendar"></i>
+                                <span>Target: Dec 31, 2025</span>
+                            </div>
+                            <div class="plan-tags">
+                                <span class="plan-tag">Personal</span>
+                                <span class="plan-tag">Growth</span>
+                            </div>
+                        </div>
+                        <div class="plan-progress-section">
+                            <div class="plan-progress-label">
+                                <span>Progress</span>
+                                <span class="progress-percentage">45%</span>
+                            </div>
+                            <div class="plan-progress-bar">
+                                <div class="plan-progress-fill" style="width: 45%"></div>
+                            </div>
+                        </div>
+                        <div class="plan-actions">
+                            <button class="plan-action-btn" title="Edit Plan">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="plan-action-btn" title="View Details">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="plan-action-btn primary" title="Update Progress">
+                                <i class="fas fa-chart-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                                            <option value="month" selected>This Month</option>
+                                            <option value="quarter">This Quarter</option>
+                                            <option value="year">This Year</option>
+                                            <option value="all">All Time</option>
+                                        </select>
+                                        <button class="timeline-btn" id="add-milestone-btn">
+                                            <i class="fas fa-flag"></i>
+                                            Add Milestone
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="timeline-view" id="timeline-view">
+                                    <!-- Timeline items will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Vision Board Section -->
+                        <div class="content-section" id="vision-section">
+                            <div class="vision-board-container">
+                                <div class="vision-header">
+                                    <h3>Your Vision Board</h3>
+                                    <button class="vision-edit-btn" id="edit-vision-board">
+                                        <i class="fas fa-edit"></i>
+                                        Edit Vision
+                                    </button>
+                                </div>
+                                <div class="vision-grid">
+                                    <div class="vision-card life-vision">
+                                        <div class="vision-card-header">
+                                            <i class="fas fa-star"></i>
+                                            <h4>Life Vision</h4>
+                                        </div>
+                                        <div class="vision-content" id="life-vision-content">
+                                            <p>Your ultimate life vision and purpose...</p>
+                                        </div>
+                                    </div>
+                                    <div class="vision-card yearly-goals">
+                                        <div class="vision-card-header">
+                                            <i class="fas fa-calendar"></i>
+                                            <h4>This Year's Goals</h4>
+                                        </div>
+                                        <div class="vision-content" id="yearly-goals-content">
+                                            <p>Your main focus areas for this year...</p>
+                                        </div>
+                                    </div>
+                                    <div class="vision-card core-values">
+                                        <div class="vision-card-header">
+                                            <i class="fas fa-heart"></i>
+                                            <h4>Core Values</h4>
+                                        </div>
+                                        <div class="vision-content" id="core-values-content">
+                                            <p>The principles that guide your decisions...</p>
+                                        </div>
+                                    </div>
+                                    <div class="vision-card future-self">
+                                        <div class="vision-card-header">
+                                            <i class="fas fa-user-astronaut"></i>
+                                            <h4>Future Self</h4>
+                                        </div>
+                                        <div class="vision-content" id="future-self-content">
+                                            <p>Who you aspire to become...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Analytics Section -->
+                        <div class="content-section" id="analytics-section">
+                            <div class="analytics-container">
+                                <div class="analytics-header">
+                                    <h3>Performance Analytics</h3>
+                                    <div class="analytics-period">
+                                        <select id="analytics-period">
+                                            <option value="week">This Week</option>
+                                            <option value="month" selected>This Month</option>
+                                            <option value="quarter">This Quarter</option>
+                                            <option value="year">This Year</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="analytics-grid">
+                                    <div class="analytics-card">
+                                        <h4>Completion Rate</h4>
+                                        <div class="metric-display">
+                                            <span class="metric-value">85%</span>
+                                            <div class="metric-trend positive">+15%</div>
+                                        </div>
+                                    </div>
+                                    <div class="analytics-card">
+                                        <h4>Average Duration</h4>
+                                        <div class="metric-display">
+                                            <span class="metric-value">45d</span>
+                                            <div class="metric-trend negative">-5d</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Panel: Learning & Growth -->
+                <div class="workspace-panel right-panel">
+                    <div class="panel-header glass-effect">
+                        <div class="panel-title">
+                            <i class="fas fa-graduation-cap"></i>
+                            <h2 id="right-panel-title">Learning Paths</h2>
+                        </div>
+                        <div class="panel-actions">
+                            <button class="panel-action-btn" id="right-panel-create" title="Create New">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                            <button class="panel-action-btn" id="right-panel-filter" title="Filter">
+                                <i class="fas fa-filter"></i>
+                            </button>
+                            <button class="panel-action-btn" id="right-panel-view" title="Change View">
+                                <i class="fas fa-grid-3x3"></i>
+                            </button>
+                            <button class="panel-action-btn" id="right-panel-settings" title="Settings">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="panel-content" id="right-panel-content">
+                        <!-- Learning Paths Section (Default Active) -->
+                        <div class="content-section active" id="learning-section">
+                            <div class="learning-overview">
+                                <div class="learning-stats-bar">
+                                    <div class="learning-stat">
+                                        <i class="fas fa-book-open"></i>
+                                        <span>
+                                            <strong id="active-paths-count">0</strong>
+                                            <small>Active Paths</small>
+                                        </span>
+                                    </div>
+                                    <div class="learning-stat">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span>
+                                            <strong id="learning-progress-overall">0%</strong>
+                                            <small>Progress</small>
+                                        </span>
+                                    </div>
+                                    <div class="learning-stat">
+                                        <i class="fas fa-trophy"></i>
+                                        <span>
+                                            <strong id="completed-paths-count">0</strong>
+                                            <small>Completed</small>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="learning-templates">
+                                    <h4>Quick Start Templates</h4>
+                                    <div class="templates-grid">
+                                        <div class="template-card" data-template="programming">
+                                            <div class="template-icon">
+                                                <i class="fas fa-code"></i>
+                                            </div>
+                                            <div class="template-content">
+                                                <h5>Programming</h5>
+                                                <p>Full-stack development, algorithms, and best practices</p>
+                                            </div>
+                                            <div class="template-badge">Popular</div>
+                                        </div>
+                                        <div class="template-card" data-template="competition">
+                                            <div class="template-icon">
+                                                <i class="fas fa-medal"></i>
+                                            </div>
+                                            <div class="template-content">
+                                                <h5>Competition Prep</h5>
+                                                <p>Structured preparation for coding competitions</p>
+                                            </div>
+                                        </div>
+                                        <div class="template-card" data-template="language">
+                                            <div class="template-icon">
+                                                <i class="fas fa-globe"></i>
+                                            </div>
+                                            <div class="template-content">
+                                                <h5>Languages</h5>
+                                                <p>Master new languages with structured learning</p>
+                                            </div>
+                                        </div>
+                                        <div class="template-card" data-template="business">
+                                            <div class="template-icon">
+                                                <i class="fas fa-briefcase"></i>
+                                            </div>
+                                            <div class="template-content">
+                                                <h5>Business Skills</h5>
+                                                <p>Leadership, strategy, and entrepreneurship</p>
+                                            </div>
+                                        </div>
+                                        <div class="template-card" data-template="creative">
+                                            <div class="template-icon">
+                                                <i class="fas fa-palette"></i>
+                                            </div>
+                                            <div class="template-content">
+                                                <h5>Creative Arts</h5>
+                                                <p>Design, music, writing, and artistic expression</p>
+                                            </div>
+                                        </div>
+                                        <div class="template-card" data-template="custom">
+                                            <div class="template-icon">
+                                                <i class="fas fa-cogs"></i>
+                                            </div>
+                                            <div class="template-content">
+                                                <h5>Custom Path</h5>
+                                                <p>Build your own personalized learning journey</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="learning-paths-list" id="learning-paths-list">
+                                <!-- Learning paths will be populated here -->
+                            </div>
+                        </div>
+                        
+                        <!-- Skills Section -->
+                        <div class="content-section" id="skills-section">
+                            <div class="skills-container">
+                                <div class="skills-header">
+                                    <h3>Skill Development</h3>
+                                    <button class="skills-btn" id="add-skill-btn">
+                                        <i class="fas fa-plus"></i>
+                                        Track New Skill
+                                    </button>
+                                </div>
+                                <div class="skills-grid" id="skills-grid">
+                                    <!-- Skills will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Resources Section -->
+                        <div class="content-section" id="resources-section">
+                            <div class="resources-container">
+                                <div class="resources-header">
+                                    <h3>Learning Resources</h3>
+                                    <button class="resources-btn" id="add-resource-btn">
+                                        <i class="fas fa-plus"></i>
+                                        Add Resource
+                                    </button>
+                                </div>
+                                <div class="resources-categories">
+                                    <div class="resource-category">
+                                        <h4><i class="fas fa-book"></i> Books & Articles</h4>
+                                        <div class="resources-list" id="books-list"></div>
+                                    </div>
+                                    <div class="resource-category">
+                                        <h4><i class="fas fa-video"></i> Videos & Courses</h4>
+                                        <div class="resources-list" id="videos-list"></div>
+                                    </div>
+                                    <div class="resource-category">
+                                        <h4><i class="fas fa-link"></i> Useful Links</h4>
+                                        <div class="resources-list" id="links-list"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- AI Coach Section -->
+                        <div class="content-section" id="ai-coach-section">
+                            <div class="ai-coach-container">
+                                <div class="ai-coach-header">
+                                    <div class="ai-avatar">
+                                        <i class="fas fa-robot"></i>
+                                    </div>
+                                    <div class="ai-info">
+                                        <h3>AI Learning Coach</h3>
+                                        <p>Personalized guidance for your learning journey</p>
+                                    </div>
+                                </div>
+                                <div class="ai-suggestions" id="ai-suggestions">
+                                    <div class="ai-suggestion-card">
+                                        <div class="suggestion-icon">
+                                            <i class="fas fa-lightbulb"></i>
+                                        </div>
+                                        <div class="suggestion-content">
+                                            <h4>Smart Recommendation</h4>
+                                            <p>Based on your learning patterns, I suggest focusing on JavaScript fundamentals this week.</p>
+                                        </div>
+                                        <button class="suggestion-action">Apply</button>
+                                    </div>
+                                </div>
+                                <div class="ai-chat-interface">
+                                    <div class="ai-messages" id="ai-messages">
+                                        <div class="ai-message">
+                                            <div class="message-avatar">
+                                                <i class="fas fa-robot"></i>
+                                            </div>
+                                            <div class="message-content">
+                                                <p>Hi! I'm here to help optimize your learning journey. Ask me anything about your plans or learning paths!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ai-input-area">
+                                        <input type="text" id="ai-chat-input" placeholder="Ask your AI coach anything...">
+                                        <button id="ai-send-btn">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Plan Edit Modal -->
+    <div class="modal-overlay" id="editPlanModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>Edit Plan</h2>
+                <button class="modal-close-btn" id="closeEditModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <form id="edit-plan-form">
+                    <!-- Form fields will be populated by JavaScript -->
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <!-- Scripts -->
+    <script src="scripts/global-stats-manager.js"></script>
+    <script src="scripts/global-profile-manager.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+    <script src="scripts/plans.js"></script>
+    <script src="scripts/system.js"></script>
+</body>
+</html>
+    
+    <!-- Create Learning Path Modal -->
+    <div class="modal-overlay" id="create-learning-path-modal">
+        <div class="modal learning-path-modal">
+            <div class="modal-header">
+                <h3>Create Learning Path</h3>
+                <button class="modal-close" id="close-learning-path-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <form id="learning-path-form">
+                    <div class="form-group">
+                        <label for="learning-path-title">Learning Path Title *</label>
+                        <input type="text" id="learning-path-title" name="title" placeholder="What do you want to learn?" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="learning-path-description">Description</label>
+                        <textarea id="learning-path-description" name="description" placeholder="Describe your learning goals..." rows="3"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="learning-path-template">Template</label>
+                            <select id="learning-path-template" name="template" required>
+                                <option value="">Select Template</option>
+                                <option value="program">Programming Course</option>
+                                <option value="competition">Competition Prep</option>
+                                <option value="education">Formal Education</option>
+                                <option value="custom">Custom Path</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="learning-path-difficulty">Difficulty Level</label>
+                            <select id="learning-path-difficulty" name="difficulty">
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                                <option value="expert">Expert</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="learning-path-duration">Estimated Duration</label>
+                            <input type="text" id="learning-path-duration" name="duration" placeholder="e.g., 3 months, 10 weeks">
+                        </div>
+                        <div class="form-group">
+                            <label for="learning-path-deadline">Target Completion</label>
+                            <input type="date" id="learning-path-deadline" name="deadline">
+                        </div>
+                    </div>
+                    
+                    <!-- Template-specific fields will be shown/hidden based on selection -->
+                    <div class="template-specific-fields" id="program-fields" style="display: none;">
+                        <h4>Programming Course Details</h4>
+                        <div class="form-group">
+                            <label for="program-language">Programming Language</label>
+                            <input type="text" id="program-language" name="language" placeholder="e.g., JavaScript, Python, Java">
+                        </div>
+                        <div class="form-group">
+                            <label for="program-platform">Platform/Course</label>
+                            <input type="text" id="program-platform" name="platform" placeholder="e.g., Udemy, Coursera, YouTube">
+                        </div>
+                    </div>
+                    
+                    <div class="template-specific-fields" id="competition-fields" style="display: none;">
+                        <h4>Competition Preparation Details</h4>
+                        <div class="form-group">
+                            <label for="competition-name">Competition Name</label>
+                            <input type="text" id="competition-name" name="competitionName" placeholder="e.g., ACM ICPC, Codeforces">
+                        </div>
+                        <div class="form-group">
+                            <label for="competition-date">Competition Date</label>
+                            <input type="date" id="competition-date" name="competitionDate">
+                        </div>
+                    </div>
+                    
+                    <div class="template-specific-fields" id="education-fields" style="display: none;">
+                        <h4>Educational Details</h4>
+                        <div class="form-group">
+                            <label for="education-subject">Subject</label>
+                            <input type="text" id="education-subject" name="subject" placeholder="e.g., Mathematics, Physics, Chemistry">
+                        </div>
+                        <div class="form-group">
+                            <label for="education-level">Education Level</label>
+                            <select id="education-level" name="educationLevel">
+                                <option value="high-school">High School</option>
+                                <option value="undergraduate">Undergraduate</option>
+                                <option value="graduate">Graduate</option>
+                                <option value="phd">PhD</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="template-specific-fields" id="custom-fields" style="display: none;">
+                        <h4>Custom Learning Path</h4>
+                        <div class="form-group">
+                            <label for="custom-structure">Learning Structure</label>
+                            <textarea id="custom-structure" name="structure" placeholder="Describe how you want to structure this learning path..." rows="3"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancel-learning-path">Cancel</button>
+                        <button type="submit" class="btn-primary">Create Learning Path</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Learning Path Details Modal -->
+    <div class="modal-overlay" id="learning-path-details-modal">
+        <div class="modal learning-path-details-modal">
+            <div class="modal-header">
+                <h3 id="learning-path-details-title">Learning Path Details</h3>
+                <div class="modal-actions">
+                    <button class="modal-action-btn" id="edit-learning-path-btn" title="Edit Learning Path">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="modal-action-btn" id="add-learning-module-btn" title="Add Module">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button class="modal-action-btn danger" id="delete-learning-path-btn" title="Delete Learning Path">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    <button class="modal-close" id="close-learning-path-details-modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-content" id="learning-path-details-content">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Learning Module Modal -->
+    <div class="modal-overlay" id="add-learning-module-modal">
+        <div class="modal learning-module-modal">
+            <div class="modal-header">
+                <h3>Add Learning Module</h3>
+                <button class="modal-close" id="close-learning-module-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <form id="learning-module-form">
+                    <div class="form-group">
+                        <label for="module-title">Module Title *</label>
+                        <input type="text" id="module-title" name="title" placeholder="What is this module about?" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="module-description">Description</label>
+                        <textarea id="module-description" name="description" placeholder="Describe this learning module..." rows="2"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="module-type">Module Type</label>
+                            <select id="module-type" name="type">
+                                <option value="lecture">Lecture</option>
+                                <option value="project">Project</option>
+                                <option value="exercise">Exercise</option>
+                                <option value="reading">Reading</option>
+                                <option value="video">Video</option>
+                                <option value="quiz">Quiz/Test</option>
+                                <option value="practice">Practice</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="module-duration">Estimated Time</label>
+                            <input type="text" id="module-duration" name="duration" placeholder="e.g., 2 hours, 30 minutes">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="module-resources">Resources/Links</label>
+                        <textarea id="module-resources" name="resources" placeholder="Add links, books, or other resources..." rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="module-notes">Notes</label>
+                        <textarea id="module-notes" name="notes" placeholder="Any additional notes or reminders..." rows="3"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancel-learning-module">Cancel</button>
+                        <button type="submit" class="btn-primary">Add Module</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+        <!-- Legacy Grid (Hidden by default) -->
+        <div class="legacy-dashboard-grid" style="display: none;">
+            <!-- Active Plans Overview -->
+            <div class="dashboard-card plans-overview-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-map-marked-alt"></i> Strategic Roadmaps</h3>
+                    <div class="card-actions">
+                        <button class="card-action-btn" id="create-new-plan-legacy">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <button class="card-action-btn" id="refresh-plans-legacy">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <button class="card-action-btn" id="expand-all-plans-legacy">
+                            <i class="fas fa-expand-alt"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="plans-filter">
+                        <select id="plans-status-filter-legacy">
+                            <option value="all">All Plans</option>
+                            <option value="active">Active</option>
+                            <option value="planning">Planning</option>
+                            <option value="on-hold">On Hold</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                        <select id="plans-category-filter-legacy">
+                            <option value="all">All Categories</option>
+                            <option value="personal">Personal</option>
+                            <option value="career">Career</option>
+                            <option value="health">Health</option>
+                            <option value="financial">Financial</option>
+                            <option value="education">Education</option>
+                            <option value="relationships">Relationships</option>
+                            <option value="creative">Creative</option>
+                            <option value="business">Business</option>
+                        </select>
+                    </div>
+                    <div class="plans-list" id="plans-list-legacy">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                    <div class="plans-insights">
+                        <div class="insight-item">
+                            <i class="fas fa-compass"></i>
+                            <span id="plans-insight-legacy">Create hierarchical roadmaps with milestones, tasks, and events.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Goal Categories -->
+            <div class="dashboard-card categories-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-layer-group"></i> Goal Categories</h3>
+                    <div class="card-actions">
+                        <button class="card-action-btn" id="manage-categories">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="goal-categories" id="goal-categories">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline View -->
+            <div class="dashboard-card timeline-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-calendar-alt"></i> Events & Milestones</h3>
+                    <div class="card-actions">
+                        <button class="card-action-btn" id="add-event">
+                            <i class="fas fa-calendar-plus"></i>
+                        </button>
+                        <select class="timeline-filter" id="timeline-filter">
+                            <option value="week">This Week</option>
+                            <option value="month" selected>This Month</option>
+                            <option value="quarter">This Quarter</option>
+                            <option value="year">This Year</option>
+                            <option value="all">All Time</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="timeline-container" id="timeline-container">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Templates -->
+            <div class="dashboard-card templates-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-bookmark"></i> Quick Start Templates</h3>
+                    <div class="card-actions">
+                        <button class="card-action-btn" id="view-all-templates">
+                            <i class="fas fa-external-link-alt"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="plan-templates" id="plan-templates">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success Metrics -->
+            <div class="dashboard-card metrics-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-chart-pie"></i> Success Metrics</h3>
+                    <div class="card-actions">
+                        <button class="card-action-btn" id="export-metrics">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="success-metrics" id="success-metrics">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vision Board -->
+            <div class="dashboard-card vision-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-eye"></i> Vision Board</h3>
+                    <div class="card-actions">
+                        <button class="card-action-btn" id="edit-vision">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="vision-board" id="vision-board">
+                        <div class="vision-item" id="life-vision">
+                            <h4>Life Vision</h4>
+                            <p class="vision-text">Define your ultimate life vision here...</p>
+                        </div>
+                        <div class="vision-item" id="year-goals">
+                            <h4>This Year's Focus</h4>
+                            <p class="vision-text">Set your main goals for this year...</p>
+                        </div>
+                        <div class="vision-item" id="core-values">
+                            <h4>Core Values</h4>
+                            <p class="vision-text">Define what matters most to you...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions Panel -->
+        <div class="quick-actions-panel">
+            <div class="quick-action" id="quick-goal">
+                <i class="fas fa-bullseye"></i>
+                <span>Create Plan</span>
+            </div>
+            <div class="quick-action" id="quick-milestone">
+                <i class="fas fa-flag"></i>
+                <span>Add Milestone</span>
+            </div>
+            <div class="quick-action" id="quick-event">
+                <i class="fas fa-calendar-plus"></i>
+                <span>Schedule Event</span>
+            </div>
+            <div class="quick-action" id="quick-review">
+                <i class="fas fa-search"></i>
+                <span>Review Progress</span>
+            </div>
+            <div class="quick-action" id="quick-template">
+                <i class="fas fa-magic"></i>
+                <span>Use Template</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plan Creation Modal -->
+    <div class="modal-overlay" id="plan-modal-overlay">
+        <div class="modal plan-modal">
+            <div class="modal-header">
+                <h3 id="plan-modal-title">Create Strategic Roadmap</h3>
+                <button class="modal-close" id="close-plan-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <form id="plan-form">
+                    <div class="form-tabs">
+                        <button type="button" class="tab-btn active" data-tab="basic">Basic Info</button>
+                        <button type="button" class="tab-btn" data-tab="milestones">Milestones</button>
+                        <button type="button" class="tab-btn" data-tab="events">Events</button>
+                        <button type="button" class="tab-btn" data-tab="sub-plans">Sub-Plans</button>
+                    </div>
+                    
+                    <!-- Basic Info Tab -->
+                    <div class="tab-content active" id="basic-tab">
+                        <div class="form-group">
+                            <label for="plan-title-input">Plan Title *</label>
+                            <input type="text" id="plan-title-input" name="title" placeholder="What do you want to achieve?" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="plan-description-input">Description</label>
+                            <textarea id="plan-description-input" name="description" placeholder="Describe your plan and why it matters..." rows="3"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="plan-category">Category</label>
+                                <select id="plan-category" name="category">
+                                    <option value="personal">Personal Development</option>
+                                    <option value="career">Career & Professional</option>
+                                    <option value="health">Health & Wellness</option>
+                                    <option value="financial">Financial Goals</option>
+                                    <option value="education">Education & Learning</option>
+                                    <option value="relationships">Relationships</option>
+                                    <option value="creative">Creative Projects</option>
+                                    <option value="business">Business & Entrepreneurship</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="plan-priority">Priority Level</label>
+                                <select id="plan-priority" name="priority">
+                                    <option value="high">High - Critical</option>
+                                    <option value="medium" selected>Medium - Important</option>
+                                    <option value="low">Low - When Possible</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="plan-start-date">Start Date</label>
+                                <input type="date" id="plan-start-date" name="startDate">
+                            </div>
+                            <div class="form-group">
+                                <label for="plan-target-date">Target Completion</label>
+                                <input type="date" id="plan-target-date" name="targetDate">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="parent-plan-select">Parent Plan (Optional)</label>
+                            <select id="parent-plan-select" name="parentPlan">
+                                <option value="">-- No Parent Plan --</option>
+                                <!-- Will be populated by JavaScript -->
+                            </select>
+                            <small>Select a parent plan to create this as a sub-plan</small>
+                        </div>
+                    </div>
+                    
+                    <!-- Milestones Tab -->
+                    <div class="tab-content" id="milestones-tab">
+                        <div class="milestones-section">
+                            <div class="section-header">
+                                <h4>Key Milestones</h4>
+                                <button type="button" class="btn-small" id="add-milestone-btn">
+                                    <i class="fas fa-plus"></i> Add Milestone
+                                </button>
+                            </div>
+                            <div class="milestones-list" id="milestones-list">
+                                <!-- Will be populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Events Tab -->
+                    <div class="tab-content" id="events-tab">
+                        <div class="events-section">
+                            <div class="section-header">
+                                <h4>Scheduled Events</h4>
+                                <button type="button" class="btn-small" id="add-event-btn">
+                                    <i class="fas fa-plus"></i> Add Event
+                                </button>
+                            </div>
+                            <div class="events-list" id="events-list">
+                                <!-- Will be populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sub-Plans Tab -->
+                    <div class="tab-content" id="sub-plans-tab">
+                        <div class="sub-plans-section">
+                            <div class="section-header">
+                                <h4>Sub-Plans</h4>
+                                <button type="button" class="btn-small" id="create-sub-plan-btn">
+                                    <i class="fas fa-plus"></i> Create Sub-Plan
+                                </button>
+                            </div>
+                            <div class="sub-plans-list" id="sub-plans-list">
+                                <!-- Will be populated dynamically -->
+                            </div>
+                            <div class="sub-plans-info">
+                                <p><i class="fas fa-info-circle"></i> Sub-plans help you break down complex goals into manageable parts</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancel-plan">Cancel</button>
+                        <button type="submit" class="btn-primary" id="save-plan-btn">Create Plan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vision Edit Modal -->
+    <div class="modal-overlay" id="vision-modal-overlay">
+        <div class="modal vision-modal">
+            <div class="modal-header">
+                <h3>Edit Your Vision</h3>
+                <button class="modal-close" id="close-vision-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <form id="vision-form">
+                    <div class="form-group">
+                        <label for="life-vision-input">Life Vision</label>
+                        <textarea id="life-vision-input" placeholder="Describe your ultimate life vision..." rows="4"></textarea>
+                        <small>What does your ideal life look like in 10+ years?</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="year-goals-input">This Year's Focus</label>
+                        <textarea id="year-goals-input" placeholder="What are your main goals for this year?" rows="3"></textarea>
+                        <small>What are the 3-5 most important things to achieve this year?</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="core-values-input">Core Values</label>
+                        <textarea id="core-values-input" placeholder="List your core values and principles..." rows="3"></textarea>
+                        <small>What principles guide your decisions and actions?</small>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancel-vision">Cancel</button>
+                        <button type="submit" class="btn-primary">Save Vision</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Goal Creation Modal -->
+    <div class="modal-overlay" id="goal-modal-overlay">
+        <div class="modal goal-modal">
+            <div class="modal-header">
+                <h3>Set New Goal</h3>
+                <button class="modal-close" id="close-goal-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <form id="goal-form">
+                    <div class="form-group">
+                        <label for="goal-title-input">Goal Title</label>
+                        <input type="text" id="goal-title-input" placeholder="What specific goal do you want to achieve?" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="goal-description-input">Description & Why</label>
+                        <textarea id="goal-description-input" placeholder="Describe the goal and why it's important to you..." rows="3"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="goal-category-select">Category</label>
+                            <select id="goal-category-select">
+                                <option value="personal">Personal Development</option>
+                                <option value="career">Career & Professional</option>
+                                <option value="health">Health & Wellness</option>
+                                <option value="financial">Financial</option>
+                                <option value="education">Education & Learning</option>
+                                <option value="relationships">Relationships</option>
+                                <option value="creative">Creative Projects</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="goal-deadline">Target Date</label>
+                            <input type="date" id="goal-deadline">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="success-criteria">Success Criteria</label>
+                        <textarea id="success-criteria" placeholder="How will you know when you've achieved this goal?" rows="2"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancel-goal">Cancel</button>
+                        <button type="submit" class="btn-primary">Create Goal</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Milestone Creation Modal -->
+    <div class="modal-overlay" id="milestone-modal-overlay">
+        <div class="modal milestone-modal">
+            <div class="modal-header">
+                <h3 id="milestone-modal-title">Add Milestone</h3>
+                <button class="modal-close" id="close-milestone-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <form id="milestone-form">
+                    <div class="form-group">
+                        <label for="milestone-title-input">Milestone Title *</label>
+                        <input type="text" id="milestone-title-input" name="title" placeholder="What milestone do you want to achieve?" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="milestone-description-input">Description</label>
+                        <textarea id="milestone-description-input" name="description" placeholder="Describe this milestone..." rows="2"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="milestone-plan-select">Plan</label>
+                            <select id="milestone-plan-select" name="planId" required>
+                                <option value="">Select Plan</option>
+                                <!-- Will be populated by JavaScript -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="milestone-target-date">Target Date</label>
+                            <input type="date" id="milestone-target-date" name="targetDate">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="milestone-priority">Priority</label>
+                        <select id="milestone-priority" name="priority">
+                            <option value="high">High</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="milestone-completion-criteria">Completion Criteria</label>
+                        <textarea id="milestone-completion-criteria" name="completionCriteria" placeholder="How will you know this milestone is complete?" rows="2"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancel-milestone">Cancel</button>
+                        <button type="submit" class="btn-primary">Add Milestone</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Creation Modal -->
+    <div class="modal-overlay" id="event-modal-overlay">
+        <div class="modal event-modal">
+            <div class="modal-header">
+                <h3 id="event-modal-title">Schedule Event</h3>
+                <button class="modal-close" id="close-event-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <form id="event-form">
+                    <div class="form-group">
+                        <label for="event-title-input">Event Title *</label>
+                        <input type="text" id="event-title-input" name="title" placeholder="What event do you want to schedule?" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="event-description-input">Description</label>
+                        <textarea id="event-description-input" name="description" placeholder="Describe this event..." rows="2"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="event-plan-select">Related Plan</label>
+                            <select id="event-plan-select" name="planId">
+                                <option value="">No specific plan</option>
+                                <!-- Will be populated by JavaScript -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-type">Event Type</label>
+                            <select id="event-type" name="eventType">
+                                <option value="deadline">Deadline</option>
+                                <option value="milestone">Milestone</option>
+                                <option value="review">Review</option>
+                                <option value="meeting">Meeting</option>
+                                <option value="reminder">Reminder</option>
+                                <option value="celebration">Celebration</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="event-date">Event Date *</label>
+                            <input type="date" id="event-date" name="eventDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-time">Event Time</label>
+                            <input type="time" id="event-time" name="eventTime">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="event-priority">Priority</label>
+                        <select id="event-priority" name="priority">
+                            <option value="high">High</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="event-reminder" name="reminder">
+                                <span>Set reminder notification</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancel-event">Cancel</button>
+                        <button type="submit" class="btn-primary">Schedule Event</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plan Details Modal -->
+    <div class="modal-overlay" id="plan-details-modal-overlay">
+        <div class="modal plan-details-modal">
+            <div class="modal-header">
+                <h3 id="plan-details-title">Plan Details</h3>
+                <div class="modal-actions">
+                    <button class="modal-action-btn" id="edit-plan-btn" title="Edit Plan">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="modal-action-btn" id="duplicate-plan-btn" title="Duplicate Plan">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                    <button class="modal-action-btn danger" id="delete-plan-btn" title="Delete Plan">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    <button class="modal-close" id="close-plan-details-modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-content" id="plan-details-content">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Navigation Background -->
+    <div class="floating-nav-background" id="floating-nav-background"></div>
+
+    <!-- Floating Navigation Hub -->
+    <div class="floating-nav-hub" id="floating-nav-hub">
+        <button class="nav-hub-button" id="nav-hub-toggle">
+            <i class="fas fa-th"></i>
+        </button>
+        
+        <div class="nav-options">
+            <a href="dashboard.html" class="nav-option">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="plans.html" class="nav-option current-page">
+                <i class="fas fa-map"></i>
+                <span>Plans</span>
+            </a>
+            <a href="chat.html" class="nav-option registered-only">
+                <i class="fas fa-message"></i>
+                <span>Chat</span>
+            </a>
+            <a href="tasks.html" class="nav-option registered-only">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="schedule.html" class="nav-option registered-only">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Schedule</span>
+            </a>
+            <a href="achievements.html" class="nav-option registered-only">
+                <i class="fas fa-trophy"></i>
+                <span>Achievements</span>
+            </a>
+            <a href="super-tracker.html" class="nav-option registered-only">
+                <i class="fas fa-chart-line"></i>
+                <span>Tracker</span>
+            </a>
+            <a href="customization.html" class="nav-option registered-only">
+                <i class="fas fa-heart"></i>
+                <span>Customize</span>
+            </a>
+            <a href="shop.html" class="nav-option registered-only">
+                <i class="fas fa-store"></i>
+                <span>Shop</span>
+            </a>
+            <a href="about.html" class="nav-option">
+                <i class="fas fa-user-circle"></i>
+                <span>About</span>
+            </a>
+            <a href="settings.html" class="nav-option">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Floating Navigation Hub -->
+    <div class="floating-nav-hub" id="floating-nav-hub">
+        <div class="nav-toggle-button" id="nav-toggle-button">
+            <i class="fas fa-compass"></i>
+        </div>
+        
+        <div class="nav-menu" id="nav-menu">
+            <a href="index.html" class="nav-option">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="dashboard.html" class="nav-option">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="chat.html" class="nav-option">
+                <i class="fas fa-comments"></i>
+                <span>Chat</span>
+            </a>
+            <a href="tasks.html" class="nav-option">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="schedule.html" class="nav-option">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Schedule</span>
+            </a>
+            <a href="notes.html" class="nav-option">
+                <i class="fas fa-sticky-note"></i>
+                <span>Notes</span>
+            </a>
+            <a href="achievements.html" class="nav-option">
+                <i class="fas fa-trophy"></i>
+                <span>Achievements</span>
+            </a>
+            <a href="super-tracker.html" class="nav-option">
+                <i class="fas fa-chart-line"></i>
+                <span>Tracker</span>
+            </a>
+            <a href="customization.html" class="nav-option">
+                <i class="fas fa-heart"></i>
+                <span>Customization</span>
+            </a>
+            <a href="plans.html" class="nav-option current-page">
+                <i class="fas fa-rocket"></i>
+                <span>Plans</span>
+            </a>
+            <a href="shop.html" class="nav-option">
+                <i class="fas fa-store"></i>
+                <span>Shop</span>
+            </a>
+            <a href="settings.html" class="nav-option">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/floating-navigation.js"></script>
+    <script src="scripts/global-navigation.js"></script>
+    <script src="scripts/storage-manager.js"></script>
+    <script src="scripts/global-profile-manager.js"></script>
+    <script src="scripts/global-stats-manager.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+    <script src="scripts/plans.js"></script>
+    <script src="scripts/learning-paths.js"></script>
+    <script>
+        // Fix for background overlay issue
+        document.addEventListener('DOMContentLoaded', function() {
+            const backgroundOverlay = document.getElementById('background-overlay');
+            if (backgroundOverlay) {
+                // Ensure no background image is set
+                backgroundOverlay.style.backgroundImage = 'none';
+                
+                // Check again after customization loader might have run
+                setTimeout(() => {
+                    // If Remi's image appears in the background, remove it
+                    if (backgroundOverlay.style.backgroundImage && 
+                        backgroundOverlay.style.backgroundImage.includes('Remi')) {
+                        backgroundOverlay.style.backgroundImage = 'none';
+                    }
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Project - Help Build the Future | Youssef Mohamed</title>
+    <meta name="description" content="Support Auro's development and join the productive revolution. Exclusive perks for early supporters.">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/about.css">
+    <link rel="stylesheet" href="styles/floating-nav.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Modern Design System */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            --secondary-gradient: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            --success-gradient: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+            --warning-gradient: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow-light: 0 8px 32px rgba(31, 38, 135, 0.37);
+            --shadow-medium: 0 15px 35px rgba(31, 38, 135, 0.2);
+            --shadow-heavy: 0 20px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Enhanced Glass Morphism */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-heavy);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: var(--primary-gradient);
+            border-radius: 25px;
+            padding: 4rem 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            color: white;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Payment Section */
+        .payment-card {
+            padding: 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(238, 90, 82, 0.1));
+            border: 2px solid rgba(255, 107, 107, 0.2);
+        }
+
+        .payment-icon {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .payment-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .payment-description {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .payment-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem 3rem;
+            background: linear-gradient(135deg, #0070ba, #003087);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 112, 186, 0.3);
+        }
+
+        .payment-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 112, 186, 0.4);
+        }
+
+        /* Perks Grid */
+        .perks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .perk-card {
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .perk-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--secondary-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 20px;
+        }
+
+        .perk-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .perk-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 2;
+        }
+
+        .perk-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .perk-description {
+            color: #666;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Impact Stats */
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .impact-card {
+            padding: 2.5rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(76, 205, 196, 0.1), rgba(68, 160, 141, 0.1));
+            border: 1px solid rgba(76, 205, 196, 0.2);
+        }
+
+        .impact-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-label {
+            font-size: 1.2rem;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .impact-description {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Community Section */
+        .community-section {
+            background: linear-gradient(135deg, rgba(86, 171, 47, 0.1), rgba(168, 230, 207, 0.1));
+            border-radius: 25px;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 4rem 0;
+            border: 1px solid rgba(86, 171, 47, 0.2);
+        }
+
+        .community-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: var(--success-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .community-description {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .community-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem 3rem;
+            background: linear-gradient(135deg, #5865F2, #4752C4);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(88, 101, 242, 0.3);
+        }
+
+        .community-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(88, 101, 242, 0.4);
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .testimonial-card {
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .testimonial-quote {
+            font-size: 1.2rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .testimonial-role {
+            color: #ff6b6b;
+            font-size: 0.95rem;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .payment-title {
+                font-size: 2rem;
+            }
+            
+            .perks-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <div class="topbar">
+        <div class="topbar-content">
+            <div class="logo-section">
+                <img src="pfp/Auro_Logo.png" alt="Auro Logo" class="logo">
+                <span class="app-name">Auro</span>
+            </div>
+            
+            <nav class="topbar-nav">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="tasks.html" class="nav-link">
+                    <i class="fas fa-tasks"></i>
+                    <span>Tasks</span>
+                </a>
+                <a href="schedule.html" class="nav-link">
+                    <i class="fas fa-calendar"></i>
+                    <span>Schedule</span>
+                </a>
+                <a href="tracker.html" class="nav-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Tracker</span>
+                </a>
+                <a href="chat.html" class="nav-link">
+                    <i class="fas fa-comments"></i>
+                    <span>AI Chat</span>
+                </a>
+                <a href="shop.html" class="nav-link">
+                    <i class="fas fa-store"></i>
+                    <span>Shop</span>
+                </a>
+            </nav>
+            
+            <div class="topbar-actions">
+                <button class="action-btn" id="settings-btn">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button class="action-btn" id="user-menu-btn">
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="main-sidebar">
+        <div class="sidebar-header">
+            <div class="user-info">
+                <img src="pfp/Auro_Logo.png" alt="Profile" class="user-avatar">
+                <div class="user-details">
+                    <h3 class="user-name">Youssef Mohamed</h3>
+                    <span class="user-status">Creator & Developer</span>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="index.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="tasks.html" class="nav-item">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="schedule.html" class="nav-item">
+                <i class="fas fa-calendar"></i>
+                <span>Schedule</span>
+            </a>
+            <a href="tracker.html" class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Tracker</span>
+            </a>
+            <a href="chat.html" class="nav-item">
+                <i class="fas fa-comments"></i>
+                <span>AI Chat</span>
+            </a>
+            <a href="shop.html" class="nav-item">
+                <i class="fas fa-store"></i>
+                <span>Shop</span>
+            </a>
+            
+            <div class="nav-divider"></div>
+            
+            <a href="about.html" class="nav-item">
+                <i class="fas fa-user"></i>
+                <span>About Me</span>
+            </a>
+            <a href="support-project.html" class="nav-item active">
+                <i class="fas fa-heart"></i>
+                <span>Support</span>
+            </a>
+            <a href="future-plans.html" class="nav-item">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="feedbacks.html" class="nav-item">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h1 class="hero-title">Support the Revolution</h1>
+            <p class="hero-subtitle">Help Youssef Mohamed build the future of productivity</p>
+            <p style="color: rgba(255, 255, 255, 0.8); max-width: 700px; margin: 0 auto; position: relative; z-index: 2;">
+                Your support fuels innovation and helps bring revolutionary productivity tools to millions of users worldwide.
+            </p>
+        </section>
+
+        <!-- Support with PayPal -->
+        <section style="margin: 4rem 0;">
+            <div class="payment-card glass-card">
+                <div class="payment-icon">
+                    <i class="fab fa-paypal"></i>
+                </div>
+                <h2 class="payment-title">Support Auro Development</h2>
+                <p class="payment-description">
+                    Every contribution helps accelerate the development of mobile apps, desktop applications, 
+                    and revolutionary features that will transform productivity forever.
+                </p>
+                <a href="https://paypal.me/YoussefDevOG" target="_blank" class="payment-btn">
+                    <i class="fab fa-paypal"></i>
+                    <span>Support via PayPal</span>
+                </a>
+                <p style="margin-top: 2rem; color: #888; font-size: 0.95rem;">
+                    PayPal is our exclusive payment method for secure and instant contributions.
+                </p>
+            </div>
+        </section>
+
+        <!-- Supporter Perks -->
+        <section style="margin: 4rem 0;">
+            <h2 class="section-title">Exclusive Supporter Perks</h2>
+            <div class="perks-grid">
+                <div class="perk-card glass-card">
+                    <div class="perk-icon">
+                        <i class="fab fa-discord"></i>
+                    </div>
+                    <h3 class="perk-title">Discord VIP Access</h3>
+                    <p class="perk-description">
+                        Join our exclusive Discord community at <strong>discord.gg/SyhS85qSK6</strong> and get early supporter status 
+                        with special badges and direct access to Youssef Mohamed.
+                    </p>
+                </div>
+                
+                <div class="perk-card glass-card">
+                    <div class="perk-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3 class="perk-title">Alpha Tester Program</h3>
+                    <p class="perk-description">
+                        Be among the first to test mobile apps, desktop applications, and cutting-edge features 
+                        before they're released to the public.
+                    </p>
+                </div>
+                
+                <div class="perk-card glass-card">
+                    <div class="perk-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3 class="perk-title">Future Benefits</h3>
+                    <p class="perk-description">
+                        Unlock exclusive features, premium themes, and special recognition as Auro grows 
+                        into the ultimate productivity ecosystem.
+                    </p>
+                </div>
+                
+                <div class="perk-card glass-card">
+                    <div class="perk-icon">
+                        <i class="fas fa-lightning-bolt"></i>
+                    </div>
+                    <h3 class="perk-title">Priority Support</h3>
+                    <p class="perk-description">
+                        Get priority assistance, feature requests, and direct communication channels 
+                        with the development team.
+                    </p>
+                </div>
+                
+                <div class="perk-card glass-card">
+                    <div class="perk-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="perk-title">Lifetime Recognition</h3>
+                    <p class="perk-description">
+                        Be permanently recognized as an early supporter who helped build the productive revolution 
+                        from the ground up.
+                    </p>
+                </div>
+                
+                <div class="perk-card glass-card">
+                    <div class="perk-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="perk-title">Early Access</h3>
+                    <p class="perk-description">
+                        Get first access to mobile apps, desktop applications, and revolutionary features 
+                        as they become available.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Statistics -->
+        <section style="margin: 4rem 0;">
+            <h2 class="section-title">Your Impact</h2>
+            <div class="impact-grid">
+                <div class="impact-card glass-card">
+                    <div class="impact-number">1000+</div>
+                    <div class="impact-label">Users Helped</div>
+                    <p class="impact-description">Supporting productivity improvements worldwide</p>
+                </div>
+                
+                <div class="impact-card glass-card">
+                    <div class="impact-number">50+</div>
+                    <div class="impact-label">Features Built</div>
+                    <p class="impact-description">Revolutionary tools created with community support</p>
+                </div>
+                
+                <div class="impact-card glass-card">
+                    <div class="impact-number">24/7</div>
+                    <div class="impact-label">Development</div>
+                    <p class="impact-description">Continuous innovation and improvement</p>
+                </div>
+                
+                <div class="impact-card glass-card">
+                    <div class="impact-number">∞</div>
+                    <div class="impact-label">Potential</div>
+                    <p class="impact-description">Limitless possibilities with your support</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Community Testimonials -->
+        <section style="margin: 4rem 0;">
+            <h2 class="section-title">What Our Supporters Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card glass-card">
+                    <p class="testimonial-quote">
+                        "Supporting Auro was the best decision I made. The community is amazing and the features just keep getting better!"
+                    </p>
+                    <div class="testimonial-author">Sarah Chen</div>
+                    <div class="testimonial-role">Early Supporter & Alpha Tester</div>
+                </div>
+                
+                <div class="testimonial-card glass-card">
+                    <p class="testimonial-quote">
+                        "Being part of Youssef's vision from the beginning has been incredible. Can't wait for the mobile app!"
+                    </p>
+                    <div class="testimonial-author">Marcus Rodriguez</div>
+                    <div class="testimonial-role">Discord VIP Member</div>
+                </div>
+                
+                <div class="testimonial-card glass-card">
+                    <p class="testimonial-quote">
+                        "The productive revolution is real! Supporting this project means supporting the future of work."
+                    </p>
+                    <div class="testimonial-author">Emily Johnson</div>
+                    <div class="testimonial-role">Founding Supporter</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Join Community Section -->
+        <section class="community-section">
+            <h2 class="community-title">Join Our Community</h2>
+            <p class="community-description">
+                Connect with fellow supporters, get exclusive updates, and be part of building the future of productivity. 
+                Our Discord community is where the magic happens!
+            </p>
+            <a href="https://discord.gg/SyhS85qSK6" target="_blank" class="community-btn">
+                <i class="fab fa-discord"></i>
+                <span>Join Discord Community</span>
+            </a>
+        </section>
+
+        <!-- Future Vision -->
+        <section style="margin: 4rem 0;">
+            <div class="glass-card" style="padding: 3rem; text-align: center;">
+                <h2 class="section-title" style="margin-bottom: 2rem;">The Road Ahead</h2>
+                <p style="font-size: 1.3rem; line-height: 1.8; color: #666; max-width: 800px; margin: 0 auto;">
+                    With your support, Auro will expand to mobile apps, desktop applications, and revolutionary AI features. 
+                    This is just the beginning of the productive revolution. Together, we're building tools that will 
+                    transform how millions of people work, learn, and achieve their dreams.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Include Scripts -->
+    <script src="scripts/global-navigation.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+</body>
+</html>

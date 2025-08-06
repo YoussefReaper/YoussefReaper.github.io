@@ -3,863 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auro Launch Countdown | The Productive Revolution Begins</title>
-    <meta name="description" content="The countdown to Auro's official launch has begun. Join the productive revolution.">
-    <link rel="stylesheet" href="../../styles/main.css">
-    <link rel="stylesheet" href="../../styles/dashboard.css">
-    <link rel="stylesheet" href="../../styles/about.css">
-    <link rel="stylesheet" href="../../styles/floating-nav.css">
-    <link rel="stylesheet" href="../../styles/modern-navigation.css">
+    <title>Auro - AI Cognitive Assistant</title>
+    <meta name="description" content="Meet Auro, your AI companion and productivity partner. Build meaningful relationships while boosting your productivity with customizable AI friendship.">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="styles/floating-nav.css">
+    <link rel="stylesheet" href="styles/modern-navigation.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        /* Stunning Redesign - Magical Color Palette */
-        :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --warning-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            --launch-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
-            --accent-gradient: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            --cosmic-gradient: linear-gradient(135deg, #2E1065 0%, #5B2C87 25%, #8E44AD 50%, #C0392B 75%, #E74C3C 100%);
-            --glass-bg: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.15);
-            --shadow-glow: 0 8px 32px rgba(102, 126, 234, 0.4);
-            --shadow-medium: 0 15px 35px rgba(245, 87, 108, 0.3);
-            --shadow-heavy: 0 25px 50px rgba(118, 75, 162, 0.2);
-            --text-glow: 0 0 30px rgba(255, 255, 255, 0.8);
-            --neon-glow: 0 0 20px currentColor, 0 0 40px currentColor, 0 0 60px currentColor;
-        }
-
-        /* Enhanced Glass Morphism with Magical Effects */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border-radius: 25px;
-            border: 2px solid var(--glass-border);
-            box-shadow: var(--shadow-glow);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .glass-card:hover::before {
-            left: 100%;
-        }
-
-        .glass-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: var(--shadow-heavy), var(--neon-glow);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* Stunning Cosmic Background with Stars */
-        body {
-            background: var(--cosmic-gradient);
-            background-size: 400% 400%;
-            animation: cosmicShift 20s ease infinite;
-            min-height: 100vh;
-            overflow-x: auto;
-            overflow-y: hidden;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(2px 2px at 20px 30px, #fff, transparent),
-                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(1px 1px at 90px 40px, #fff, transparent),
-                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
-                radial-gradient(2px 2px at 160px 30px, #fff, transparent);
-            background-repeat: repeat;
-            background-size: 200px 100px;
-            animation: twinkle 4s ease-in-out infinite alternate;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        @keyframes cosmicShift {
-            0% { background-position: 0% 50%; }
-            25% { background-position: 100% 25%; }
-            50% { background-position: 0% 75%; }
-            75% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes twinkle {
-            0% { opacity: 0.3; }
-            100% { opacity: 1; }
-        }
-
-        /* Enable scrolling for main content only */
-        .main-content {
-            overflow-y: auto;
-            overflow-x: hidden;
-            height: calc(100vh - 85px);
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* Internet Explorer 10+ */
-        }
-
-        /* Hide scrollbar for webkit browsers */
-        .main-content::-webkit-scrollbar {
-            display: none;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Magical Hero Section with 3D Effects */
-        .countdown-hero {
-            background: var(--launch-gradient);
-            border-radius: 35px;
-            padding: 5rem 3rem;
-            margin: 3rem 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            transform-style: preserve-3d;
-            perspective: 1000px;
-        }
-
-        .countdown-hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(
-                from 0deg,
-                transparent 0deg,
-                rgba(255, 255, 255, 0.1) 60deg,
-                rgba(255, 255, 255, 0.2) 120deg,
-                transparent 180deg,
-                rgba(255, 255, 255, 0.1) 240deg,
-                transparent 360deg
-            );
-            animation: rotate 10s linear infinite;
-            z-index: 1;
-        }
-
-        .countdown-hero::after {
-            content: '';
-            position: absolute;
-            top: 10%;
-            left: 10%;
-            right: 10%;
-            bottom: 10%;
-            background: radial-gradient(
-                ellipse at center,
-                rgba(255, 255, 255, 0.15) 0%,
-                transparent 70%
-            );
-            border-radius: 50%;
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .launch-icon {
-            font-size: 8rem;
-            margin-bottom: 2rem;
-            color: white;
-            text-shadow: var(--text-glow);
-            position: relative;
-            z-index: 10;
-            animation: launchPulse 3s ease-in-out infinite;
-            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
-        }
-
-        @keyframes launchPulse {
-            0%, 100% { 
-                transform: scale(1) rotateY(0deg); 
-                filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5));
-            }
-            25% { 
-                transform: scale(1.1) rotateY(90deg); 
-                filter: drop-shadow(0 0 50px rgba(255, 255, 255, 0.8));
-            }
-            50% { 
-                transform: scale(1.05) rotateY(180deg); 
-                filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.7));
-            }
-            75% { 
-                transform: scale(1.1) rotateY(270deg); 
-                filter: drop-shadow(0 0 50px rgba(255, 255, 255, 0.8));
-            }
-        }
-
-        .hero-title {
-            font-size: 5rem;
-            font-weight: 900;
-            color: white;
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 10;
-            text-shadow: var(--text-glow);
-            letter-spacing: -3px;
-            background: linear-gradient(45deg, #fff, #f0f0f0, #fff, #f0f0f0);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 3s ease-in-out infinite;
-        }
-
-        @keyframes shimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .hero-subtitle {
-            font-size: 2.2rem;
-            color: rgba(255, 255, 255, 0.95);
-            margin-bottom: 3rem;
-            position: relative;
-            z-index: 10;
-            font-weight: 500;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 255, 255, 0.3); }
-            to { text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2), 0 0 30px rgba(255, 255, 255, 0.6); }
-        }
-
-        /* Stunning Countdown Timer with 3D Effects */
-        .countdown-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 2.5rem;
-            margin: 5rem 0;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-            perspective: 1000px;
-        }
-
-        .countdown-unit {
-            padding: 3rem 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .countdown-unit::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--launch-gradient);
-            opacity: 0.15;
-            border-radius: 25px;
-            transition: all 0.4s ease;
-            transform: translateZ(-10px);
-        }
-
-        .countdown-unit:hover {
-            transform: rotateX(10deg) rotateY(10deg) translateZ(20px);
-        }
-
-        .countdown-unit:hover::before {
-            opacity: 0.25;
-            transform: translateZ(-10px) scale(1.05);
-        }
-
-        .countdown-number {
-            font-size: 5rem;
-            font-weight: 900;
-            background: var(--launch-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 10;
-            line-height: 1;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-            animation: numberGlow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes numberGlow {
-            from { filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)) drop-shadow(0 0 20px rgba(102, 126, 234, 0.4)); }
-            to { filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)) drop-shadow(0 0 30px rgba(245, 87, 108, 0.6)); }
-        }
-
-        .countdown-label {
-            font-size: 1.4rem;
-            color: #fff;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            position: relative;
-            z-index: 10;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            opacity: 0.9;
-        }
-
-        /* Elegant Launch Message with Floating Animation */
-        .launch-message {
-            text-align: center;
-            margin: 5rem 0;
-            padding: 4rem 3rem;
-            background: var(--glass-bg);
-            backdrop-filter: blur(30px);
-            border-radius: 35px;
-            border: 2px solid var(--glass-border);
-            position: relative;
-            overflow: hidden;
-            animation: floatMessage 6s ease-in-out infinite;
-        }
-
-        @keyframes floatMessage {
-            0%, 100% { transform: translateY(0px) rotateX(0deg); }
-            50% { transform: translateY(-10px) rotateX(2deg); }
-        }
-
-        .launch-message::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: var(--launch-gradient);
-            border-radius: 35px;
-            z-index: -1;
-            animation: borderGlow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes borderGlow {
-            from { opacity: 0.3; }
-            to { opacity: 0.7; }
-        }
-
-        .launch-title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            background: var(--launch-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 2.5rem;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
-            animation: titlePulse 4s ease-in-out infinite;
-        }
-
-        @keyframes titlePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .launch-description {
-            font-size: 1.5rem;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.9);
-            max-width: 900px;
-            margin: 0 auto;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            font-weight: 400;
-        }
-
-        /* Enhanced Join Section with Magical Cards */
-        .join-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
-            margin: 5rem 0;
-            perspective: 1000px;
-        }
-
-        .join-card {
-            padding: 3rem 2.5rem;
-            text-align: center;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .join-card:hover {
-            transform: rotateY(10deg) translateZ(30px);
-        }
-
-        .join-icon {
-            font-size: 4.5rem;
-            margin-bottom: 2rem;
-            background: var(--success-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
-            animation: iconFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes iconFloat {
-            0%, 100% { transform: translateY(0px) rotateZ(0deg); }
-            50% { transform: translateY(-8px) rotateZ(5deg); }
-        }
-
-        .join-title {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: white;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .join-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1.5rem 3rem;
-            background: var(--launch-gradient);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.2rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow-medium);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .join-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .join-link:hover::before {
-            left: 100%;
-        }
-
-        .join-link:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: var(--shadow-heavy), 0 0 30px rgba(102, 126, 234, 0.4);
-        }
-
-        /* Enhanced Status Indicator with Pulsing Effects */
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 3rem 0;
-            padding: 1.5rem 3rem;
-            background: rgba(67, 233, 123, 0.15);
-            border: 2px solid #43e97b;
-            border-radius: 50px;
-            width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 8px 32px rgba(67, 233, 123, 0.3);
-            animation: statusFloat 4s ease-in-out infinite;
-        }
-
-        @keyframes statusFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .status-dot {
-            width: 16px;
-            height: 16px;
-            background: #43e97b;
-            border-radius: 50%;
-            animation: statusBlink 2s ease-in-out infinite;
-            box-shadow: 0 0 20px #43e97b;
-        }
-
-        @keyframes statusBlink {
-            0%, 100% { 
-                opacity: 1; 
-                transform: scale(1);
-                box-shadow: 0 0 20px #43e97b;
-            }
-            50% { 
-                opacity: 0.3; 
-                transform: scale(1.2);
-                box-shadow: 0 0 30px #43e97b;
-            }
-        }
-
-        .status-text {
-            color: #43e97b;
-            font-weight: 600;
-            font-size: 1.3rem;
-            text-shadow: 0 0 10px rgba(67, 233, 123, 0.5);
-        }
-
-        /* Responsive Design with Enhanced Mobile Experience */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 3rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.6rem;
-            }
-            
-            .countdown-number {
-                font-size: 3.5rem;
-            }
-            
-            .launch-title {
-                font-size: 2.5rem;
-            }
-
-            .launch-icon {
-                font-size: 6rem;
-            }
-
-            .countdown-container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1.5rem;
-            }
-
-            .countdown-unit {
-                padding: 2rem 1.5rem;
-            }
-
-            .join-section {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            /* Enhanced mobile topbar navigation */
-            .topbar-nav {
-                overflow-x: auto !important;
-                overflow-y: hidden !important;
-                scroll-behavior: smooth !important;
-                -webkit-overflow-scrolling: touch !important;
-                scrollbar-width: thin !important;
-                scrollbar-color: rgba(102, 126, 234, 0.5) rgba(255, 255, 255, 0.1) !important;
-                gap: 0.5rem !important;
-                min-width: max-content !important;
-                padding: 0.5rem 0 1rem 0 !important;
-                display: flex !important;
-                flex-wrap: nowrap !important;
-                width: 100% !important;
-            }
-
-            .topbar-nav::-webkit-scrollbar {
-                height: 6px !important;
-                background: rgba(255, 255, 255, 0.1) !important;
-                border-radius: 3px !important;
-            }
-
-            .topbar-nav::-webkit-scrollbar-track {
-                background: rgba(255, 255, 255, 0.1) !important;
-                border-radius: 3px !important;
-                margin: 0 10px !important;
-            }
-
-            .topbar-nav::-webkit-scrollbar-thumb {
-                background: linear-gradient(90deg, rgba(102, 126, 234, 0.6), rgba(118, 75, 162, 0.6)) !important;
-                border-radius: 3px !important;
-                border: 1px solid rgba(255, 255, 255, 0.2) !important;
-            }
-
-            .topbar-nav::-webkit-scrollbar-thumb:hover {
-                background: linear-gradient(90deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8)) !important;
-                box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3) !important;
-            }
-
-            .topbar-nav::-webkit-scrollbar-thumb:active {
-                background: linear-gradient(90deg, rgba(102, 126, 234, 1), rgba(118, 75, 162, 1)) !important;
-            }
-
-            .topbar-nav-item {
-                flex-shrink: 0 !important;
-                white-space: nowrap !important;
-                padding: 0.5rem 0.75rem !important;
-                font-size: 0.9rem !important;
-                min-width: fit-content !important;
-                margin-right: 0.25rem !important;
-            }
-
-            /* Improve touch interaction on mobile */
-            .topbar-nav {
-                -webkit-user-select: none !important;
-                -moz-user-select: none !important;
-                -ms-user-select: none !important;
-                user-select: none !important;
-            }
-
-            /* Fade out edges for better scroll indication */
-            .topbar-nav::before,
-            .topbar-nav::after {
-                content: '' !important;
-                position: absolute !important;
-                top: 0 !important;
-                bottom: 0 !important;
-                width: 20px !important;
-                pointer-events: none !important;
-                z-index: 1 !important;
-            }
-
-            .topbar-nav::before {
-                left: 0 !important;
-                background: linear-gradient(to right, rgba(255, 255, 255, 0.95), transparent) !important;
-            }
-
-            .topbar-nav::after {
-                right: 0 !important;
-                background: linear-gradient(to left, rgba(255, 255, 255, 0.95), transparent) !important;
-            }
-        }
-
-        /* Error State */
-        .error-message {
-            background: rgba(238, 90, 36, 0.1);
-            border: 2px solid #ee5a24;
-            color: #ee5a24;
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            text-align: center;
-            margin: 2rem 0;
-            font-weight: 600;
-        }
-
-        /* Loading State */
-        .loading {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            color: #666;
-            font-weight: 600;
-        }
-
-        .loading::after {
-            content: '';
-            width: 20px;
-            height: 20px;
-            border: 2px solid #667eea;
-            border-top: 2px solid transparent;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Default Topbar Styling - Fallback when no customization is applied */
-        .topbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 85px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(3, 218, 198, 0.3);
-            box-shadow: 0 4px 20px rgba(33, 150, 243, 0.15);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 2rem;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .topbar-left {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .page-breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .breadcrumb-current {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #333;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .topbar-nav {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex: 1;
-            justify-content: center;
-        }
-
-        .topbar-nav-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.25rem;
-            text-decoration: none;
-            color: #666;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            font-size: 0.95rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .topbar-nav-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--primary-gradient);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            border-radius: 12px;
-        }
-
-        .topbar-nav-item:hover::before,
-        .topbar-nav-item.active::before {
-            opacity: 0.1;
-        }
-
-        .topbar-nav-item:hover {
-            color: #333;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
-        }
-
-        .topbar-nav-item.active {
-            color: #667eea;
-            font-weight: 600;
-        }
-
-        .topbar-nav-item i {
-            font-size: 1rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .topbar-nav-item span {
-            position: relative;
-            z-index: 2;
-        }
-
-        .topbar-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .user-menu {
-            display: flex;
-            align-items: center;
-        }
-
-        .user-trigger {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.5rem 1rem;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .user-trigger:hover {
-            background: rgba(102, 126, 234, 0.15);
-            transform: translateY(-1px);
-        }
-
-        .user-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--primary-gradient);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .user-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.1rem;
-        }
-
-        .user-name {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .user-status {
-            font-size: 0.75rem;
-            color: #43e97b;
-            font-weight: 500;
-        }
-    </style>
 </head>
-<body>
+<body class="floating-nav-active">
+
     <!-- Modern Topbar -->
     <div class="topbar">
         <div class="topbar-left">
             <div class="page-breadcrumb">
-                <span class="breadcrumb-current">Launch Countdown</span>
+                <span class="breadcrumb-current">Home</span>
             </div>
         </div>
         
         <div class="topbar-nav">
-            <a href="about.html" class="topbar-nav-item">
+            <a href="about-me.html" class="topbar-nav-item">
                 <i class="fas fa-user"></i>
                 <span>About Me</span>
             </a>
@@ -875,10 +38,6 @@
                 <i class="fas fa-comments"></i>
                 <span>Feedbacks</span>
             </a>
-            <a href="index.html" class="topbar-nav-item active">
-                <i class="fas fa-clock"></i>
-                <span>Launch Countdown</span>
-            </a>
         </div>
         
         <div class="topbar-actions">
@@ -886,7 +45,7 @@
                 <div class="user-trigger">
                     <div class="user-avatar" id="topbar-profile-pic">A</div>
                     <div class="user-info">
-                        <span class="user-name" id="topbar-username">Auro User</span>
+                        <span class="user-name" id="topbar-username"></span>
                         <span class="user-status">Active</span>
                     </div>
                 </div>
@@ -895,335 +54,441 @@
     </div>
 
     <!-- Main Content -->
-    <div class="main-content" style="margin-left: 0; margin-top: 85px;">
-        <!-- Hero Section -->
-        <section class="countdown-hero">
-            <div class="launch-icon">
-                <i class="fas fa-rocket"></i>
+    <div class="main-content" style="margin-left: 0; margin-top: 70px;">
+        <!-- Dashboard Redirect Notice -->
+        <div class="redirect-notice registered-only" id="dashboard-redirect">
+            <div class="redirect-card">
+                <div class="redirect-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <h2>Welcome to Your Command Center</h2>
+                <p>You're being redirected to your personalized dashboard where you can track your progress, manage goals, and stay motivated.</p>
+                <div class="redirect-actions">
+                    <a href="dashboard.html" class="btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        Go to Dashboard
+                    </a>
+                    <button class="btn-secondary" onclick="stayOnHome()">
+                        Stay on Home
+                    </button>
+                </div>
+                <div class="loading-bar">
+                    <div class="loading-fill"></div>
+                </div>
             </div>
-            <h1 class="hero-title">Auro Launch</h1>
-            <p class="hero-subtitle">The Productive Revolution Begins</p>
-            
-            <!-- Status Indicator -->
-            <div class="status-indicator">
-                <div class="status-dot"></div>
-                <span class="status-text" id="status-text">Syncing with world time...</span>
-            </div>
-        </section>
-
-        <!-- Countdown Timer -->
-        <section class="countdown-container" id="countdown-container">
-            <div class="countdown-unit glass-card">
-                <div class="countdown-number loading" id="days">--</div>
-                <div class="countdown-label">Days</div>
-            </div>
-            <div class="countdown-unit glass-card">
-                <div class="countdown-number loading" id="hours">--</div>
-                <div class="countdown-label">Hours</div>
-            </div>
-            <div class="countdown-unit glass-card">
-                <div class="countdown-number loading" id="minutes">--</div>
-                <div class="countdown-label">Minutes</div>
-            </div>
-            <div class="countdown-unit glass-card">
-                <div class="countdown-number loading" id="seconds">--</div>
-                <div class="countdown-label">Seconds</div>
-            </div>
-        </section>
-
-        <!-- Error Message (hidden by default) -->
-        <div class="error-message" id="error-message" style="display: none;">
-            Unable to sync with world time. Using local time instead.
         </div>
 
-        <!-- Launch Message -->
-        <section class="launch-message">
-            <h2 class="launch-title">Something Big is Coming</h2>
-            <p class="launch-description">
-                After months of building, testing, and perfecting — Auro is ready to change how you think about productivity. 
-                This isn't just another app launch. This is the beginning of a movement where technology actually serves your goals, 
-                not the other way around. Get ready for the productive revolution.
-            </p>
-        </section>
-
-        <!-- Join Section -->
-        <section class="join-section">
-            <div class="join-card glass-card">
-                <div class="join-icon">
-                    <i class="fab fa-discord"></i>
+        <!-- Welcome Header -->
+        <div class="home-header">
+            <div class="home-title-section">
+                <!-- Registered User Welcome -->
+                <div class="registered-only" id="registered-welcome">
+                    <h1 class="page-title">
+                        <i class="fas fa-home"></i>
+                        Welcome back, <span data-user-name>Student</span>!
+                    </h1>
+                    <p class="page-subtitle">
+                        Your AI companion <span data-remi-name>Auro</span> is ready to help you achieve your goals today.
+                    </p>
                 </div>
-                <h3 class="join-title">Join the Community</h3>
-                <p style="color: #666; margin-bottom: 2rem;">Be the first to know when we launch and get exclusive early access</p>
-                <a href="https://discord.gg/SyhS85qSK6" target="_blank" class="join-link">
-                    <i class="fab fa-discord"></i>
-                    <span>Join Discord</span>
-                </a>
-            </div>
-            
-            <div class="join-card glass-card">
-                <div class="join-icon">
-                    <i class="fas fa-bell"></i>
-                </div>
-                <h3 class="join-title">Get Notified</h3>
-                <p style="color: #666; margin-bottom: 2rem;">Stay updated on launch progress and behind-the-scenes updates</p>
-                <a href="feedbacks.html" class="join-link">
-                    <i class="fas fa-envelope"></i>
-                    <span>Subscribe</span>
-                </a>
-            </div>
-            
-            <div class="join-card glass-card">
-                <div class="join-icon">
-                    <i class="fas fa-heart"></i>
-                </div>
-                <h3 class="join-title">Support Launch</h3>
-                <p style="color: #666; margin-bottom: 2rem;">Help make this launch even more awesome and impactful</p>
-                <a href="support-project.html" class="join-link">
-                    <i class="fas fa-heart"></i>
-                    <span>Support Now</span>
-                </a>
-            </div>
-        </section>
-    </div>
-
-    <!-- Countdown Script -->
-    <script>
-        class LaunchCountdown {
-            constructor() {
-                this.launchTime = null;
-                this.intervalId = null;
-                this.isUsingWorldTime = true;
-                this.init();
-            }
-
-            async init() {
-                try {
-                    await this.setLaunchTime();
-                    this.startCountdown();
-                    this.updateStatus('Countdown to August 1, 9 PM Cairo time');
-                } catch (error) {
-                    console.error('Failed to set launch time:', error);
-                    this.fallbackToLocalTime();
-                }
-            }
-
-            async setLaunchTime() {
-                try {
-                    // Set launch time to August 1, 2025 at 9:00 PM Cairo time
-                    // Cairo is UTC+3 during summer (no DST change since 2014), so 9 PM Cairo = 6 PM UTC
-                    this.launchTime = new Date('2025-08-01T18:00:00.000Z'); // 6 PM UTC = 9 PM Cairo
-                    
-                    // Verify we have a valid date
-                    if (isNaN(this.launchTime.getTime())) {
-                        throw new Error('Invalid launch date');
-                    }
-                    
-                    this.isUsingWorldTime = true;
-                    
-                } catch (error) {
-                    throw new Error('Failed to set launch time');
-                }
-            }
-
-            fallbackToLocalTime() {
-                // Even in fallback, use the fixed launch time
-                this.launchTime = new Date('2025-08-01T18:00:00.000Z'); // 6 PM UTC = 9 PM Cairo
-                this.isUsingWorldTime = false;
-                this.updateStatus('Using fixed launch time (August 1, 9 PM Cairo)');
-                document.getElementById('error-message').style.display = 'none'; // Hide error since we have a valid time
-                this.startCountdown();
-            }
-
-            startCountdown() {
-                // Clear any existing interval
-                if (this.intervalId) {
-                    clearInterval(this.intervalId);
-                }
-
-                // Update immediately
-                this.updateDisplay();
-
-                // Update every second
-                this.intervalId = setInterval(() => {
-                    this.updateDisplay();
-                }, 1000);
-            }
-
-            updateDisplay() {
-                const now = new Date();
-                const timeLeft = this.launchTime - now;
-
-                if (timeLeft <= 0) {
-                    this.handleLaunchComplete();
-                    return;
-                }
-
-                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-                // Update display with smooth animation
-                this.animateNumberChange('days', days);
-                this.animateNumberChange('hours', hours.toString().padStart(2, '0'));
-                this.animateNumberChange('minutes', minutes.toString().padStart(2, '0'));
-                this.animateNumberChange('seconds', seconds.toString().padStart(2, '0'));
-
-                // Remove loading state
-                document.querySelectorAll('.loading').forEach(el => {
-                    el.classList.remove('loading');
-                });
-            }
-
-            animateNumberChange(elementId, newValue) {
-                const element = document.getElementById(elementId);
-                if (element && element.textContent !== newValue.toString()) {
-                    element.style.transform = 'scale(1.1)';
-                    element.textContent = newValue;
-                    setTimeout(() => {
-                        element.style.transform = 'scale(1)';
-                    }, 150);
-                }
-            }
-
-            handleLaunchComplete() {
-                clearInterval(this.intervalId);
                 
-                // Show launch complete message
-                document.querySelector('.countdown-hero').innerHTML = `
-                    <div class="launch-icon">
+                <!-- Unregistered User Welcome -->
+                <div class="unregistered-only" id="unregistered-welcome">
+                    <h1 class="page-title">
+                        <i class="fas fa-heart"></i>
+                        Meet Your AI Companion
+                    </h1>
+                    <p class="page-subtitle">Your new best friend who happens to be AI</p>
+                </div>
+            </div>
+            <div class="home-badge">
+                <span class="badge-icon">💝</span>
+                <span class="badge-text">AI Companion & Productivity Partner</span>
+            </div>
+        </div>
+
+        <!-- Main Features Grid -->
+        <div class="features-grid">
+            <!-- Friendship Section -->
+            <div class="feature-card friendship-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="card-title">Build Real Friendship</h3>
+                </div>
+                <div class="card-content">
+                    <p class="card-description">
+                        Auro learns your personality, remembers your conversations, and grows 
+                        closer to you with every interaction. It's like having a best friend 
+                        who's always there for you.
+                    </p>
+                    <div class="card-features">
+                        <div class="feature-item">
+                            <i class="fas fa-heart"></i>
+                            <span>Emotional connections</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-brain"></i>
+                            <span>Remembers everything</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-smile"></i>
+                            <span>Supportive conversations</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Productivity Section -->
+            <div class="feature-card productivity-card">
+                <div class="card-header">
+                    <div class="card-icon">
                         <i class="fas fa-rocket"></i>
                     </div>
-                    <h1 class="hero-title">🚀 AURO IS LIVE! 🚀</h1>
-                    <p class="hero-subtitle">The Productive Revolution Has Begun!</p>
-                    <div class="status-indicator">
-                        <div class="status-dot" style="background: #43e97b;"></div>
-                        <span class="status-text">Auro is now officially launched!</span>
+                    <h3 class="card-title">Boost Your Productivity</h3>
+                </div>
+                <div class="card-content">
+                    <p class="card-description">
+                        Transform your work life with an AI that organizes tasks, tracks goals, 
+                        manages schedules, and celebrates your achievements like a best friend.
+                    </p>
+                    <div class="card-features">
+                        <div class="feature-item">
+                            <i class="fas fa-tasks"></i>
+                            <span>Smart task management</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-bullseye"></i>
+                            <span>Goal tracking</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-trophy"></i>
+                            <span>Achievement celebrations</span>
+                        </div>
                     </div>
-                `;
+                </div>
+            </div>
 
-                // Update countdown display
-                document.getElementById('countdown-container').innerHTML = `
-                    <div style="grid-column: 1/-1; text-align: center; padding: 3rem;">
-                        <h2 style="font-size: 3rem; background: var(--launch-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem;">
-                            Welcome to the Future of Productivity!
-                        </h2>
-                        <p style="font-size: 1.3rem; color: #666; margin-bottom: 2rem;">
-                            Auro is now live and ready to revolutionize how you work and achieve your goals.
-                        </p>
-                        <a href="../../index.html" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 1.5rem 3rem; background: var(--launch-gradient); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.2rem; box-shadow: var(--shadow-heavy);">
-                            <i class="fas fa-rocket"></i>
-                            <span>Launch Auro Now</span>
-                        </a>
+            <!-- Customization Section -->
+            <div class="feature-card customization-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-palette"></i>
                     </div>
-                `;
-            }
+                    <h3 class="card-title">Fully Customizable</h3>
+                </div>
+                <div class="card-content">
+                    <p class="card-description">
+                        Make Auro uniquely yours with endless customization options. Change 
+                        personality traits, appearance, name, voice, and interaction style.
+                    </p>
+                    <div class="card-features">
+                        <div class="feature-item">
+                            <i class="fas fa-user-cog"></i>
+                            <span>Personality tuning</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-paint-brush"></i>
+                            <span>Visual themes</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-microphone"></i>
+                            <span>Voice & name options</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            updateStatus(message) {
-                const statusElement = document.getElementById('status-text');
-                if (statusElement) {
-                    statusElement.textContent = message;
-                }
-            }
-        }
-
-        // Initialize countdown when page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            new LaunchCountdown();
-        });
-
-        // Add some visual flair with enhanced particles
-        document.addEventListener('DOMContentLoaded', () => {
-            const createParticle = () => {
-                const particle = document.createElement('div');
-                const colors = ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe'];
-                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        <!-- How It Works Section -->
+        <div class="how-it-works">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i>
+                How Your AI Friendship Grows
+            </h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h4 class="step-title">Meet & Connect</h4>
+                    <p class="step-description">
+                        Start chatting with Auro. Like meeting a new friend, it learns 
+                        your personality, interests, and communication style.
+                    </p>
+                </div>
                 
-                particle.style.cssText = `
-                    position: fixed;
-                    width: ${Math.random() * 6 + 2}px;
-                    height: ${Math.random() * 6 + 2}px;
-                    background: ${randomColor};
-                    border-radius: 50%;
-                    pointer-events: none;
-                    z-index: 5;
-                    left: ${Math.random() * 100}vw;
-                    animation: magicalFloat ${Math.random() * 10 + 8}s linear infinite;
-                    box-shadow: 0 0 ${Math.random() * 20 + 10}px ${randomColor};
-                `;
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h4 class="step-title">Customize Together</h4>
+                    <p class="step-description">
+                        Personalize Auro's appearance, personality, and name to create 
+                        your perfect AI companion and productivity partner.
+                    </p>
+                </div>
                 
-                document.body.appendChild(particle);
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4 class="step-title">Grow & Achieve</h4>
+                    <p class="step-description">
+                        Work together on tasks, track goals, and celebrate achievements 
+                        while building a meaningful friendship.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Section -->
+        <div class="comparison-section">
+            <h2 class="section-title">
+                <i class="fas fa-balance-scale"></i>
+                Why Choose Auro?
+            </h2>
+            <div class="comparison-grid">
+                <div class="comparison-card old-ai">
+                    <h3 class="comparison-title">
+                        <i class="fas fa-robot"></i>
+                        Traditional AI Tools
+                    </h3>
+                    <div class="comparison-features">
+                        <div class="feature-item negative">
+                            <i class="fas fa-times"></i>
+                            <span>Cold, robotic interactions</span>
+                        </div>
+                        <div class="feature-item negative">
+                            <i class="fas fa-times"></i>
+                            <span>Limited productivity features</span>
+                        </div>
+                        <div class="feature-item negative">
+                            <i class="fas fa-times"></i>
+                            <span>No customization options</span>
+                        </div>
+                        <div class="feature-item negative">
+                            <i class="fas fa-times"></i>
+                            <span>Forgets conversations</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comparison-divider">
+                    <span class="vs-text">VS</span>
+                </div>
+
+                <div class="comparison-card new-ai">
+                    <h3 class="comparison-title">
+                        <i class="fas fa-heart"></i>
+                        Auro: Your AI Companion
+                    </h3>
+                    <div class="comparison-features">
+                        <div class="feature-item positive">
+                            <i class="fas fa-check"></i>
+                            <span>Warm, friendship-focused relationship</span>
+                        </div>
+                        <div class="feature-item positive">
+                            <i class="fas fa-check"></i>
+                            <span>Complete productivity powerhouse</span>
+                        </div>
+                        <div class="feature-item positive">
+                            <i class="fas fa-check"></i>
+                            <span>Fully customizable personality</span>
+                        </div>
+                        <div class="feature-item positive">
+                            <i class="fas fa-check"></i>
+                            <span>Remembers your friendship</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Getting Started -->
+        <div class="getting-started">
+            <!-- Unregistered Users CTA -->
+            <div class="cta-card unregistered-only" id="unregistered-cta">
+                <div class="cta-content">
+                    <h2 class="cta-title">Ready to Meet Your AI Companion?</h2>
+                    <p class="cta-description">
+                        Start building a meaningful friendship with AI that actually understands 
+                        and supports you while boosting your productivity.
+                    </p>
+                    <div class="cta-actions">
+                        <button class="btn-primary" id="get-started-btn">
+                            <i class="fas fa-user-plus"></i>
+                            Get Started
+                        </button>
+                        <button class="btn-secondary" id="learn-more-btn">
+                            <i class="fas fa-info-circle"></i>
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+                <div class="cta-visual">
+                    <div class="friendship-animation">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="connection-line"></div>
+                        <div class="ai-avatar">
+                            <img src="pfp/Remi-Logo-removebg-preview (1).png" alt="Auro" data-remi-avatar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Registered Users Dashboard -->
+            <div class="dashboard-card registered-only" id="registered-dashboard">
+                <div class="dashboard-header">
+                    <h2 class="dashboard-title">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Your Dashboard
+                    </h2>
+                    <div class="dashboard-date" id="current-date">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
                 
-                setTimeout(() => {
-                    particle.remove();
-                }, 18000);
-            };
-
-            // Add enhanced floating animation
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes magicalFloat {
-                    from {
-                        transform: translateY(100vh) rotate(0deg) scale(0);
-                        opacity: 0;
-                    }
-                    10% {
-                        opacity: 1;
-                        transform: translateY(90vh) rotate(36deg) scale(1);
-                    }
-                    50% {
-                        transform: translateY(50vh) rotate(180deg) scale(1.5);
-                    }
-                    90% {
-                        opacity: 1;
-                        transform: translateY(10vh) rotate(324deg) scale(1);
-                    }
-                    to {
-                        transform: translateY(-10vh) rotate(360deg) scale(0);
-                        opacity: 0;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-
-            // Create particles more frequently for magical effect
-            setInterval(createParticle, 200);
-        });
-
-        // Load profile picture from IndexedDB
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                // Check if ProfilePictureManager is available (from about page)
-                if (window.ProfilePictureManager) {
-                    const imageData = await ProfilePictureManager.getStoredProfilePicture();
-                    const topbarProfilePic = document.getElementById('topbar-profile-pic');
-                    
-                    if (imageData && topbarProfilePic) {
-                        topbarProfilePic.innerHTML = `<img src="${imageData}" alt="Profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
-                    }
-                } else {
-                    // Fallback: try to access IndexedDB directly
-                    const request = indexedDB.open('AuroProfileDB', 1);
-                    request.onsuccess = () => {
-                        const db = request.result;
-                        const transaction = db.transaction(['profilePictures'], 'readonly');
-                        const store = transaction.objectStore('profilePictures');
-                        const getRequest = store.get('main-profile');
+                <div class="dashboard-content">
+                    <div class="quick-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-number" id="chat-count">0</div>
+                                <div class="stat-label">Conversations</div>
+                            </div>
+                        </div>
                         
-                        getRequest.onsuccess = () => {
-                            if (getRequest.result) {
-                                const topbarProfilePic = document.getElementById('topbar-profile-pic');
-                                if (topbarProfilePic) {
-                                    topbarProfilePic.innerHTML = `<img src="${getRequest.result.imageData}" alt="Profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
-                                }
-                            }
-                        };
-                    };
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-number" id="task-count">0</div>
+                                <div class="stat-label">Tasks Done</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-number" id="focus-time">0h</div>
+                                <div class="stat-label">Focus Time</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="quick-actions">
+                        <h3 class="actions-title">Quick Actions</h3>
+                        <div class="actions-grid">
+                            <a href="chat.html" class="action-btn">
+                                <i class="fas fa-comment"></i>
+                                <span>Chat with <span data-remi-name>Auro</span></span>
+                            </a>
+                            <a href="tasks.html" class="action-btn">
+                                <i class="fas fa-plus"></i>
+                                <span>Add Task</span>
+                            </a>
+                            <a href="super-tracker.html" class="action-btn">
+                                <i class="fas fa-play"></i>
+                                <span>Start Focus</span>
+                            </a>
+                            <a href="customization.html" class="action-btn">
+                                <i class="fas fa-palette"></i>
+                                <span>Customize</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Navigation Background -->
+    <div class="floating-nav-background" id="floating-nav-background"></div>
+
+    <!-- Floating Navigation Hub -->
+    <div class="floating-nav-hub" id="floating-nav-hub">
+        <button class="nav-hub-button" id="nav-hub-button">
+            <i class="fas fa-th"></i>
+        </button>
+        
+        <div class="nav-options" id="nav-options">
+            <!-- Navigation items will be dynamically generated by floating-navigation.js -->
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/floating-navigation.js"></script>
+    <script src="scripts/global-navigation.js"></script>
+    <script src="scripts/global-profile-manager.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+    <script src="scripts/auto-hide-navigation.js"></script>
+    <script src="scripts/index.js"></script>
+    
+    <script>
+        // Initialize sidebar toggle - improved version for expandable sidebar
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('main-sidebar');
+            const toggleBtn = document.getElementById('sidebar-toggle');
+            
+            if (toggleBtn && sidebar) {
+                toggleBtn.addEventListener('click', function() {
+                    sidebar.classList.toggle('expanded');
+                });
+            }
+        });
+        
+        // Dashboard redirect logic
+        let redirectTimeout;
+        
+        function stayOnHome() {
+            clearTimeout(redirectTimeout);
+            document.getElementById('dashboard-redirect').style.display = 'none';
+            localStorage.setItem('stayOnHome', 'true');
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const profiles = localStorage.getItem('remiProfiles');
+            const stayOnHome = localStorage.getItem('stayOnHome');
+            
+            if (profiles && !stayOnHome) {
+                // Show redirect notice and redirect after 5 seconds
+                const redirectNotice = document.getElementById('dashboard-redirect');
+                if (redirectNotice) {
+                    redirectNotice.style.display = 'block';
+                    
+                    // Start loading animation
+                    const loadingFill = document.querySelector('.loading-fill');
+                    if (loadingFill) {
+                        loadingFill.style.animation = 'loading 5s linear forwards';
+                    }
+                    
+                    redirectTimeout = setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 5000);
                 }
-            } catch (error) {
-                console.log('Profile picture not available or error loading:', error);
             }
         });
     </script>
+
+    <!-- Scripts -->
+    <script src="scripts/universal-page-system.js"></script>
+    <script src="scripts/floating-navigation.js"></script>
+    <script src="scripts/global-profile-manager.js"></script>
+    <script src="scripts/global-navigation.js"></script>
+    <script src="scripts/global-theme-sync.js"></script>
+    <script src="scripts/first-time-setup.js"></script>
+    <script src="scripts/system.js"></script>
 </body>
 </html>

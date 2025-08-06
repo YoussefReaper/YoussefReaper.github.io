@@ -1,0 +1,115 @@
+/* Fix for sidebar visibility and layout - Updated for expandable design */
+
+.sidebar {
+    /* Ensure sidebar is always visible */
+    transform: translateX(0) !important;
+    width: 70px !important; /* Collapsed by default */
+    left: 0 !important;
+    transition: width 0.3s ease !important;
+    overflow: hidden !important;
+}
+
+.sidebar.expanded {
+    width: 280px !important;
+}
+
+/* Remove hover effects */
+.sidebar:hover {
+    width: 70px !important;
+}
+
+.sidebar.expanded:hover {
+    width: 280px !important;
+}
+
+/* Fix for content shifting */
+.main-content {
+    margin-left: 70px !important;
+    margin-top: 70px !important;
+    transition: margin-left 0.3s ease !important;
+}
+
+.sidebar.expanded ~ .topbar + .main-content,
+.sidebar.expanded + .main-content {
+    margin-left: 280px !important;
+}
+
+/* Topbar positioning */
+.topbar {
+    left: 70px !important;
+    transition: left 0.3s ease !important;
+}
+
+.sidebar.expanded ~ .topbar {
+    left: 280px !important;
+}
+
+/* Sidebar toggle button positioning */
+.sidebar-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 8px;
+    color: var(--text-color, #e2e8f0);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.sidebar.expanded .sidebar-toggle {
+    right: 15px;
+}
+
+.sidebar-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--accent-primary, #a855f7);
+    transform: translateY(-50%) scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%) !important;
+        width: 280px !important;
+    }
+    
+    .sidebar.open {
+        transform: translateX(0) !important;
+    }
+    
+    .main-content {
+        margin-left: 0 !important;
+    }
+    
+    .topbar {
+        left: 0 !important;
+    }
+    
+    .sidebar.expanded ~ .topbar + .main-content,
+    .sidebar.expanded + .main-content {
+        margin-left: 0 !important;
+    }
+}
+
+/* Improved topbar user profile */
+.user-trigger {
+    padding: 8px 15px;
+}
+
+.user-avatar {
+    transition: all 0.2s ease;
+}
+
+.user-avatar.has-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}

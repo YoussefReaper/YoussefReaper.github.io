@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Topbar Presets</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/modern-navigation.css">
+    <link rel="stylesheet" href="styles/customization.css">
+</head>
+<body>
+    <!-- Test Topbar -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="page-breadcrumb">
+                <a href="index.html" class="breadcrumb-item">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Test Topbar Presets</span>
+            </div>
+        </div>
+        
+        <div class="topbar-nav">
+            <a href="#" class="topbar-nav-item">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </a>
+            <a href="#" class="topbar-nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+    </div>
+
+    <div style="margin-top: 100px; padding: 2rem;">
+        <h1>Topbar Preset Test</h1>
+        <p>Test the different topbar presets by clicking the buttons below:</p>
+        
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin: 2rem 0;">
+            <button onclick="testPreset('modern')" style="padding: 0.5rem 1rem; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">Modern Glass</button>
+            <button onclick="testPreset('solid')" style="padding: 0.5rem 1rem; background: #ffffff; color: #333; border: 1px solid #ddd; border-radius: 5px; cursor: pointer;">Solid Classic</button>
+            <button onclick="testPreset('gradient')" style="padding: 0.5rem 1rem; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 5px; cursor: pointer;">Gradient Flow</button>
+            <button onclick="testPreset('minimal')" style="padding: 0.5rem 1rem; background: #f8fafc; color: #333; border: 1px solid #e2e8f0; border-radius: 5px; cursor: pointer;">Minimal Clean</button>
+            <button onclick="testPreset('dark')" style="padding: 0.5rem 1rem; background: #1a1a1a; color: white; border: none; border-radius: 5px; cursor: pointer;">Dark Professional</button>
+            <button onclick="testPreset('neon')" style="padding: 0.5rem 1rem; background: #000; color: #00ffff; border: 1px solid #00ffff; border-radius: 5px; cursor: pointer;">Neon Glow</button>
+        </div>
+        
+        <div id="status" style="margin-top: 1rem; padding: 1rem; background: #f0f9ff; border-left: 4px solid #0ea5e9; border-radius: 4px;">
+            <strong>Status:</strong> Ready to test presets
+        </div>
+    </div>
+
+    <script src="scripts/customization.js"></script>
+    <script>
+        // Test function to apply presets
+        function testPreset(preset) {
+            const status = document.getElementById('status');
+            status.innerHTML = `<strong>Status:</strong> Applying ${preset} preset...`;
+            
+            // Apply the preset
+            if (typeof applyTopbarPreset === 'function') {
+                applyTopbarPreset(preset);
+                status.innerHTML = `<strong>Status:</strong> Applied ${preset} preset successfully!`;
+                status.style.background = '#f0fdf4';
+                status.style.borderColor = '#16a34a';
+            } else {
+                status.innerHTML = `<strong>Status:</strong> Error - applyTopbarPreset function not found`;
+                status.style.background = '#fef2f2';
+                status.style.borderColor = '#dc2626';
+            }
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Test page loaded');
+            console.log('Functions available:', {
+                applyTopbarPreset: typeof applyTopbarPreset,
+                applyTopbarStyles: typeof applyTopbarStyles,
+                applyModernTopbar: typeof applyModernTopbar
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Layout Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a0a;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Test styles for maximize mode */
+        .main-content.maximize-mode {
+            position: relative !important;
+            top: auto !important;
+            left: auto !important;
+            right: auto !important;
+            bottom: auto !important;
+            width: 100% !important;
+            height: auto !important;
+            margin: 0 !important;
+            padding: 20px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            min-height: 100vh !important;
+            box-sizing: border-box !important;
+        }
+        
+        .main-content.maximize-mode .chat-container {
+            position: relative !important;
+            top: auto !important;
+            left: auto !important;
+            right: auto !important;
+            bottom: auto !important;
+            width: 100% !important;
+            height: auto !important;
+            display: flex !important;
+            flex-direction: column !important;
+            background: transparent !important;
+            z-index: auto !important;
+        }
+        
+        .main-content.maximize-mode .chat-messages-wrapper {
+            max-width: 800px !important;
+            margin: 0 auto !important;
+            width: 100% !important;
+            padding: 0 20px !important;
+            flex: 1 !important;
+            height: auto !important;
+            overflow-y: visible !important;
+            position: relative !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-radius: 20px !important;
+            min-height: 400px !important;
+            border: 2px solid rgba(168, 85, 247, 0.3) !important;
+        }
+        
+        .main-content.maximize-mode .chat-input-container {
+            max-width: 800px !important;
+            margin: 20px auto 0 auto !important;
+            padding: 20px !important;
+            background: rgba(0, 0, 0, 0.3) !important;
+            backdrop-filter: blur(10px) !important;
+            border-radius: 20px !important;
+            position: relative !important;
+            border: 2px solid rgba(59, 130, 246, 0.3) !important;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-content.maximize-mode .chat-messages-wrapper {
+                max-width: 100% !important;
+                padding: 0 10px !important;
+                margin: 0 !important;
+            }
+            
+            .main-content.maximize-mode .chat-input-container {
+                max-width: 100% !important;
+                padding: 15px !important;
+                border-radius: 15px !important;
+                margin: 20px 10px 0 10px !important;
+            }
+        }
+        
+        .test-content {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .toggle-btn {
+            background: linear-gradient(45deg, #a855f7, #3b82f6);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        
+        .status {
+            margin: 20px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content" id="mainContent">
+        <div class="chat-container">
+            <div class="chat-messages-wrapper">
+                <div class="test-content">
+                    <h2>Chat Messages Wrapper Test</h2>
+                    <p>This container should be:</p>
+                    <ul style="list-style: none; margin: 20px 0;">
+                        <li>✅ Centered on the page</li>
+                        <li>✅ Max width 800px on desktop</li>
+                        <li>✅ 100% width on mobile (≤1024px)</li>
+                        <li>✅ Purple border for visibility</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="chat-input-container">
+                <div class="test-content">
+                    <h3>Input Container</h3>
+                    <p>This should match the messages wrapper width and be centered</p>
+                    <p>Blue border for visibility</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="status" id="status">
+        <strong>Current Mode:</strong> <span id="modeDisplay">Normal</span><br>
+        <strong>Screen Width:</strong> <span id="screenWidth"></span>px<br>
+        <strong>Messages Wrapper Width:</strong> <span id="wrapperWidth"></span>px<br>
+        <strong>Expected:</strong> <span id="expectedWidth"></span>
+    </div>
+    
+    <div style="text-align: center; margin: 20px;">
+        <button class="toggle-btn" onclick="toggleMaximize()">Toggle Maximize Mode</button>
+        <button class="toggle-btn" onclick="updateStatus()">Refresh Status</button>
+    </div>
+    
+    <script>
+        function toggleMaximize() {
+            const mainContent = document.getElementById('mainContent');
+            const isMaximized = mainContent.classList.contains('maximize-mode');
+            
+            if (isMaximized) {
+                mainContent.classList.remove('maximize-mode');
+            } else {
+                mainContent.classList.add('maximize-mode');
+            }
+            
+            updateStatus();
+        }
+        
+        function updateStatus() {
+            const mainContent = document.getElementById('mainContent');
+            const isMaximized = mainContent.classList.contains('maximize-mode');
+            const wrapper = document.querySelector('.chat-messages-wrapper');
+            const screenWidth = window.innerWidth;
+            
+            document.getElementById('modeDisplay').textContent = isMaximized ? 'Maximize' : 'Normal';
+            document.getElementById('screenWidth').textContent = screenWidth;
+            document.getElementById('wrapperWidth').textContent = wrapper.offsetWidth;
+            
+            if (screenWidth <= 1024) {
+                document.getElementById('expectedWidth').textContent = '100% (mobile/tablet)';
+            } else {
+                document.getElementById('expectedWidth').textContent = isMaximized ? '800px max (desktop)' : 'Full width';
+            }
+        }
+        
+        // Initial status update
+        updateStatus();
+        
+        // Update on resize
+        window.addEventListener('resize', updateStatus);
+    </script>
+</body>
+</html>

@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Auro - AI Cognitive Assistant</title>
+    <meta name="description" content="Chat with Auro, your cognitive AI companion. Get help with tasks, ask questions, and build your relationship through engaging conversations.">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/chat.css">
+    <link rel="stylesheet" href="styles/chat-maximize.css">
+    <link rel="stylesheet" href="styles/sticker-system.css">
+    <link rel="stylesheet" href="styles/coin-system.css">
+    <link rel="stylesheet" href="styles/modern-navigation.css">
+    <link rel="stylesheet" href="styles/floating-nav.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Sci-fi enhancements for chat */
+        .chat-message {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .chat-message:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
+        }
+        
+        .chat-message.user-message {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(99, 102, 241, 0.15));
+            border: 1px solid rgba(168, 85, 247, 0.3);
+        }
+        
+        .chat-message.ai-message {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(16, 185, 129, 0.15));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        
+        /* MAXIMIZED MODE STYLES - Handled by chat-maximize.css */
+        
+        /* Pulse animation for sticker button discovery */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(103, 197, 255, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(103, 197, 255, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(103, 197, 255, 0);
+            }
+        }
+        
+        /* Enhanced sticker button styling */
+        .sticker-panel-btn {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .sticker-panel-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(103, 197, 255, 0.3);
+        }
+        
+        /* Responsive adjustments for maximized mode - Tablets and smaller */
+        @media (max-width: 1024px) {
+            /* Hide sticker panel on small screens */
+            .main-content.maximize-mode .maximize-sticker-panel {
+                display: none !important;
+            }
+            
+            /* Hide mobile sticker toggle on small screens */
+            .main-content.maximize-mode .mobile-chat-toolbar #stickerToggle {
+                display: none !important;
+            }
+            
+            /* Hide maximized sticker toggle on small screens */
+            .main-content.maximize-mode #maximizeStickerToggle {
+                display: none !important;
+            }
+            
+            /* Hide placed stickers on small screens */
+            .main-content.maximize-mode .placed-sticker {
+                display: none !important;
+            }
+            
+            /* Hide any sticker-related UI elements */
+            .main-content.maximize-mode .sticker-container,
+            .main-content.maximize-mode .sticker-panel,
+            .main-content.maximize-mode .sticker-toolbar {
+                display: none !important;
+            }
+        }
+        
+        /* Ensure stickers are visible on larger screens (desktop and tablets) */
+        @media (min-width: 1025px) {
+            .main-content.maximize-mode .maximize-sticker-panel {
+                display: block !important;
+            }
+            
+            .main-content.maximize-mode #maximizeStickerToggle {
+                display: block !important;
+            }
+            
+            .main-content.maximize-mode .placed-sticker {
+                display: block !important;
+            }
+            
+            .main-content.maximize-mode .sticker-container,
+            .main-content.maximize-mode .sticker-panel,
+            .main-content.maximize-mode .sticker-toolbar {
+                display: block !important;
+            }
+        }
+        
+        /* Hide sticker system on mobile screens */
+        @media (max-width: 768px) {
+            .sticker-canvas,
+            #stickerCanvas {
+                display: none !important;
+            }
+            
+            .placed-sticker {
+                display: none !important;
+            }
+            
+            /* Hide sticker sidebar on mobile but keep buttons visible */
+            .sticker-sidebar {
+                display: none !important;
+            }
+        }
+        
+        /* Hide sticker system on smaller tablets in landscape */
+        @media (max-width: 1024px) and (max-height: 768px) {
+            .sticker-canvas,
+            #stickerCanvas {
+                display: none !important;
+            }
+            
+            .placed-sticker {
+                display: none !important;
+            }
+        }
+        
+        /* Chat input wrapper improvements - Handled by chat-maximize.css */
+        
+        /* Mobile responsive styles for input - Handled by chat-maximize.css */
+        
+        /* Chat messages styling for maximize mode - removing conflicting styles */
+        .main-content.maximize-mode .chat-messages {
+            scroll-behavior: smooth !important;
+        }
+        
+        /* Input wrapper styling for maximize mode handled by chat-maximize.css */
+        
+        /* Mobile toolbar styles - Handled by chat-maximize.css */
+        
+        /* Mobile toolbar styles - Handled by chat-maximize.css */
+        
+        /* Custom sticker upload styling */
+        .custom-sticker-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            margin: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .custom-sticker-upload:hover {
+            border-color: rgba(168, 85, 247, 0.6);
+            background: rgba(168, 85, 247, 0.1);
+        }
+        
+        .upload-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+        }
+        
+        .upload-label i {
+            font-size: 24px;
+            color: rgba(168, 85, 247, 0.8);
+        }
+        
+        /* Chat list item styling */
+        .chat-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .chat-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .chat-item-content {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .delete-chat-btn {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: rgba(239, 68, 68, 0.8);
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 12px;
+        }
+        
+        .delete-chat-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            color: rgba(239, 68, 68, 1);
+            transform: scale(1.1);
+        }
+        
+        /* Message count indicator */
+        .message-count-indicator {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 1000;
+            pointer-events: none;
+        }
+        
+        .count-display {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .count-display.limit-safe {
+            background: rgba(168, 85, 247, 0.15);
+            color: rgba(168, 85, 247, 1);
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+        
+        .count-display.limit-warning {
+            background: rgba(245, 158, 11, 0.15);
+            color: rgba(245, 158, 11, 1);
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+        
+        .count-display.limit-critical {
+            background: rgba(239, 68, 68, 0.15);
+            color: rgba(239, 68, 68, 1);
+            border-color: rgba(239, 68, 68, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        /* Hide indicator on mobile */
+        @media (max-width: 768px) {
+            .message-count-indicator {
+                top: 75px;
+                right: 10px;
+                font-size: 11px;
+            }
+            
+            .count-display {
+                padding: 6px 10px;
+            }
+        }
+        
+        /* Fixed layout for normal mode */
+        .main-content:not(.maximize-mode) .chat-container {
+            position: fixed !important;
+            top: 70px !important; /* Below topbar */
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 140px !important; /* Leave space for input */
+            width: 100vw !important;
+            height: calc(100vh - 210px) !important; /* 70px topbar + 140px input */
+            display: flex !important;
+            flex-direction: column !important;
+            background: var(--background-primary, #0a0a0a) !important;
+            z-index: 1 !important;
+        }
+        
+        .main-content:not(.maximize-mode) .chat-messages-wrapper {
+            flex: 1 !important;
+            height: 100% !important;
+            overflow-y: auto !important;
+            position: relative !important;
+            background: transparent !important;
+        }
+        
+        .main-content:not(.maximize-mode) .chat-input-container {
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 140px !important;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.9)) !important;
+            backdrop-filter: blur(15px) !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+            border-radius: 0 !important;
+            padding: 1rem !important;
+            z-index: 100 !important; /* Higher z-index to stay above messages */
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5) !important;
+        }
+        
+        .chat-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .chat-input:focus {
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+        }
+        
+        .send-button {
+            background: linear-gradient(45deg, #a855f7, #3b82f6);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .send-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+        }
+        
+        /* Ensure proper scrolling for chat messages */
+        .main-content:not(.maximize-mode) .chat-messages {
+            height: 100% !important;
+            overflow-y: auto !important;
+            padding: 1rem !important;
+            padding-bottom: 2rem !important;
+        }
+        
+        /* Fix input wrapper layout */
+        .main-content:not(.maximize-mode) .input-wrapper {
+            display: flex !important;
+            align-items: center !important;
+            gap: 1rem !important;
+            height: auto !important;
+        }
+        
+        .main-content:not(.maximize-mode) .input-field-wrapper {
+            flex: 1 !important;
+            position: relative !important;
+        }
+        
+        .main-content:not(.maximize-mode) .message-input {
+            width: 100% !important;
+            min-height: 50px !important;
+            max-height: 120px !important;
+            resize: none !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            border-radius: 15px !important;
+            padding: 15px 20px !important;
+            color: white !important;
+            font-size: 16px !important;
+        }
+        
+        .main-content:not(.maximize-mode) .send-message-button {
+            width: 50px !important;
+            height: 50px !important;
+            border-radius: 50% !important;
+            background: linear-gradient(45deg, #a855f7, #3b82f6) !important;
+            border: none !important;
+            color: white !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .main-content:not(.maximize-mode) .send-message-button:hover {
+            transform: scale(1.1) !important;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.5) !important;
+        }
+        
+        /* Mobile toolbar positioning */
+        .main-content:not(.maximize-mode) .mobile-chat-toolbar {
+            margin-bottom: 1rem !important;
+            display: flex !important;
+            gap: 0.5rem !important;
+            flex-wrap: wrap !important;
+            justify-content: center !important;
+            background: rgba(0, 0, 0, 0.3) !important;
+            backdrop-filter: blur(10px) !important;
+            border-radius: 25px !important;
+            padding: 0.5rem !important;
+            position: relative !important;
+            z-index: 10 !important;
+        }
+        
+        /* PC-specific toolbar styling */
+        @media (min-width: 769px) {
+            .main-content:not(.maximize-mode) .mobile-chat-toolbar {
+                position: fixed !important;
+                top: 90px !important; /* Below topbar and some margin */
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                z-index: 10 !important;
+                background: rgba(0, 0, 0, 0.7) !important;
+                backdrop-filter: blur(15px) !important;
+                border-radius: 25px !important;
+                padding: 0.5rem !important;
+                gap: 0.25rem !important;
+                margin-bottom: 0 !important;
+                border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            }
+            
+            .main-content:not(.maximize-mode) .mobile-chat-toolbar .action-btn {
+                width: 35px !important;
+                height: 35px !important;
+                font-size: 14px !important;
+                border-radius: 50% !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                color: white !important;
+                transition: all 0.3s ease !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                cursor: pointer !important;
+            }
+            
+            .main-content:not(.maximize-mode) .mobile-chat-toolbar .action-btn:hover {
+                background: rgba(255, 255, 255, 0.2) !important;
+                transform: scale(1.1) !important;
+            }
+            
+            /* Hide sticker panel button on PC */
+            .main-content:not(.maximize-mode) .mobile-chat-toolbar #stickerToggle {
+                display: none !important;
+            }
+        }
+        
+        /* Ensure background video covers properly and loads from localStorage */
+        .main-content:not(.maximize-mode) #chatBackgroundVideo {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            z-index: -1 !important;
+        }
+        
+        /* Ensure chat background from customization applies with high specificity */
+        .main-content:not(.maximize-mode) .chat-messages-wrapper {
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            background-attachment: fixed !important;
+            position: relative !important;
+        }
+        
+        /* Force background application */
+        .chat-messages-wrapper[style*="background-image"] {
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            background-attachment: fixed !important;
+        }
+        
+        /* Mobile-specific background optimization */
+        @media (max-width: 768px) {
+            .main-content:not(.maximize-mode) .chat-messages-wrapper {
+                background-attachment: scroll !important; /* Better performance on mobile */
+                background-position: center center !important; /* Center for vertical orientation */
+                background-size: cover !important; /* Ensure full coverage */
+            }
+            
+            .chat-messages-wrapper[style*="background-image"] {
+                background-attachment: scroll !important;
+                background-position: center center !important;
+                background-size: cover !important;
+            }
+        }
+        
+        /* Mobile responsive adjustments */
+        @media (max-width: 768px) {
+            .main-content:not(.maximize-mode) .chat-container {
+                bottom: 160px !important; /* More space for mobile keyboard */
+                height: calc(100vh - 230px) !important; /* 70px topbar + 160px input */
+            }
+            
+            .main-content:not(.maximize-mode) .chat-input-container {
+                height: 160px !important;
+                padding: 0.75rem !important;
+            }
+            
+            .main-content:not(.maximize-mode) .mobile-chat-toolbar {
+                margin-bottom: 0.5rem !important;
+                gap: 0.25rem !important;
+                position: fixed !important;
+                bottom: 170px !important; /* Above input container */
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                background: rgba(0, 0, 0, 0.8) !important;
+                backdrop-filter: blur(15px) !important;
+                border-radius: 25px !important;
+                padding: 0.5rem !important;
+                justify-content: center !important;
+                border: 1px solid rgba(255, 255, 255, 0.1) !important;
+                z-index: 15 !important;
+            }
+            
+            .main-content:not(.maximize-mode) .mobile-chat-toolbar .action-btn {
+                width: auto !important;
+                height: auto !important;
+                font-size: inherit !important;
+                background: inherit !important;
+                border: inherit !important;
+            }
+            
+            /* Mobile toolbar action buttons */
+            .main-content:not(.maximize-mode) .mobile-chat-toolbar .action-btn {
+                width: 35px !important;
+                height: 35px !important;
+                font-size: 14px !important;
+                border-radius: 50% !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+                border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                color: white !important;
+                transition: all 0.3s ease !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                cursor: pointer !important;
+            }
+            
+            .main-content:not(.maximize-mode) .mobile-chat-toolbar .action-btn:hover {
+                background: rgba(255, 255, 255, 0.2) !important;
+                transform: scale(1.05) !important;
+            }
+            
+            /* Hide sticker button on mobile in normal mode too */
+            .main-content:not(.maximize-mode) .mobile-chat-toolbar #stickerToggle {
+                display: none !important;
+            }
+            
+            .main-content:not(.maximize-mode) .message-input {
+                min-height: 45px !important;
+                font-size: 16px !important; /* Prevents zoom on iOS */
+                padding: 12px 16px !important;
+            }
+            
+            .main-content:not(.maximize-mode) .send-message-button {
+                width: 45px !important;
+                height: 45px !important;
+            }
+        }
+        
+        /* Ensure proper spacing for messages */
+        .main-content:not(.maximize-mode) .chat-messages {
+            height: 100% !important;
+            overflow-y: auto !important;
+            padding: 1rem !important;
+            padding-bottom: 2rem !important;
+            scroll-behavior: smooth !important;
+        }
+        
+        /* Prevent input wrapper from interfering with messages */
+        .main-content:not(.maximize-mode) .chat-messages:last-child {
+            margin-bottom: 0 !important;
+            padding-bottom: 2rem !important;
+        }
+    </style>
+</head>
+<body class="floating-nav-active">
+
+    <!-- Modern Topbar -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="page-breadcrumb">
+                <a href="index.html" class="breadcrumb-item">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Chat</span>
+            </div>
+        </div>
+        
+        <div class="topbar-nav">
+            <a href="about-me.html" class="topbar-nav-item">
+                <i class="fas fa-user"></i>
+                <span>About Me</span>
+            </a>
+            <a href="future-plans.html" class="topbar-nav-item">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="support-project.html" class="topbar-nav-item">
+                <i class="fas fa-heart"></i>
+                <span>Support Project</span>
+            </a>
+            <a href="feedbacks.html" class="topbar-nav-item">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+        </div>
+        
+        <div class="topbar-actions">
+            <div class="user-menu">
+                <div class="user-trigger">
+                    <div class="user-avatar" id="topbar-profile-pic">A</div>
+                    <div class="user-info">
+                        <span class="user-name" id="topbar-username">Auro User</span>
+                        <span class="user-status">Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" style="margin-left: 0; margin-top: 70px;">
+      <!-- Chat Container -->
+      <div class="chat-container">
+        <!-- Chat Messages Area -->
+        <div class="chat-messages-wrapper">
+          <video id="chatBackgroundVideo" class="live-wallpaper-video" autoplay muted loop playsinline style="display: none;"></video>
+          <div class="chat-messages" id="chatMessages">
+            <!-- Messages will be inserted here -->
+          </div>
+        </div>
+
+        <!-- Mobile Action Toolbar -->
+        <div class="mobile-chat-toolbar">
+          <button class="action-btn" id="newChatBtn" title="New Chat">
+            <i class="fas fa-plus"></i>
+          </button>
+          <button class="action-btn" id="chatHistoryBtn" title="Chat History">
+            <i class="fas fa-history"></i>
+          </button>
+          <button class="action-btn" id="stickerToggle" title="Toggle Stickers">
+            <i class="fas fa-icons"></i>
+          </button>
+          <button class="action-btn" id="maximizeToggle" title="Toggle Maximize Mode">
+            <i class="fas fa-expand"></i>
+          </button>
+          <button class="action-btn" id="helpBtn" title="Help">
+            <i class="fas fa-question-circle"></i>
+          </button>
+        </div>
+
+        <!-- Chat Input -->
+        <div class="chat-input-container">
+          <div class="input-wrapper">
+            <div class="input-field-wrapper">
+              <textarea 
+                id="messageInput" 
+                class="message-input" 
+                placeholder="Ask Remi anything or type '/' for commands..."
+                rows="1"
+              ></textarea>
+              <div class="input-suggestions" id="inputSuggestions"></div>
+            </div>
+            <button class="send-message-button" id="sendBtn" title="Send Message">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Right Sticker Panel (Maximize Mode Only) -->
+    <div class="maximize-sticker-panel" id="maximizeStickerPanel">
+      <button class="sticker-panel-btn" id="maximizeStickerToggle" title="Stickers">
+        <i class="fas fa-icons"></i>
+      </button>
+    </div>
+
+    <!-- Chat History Sidebar -->
+    <div class="chat-list" id="chatHistoryPanel">
+      <div class="history-header">
+        <h3>Chat History</h3>
+        <button class="close-panel-btn" id="closeChatHistory">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="chat-list-buttons">
+        <button class="new-chat-button" id="newChatFromHistory">
+          <i class="fas fa-plus"></i>
+          <span>New Chat</span>
+        </button>
+        <input type="text" class="search-input" placeholder="Search chats..." id="chatSearch">
+        <button class="search-button" id="searchBtn">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+      <div class="chat-list-container" id="chatListContainer">
+        <!-- Chat history items will be populated here -->
+      </div>
+    </div>
+
+    <div class="panel-overlay" id="panelOverlay"></div>
+    
+    <!-- Sticker System -->
+    <div class="sticker-sidebar" id="stickerSidebar">
+      <div class="sticker-header">
+        <h3><i class="fas fa-icons"></i> Custom Stickers</h3>
+        <div class="sticker-header-actions">
+          <button class="sticker-header-btn" id="switchStickerPanelBtn" title="Move Panel">
+            <i class="fas fa-arrows-alt-h"></i>
+          </button>
+          <button class="sticker-header-btn" id="closeStickerBtn" title="Close">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="sticker-controls">
+        <button class="sticker-control-btn" id="saveStickerBtn">
+          <i class="fas fa-save"></i> Save Layout
+        </button>
+        <button class="sticker-control-btn" id="clearStickersBtn">
+          <i class="fas fa-trash"></i> Clear All
+        </button>
+      </div>
+      
+      <div class="sticker-categories">
+        <div class="category-tab active" data-category="custom">
+          <i class="fas fa-upload"></i> Custom Only
+        </div>
+      </div>
+      
+      <div class="sticker-grid" id="stickerGrid">
+        <!-- Only Custom Stickers will be shown here -->
+        <div class="custom-sticker-upload">
+          <label for="gridCustomStickerInput" class="upload-label">
+            <i class="fas fa-plus"></i>
+            <span>Upload Custom Sticker</span>
+            <small style="opacity: 0.7; font-size: 0.75rem; margin-top: 0.25rem;">Or use the upload area below</small>
+          </label>
+          <input type="file" id="gridCustomStickerInput" accept="image/*" style="display: none;">
+        </div>
+      </div>
+      
+      <div class="custom-upload-section">
+        <div class="upload-area" id="uploadArea">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <span>Drop image or click to upload</span>
+          <input type="file" id="customStickerInput" accept="image/*" style="display: none;">
+        </div>
+        <div class="upload-pricing">
+          <div class="price-tier">
+            <span class="size-label">Small (≤50KB)</span>
+            <span class="price">25 coins</span>
+          </div>
+          <div class="price-tier">
+            <span class="size-label">Medium (≤200KB)</span>
+            <span class="price">50 coins</span>
+          </div>
+          <div class="price-tier">
+            <span class="size-label">Large (≤500KB)</span>
+            <span class="price">100 coins</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="user-coins">
+        <i class="fas fa-coins"></i>
+        <span id="userCoins">500</span> coins
+      </div>
+    </div>
+    
+    <!-- Sticker Canvas Overlay -->
+    <div class="sticker-canvas" id="stickerCanvas">
+      <!-- Placed stickers will appear here -->
+    </div>
+    <!-- Floating Navigation Background -->
+    <div class="floating-nav-background" id="floating-nav-background"></div>
+
+    <!-- Floating Navigation Hub -->
+    <div class="floating-nav-hub" id="floating-nav-hub">
+        <button class="nav-hub-button" id="nav-hub-button">
+            <i class="fas fa-th"></i>
+        </button>
+        
+        <div class="nav-options" id="nav-options">
+            <!-- Navigation items will be dynamically generated by floating-navigation.js -->
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="scripts/floating-navigation.js"></script>
+    <script src="scripts/global-stats-manager.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+    <script src="scripts/global-navigation.js"></script>
+    <script src="scripts/global-profile-manager.js"></script>
+    <script src="scripts/sticker-system.js"></script>
+    <script src="scripts/coin-system.js"></script>
+    <!-- Load AI Response Module -->
+    <script type="module">
+        import { getAIResponse, parseAIResponse, createTaskFromAI, createNoteFromAI, saveMemoryFromAI, editTaskFromAI, deleteTaskFromAI, setOpenAIKey } from './Backend/aiResponse.js';
+        // Make AI functions globally available
+        window.getAIResponse = getAIResponse;
+        window.parseAIResponse = parseAIResponse;
+        window.createTaskFromAI = createTaskFromAI;
+        window.createNoteFromAI = createNoteFromAI;
+        window.saveMemoryFromAI = saveMemoryFromAI;
+        window.editTaskFromAI = editTaskFromAI;
+        window.deleteTaskFromAI = deleteTaskFromAI;
+        window.setOpenAIKey = setOpenAIKey;
+    </script>
+    <script type="module" src="scripts/chat.js"></script>
+    <script src="scripts/first-time-setup.js"></script>
+    <script src="scripts/system.js"></script>
+    
+    <!-- Background Loading Script -->
+    <script>
+        // Ensure chat background loads from localStorage customization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to apply chat background from localStorage with mobile optimization
+            async function loadChatBackgroundFromStorage() {
+                try {
+                    const customizationSettings = localStorage.getItem('remiCustomization');
+                    if (customizationSettings) {
+                        const settings = JSON.parse(customizationSettings);
+                        const chatMessagesWrapper = document.querySelector('.chat-messages-wrapper');
+                        
+                        if (settings.backgrounds && settings.backgrounds.chat && chatMessagesWrapper) {
+                            const chatBackground = settings.backgrounds.chat;
+                            let backgroundUrl = null;
+                            
+                            // Handle unified background system
+                            if (chatBackground.url) {
+                                backgroundUrl = chatBackground.url;
+                            }
+                            // Handle legacy IndexedDB storage
+                            else if (chatBackground.isStored && chatBackground.storageKey) {
+                                try {
+                                    // Try to load from IndexedDB
+                                    const storedData = await getBackgroundFromIndexedDB(chatBackground.storageKey);
+                                    if (storedData) {
+                                        backgroundUrl = storedData;
+                                    }
+                                } catch (error) {
+                                    console.warn('Failed to load background from IndexedDB:', error);
+                                }
+                            }
+                            
+                            if (backgroundUrl) {
+                                // Apply background with mobile-first approach
+                                const isMobileDevice = window.innerWidth <= 768;
+                                
+                                const backgroundStyle = `
+                                    background-image: url(${backgroundUrl}) !important;
+                                    background-size: ${isMobileDevice ? 'cover' : 'cover'} !important;
+                                    background-position: ${isMobileDevice ? 'center center' : 'center'} !important;
+                                    background-repeat: no-repeat !important;
+                                    background-attachment: ${isMobileDevice ? 'scroll' : 'fixed'} !important;
+                                `;
+                                
+                                chatMessagesWrapper.style.cssText += backgroundStyle;
+                                chatMessagesWrapper.setAttribute('data-has-background', 'true');
+                                
+                                console.log('Chat background loaded successfully:', chatBackground.filename || 'background');
+                                
+                                // Verify background was applied
+                                setTimeout(() => {
+                                    const computedStyle = window.getComputedStyle(chatMessagesWrapper);
+                                    const backgroundImage = computedStyle.backgroundImage;
+                                    if (backgroundImage && backgroundImage !== 'none') {
+                                        console.log('Background successfully applied for', isMobileDevice ? 'mobile' : 'desktop');
+                                    } else {
+                                        console.warn('Background may not have applied correctly, retrying...');
+                                        // Retry with more force
+                                        chatMessagesWrapper.style.setProperty('background-image', `url(${backgroundUrl})`, 'important');
+                                        chatMessagesWrapper.style.setProperty('background-size', 'cover', 'important');
+                                        chatMessagesWrapper.style.setProperty('background-position', 'center', 'important');
+                                        chatMessagesWrapper.style.setProperty('background-repeat', 'no-repeat', 'important');
+                                    }
+                                }, 100);
+                            }
+                        }
+                        
+                        // Apply other customization settings if available
+                        if (settings.colors) {
+                            if (settings.colors.accentPrimary) {
+                                document.documentElement.style.setProperty('--accent-primary', settings.colors.accentPrimary);
+                            }
+                            if (settings.colors.accentSecondary) {
+                                document.documentElement.style.setProperty('--accent-secondary', settings.colors.accentSecondary);
+                            }
+                            if (settings.colors.backgroundColor) {
+                                document.documentElement.style.setProperty('--background-primary', settings.colors.backgroundColor);
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.warn('Error loading chat background from storage:', error);
+                }
+            }
+            
+            // Helper function to get background from IndexedDB
+            async function getBackgroundFromIndexedDB(storageKey) {
+                return new Promise((resolve, reject) => {
+                    const request = indexedDB.open('RemiBackgroundStorage', 1);
+                    
+                    request.onerror = () => reject(request.error);
+                    
+                    request.onsuccess = () => {
+                        const db = request.result;
+                        const transaction = db.transaction(['backgrounds'], 'readonly');
+                        const store = transaction.objectStore('backgrounds');
+                        const getRequest = store.get(storageKey);
+                        
+                        getRequest.onsuccess = () => {
+                            const result = getRequest.result;
+                            resolve(result ? result.data : null);
+                        };
+                        
+                        getRequest.onerror = () => reject(getRequest.error);
+                    };
+                });
+            }
+            
+            // Load background immediately
+            loadChatBackgroundFromStorage();
+            
+            // Also try loading after a short delay to ensure DOM is ready
+            setTimeout(loadChatBackgroundFromStorage, 500);
+            
+            // Listen for storage changes from other tabs
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'remiCustomization') {
+                    setTimeout(loadChatBackgroundFromStorage, 100);
+                }
+            });
+            
+            // Listen for custom events from customization updates
+            document.addEventListener('customizationUpdated', function(e) {
+                setTimeout(loadChatBackgroundFromStorage, 100);
+            });
+            
+            // Listen for window resize to re-optimize background for mobile
+            window.addEventListener('resize', function() {
+                setTimeout(loadChatBackgroundFromStorage, 100);
+            });
+        });
+    </script>
+    
+    <!-- Global Theme Synchronization -->
+    <script src="scripts/global-theme-sync.js"></script>
+    
+    <!-- Customization Loader for Chat Page -->
+    <script src="scripts/customization-loader.js"></script>
+    
+    <!-- Chat Customization Integration -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Apply customizations to chat page
+            function applyChatCustomizations() {
+                try {
+                    const customization = JSON.parse(localStorage.getItem('remiCustomization') || '{}');
+                    
+                    // Apply color preset
+                    if (customization.colorPreset) {
+                        const preset = customization.colorPreset;
+                        if (preset.colors) {
+                            document.documentElement.style.setProperty('--primary-color', preset.colors.primary);
+                            document.documentElement.style.setProperty('--secondary-color', preset.colors.secondary);
+                            document.documentElement.style.setProperty('--accent-color', preset.colors.accent);
+                            document.documentElement.style.setProperty('--background-primary', preset.colors.background);
+                            document.documentElement.style.setProperty('--text-primary', preset.colors.text);
+                            document.documentElement.style.setProperty('--text-secondary', preset.colors.textSecondary);
+                        }
+                    }
+                    
+                    // Apply topbar customization
+                    if (customization.topbarStyle) {
+                        const topbar = document.querySelector('.topbar') || document.querySelector('.chat-header');
+                        if (topbar && customization.topbarStyle.colors) {
+                            const colors = customization.topbarStyle.colors;
+                            topbar.style.background = colors.background;
+                            topbar.style.border = colors.border;
+                            topbar.style.color = colors.text;
+                            
+                            // Apply to topbar text elements
+                            const textElements = topbar.querySelectorAll('h1, .title, .nav-item, button, a');
+                            textElements.forEach(el => {
+                                el.style.color = colors.text;
+                            });
+                        }
+                    }
+                    
+                    console.log('Chat customizations applied successfully');
+                } catch (error) {
+                    console.warn('Error applying chat customizations:', error);
+                }
+            }
+            
+            // Apply customizations immediately
+            applyChatCustomizations();
+            
+            // Listen for customization updates
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'remiCustomization') {
+                    applyChatCustomizations();
+                }
+            });
+            
+            document.addEventListener('customizationUpdated', function() {
+                applyChatCustomizations();
+            });
+        });
+        
+        // Debug sticker system
+        setTimeout(() => {
+            console.log('=== STICKER DEBUG ===');
+            console.log('Sticker sidebar:', document.getElementById('stickerSidebar'));
+            console.log('Grid custom input:', document.getElementById('gridCustomStickerInput'));
+            console.log('Upload area:', document.getElementById('uploadArea'));
+            console.log('Custom input:', document.getElementById('customStickerInput'));
+            console.log('Sticker system active:', window.stickerSystemActive);
+            
+            // Help users discover the sticker system
+            const stickerSidebar = document.getElementById('stickerSidebar');
+            const maximizeStickerToggle = document.getElementById('maximizeStickerToggle');
+            
+            if (stickerSidebar && maximizeStickerToggle) {
+                // Show a brief hint about the sticker system
+                setTimeout(() => {
+                    // Add a pulse animation to the sticker button
+                    maximizeStickerToggle.style.animation = 'pulse 2s infinite';
+                    
+                    // Remove animation after 6 seconds
+                    setTimeout(() => {
+                        maximizeStickerToggle.style.animation = '';
+                    }, 6000);
+                }, 2000);
+            }
+        }, 1000);
+        
+        // Global function to test sticker toggle from console
+        window.testStickerToggle = function() {
+            console.log('🧪 Manual sticker toggle test');
+            const stickerSidebar = document.getElementById('stickerSidebar');
+            if (stickerSidebar) {
+                stickerSidebar.classList.toggle('active');
+                console.log('Sidebar classes after manual toggle:', stickerSidebar.className);
+                return true;
+            } else {
+                console.error('Sidebar not found!');
+                return false;
+            }
+        };
+        
+        // Backup sticker toggle function (in case sticker system fails to initialize)
+        window.backupStickerToggle = function() {
+            console.log('🔄 Backup sticker toggle called');
+            const stickerSidebar = document.getElementById('stickerSidebar');
+            
+            if (stickerSidebar) {
+                const isActive = stickerSidebar.classList.contains('active');
+                if (isActive) {
+                    stickerSidebar.classList.remove('active');
+                    console.log('🔒 Sidebar hidden via backup');
+                } else {
+                    stickerSidebar.classList.add('active');
+                    console.log('🎨 Sidebar shown via backup');
+                }
+                return !isActive;
+            }
+            return false;
+        };
+        
+        // Add backup event listeners to sticker buttons
+        setTimeout(() => {
+            const stickerToggle = document.getElementById('stickerToggle');
+            const maximizeStickerToggle = document.getElementById('maximizeStickerToggle');
+            
+            if (stickerToggle) {
+                // Add backup listener (will only trigger if the main one doesn't work)
+                stickerToggle.addEventListener('click', function(e) {
+                    console.log('🎯 stickerToggle backup listener triggered');
+                    window.backupStickerToggle();
+                });
+                console.log('✅ Backup listener added to stickerToggle');
+            }
+            
+            if (maximizeStickerToggle) {
+                // Add backup listener
+                maximizeStickerToggle.addEventListener('click', function(e) {
+                    console.log('🎯 maximizeStickerToggle backup listener triggered');
+                    window.backupStickerToggle();
+                });
+                console.log('✅ Backup listener added to maximizeStickerToggle');
+            }
+        }, 2000);
+        
+        console.log('🎯 Use window.testStickerToggle() to manually test sidebar');
+    </script>
+  </body>
+</html>

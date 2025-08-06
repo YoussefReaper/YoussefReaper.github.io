@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0">
+    <title>Dashboard - Your Journey to Excellence</title>
+    <meta name="description" content="Track your progress, visualize your goals, and stay motivated on your journey to excellence with Remi.">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/floating-nav.css">
+    <link rel="stylesheet" href="styles/modern-navigation.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="floating-nav-active">
+    <!-- Modern Topbar -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="page-breadcrumb">
+                <a href="index.html" class="breadcrumb-item">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Dashboard</span>
+            </div>
+        </div>
+        
+        <div class="topbar-nav">
+            <a href="about-me.html" class="topbar-nav-item">
+                <i class="fas fa-user"></i>
+                <span>About Me</span>
+            </a>
+            <a href="future-plans.html" class="topbar-nav-item">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="support-project.html" class="topbar-nav-item">
+                <i class="fas fa-heart"></i>
+                <span>Support Project</span>
+            </a>
+            <a href="feedbacks.html" class="topbar-nav-item">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+        </div>
+        
+        <div class="topbar-actions">
+            <div class="user-menu">
+                <div class="user-trigger">
+                    <div class="user-avatar" id="topbar-profile-pic">A</div>
+                    <div class="user-info">
+                        <div class="user-name" id="topbar-user-name">Anonymous</div>
+                        <div class="user-status">online</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="motivation-banner">
+                    <div class="motivation-text">
+                        <h1 class="hero-title">
+                            <span class="greeting" id="greeting">Good Morning</span>, 
+                            <span class="user-name" data-user-name>Champion</span>
+                        </h1>
+                        <p class="hero-subtitle" id="motivation-quote">
+                            "Discipline is the bridge between goals and accomplishment."
+                        </p>
+                        <div class="daily-mantra">
+                            <i class="fas fa-quote-left"></i>
+                            <span id="daily-mantra">Today is another opportunity to become the person you've always wanted to be.</span>
+                            <i class="fas fa-quote-right"></i>
+                        </div>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <div class="stat-icon">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-number" id="streak-number">0</span>
+                                <span class="stat-label">Day Streak</span>
+                            </div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="stat-icon">
+                                <i class="fas fa-target"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-number" id="completion-rate">0%</span>
+                                <span class="stat-label">Completion Rate</span>
+                            </div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="stat-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-number" id="productivity-score">0</span>
+                                <span class="stat-label">Productivity Score</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Progress Overview -->
+            <div class="dashboard-card progress-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-chart-line"></i> Progress Overview</h3>
+                    <div class="card-actions">
+                        <button class="card-action-btn" id="refresh-progress">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="progress-overview">
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Daily Goals</span>
+                                <span class="progress-percentage" id="daily-progress">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="daily-progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Weekly Targets</span>
+                                <span class="progress-percentage" id="weekly-progress">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="weekly-progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Long-term Vision</span>
+                                <span class="progress-percentage" id="longterm-progress">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="longterm-progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress-insights">
+                        <div class="insight-item">
+                            <i class="fas fa-trending-up"></i>
+                            <span id="progress-insight">Keep up the momentum! You're on track.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Today's Focus -->
+            <div class="dashboard-card focus-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-bullseye"></i> Today's Focus</h3>
+                    <div class="card-actions">
+                        <button class="card-action-btn" id="add-focus-task">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="focus-tasks" id="focus-tasks">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                    <div class="focus-motivation">
+                        <div class="motivation-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Focus on progress, not perfection. Every small step counts!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Goal Tracker -->
+            <div class="dashboard-card goal-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-mountain"></i> Main Goal</h3>
+                    <div class="card-actions">
+                        <button class="card-action-btn" id="edit-main-goal">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="main-goal" id="main-goal">
+                        <div class="goal-title" id="goal-title">Set Your Main Goal</div>
+                        <div class="goal-description" id="goal-description">Define what success means to you and track your journey.</div>
+                        <div class="goal-progress">
+                            <div class="goal-progress-bar">
+                                <div class="goal-progress-fill" id="goal-progress-fill" style="width: 0%"></div>
+                            </div>
+                            <div class="goal-progress-text">
+                                <span id="goal-progress-percentage">0%</span>
+                                <span class="goal-deadline" id="goal-deadline">No deadline set</span>
+                            </div>
+                        </div>
+                        <div class="goal-milestones" id="goal-milestones">
+                            <!-- Milestones will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upcoming Tasks -->
+            <div class="dashboard-card tasks-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-clock"></i> Upcoming Tasks</h3>
+                    <div class="card-actions">
+                        <a href="tasks-new.html" class="card-action-btn">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="upcoming-tasks" id="upcoming-tasks">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                    <div class="tasks-summary">
+                        <div class="summary-stat">
+                            <span class="stat-label">Due Today:</span>
+                            <span class="stat-value" id="due-today">0</span>
+                        </div>
+                        <div class="summary-stat">
+                            <span class="stat-label">This Week:</span>
+                            <span class="stat-value" id="due-week">0</span>
+                        </div>
+                        <div class="summary-stat overdue">
+                            <span class="stat-label">Overdue:</span>
+                            <span class="stat-value" id="overdue">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Achievements Showcase -->
+            <div class="dashboard-card achievements-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-trophy"></i> Recent Victories</h3>
+                    <div class="card-actions">
+                        <a href="achievements.html" class="card-action-btn">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="recent-achievements" id="recent-achievements">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                    <div class="achievement-progress">
+                        <div class="progress-ring">
+                            <svg class="progress-ring-svg" width="80" height="80">
+                                <circle class="progress-ring-circle-bg" cx="40" cy="40" r="30"></circle>
+                                <circle class="progress-ring-circle" cx="40" cy="40" r="30" id="achievement-progress-circle"></circle>
+                            </svg>
+                            <div class="progress-ring-text">
+                                <span id="achievement-level">1</span>
+                                <small>Level</small>
+                            </div>
+                        </div>
+                        <div class="achievement-stats">
+                            <div class="achievement-stat">
+                                <span class="achievement-number" id="total-achievements-count">0</span>
+                                <span class="achievement-label">Achievements</span>
+                            </div>
+                            <div class="achievement-stat">
+                                <span class="achievement-number" id="total-points">0</span>
+                                <span class="achievement-label">Points</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Motivation Center -->
+            <div class="dashboard-card motivation-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-heart"></i> Motivation Center</h3>
+                    <div class="card-actions">
+                        <button class="card-action-btn" id="new-motivation">
+                            <i class="fas fa-refresh"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="motivation-content">
+                        <div class="daily-quote" id="daily-quote">
+                            <blockquote id="quote-text">
+                                "The only impossible journey is the one you never begin."
+                            </blockquote>
+                            <cite id="quote-author">- Tony Robbins</cite>
+                        </div>
+                        <div class="discipline-tracker">
+                            <h4>Discipline Building</h4>
+                            <div class="discipline-habits">
+                                <div class="habit-item" data-habit="morning-routine">
+                                    <i class="fas fa-sun"></i>
+                                    <span>Morning Routine</span>
+                                    <div class="habit-check" id="morning-check">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                </div>
+                                <div class="habit-item" data-habit="focus-time">
+                                    <i class="fas fa-brain"></i>
+                                    <span>Focus Time</span>
+                                    <div class="habit-check" id="focus-check">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                </div>
+                                <div class="habit-item" data-habit="reflection">
+                                    <i class="fas fa-moon"></i>
+                                    <span>Evening Reflection</span>
+                                    <div class="habit-check" id="reflection-check">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions Panel -->
+        <div class="quick-actions-panel">
+            <div class="quick-action" id="quick-chat">
+                <i class="fas fa-comment"></i>
+                <span>Chat with Remi</span>
+            </div>
+            <div class="quick-action" id="quick-task">
+                <i class="fas fa-plus-circle"></i>
+                <span>Add Task</span>
+            </div>
+            <div class="quick-action" id="quick-note">
+                <i class="fas fa-sticky-note"></i>
+                <span>Quick Note</span>
+            </div>
+            <div class="quick-action" id="quick-break">
+                <i class="fas fa-coffee"></i>
+                <span>Take Break</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Goal Edit Modal -->
+    <div class="modal-overlay" id="goal-modal-overlay">
+        <div class="modal goal-modal">
+            <div class="modal-header">
+                <h3>Set Your Main Goal</h3>
+                <button class="modal-close" id="close-goal-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <form id="goal-form">
+                    <div class="form-group">
+                        <label for="goal-title-input">Goal Title</label>
+                        <input type="text" id="goal-title-input" placeholder="What do you want to achieve?" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="goal-description-input">Description</label>
+                        <textarea id="goal-description-input" placeholder="Describe your goal and why it matters to you..." rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="goal-deadline-input">Target Date</label>
+                        <input type="date" id="goal-deadline-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="goal-category">Category</label>
+                        <select id="goal-category">
+                            <option value="personal">Personal Development</option>
+                            <option value="academic">Academic</option>
+                            <option value="career">Career</option>
+                            <option value="health">Health & Fitness</option>
+                            <option value="creative">Creative</option>
+                            <option value="financial">Financial</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancel-goal">Cancel</button>
+                        <button type="submit" class="btn-primary">Save Goal</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Navigation Background -->
+    <div class="floating-nav-background" id="floating-nav-background"></div>
+
+    <!-- Floating Navigation Hub -->
+    <div class="floating-nav-hub" id="floating-nav-hub">
+        <button class="nav-hub-button" id="nav-hub-button">
+            <i class="fas fa-th"></i>
+        </button>
+        
+        <div class="nav-options" id="nav-options">
+            <!-- Navigation items will be dynamically generated by floating-navigation.js -->
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/universal-page-system.js"></script>
+    <script src="scripts/floating-navigation.js"></script>
+    <script src="scripts/global-navigation.js"></script>
+    <script src="scripts/storage-manager.js"></script>
+    <script src="scripts/global-profile-manager.js"></script>
+    <script src="scripts/global-stats-manager.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+    <script src="scripts/dashboard.js"></script>
+    <script src="scripts/system.js"></script>
+    <script src="scripts/global-theme-sync.js"></script>
+</body>
+</html>

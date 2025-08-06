@@ -1,0 +1,305 @@
+/* Coin System and Purchase Modal Styles */
+
+/* Locked Item Styles */
+.locked {
+    opacity: 0.6;
+    filter: grayscale(0.8);
+    cursor: not-allowed !important;
+    position: relative;
+    border: 2px dashed rgba(156, 163, 175, 0.5) !important;
+}
+
+.locked:hover {
+    opacity: 0.8;
+    transform: none !important;
+}
+
+/* Lock Indicator */
+.lock-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    backdrop-filter: blur(10px);
+    z-index: 10;
+    pointer-events: none;
+    min-width: max-content;
+}
+
+.lock-indicator i {
+    font-size: 1rem;
+    color: #fbbf24;
+}
+
+/* Purchase Modal */
+.purchase-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    animation: fadeIn 0.3s ease;
+}
+
+.purchase-modal {
+    background: var(--backgroundColor, #ffffff);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 90%;
+    max-height: 90vh;
+    overflow: hidden;
+    animation: modalSlideIn 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(156, 163, 175, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--accentPrimary, #3b82f6);
+    color: white;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.purchase-item h4 {
+    margin: 0 0 1rem 0;
+    color: var(--textColor, #374151);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.purchase-cost {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--accentPrimary, #3b82f6);
+    margin-bottom: 1rem;
+}
+
+.purchase-cost i {
+    color: #fbbf24;
+    font-size: 1.5rem;
+}
+
+.balance-info {
+    color: var(--textColor, #6b7280);
+    font-size: 0.9rem;
+    padding: 1rem;
+    background: var(--backgroundColorDark, #f3f4f6);
+    border-radius: 10px;
+    border-left: 4px solid var(--accentPrimary, #3b82f6);
+}
+
+.coin-balance {
+    font-weight: bold;
+    color: var(--accentPrimary, #3b82f6);
+}
+
+.modal-footer {
+    padding: 1.5rem;
+    border-top: 1px solid rgba(156, 163, 175, 0.2);
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    background: var(--backgroundColorDark, #f9fafb);
+}
+
+/* Button Styles */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    min-width: 100px;
+}
+
+.btn-primary {
+    background: var(--accentPrimary, #3b82f6);
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: var(--accentSecondary, #2563eb);
+    transform: translateY(-1px);
+}
+
+.btn-primary:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-secondary {
+    background: var(--backgroundColorDark, #f3f4f6);
+    color: var(--textColor, #374151);
+    border: 1px solid rgba(156, 163, 175, 0.3);
+}
+
+.btn-secondary:hover {
+    background: #e5e7eb;
+    transform: translateY(-1px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: scale(0.9) translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Coin Display Styles */
+.coin-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: bold;
+    color: var(--accentPrimary, #3b82f6);
+}
+
+.coin-display i {
+    color: #fbbf24;
+    font-size: 1.2em;
+}
+
+/* Notification Styles */
+.coin-notification {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border-left: 4px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Shop Item Grid Enhancement */
+.shop-item.locked {
+    background: rgba(156, 163, 175, 0.1);
+    border-color: rgba(156, 163, 175, 0.3);
+}
+
+.shop-item.locked .shop-item-title {
+    color: #9ca3af;
+}
+
+.shop-item.locked .shop-item-description {
+    color: #6b7280;
+}
+
+/* Customization Page Specific Styles */
+.color-preset-grid .preset-button.locked {
+    background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+    border: 2px dashed #9ca3af;
+}
+
+.topbar-style-grid .style-button.locked {
+    background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+    border: 2px dashed #9ca3af;
+}
+
+/* Dark Mode Support */
+[data-theme="dark"] .purchase-modal {
+    background: var(--backgroundColorDark, #1f2937);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .modal-body .balance-info {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--textColorDark, #d1d5db);
+}
+
+[data-theme="dark"] .btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--textColorDark, #f3f4f6);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .locked {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .purchase-modal {
+        width: 95%;
+        margin: 1rem;
+    }
+    
+    .modal-footer {
+        flex-direction: column;
+    }
+    
+    .modal-footer .btn {
+        width: 100%;
+    }
+    
+    .lock-indicator {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+    }
+}

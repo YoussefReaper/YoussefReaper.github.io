@@ -1,0 +1,1712 @@
+/* ===== MAXIMIZE MODE - FULL PAGE DESIGN ===== */
+
+/* Maximize Mode Base Styles */
+body.maximize-mode {
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body.maximize-mode .main-content {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 9999 !important;
+    background: var(--background-color);
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    flex-direction: row;
+}
+
+/* Hide navigation in maximize mode */
+body.maximize-mode .sidebar,
+body.maximize-mode .modern-navigation,
+body.maximize-mode .topbar-menu {
+    display: none !important;
+}
+
+/* Profile headers layout - PC only */
+body.maximize-mode .maximize-headers {
+    display: block !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    z-index: 2;
+    pointer-events: none;
+}
+
+body.maximize-mode .maximize-header {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 320px;
+    max-height: 400px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: var(--glass-shadow);
+    pointer-events: auto;
+    transition: all 0.3s ease;
+    overflow-y: auto;
+}
+
+body.maximize-mode .maximize-header.ai-header {
+    left: 2rem;
+}
+
+body.maximize-mode .maximize-header.user-header {
+    right: 2rem;
+}
+
+/* Header content styling */
+body.maximize-mode .header-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+body.maximize-mode .header-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--glass-border);
+}
+
+body.maximize-mode .header-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+body.maximize-mode .header-info h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text-primary);
+    font-size: 1.25rem;
+}
+
+body.maximize-mode .header-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+body.maximize-mode .status-indicator-max {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent-primary);
+}
+
+body.maximize-mode .header-progress {
+    margin-top: 1rem;
+}
+
+body.maximize-mode .progress-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+body.maximize-mode .progress-bar-max {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+body.maximize-mode .progress-fill-max {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+body.maximize-mode .progress-text {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* Chat container in maximize mode - centered between headers */
+body.maximize-mode .chat-container {
+    position: fixed;
+    top: 0;
+    left: 380px; /* Space for left header */
+    right: 380px; /* Space for right header */
+    bottom: 0;
+    width: auto;
+    height: 100vh;
+    background: transparent;
+    padding: 0;
+    z-index: 1;
+    display: block; /* Reset to block for proper fixed positioning */
+}
+
+/* Full page background overlay for maximize mode */
+body.maximize-mode .main-content::before {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        rgba(15, 23, 42, 0.85),
+        rgba(15, 23, 42, 0.75)
+    );
+    pointer-events: none;
+    z-index: 0;
+    content: '';
+}
+
+/* Chat messages wrapper in maximize mode */
+body.maximize-mode .chat-messages-wrapper {
+    position: fixed;
+    top: 60px; /* Space for toolbar */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    max-width: 800px;
+    bottom: 120px; /* Space for input */
+    background: transparent !important;
+    border: none !important;
+    backdrop-filter: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    z-index: 2;
+}
+
+/* Video background for maximize mode */
+body.maximize-mode .chat-messages-wrapper .live-wallpaper-video {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0 !important;
+    z-index: -1;
+    pointer-events: none;
+    filter: brightness(0.7);
+}
+
+/* Chat messages in maximize mode */
+body.maximize-mode .chat-messages {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.1); /* Slight background to ensure visibility */
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-width: none;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    /* Add padding to bottom to ensure last message is visible */
+    padding-bottom: 2rem;
+    /* Custom scrollbar styling */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+/* Custom scrollbar for webkit browsers */
+body.maximize-mode .chat-messages::-webkit-scrollbar {
+    width: 8px;
+}
+
+body.maximize-mode .chat-messages::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+body.maximize-mode .chat-messages::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+body.maximize-mode .chat-messages::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Chat input in maximize mode */
+body.maximize-mode .chat-input-container {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 800px !important;
+    max-width: 800px !important;
+    height: 120px !important;
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px);
+    border-top: 1px solid var(--glass-border);
+    border-radius: 0 !important;
+    padding: 1rem;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+/* Input wrapper styling for maximize mode */
+body.maximize-mode .input-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 25px !important;
+    padding: 8px !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+body.maximize-mode .input-field-wrapper {
+    flex: 1 !important;
+}
+
+body.maximize-mode .message-input {
+    background: transparent !important;
+    border: none !important;
+    padding: 12px 16px !important;
+    min-height: 40px !important;
+    max-height: 120px !important;
+    border-radius: 20px !important;
+    color: white !important;
+    font-size: 14px !important;
+    outline: none !important;
+}
+
+body.maximize-mode .send-message-button {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    background: linear-gradient(45deg, #a855f7, #3b82f6) !important;
+    border: none !important;
+    color: white !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    font-size: 14px !important;
+}
+
+body.maximize-mode .send-message-button:hover {
+    transform: scale(1.1) !important;
+    box-shadow: 0 5px 15px rgba(168, 85, 247, 0.4) !important;
+}
+
+/* Mobile toolbar in maximize mode */
+body.maximize-mode .mobile-chat-toolbar {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+    z-index: 10;
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 0.5rem;
+}
+
+/* Exit button for maximize mode */
+.maximize-exit-btn {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    width: 50px;
+    height: 50px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10000;
+    transition: all var(--transition-normal);
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    box-shadow: var(--glass-shadow);
+}
+
+.maximize-exit-btn:hover {
+    background: var(--accent-primary);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
+}
+
+.maximize-exit-btn:active {
+    transform: scale(0.95);
+}
+
+/* Show exit button only in maximize mode */
+body.maximize-mode .maximize-exit-btn {
+    display: flex;
+}
+
+body:not(.maximize-mode) .maximize-exit-btn {
+    display: none;
+}
+
+/* Mobile maximize mode adjustments */
+@media (max-width: 768px) {
+    .maximize-exit-btn {
+        width: 44px;
+        height: 44px;
+        top: 0.5rem;
+        right: 0.5rem;
+        font-size: 1.2rem;
+    }
+
+    /* Full width chat on mobile */
+    body.maximize-mode .chat-container {
+        left: 0 !important;
+        right: 0 !important;
+        width: 100vw;
+    }
+
+    body.maximize-mode .chat-messages-wrapper {
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        transform: none !important;
+        top: 70px; /* Space for mobile toolbar */
+        bottom: 100px; /* Space for smaller input */
+    }
+
+    body.maximize-mode .chat-input-container {
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        transform: none !important;
+        height: 100px !important;
+        padding: 0.5rem;
+    }
+
+    body.maximize-mode .chat-messages {
+        padding: 0.5rem;
+        padding-bottom: 1.5rem; /* Ensure sufficient bottom padding */
+    }
+
+    body.maximize-mode .mobile-chat-toolbar {
+        margin: 0.3rem; /* Reduced margin */
+        width: calc(100% - 0.6rem); /* Adjusted for smaller margin */
+        padding: 0.3rem; /* Reduced padding */
+        border-radius: 10px; /* Smaller border radius */
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    body.maximize-mode .mobile-chat-toolbar .action-btn {
+        width: 32px; /* Smaller buttons in maximize mode */
+        height: 32px;
+        border-radius: 6px;
+        font-size: 0.85rem; /* Smaller icons */
+    }
+
+    body.maximize-mode .input-wrapper {
+        border-radius: 8px; /* Smaller border radius */
+        padding: 0.3rem; /* Reduced padding */
+        min-height: 36px; /* Smaller minimum height */
+        gap: 0.3rem; /* Reduced gap */
+        flex-direction: row;
+    }
+
+    body.maximize-mode .message-input {
+        font-size: 14px; /* Smaller font */
+        padding: 0.3rem; /* Reduced padding */
+        min-height: 30px; /* Smaller minimum height */
+        max-height: 70px; /* Reduced maximum height */
+    }
+
+    body.maximize-mode .attachment-btn,
+    body.maximize-mode .emoji-btn,
+    body.maximize-mode .send-message-button {
+        width: 32px; /* Smaller buttons */
+        height: 32px;
+        font-size: 0.85rem; /* Smaller icons */
+    }
+}
+
+/* Ultra-wide mobile adjustments */
+@media (max-width: 480px) {
+    .maximize-exit-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+        top: 0.3rem;
+        right: 0.3rem;
+    }
+
+    body.maximize-mode .mobile-chat-toolbar .action-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 6px;
+    }
+
+    body.maximize-mode .mobile-chat-toolbar {
+        padding: 0.4rem;
+        gap: 0.3rem;
+        border-radius: 10px;
+    }
+
+    body.maximize-mode .chat-messages {
+        padding: 0.4rem;
+        padding-bottom: 1rem; /* Sufficient bottom padding for very small screens */
+    }
+}
+
+/* Very small screens */
+@media (max-width: 375px) {
+    .maximize-exit-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+
+    body.maximize-mode .mobile-chat-toolbar .action-btn {
+        width: 28px;
+        height: 28px;
+        border-radius: 5px;
+    }
+
+    body.maximize-mode .mobile-chat-toolbar {
+        padding: 0.3rem;
+        gap: 0.2rem;
+        border-radius: 8px;
+    }
+
+    body.maximize-mode .chat-messages {
+        padding: 0.3rem;
+        padding-bottom: 130px;
+    }
+}
+
+/* Sticker panel adjustments for maximize mode */
+body.maximize-mode .sticker-sidebar {
+    z-index: 9998;
+    position: fixed;
+}
+
+/* Remove any conflicting styles from old maximize mode */
+body.maximize-mode .quick-actions,
+body.maximize-mode .chat-header,
+body.maximize-mode .maximize-headers {
+    display: none !important;
+}
+
+/* Ensure proper z-index stacking */
+body.maximize-mode .chat-messages {
+    z-index: 1;
+}
+
+/* Z-index hierarchy for maximize mode */
+body.maximize-mode .main-content::before {
+    z-index: 0; /* Background overlay */
+}
+
+body.maximize-mode .chat-container {
+    z-index: 1; /* Base container */
+}
+
+body.maximize-mode .chat-messages-wrapper {
+    z-index: 2; /* Messages wrapper */
+}
+
+body.maximize-mode .chat-messages {
+    z-index: 3; /* Messages container */
+}
+
+body.maximize-mode .mobile-chat-toolbar {
+    z-index: 10; /* Toolbar */
+}
+
+body.maximize-mode .maximize-header {
+    z-index: 50; /* Profile headers */
+}
+
+body.maximize-mode .chat-input-container {
+    z-index: 100; /* Input always on top */
+}
+
+body.maximize-mode .maximize-exit-btn {
+    z-index: 10000; /* Exit button always visible */
+}
+
+body.maximize-mode .sticker-sidebar {
+    z-index: 9998; /* Sticker panel */
+}
+
+.sticker-sidebar.panel-left {
+    left: 20px;
+    right: auto;
+}
+
+@keyframes headerSlideIn {
+    0% { 
+        opacity: 0; 
+        transform: translateY(-30px) scale(0.9);
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Header content */
+.header-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0;
+    transition: all 0.4s ease;
+}
+
+/* In collapsed state, hide the header info */
+.maximize-header:not(.expanded) .header-info {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+/* In expanded state, show the header info */
+.maximize-header.expanded .header-info {
+    opacity: 1;
+    width: auto;
+    transition: all 0.4s ease 0.1s;
+}
+
+/* Hide progress section in collapsed state */
+.maximize-header:not(.expanded) .header-progress {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+/* Show progress section in expanded state */
+.maximize-header.expanded .header-progress {
+    opacity: 1;
+    height: auto;
+    margin-top: 0.75rem;
+    transition: all 0.4s ease 0.2s;
+}
+
+.header-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid rgba(103, 197, 255, 0.6);
+    box-shadow: 0 0 20px rgba(103, 197, 255, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.header-avatar:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(103, 197, 255, 0.6);
+}
+
+.header-avatar::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: conic-gradient(
+        from 0deg,
+        rgba(103, 197, 255, 0.8),
+        rgba(170, 121, 249, 0.8),
+        rgba(103, 197, 255, 0.8)
+    );
+    border-radius: 50%;
+    z-index: -1;
+    /* REMOVED: animation: avatarRotate 4s linear infinite; */
+}
+
+/* DISABLED: Avatar rotation animation for performance optimization */
+/*
+@keyframes avatarRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+*/
+
+.header-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+.header-info {
+    flex: 1;
+}
+
+.header-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 0.25rem 0;
+    text-shadow: 0 2px 10px rgba(103, 197, 255, 0.5);
+}
+
+.header-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.status-indicator-max {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    /* REMOVED: animation: statusPulse 2s infinite; */
+}
+
+.status-indicator-max.happy { background: #10B981; }
+.status-indicator-max.excited { background: #F59E0B; }
+.status-indicator-max.focused { background: #3B82F6; }
+.status-indicator-max.productive { background: #8B5CF6; }
+.status-indicator-max.calm { background: #06B6D4; }
+
+/* DISABLED: Status pulse animation for performance optimization */
+/*
+@keyframes statusPulse {
+    0%, 100% { 
+        opacity: 1; 
+        transform: scale(1);
+        box-shadow: 0 0 10px currentColor;
+    }
+    50% { 
+        opacity: 0.7; 
+        transform: scale(1.2);
+        box-shadow: 0 0 20px currentColor;
+    }
+}
+*/
+
+/* Progress bars */
+.header-progress {
+    margin-top: 0.75rem;
+}
+
+.progress-label {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.progress-bar-max {
+    width: 200px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.progress-fill-max {
+    height: 100%;
+    border-radius: 10px;
+    position: relative;
+    transition: width 0.8s ease;
+    overflow: hidden;
+}
+
+.progress-fill-max.relationship {
+    background: linear-gradient(90deg, 
+        #F43F5E 0%, 
+        #EC4899 50%, 
+        #8B5CF6 100%);
+    box-shadow: 0 0 15px rgba(244, 63, 94, 0.5);
+}
+
+.progress-fill-max.productivity {
+    background: linear-gradient(90deg, 
+        #10B981 0%, 
+        #3B82F6 50%, 
+        #8B5CF6 100%);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+}
+
+.progress-fill-max::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 100%);
+    /* REMOVED: animation: progressShimmer 2s infinite; */
+}
+
+/* DISABLED: Progress shimmer animation for performance optimization */
+/*
+@keyframes progressShimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+*/
+
+.progress-text {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 0.25rem;
+    font-weight: 600;
+}
+
+/* Enhanced message styling for maximize mode */
+.maximize-mode .message-container.user {
+    margin-right: 0;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 0;
+}
+
+.maximize-mode .message-container.ai {
+    margin-left: 0;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 0;
+}
+
+.maximize-mode .user-message {
+    background: linear-gradient(135deg, 
+        rgba(103, 197, 255, 0.8) 0%, 
+        rgba(170, 121, 249, 0.8) 100%);
+    border: 1px solid rgba(103, 197, 255, 0.6);
+    box-shadow: 
+        0 8px 32px rgba(103, 197, 255, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    max-width: 300px;
+}
+
+.maximize-mode .ai-message {
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.08) 0%, 
+        rgba(255, 255, 255, 0.04) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(25px);
+    max-width: 600px;
+    color: white;
+}
+
+.maximize-mode .ai-avatar {
+    border: 2px solid rgba(170, 121, 249, 0.6);
+    box-shadow: 0 0 20px rgba(170, 121, 249, 0.4);
+}
+
+.maximize-mode .input-wrapper {
+    padding: 1rem 1.5rem;
+    border-radius: 24px;
+    background-color: transparent;
+}
+
+.maximize-mode .message-input {
+    color: #ffffff;
+    font-size: 1rem;
+    backdrop-filter: blur(10px);
+}
+
+.maximize-mode .message-input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.maximize-mode .send-message-button {
+    background: linear-gradient(135deg, 
+        rgba(103, 197, 255, 0.8) 0%, 
+        rgba(170, 121, 249, 0.8) 100%);
+    border: 1px solid rgba(103, 197, 255, 0.6);
+    box-shadow: 0 4px 20px rgba(103, 197, 255, 0.4);
+}
+
+.maximize-mode .attachment-btn,
+.maximize-mode .emoji-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.maximize-mode .chat-footer {
+    padding: 0.75rem 1.5rem 1rem;
+    text-align: center;
+}
+
+/* Maximize toggle button */
+.maximize-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10002;
+    background: linear-gradient(135deg, 
+        rgba(103, 197, 255, 0.2) 0%, 
+        rgba(170, 121, 249, 0.2) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #ffffff;
+    font-size: 1.2rem;
+}
+
+.maximize-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 30px rgba(103, 197, 255, 0.4);
+}
+
+/* Sci-fi effects - standard version only */
+.maximize-mode::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(103, 197, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(170, 121, 249, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(103, 197, 255, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.maximize-mode::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(45deg, transparent 49%, rgba(103, 197, 255, 0.05) 50%, transparent 51%),
+        linear-gradient(-45deg, transparent 49%, rgba(170, 121, 249, 0.05) 50%, transparent 51%);
+    background-size: 100px 100px;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: -1;
+    animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 100px 100px, -100px 100px; }
+}
+
+/* DISABLED: Floating particles effect (performance optimization) */
+/*
+.maximize-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(103, 197, 255, 0.6);
+    border-radius: 50%;
+    animation: particleFloat 8s infinite linear;
+}
+
+.particle:nth-child(2n) {
+    background: rgba(170, 121, 249, 0.6);
+    animation-duration: 12s;
+}
+
+.particle:nth-child(3n) {
+    background: rgba(255, 255, 255, 0.4);
+    animation-duration: 10s;
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(100vh) translateX(0) scale(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-10vh) translateX(100px) scale(1);
+        opacity: 0;
+    }
+}
+*/
+
+/* Responsive design for maximize mode */
+@media (max-width: 768px) {
+    .maximize-header {
+        padding: 0.75rem 1rem;
+        top: 20px;
+    }
+    
+    .maximize-header.ai-header {
+        left: 15px;
+    }
+    
+    .maximize-header.user-header {
+        right: 15px;
+    }
+    
+    .progress-bar-max {
+        width: 150px;
+    }
+    
+    .maximize-mode .chat-input-container {
+        width: calc(100vw - 30px);
+        bottom: 15px;
+    }
+    
+    .maximize-mode .chat-messages {
+        padding: 1rem;
+        height: calc(100vh - 180px);
+    }
+}
+
+@media (max-width: 480px) {
+    .maximize-header {
+        padding: 0.5rem 0.75rem;
+        top: 10px;
+        transform: scale(0.9);
+    }
+    
+    .header-avatar {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .header-name {
+        font-size: 1rem;
+    }
+    
+    .progress-bar-max {
+        width: 120px;
+        height: 6px;
+    }
+}
+
+/* ===== STICKER SYSTEM STYLES ===== */
+
+/* Sticker Button (now visible in both normal and maximize mode) */
+.sticker-btn {
+    display: inline-flex !important;
+    background: linear-gradient(135deg, #ff6b9d, #c44569);
+    border: 2px solid rgba(255, 107, 157, 0.3);
+    box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
+    transition: all 0.3s ease;
+}
+
+.sticker-btn:hover {
+    background: linear-gradient(135deg, #ff7ba7, #d55b7a);
+    box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Sticker Sidebar */
+.sticker-sidebar {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 380px;
+    height: 100vh;
+    background: linear-gradient(180deg, 
+        rgba(15, 23, 42, 0.95) 0%,
+        rgba(30, 41, 59, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    border-left: 1px solid rgba(103, 197, 255, 0.2);
+    z-index: 10000;
+    transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow-y: auto;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.sticker-sidebar.active {
+    right: 0;
+}
+
+.sticker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(103, 197, 255, 0.2);
+    background: linear-gradient(135deg, rgba(103, 197, 255, 0.1), rgba(170, 121, 249, 0.1));
+}
+
+.sticker-header h3 {
+    color: #ffffff;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.close-sticker-btn {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.close-sticker-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ff6b9d;
+}
+
+/* Sticker Controls */
+.sticker-controls {
+    padding: 1rem 1.5rem;
+    display: flex;
+    gap: 0.75rem;
+    border-bottom: 1px solid rgba(103, 197, 255, 0.1);
+}
+
+.sticker-control-btn {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, rgba(103, 197, 255, 0.1), rgba(170, 121, 249, 0.1));
+    border: 1px solid rgba(103, 197, 255, 0.3);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.sticker-control-btn:hover {
+    background: linear-gradient(135deg, rgba(103, 197, 255, 0.2), rgba(170, 121, 249, 0.2));
+    border-color: rgba(103, 197, 255, 0.5);
+    transform: translateY(-1px);
+}
+
+/* Category Tabs */
+.sticker-categories {
+    display: flex;
+    padding: 1rem 1.5rem 0;
+}
+
+.category-tab {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.category-tab.active {
+    color: #00f5ff;
+    border-bottom-color: #00f5ff;
+}
+
+.category-tab:hover {
+    color: #ffffff;
+}
+
+/* Sticker Grid */
+.sticker-grid {
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.sticker-item {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(103, 197, 255, 0.2);
+    border-radius: 12px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.sticker-item:hover {
+    background: linear-gradient(135deg, rgba(103, 197, 255, 0.1), rgba(170, 121, 249, 0.1));
+    border-color: rgba(103, 197, 255, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(103, 197, 255, 0.2);
+}
+
+.sticker-item.locked {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.sticker-preview {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.sticker-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.sticker-name {
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.sticker-status {
+    color: #10b981;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.sticker-cost {
+    color: #f59e0b;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+.sticker-cost::before {
+    content: '🪙';
+    font-size: 0.875rem;
+}
+
+/* Custom Upload Section */
+.custom-upload-section {
+    padding: 1.5rem;
+}
+
+.upload-area {
+    border: 2px dashed rgba(103, 197, 255, 0.3);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, rgba(103, 197, 255, 0.05), rgba(170, 121, 249, 0.05));
+}
+
+.upload-area:hover {
+    border-color: rgba(103, 197, 255, 0.5);
+    background: linear-gradient(135deg, rgba(103, 197, 255, 0.1), rgba(170, 121, 249, 0.1));
+}
+
+.upload-area i {
+    font-size: 2rem;
+    color: #00f5ff;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.upload-area span {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.875rem;
+}
+
+.upload-pricing {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.price-tier {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.size-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.75rem;
+}
+
+.price {
+    color: #f59e0b;
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+/* User Coins Display */
+.user-coins {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.2));
+    border-top: 1px solid rgba(245, 158, 11, 0.3);
+    color: #ffffff;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.user-coins i {
+    color: #f59e0b;
+}
+
+/* Sticker Canvas */
+.sticker-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+    display: none;
+}
+
+.maximize-mode .sticker-canvas {
+    display: block;
+}
+
+/* Placed Stickers */
+.placed-sticker {
+    position: absolute;
+    font-size: 3rem;
+    cursor: move;
+    pointer-events: auto;
+    transition: all 0.2s ease;
+    user-select: none;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    z-index: 1001;
+}
+
+.placed-sticker:hover {
+    transform: scale(1.1);
+}
+
+.placed-sticker.dragging {
+    transform: scale(1.2) rotate(5deg);
+    z-index: 1002;
+    pointer-events: auto;
+}
+
+.placed-sticker.static {
+    cursor: default;
+    pointer-events: none;
+}
+
+/* Sticker remove button (appears on hover when editing) */
+.sticker-remove {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 20px;
+    height: 20px;
+    background: #ef4444;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1003;
+}
+
+.placed-sticker:hover .sticker-remove {
+    display: flex;
+}
+
+/* Animations */
+@keyframes stickerPop {
+    0% { transform: scale(0) rotate(0deg); }
+    50% { transform: scale(1.2) rotate(180deg); }
+    100% { transform: scale(1) rotate(360deg); }
+}
+
+.placed-sticker.new {
+    animation: stickerPop 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Enhanced sticker styles */
+.placed-sticker {
+    position: fixed;
+    z-index: 1000;
+    font-size: 2rem;
+    cursor: move;
+    user-select: none;
+    transition: all 0.2s ease;
+    border-radius: 50%;
+    padding: 4px;
+}
+
+.placed-sticker:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+.placed-sticker.dragging {
+    transform: scale(1.2);
+    opacity: 0.8;
+    filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.5));
+}
+
+.sticker-remove {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ff4444;
+    color: white;
+    border: none;
+    font-size: 12px;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+}
+
+.placed-sticker:hover .sticker-remove {
+    display: flex;
+}
+
+.sticker-context-menu {
+    font-family: var(--font-family, sans-serif);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .sticker-sidebar {
+        width: 100vw;
+        right: -100vw;
+    }
+    
+    .sticker-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .placed-sticker {
+        font-size: 1.5rem;
+    }
+}
+
+/* Sticker Panel - Below User Header */
+.maximize-sticker-panel {
+    position: fixed !important;
+    top: calc(var(--user-header-height, 120px) + 50px) !important;
+    right: 20px !important;
+    z-index: 999999 !important;
+    opacity: 1 !important;
+    transform: translateX(20px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    width: 50px !important;
+    height: 50px !important;
+}
+
+/* For maximize mode, position relative to user header */
+.maximize-mode .maximize-sticker-panel {
+    top: 170px !important; /* User header is typically around 120px, so 120 + 50 = 170px */
+}
+
+.maximize-sticker-panel.show {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+    pointer-events: all !important;
+    z-index: 999999 !important;
+}
+
+.sticker-panel-btn {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%) !important;
+    border: 3px solid #ffffff !important;
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(255, 107, 107, 0.5) !important;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999 !important;
+    position: relative !important;
+    animation: pulse 2s ease-in-out infinite !important;
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        transform: scale(1); 
+        box-shadow: 0 4px 16px rgba(255, 107, 107, 0.5);
+    }
+    50% { 
+        transform: scale(1.05); 
+        box-shadow: 0 6px 20px rgba(255, 107, 107, 0.8);
+    }
+}
+
+.sticker-panel-btn:hover {
+    transform: translateY(-2px) scale(1.1) !important;
+    box-shadow: 0 8px 24px rgba(255, 107, 107, 0.6) !important;
+    animation: none !important;
+}
+
+.sticker-panel-btn:active {
+    transform: translateY(0) scale(0.95) !important;
+}
+
+/* Ensure sticker system works in maximize mode */
+.maximize-mode .maximize-sticker-panel {
+    display: block !important;
+    z-index: 999999 !important;
+}
+
+.maximize-mode .maximize-sticker-panel.show {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    pointer-events: all !important;
+    z-index: 999999 !important;
+}
+
+/* Sticker sidebar positioning in maximize mode */
+.maximize-mode .sticker-sidebar {
+    position: fixed !important;
+    z-index: 1000001 !important;
+}
+
+.maximize-mode .sticker-sidebar.active {
+    right: 0 !important;
+}
+
+.maximize-mode .sticker-sidebar.panel-left {
+    right: auto !important;
+    left: -350px !important;
+}
+
+.maximize-mode .sticker-sidebar.panel-left.active {
+    left: 0 !important;
+    right: auto !important;
+}
+
+/* ===== MOBILE MAXIMIZE MODE OPTIMIZATION ===== */
+@media (max-width: 768px) {
+    /* Maximize mode headers - mobile */
+    .maximize-headers {
+        padding: 0.5rem;
+        gap: 0.8rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .maximize-header {
+        padding: 0.8rem;
+        border-radius: 12px;
+        margin-bottom: 0.3rem;
+    }
+
+    .header-profile {
+        gap: 0.8rem;
+    }
+
+    .header-avatar {
+        width: 45px;
+        height: 45px;
+    }
+
+    .header-name {
+        font-size: 1.1rem;
+        margin: 0;
+    }
+
+    .header-status {
+        font-size: 0.75rem;
+    }
+
+    .header-progress {
+        margin-top: 0.5rem;
+    }
+
+    .progress-label {
+        font-size: 0.7rem;
+    }
+
+    .progress-bar-max {
+        height: 4px;
+        margin: 0.3rem 0;
+    }
+
+    .progress-text {
+        font-size: 0.7rem;
+    }
+
+    /* Chat messages in maximize mode - mobile */
+    .maximize-mode .chat-messages-wrapper {
+        margin: 60px 0 0 0;
+        padding: 0.5rem 0;
+    }
+
+    .maximize-mode .chat-messages {
+        padding: 0.5rem;
+        height: calc(100vh - 140px);
+        max-width: 100%;
+    }
+
+    /* Chat input in maximize mode - mobile */
+    .maximize-mode .chat-input-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-width: 100%;
+        transform: none;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+        padding: 0.5rem;
+    }
+
+    .maximize-mode .input-wrapper {
+        border-radius: 12px;
+        padding: 0.5rem;
+    }
+
+    /* Maximize sticker panel - mobile */
+    .maximize-sticker-panel {
+        bottom: 70px;
+        right: 0.5rem;
+    }
+
+    .sticker-panel-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
+
+    /* Mobile toolbar in maximize mode */
+    .maximize-mode .mobile-chat-toolbar {
+        padding: 0.3rem 0.5rem;
+        margin-bottom: 0.3rem;
+        border-radius: 8px;
+    }
+
+    .maximize-mode .mobile-chat-toolbar .action-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+    }
+
+    /* Sticker sidebar in maximize mode - mobile */
+    .maximize-mode .sticker-sidebar {
+        display: none;
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 0 !important;
+    }
+
+    .maximize-mode .sticker-sidebar.panel-left {
+        left: -100% !important;
+    }
+
+    .maximize-mode .sticker-sidebar.panel-left.active {
+        left: 0 !important;
+    }
+}
+
+/* ===== END MOBILE MAXIMIZE MODE OPTIMIZATION ===== */

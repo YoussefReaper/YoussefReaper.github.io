@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0">
+    <title>Schedule - Auro AI Productivity Planner</title>
+    <meta name="description" content="Intelligent schedule management with AI-powered productivity insights, time blocking, and optimization.">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/schedule.css">
+    <link rel="stylesheet" href="styles/floating-nav.css">
+    <link rel="stylesheet" href="styles/modern-navigation.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="floating-nav-active">
+
+    <!-- Modern Topbar -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="page-breadcrumb">
+                <a href="index.html" class="breadcrumb-item">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Schedule</span>
+            </div>
+        </div>
+        
+        <div class="topbar-nav">
+            <a href="about-me.html" class="topbar-nav-item">
+                <i class="fas fa-user"></i>
+                <span>About Me</span>
+            </a>
+            <a href="future-plans.html" class="topbar-nav-item">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="support-project.html" class="topbar-nav-item">
+                <i class="fas fa-heart"></i>
+                <span>Support Project</span>
+            </a>
+            <a href="feedbacks.html" class="topbar-nav-item">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+        </div>
+        
+        <div class="topbar-actions">
+            <div class="user-menu">
+                <div class="user-trigger">
+                    <div class="user-avatar" id="topbar-profile-pic">A</div>
+                    <div class="user-info">
+                        <div class="user-name" id="topbar-user-name">Anonymous</div>
+                        <div class="user-status">online</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center; padding: 2rem;">
+            <div style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1)); border-radius: 20px; padding: 3rem; max-width: 600px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                <div style="font-size: 4rem; margin-bottom: 1.5rem; opacity: 0.7;">📅</div>
+                <h1 style="font-size: 2.5rem; font-weight: 700; color: var(--title-text-color, #fff); margin-bottom: 1rem;">Schedule Center</h1>
+                <h2 style="font-size: 1.8rem; font-weight: 600; color: var(--accent-primary, #f59e0b); margin-bottom: 1.5rem;">Temporarily Unavailable</h2>
+                <p style="font-size: 1.2rem; color: var(--text-color, rgba(255, 255, 255, 0.8)); line-height: 1.6; margin-bottom: 2rem;">
+                    The schedule management system is currently closed due to no database connection. This feature requires a backend database to store and manage your events, appointments, and time blocks.
+                </p>
+                <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+                    <h3 style="color: var(--warning-color, #f59e0b); margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                        <i class="fas fa-database"></i> Database Required
+                    </h3>
+                    <p style="color: var(--text-color, rgba(255, 255, 255, 0.7)); margin: 0;">
+                        Schedule persistence, event management, and calendar synchronization need persistent storage to function properly.
+                    </p>
+                </div>
+                <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent-primary, #3b82f6); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">
+                    <i class="fas fa-home"></i> Return to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Navigation Background -->
+    <div class="floating-nav-background" id="floating-nav-background"></div>
+
+    <!-- Floating Navigation Hub -->
+    <div class="floating-nav-hub" id="floating-nav-hub">
+        <button class="nav-hub-button" id="nav-hub-toggle">
+            <i class="fas fa-th"></i>
+        </button>
+        
+        <div class="nav-options">
+            <a href="index.html" class="nav-option">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="dashboard.html" class="nav-option">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="plans.html" class="nav-option">
+                <i class="fas fa-map"></i>
+                <span>Plans</span>
+            </a>
+            <a href="chat.html" class="nav-option registered-only">
+                <i class="fas fa-message"></i>
+                <span>Chat</span>
+            </a>
+            <a href="tasks.html" class="nav-option registered-only">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="schedule.html" class="nav-option current-page registered-only">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Schedule</span>
+            </a>
+            <a href="achievements.html" class="nav-option registered-only">
+                <i class="fas fa-trophy"></i>
+                <span>Achievements</span>
+            </a>
+            <a href="super-tracker.html" class="nav-option registered-only">
+                <i class="fas fa-chart-line"></i>
+                <span>Tracker</span>
+            </a>
+            <a href="customization.html" class="nav-option registered-only">
+                <i class="fas fa-heart"></i>
+                <span>Customize</span>
+            </a>
+            <a href="settings.html" class="nav-option">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="scripts/floating-navigation.js"></script>
+    <script src="scripts/global-profile-manager.js"></script>
+    <script src="scripts/global-stats-manager.js"></script>
+    <script src="scripts/global-navigation.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+</body>
+</html>
+            margin: 0 auto;
+        }
+        
+        .sidebar-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            height: fit-content;
+        }
+        
+        .main-calendar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .month-navigation {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .nav-btn {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(59, 130, 246, 0.4);
+            transform: scale(1.1);
+        }
+        
+        .current-month {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            min-width: 200px;
+            text-align: center;
+        }
+        
+        .view-toggle {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 4px;
+        }
+        
+        .toggle-btn {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-btn.active {
+            background: rgba(59, 130, 246, 0.4);
+            color: white;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .calendar-day-header {
+            background: rgba(59, 130, 246, 0.2);
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        .calendar-day {
+            background: rgba(255, 255, 255, 0.05);
+            min-height: 120px;
+            padding: 0.5rem;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .calendar-day:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        
+        .calendar-day.today {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+        
+        .calendar-day.selected {
+            background: rgba(168, 85, 247, 0.2);
+            border-color: rgba(168, 85, 247, 0.5);
+        }
+        
+        .day-number {
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .day-events {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .event-block {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.8), rgba(168, 85, 247, 0.8));
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 0.75rem;
+            color: white;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        .quick-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .action-btn {
+            flex: 1;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(168, 85, 247, 0.2));
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .action-btn:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(168, 85, 247, 0.4));
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .stats-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .time-blocks {
+            margin-top: 2rem;
+        }
+        
+        .time-block {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .time-block:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+        
+        .time-slot {
+            font-weight: 600;
+            color: rgba(59, 130, 246, 1);
+            min-width: 80px;
+        }
+        
+        .block-content {
+            flex: 1;
+        }
+        
+        .block-title {
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+        
+        .block-description {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .productivity-tips {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(34, 197, 94, 0.1));
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .tips-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            color: rgb(16, 185, 129);
+            font-weight: 600;
+        }
+        
+        .tip-item {
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-bottom: 0.75rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 1200px) {
+            .productivity-dashboard {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .schedule-container {
+                padding: 1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .calendar-grid {
+                font-size: 0.8rem;
+            }
+            
+            .calendar-day {
+                min-height: 80px;
+                padding: 0.25rem;
+            }
+            
+            .schedule-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body class="floating-nav-active">
+
+    <!-- Modern Topbar -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="page-breadcrumb">
+                <a href="index.html" class="breadcrumb-item">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Schedule</span>
+            </div>
+        </div>
+        
+        <div class="topbar-nav">
+            <a href="about-me.html" class="topbar-nav-item">
+                <i class="fas fa-user"></i>
+                <span>About Me</span>
+            </a>
+            <a href="future-plans.html" class="topbar-nav-item">
+                <i class="fas fa-rocket"></i>
+                <span>Future Plans</span>
+            </a>
+            <a href="support-project.html" class="topbar-nav-item">
+                <i class="fas fa-heart"></i>
+                <span>Support Project</span>
+            </a>
+            <a href="feedbacks.html" class="topbar-nav-item">
+                <i class="fas fa-comments"></i>
+                <span>Feedbacks</span>
+            </a>
+        </div>
+        
+        <div class="topbar-actions">
+            <div class="user-menu">
+                <div class="user-trigger">
+                    <div class="user-avatar" id="topbar-profile-pic">A</div>
+                    <div class="user-info">
+                        <div class="user-name" id="topbar-user-name">Anonymous</div>
+                        <div class="user-status">online</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="schedule-container">
+        <!-- Header Section -->
+        <div class="schedule-header">
+            <h1 class="schedule-title">
+                <i class="fas fa-calendar-alt"></i>
+                Smart Schedule
+            </h1>
+            <p class="schedule-subtitle">AI-Powered Productivity Planning & Time Management</p>
+        </div>
+
+        <!-- Main Dashboard -->
+        <div class="productivity-dashboard">
+            <!-- Left Sidebar - Quick Stats & Actions -->
+            <div class="sidebar-panel">
+                <div class="stats-panel">
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-value" id="todayEvents">8</div>
+                        <div class="stat-label">Today's Events</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">⏰</div>
+                        <div class="stat-value" id="focusTime">6.5h</div>
+                        <div class="stat-label">Focus Time</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-value" id="productivity">87%</div>
+                        <div class="stat-label">Productivity</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">🔥</div>
+                        <div class="stat-value" id="streak">12</div>
+                        <div class="stat-label">Day Streak</div>
+                    </div>
+                </div>
+                
+                <div class="productivity-tips">
+                    <div class="tips-header">
+                        <i class="fas fa-lightbulb"></i>
+                        Productivity Tips
+                    </div>
+                    <div class="tip-item">
+                        <strong>Peak Focus:</strong> Your most productive hours are 9-11 AM. Schedule important tasks here.
+                    </div>
+                    <div class="tip-item">
+                        <strong>Break Reminder:</strong> Take a 15-minute break every 90 minutes for optimal performance.
+                    </div>
+                    <div class="tip-item">
+                        <strong>Energy Dip:</strong> You typically experience an energy dip at 2 PM. Plan lighter tasks.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Calendar -->
+            <div class="main-calendar">
+                <div class="calendar-header">
+                    <div class="month-navigation">
+                        <button class="nav-btn" id="prevMonth">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div class="current-month" id="currentMonth">January 2025</div>
+                        <button class="nav-btn" id="nextMonth">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="view-toggle">
+                        <button class="toggle-btn active" data-view="month">Month</button>
+                        <button class="toggle-btn" data-view="week">Week</button>
+                        <button class="toggle-btn" data-view="day">Day</button>
+                    </div>
+                </div>
+                
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Calendar days will be generated by JavaScript -->
+                </div>
+                
+                <div class="quick-actions">
+                    <button class="action-btn" id="addEvent">
+                        <i class="fas fa-plus"></i>
+                        Add Event
+                    </button>
+                    <button class="action-btn" id="scheduleAI">
+                        <i class="fas fa-robot"></i>
+                        AI Schedule
+                    </button>
+                    <button class="action-btn" id="optimizeDay">
+                        <i class="fas fa-magic"></i>
+                        Optimize Day
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Sidebar - Time Blocks & Agenda -->
+            <div class="sidebar-panel">
+                <h3 style="color: white; margin-bottom: 1.5rem; text-align: center;">
+                    <i class="fas fa-clock"></i> Today's Agenda
+                </h3>
+                
+                <div class="time-blocks" id="timeBlocks">
+                    <div class="time-block">
+                        <div class="time-slot">09:00</div>
+                        <div class="block-content">
+                            <div class="block-title">Morning Focus Session</div>
+                            <div class="block-description">Deep work on project presentation</div>
+                        </div>
+                    </div>
+                    
+                    <div class="time-block">
+                        <div class="time-slot">11:00</div>
+                        <div class="block-content">
+                            <div class="block-title">Team Meeting</div>
+                            <div class="block-description">Weekly standup and planning</div>
+                        </div>
+                    </div>
+                    
+                    <div class="time-block">
+                        <div class="time-slot">13:00</div>
+                        <div class="block-content">
+                            <div class="block-title">Lunch Break</div>
+                            <div class="block-description">Recharge and network</div>
+                        </div>
+                    </div>
+                    
+                    <div class="time-block">
+                        <div class="time-slot">14:30</div>
+                        <div class="block-content">
+                            <div class="block-title">Research Session</div>
+                            <div class="block-description">Market analysis and competitor research</div>
+                        </div>
+                    </div>
+                    
+                    <div class="time-block">
+                        <div class="time-slot">16:00</div>
+                        <div class="block-content">
+                            <div class="block-title">Client Call</div>
+                            <div class="block-description">Project update and feedback session</div>
+                        </div>
+                    </div>
+                    
+                    <div class="time-block">
+                        <div class="time-slot">17:30</div>
+                        <div class="block-content">
+                            <div class="block-title">Planning Tomorrow</div>
+                            <div class="block-description">Review today and plan next day</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Navigation Background -->
+    <div class="floating-nav-background" id="floating-nav-background"></div>
+
+    <!-- Floating Navigation Hub -->
+    <div class="floating-nav-hub" id="floating-nav-hub">
+        <button class="nav-hub-button" id="nav-hub-toggle">
+            <i class="fas fa-th"></i>
+        </button>
+        
+        <div class="nav-options">
+            <a href="dashboard.html" class="nav-option">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="plans.html" class="nav-option">
+                <i class="fas fa-map"></i>
+                <span>Plans</span>
+            </a>
+            <a href="chat.html" class="nav-option registered-only">
+                <i class="fas fa-message"></i>
+                <span>Chat</span>
+            </a>
+            <a href="tasks.html" class="nav-option registered-only">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="schedule.html" class="nav-option current-page registered-only">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Schedule</span>
+            </a>
+            <a href="achievements.html" class="nav-option registered-only">
+                <i class="fas fa-trophy"></i>
+                <span>Achievements</span>
+            </a>
+            <a href="super-tracker.html" class="nav-option registered-only">
+                <i class="fas fa-chart-line"></i>
+                <span>Tracker</span>
+            </a>
+            <a href="customization.html" class="nav-option registered-only">
+                <i class="fas fa-heart"></i>
+                <span>Customize</span>
+            </a>
+            <a href="shop.html" class="nav-option registered-only">
+                <i class="fas fa-store"></i>
+                <span>Shop</span>
+            </a>
+            <a href="about.html" class="nav-option">
+                <i class="fas fa-user-circle"></i>
+                <span>About</span>
+            </a>
+            <a href="settings.html" class="nav-option">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/floating-navigation.js"></script>
+    <script src="scripts/global-profile-manager.js"></script>
+    <script src="scripts/schedule.js"></script>
+    <script src="scripts/system.js"></script>
+    
+    <script>
+        // Enhanced Schedule JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCalendar();
+            initializeInteractions();
+            updateProductivityStats();
+        });
+
+        function initializeCalendar() {
+            const calendarGrid = document.getElementById('calendarGrid');
+            const currentDate = new Date();
+            const currentMonth = currentDate.getMonth();
+            const currentYear = currentDate.getFullYear();
+            
+            // Create day headers
+            const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            dayHeaders.forEach(day => {
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'calendar-day-header';
+                dayHeader.textContent = day;
+                calendarGrid.appendChild(dayHeader);
+            });
+            
+            // Get first day of month and number of days
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            
+            // Add empty cells for days before month starts
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.className = 'calendar-day';
+                calendarGrid.appendChild(emptyDay);
+            }
+            
+            // Add days of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                
+                if (day === currentDate.getDate()) {
+                    dayElement.classList.add('today');
+                }
+                
+                dayElement.innerHTML = `
+                    <div class="day-number">${day}</div>
+                    <div class="day-events">
+                        ${generateSampleEvents(day)}
+                    </div>
+                `;
+                
+                dayElement.addEventListener('click', () => selectDay(dayElement, day));
+                calendarGrid.appendChild(dayElement);
+            }
+        }
+        
+        function generateSampleEvents(day) {
+            const events = [
+                { title: 'Focus Session', color: '#3b82f6' },
+                { title: 'Meeting', color: '#a855f7' },
+                { title: 'Study Time', color: '#10b981' },
+                { title: 'Break', color: '#f59e0b' }
+            ];
+            
+            // Add some random events to certain days
+            if (day % 3 === 0) {
+                return `<div class="event-block">${events[day % events.length].title}</div>`;
+            } else if (day % 5 === 0) {
+                return `
+                    <div class="event-block">${events[0].title}</div>
+                    <div class="event-block">${events[1].title}</div>
+                `;
+            }
+            return '';
+        }
+        
+        function selectDay(dayElement, day) {
+            // Remove previous selection
+            document.querySelectorAll('.calendar-day.selected').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            // Add selection to clicked day
+            dayElement.classList.add('selected');
+            
+            // Update agenda for selected day
+            updateAgenda(day);
+        }
+        
+        function updateAgenda(day) {
+            // This would typically load events for the selected day
+            console.log(`Loading agenda for day ${day}`);
+        }
+        
+        function initializeInteractions() {
+            // Month navigation
+            document.getElementById('prevMonth').addEventListener('click', () => {
+                console.log('Previous month');
+                // Implement month navigation
+            });
+            
+            document.getElementById('nextMonth').addEventListener('click', () => {
+                console.log('Next month');
+                // Implement month navigation
+            });
+            
+            // View toggle
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    const view = e.target.dataset.view;
+                    console.log(`Switching to ${view} view`);
+                    // Implement view switching
+                });
+            });
+            
+            // Action buttons
+            document.getElementById('addEvent').addEventListener('click', () => {
+                console.log('Add event');
+                // Implement add event functionality
+            });
+            
+            document.getElementById('scheduleAI').addEventListener('click', () => {
+                console.log('AI Schedule');
+                // Implement AI scheduling
+            });
+            
+            document.getElementById('optimizeDay').addEventListener('click', () => {
+                console.log('Optimize day');
+                // Implement day optimization
+            });
+        }
+        
+        function updateProductivityStats() {
+            // Animate counter increases
+            const stats = [
+                { id: 'todayEvents', target: 8 },
+                { id: 'productivity', target: 87, suffix: '%' },
+                { id: 'streak', target: 12 }
+            ];
+            
+            stats.forEach(stat => {
+                const element = document.getElementById(stat.id);
+                if (element) {
+                    animateCounter(element, 0, stat.target, stat.suffix || '');
+                }
+            });
+        }
+        
+        function animateCounter(element, start, end, suffix) {
+            const duration = 1000;
+            const increment = (end - start) / (duration / 16);
+            let current = start;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= end) {
+                    current = end;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current) + suffix;
+            }, 16);
+        }
+    </script>
+
+    <div class="main-content">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center; padding: 2rem;">
+            <div style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1)); border-radius: 20px; padding: 3rem; max-width: 600px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                <div style="font-size: 4rem; margin-bottom: 1.5rem; opacity: 0.7;">📅</div>
+                <h1 style="font-size: 2.5rem; font-weight: 700; color: var(--title-text-color, #fff); margin-bottom: 1rem;">Schedule Center</h1>
+                <h2 style="font-size: 1.8rem; font-weight: 600; color: var(--accent-primary, #f59e0b); margin-bottom: 1.5rem;">Temporarily Unavailable</h2>
+                <p style="font-size: 1.2rem; color: var(--text-color, rgba(255, 255, 255, 0.8)); line-height: 1.6; margin-bottom: 2rem;">
+                    The schedule management system is currently closed due to no database connection. This feature requires a backend database to store and manage your events, appointments, and time blocks.
+                </p>
+                <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+                    <h3 style="color: var(--warning-color, #f59e0b); margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                        <i class="fas fa-database"></i> Database Required
+                    </h3>
+                    <p style="color: var(--text-color, rgba(255, 255, 255, 0.7)); margin: 0;">
+                        Schedule persistence, event management, and calendar synchronization need persistent storage to function properly.
+                    </p>
+                </div>
+                <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent-primary, #3b82f6); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">
+                    <i class="fas fa-home"></i> Return to Home
+                </a>
+            </div>
+        </div>
+        PLACEHOLDER_FOR_OLD_CONTENT
+            <div class="schedule-header-info">
+                <div class="schedule-status">
+                    <div class="schedule-avatar">
+                        <img src="pfp/Auro_Logo.png" alt="Auro" class="avatar-image">
+                        <div class="status-indicator online"></div>
+                    </div>
+                    <div class="schedule-title-info">
+                        <h2>Smart Schedule</h2>
+                        <div class="schedule-info">
+                            <div class="productivity-level">Productive Day</div>
+                            <div class="productivity-meter">
+                                <div class="meter-fill" style="width: 75%"></div>
+                            </div>
+                            <div class="productivity-percentage">75%</div>
+                        </div>
+                        <p class="schedule-mood">
+                            <i class="fas fa-calendar-check mood-icon"></i>
+                            Ready to plan your perfect day
+                        </p>
+                    </div>
+                </div>
+                <div class="schedule-actions">
+                    <button class="action-btn" id="addEventBtn" title="Add Event">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button class="action-btn" id="optimizeSchedule" title="AI Optimize">
+                        <i class="fas fa-magic"></i>
+                    </button>
+                    <button class="action-btn" id="focusMode" title="Focus Mode">
+                        <i class="fas fa-eye-slash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-actions">
+            <div class="quick-action-card" data-action="add-work">
+                <i class="fas fa-briefcase"></i>
+                <span>Add Work</span>
+            </div>
+            <div class="quick-action-card" data-action="add-study">
+                <i class="fas fa-book"></i>
+                <span>Add Study</span>
+            </div>
+            <div class="quick-action-card" data-action="add-break">
+                <i class="fas fa-coffee"></i>
+                <span>Add Break</span>
+            </div>
+            <div class="quick-action-card" data-action="add-exercise">
+                <i class="fas fa-dumbbell"></i>
+                <span>Add Exercise</span>
+            </div>
+            <div class="quick-action-card" data-action="optimize">
+                <i class="fas fa-magic"></i>
+                <span>AI Optimize</span>
+            </div>
+        </div>
+
+        <div class="schedule-navigation">
+            <div class="nav-left">
+                <button class="nav-btn" id="prevDay">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="current-date">
+                    <h2 id="currentDateTitle">Today</h2>
+                    <span id="currentDateSubtitle">Monday, July 15, 2025</span>
+                </div>
+                <button class="nav-btn" id="nextDay">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="nav-right">
+                <div class="view-toggles">
+                    <button class="view-btn active" data-view="day">Day</button>
+                    <button class="view-btn" data-view="week">Week</button>
+                    <button class="view-btn" data-view="agenda">Agenda</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="schedule-container">
+            <div class="time-blocks-panel">
+                <div class="panel-header">
+                    <h3 class="panel-title">
+                        <i class="fas fa-clock"></i>
+                        Time Blocks
+                    </h3>
+                    <div class="panel-actions">
+                        <button class="action-btn" id="refreshSuggestions">
+                            <i class="fas fa-sync"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="time-blocks-container" id="timeBlocksContainer">
+                </div>
+            </div>
+
+            <div class="overview-panel">
+                <div class="panel-header">
+                    <h3 class="panel-title">
+                        <i class="fas fa-chart-pie"></i>
+                        Daily Overview
+                    </h3>
+                </div>
+                <div class="overview-content">
+                    <div class="productivity-stats">
+                        <div class="stat-card">
+                            <i class="fas fa-clock"></i>
+                            <span class="stat-value" id="todayHours">0h</span>
+                            <span class="stat-label">Today</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-fire"></i>
+                            <span class="stat-value" id="productivityScore">0%</span>
+                            <span class="stat-label">Efficiency</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-check-circle"></i>
+                            <span class="stat-value" id="completedEvents">0</span>
+                            <span class="stat-label">Completed</span>
+                        </div>
+                    </div>
+                    <div class="productivity-ring">
+                        <canvas id="productivityChart" width="150" height="150"></canvas>
+                        <div class="ring-center">
+                            <span class="ring-value" id="ringValue">0%</span>
+                            <span class="ring-label">Productive</span>
+                        </div>
+                    </div>
+                    <div class="category-breakdown">
+                        <div class="category-item">
+                            <div class="category-color work"></div>
+                            <span class="category-name">Work</span>
+                            <span class="category-time" id="workTime">0h</span>
+                        </div>
+                        <div class="category-item">
+                            <div class="category-color study"></div>
+                            <span class="category-name">Study</span>
+                            <span class="category-time" id="studyTime">0h</span>
+                        </div>
+                        <div class="category-item">
+                            <div class="category-color personal"></div>
+                            <span class="category-name">Personal</span>
+                            <span class="category-time" id="personalTime">0h</span>
+                        </div>
+                        <div class="category-item">
+                            <div class="category-color break"></div>
+                            <span class="category-name">Break</span>
+                            <span class="category-time" id="breakTime">0h</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="suggestions-panel">
+                <div class="panel-header">
+                    <h3 class="panel-title">
+                        <i class="fas fa-lightbulb"></i>
+                        AI Suggestions
+                    </h3>
+                </div>
+                <div class="suggestions-content" id="suggestionsContent">
+                    <div class="suggestion-item">
+                        <i class="fas fa-brain suggestion-icon"></i>
+                        <div class="suggestion-text">
+                            <h4>Optimize Morning Routine</h4>
+                            <p>Consider moving your most challenging tasks to 9-11 AM when focus peaks.</p>
+                        </div>
+                        <button class="suggestion-action">Apply</button>
+                    </div>
+                    <div class="suggestion-item">
+                        <i class="fas fa-coffee suggestion-icon"></i>
+                        <div class="suggestion-text">
+                            <h4>Schedule Breaks</h4>
+                            <p>Add 15-minute breaks between study sessions to maintain productivity.</p>
+                        </div>
+                        <button class="suggestion-action">Apply</button>
+                    </div>
+                    <div class="suggestion-item">
+                        <i class="fas fa-moon suggestion-icon"></i>
+                        <div class="suggestion-text">
+                            <h4>Evening Wind-down</h4>
+                            <p>Block 30 minutes before bedtime for relaxation and preparation.</p>
+                        </div>
+                        <button class="suggestion-action">Apply</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-add-panel" id="quickAddPanel">
+            <div class="panel-header">
+                <h3 class="panel-title">
+                    <i class="fas fa-plus"></i>
+                    Quick Add Event
+                </h3>
+                <button class="close-btn" id="closeQuickAdd">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form class="quick-add-form" id="quickAddForm">
+                <div class="form-row">
+                    <input type="text" id="eventTitle" placeholder="What are you planning?" required>
+                    <select id="eventCategory">
+                        <option value="work">Work</option>
+                        <option value="study">Study</option>
+                        <option value="personal">Personal</option>
+                        <option value="break">Break</option>
+                        <option value="exercise">Exercise</option>
+                        <option value="social">Social</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <input type="time" id="eventStartTime" required>
+                    <input type="number" id="eventDuration" placeholder="Duration (min)" min="5" max="480" value="60">
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-plus"></i>
+                        Add
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="eventModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 id="modalTitle">Event Details</h2>
+                <button class="modal-close-btn" id="closeEventModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <form id="eventForm">
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label for="eventName">Event Name</label>
+                            <input type="text" id="eventName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventDescription">Description</label>
+                            <textarea id="eventDescription" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-section">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="startTime">Start Time</label>
+                                <input type="time" id="startTime" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="endTime">End Time</label>
+                                <input type="time" id="endTime" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <select id="category">
+                                    <option value="work">Work</option>
+                                    <option value="study">Study</option>
+                                    <option value="personal">Personal</option>
+                                    <option value="break">Break</option>
+                                    <option value="exercise">Exercise</option>
+                                    <option value="social">Social</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="priority">Priority</label>
+                                <select id="priority">
+                                    <option value="low">Low</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="high">High</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="deleteEvent">Delete</button>
+                        <button type="submit" class="btn-primary">Save Event</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <script src="scripts/universal-page-system.js"></script>
+    <script src="scripts/global-stats-manager.js"></script>
+    <script src="scripts/global-profile-manager.js"></script>
+    <script src="scripts/customization-loader.js"></script>
+    <script src="scripts/schedule.js"></script>
+    <script src="scripts/system.js"></script>
+</body>
+</html>

@@ -121,7 +121,7 @@
 
     // Default settings (same as in customization.js)
     const DEFAULT_SETTINGS = {
-        theme: 'auto',
+        theme: 'dark',
         colors: {
             accentPrimary: '#67C5FF',
             accentSecondary: '#AA79F9',
@@ -358,15 +358,12 @@
 
     // Apply theme settings
     function applyTheme() {
-        const theme = currentSettings.theme;
+        const theme = 'dark'; // Always use dark theme
         const body = document.body;
         
-        if (theme === 'auto') {
-            const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            body.setAttribute('data-theme', isDark ? 'dark' : 'light');
-        } else {
-            body.setAttribute('data-theme', theme);
-        }
+        // Always apply dark theme
+        body.setAttribute('data-theme', 'dark');
+        document.documentElement.setAttribute('data-theme', 'dark');
     }    // Apply color settings
     function applyColors() {
         const root = document.documentElement;
@@ -555,13 +552,8 @@
 
     // Get current theme (needed for topbar styling)
     function getCurrentTheme() {
-        const theme = currentSettings.theme;
-        
-        if (theme === 'auto') {
-            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
-        
-        return theme;
+        // Always return dark theme
+        return 'dark';
     }
 
     // Apply background settings
@@ -881,8 +873,7 @@
         
         setupStorageListener();
         
-        // Re-apply settings when theme changes (for auto theme)
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+        // Note: Removed system theme change listener since we always use dark theme
     }
 
     // Auto-initialize

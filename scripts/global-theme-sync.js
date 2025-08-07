@@ -114,15 +114,9 @@ class GlobalThemeSync {
     }
 
     applyThemeMode() {
-        const theme = this.currentTheme.theme;
+        // Force dark theme only for tracker and tasks pages
         const body = document.body;
-        
-        if (theme === 'auto') {
-            const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            body.setAttribute('data-theme', isDark ? 'dark' : 'light');
-        } else {
-            body.setAttribute('data-theme', theme);
-        }
+        body.setAttribute('data-theme', 'dark');
     }
 
     applyColors() {

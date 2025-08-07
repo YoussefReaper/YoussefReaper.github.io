@@ -1,23 +1,23 @@
 :root {
-    /* Primary Colors */
-    --title-text-color: #AA79F9;
-    --background-color: #EEF8FF;
-    --text-color: #125E8E;
-    --text-shadow-color: #18BEFF;
+    /* Primary Colors - Dark Theme Only */
+    --title-text-color: rgb(146, 255, 253);
+    --background-color: #121212;
+    --text-color: rgb(218, 223, 249);
+    --text-shadow-color: rgb(33, 39, 195);
     
-    /* Interactive Elements */
-    --button-bg-color: rgba(240, 253, 255, 0.8);
-    --button-hover-bg-color: #28E2FF;
-    --button-active-bg-color: #72BFF2;
-    --button-text-color: #A1B2C1;
+    /* Interactive Elements - Dark Theme Only */
+    --button-bg-color: rgba(99, 106, 105, 0.558);
+    --button-hover-bg-color: rgb(26, 25, 79);
+    --button-active-bg-color: rgb(6, 14, 254);
+    --button-text-color: rgb(161, 178, 193);
     
-    /* Layout & Borders */
-    --text-line: #969696;
+    /* Layout & Borders - Dark Theme Only */
+    --text-line: rgb(30, 30, 30);
     --text-line-shadow: rgba(178, 178, 178, 0.718);
     --sidebar-collapsed-width: 70px;
     --sidebar-expanded-width: 250px;
-    --icons-color: #67C5FF;
-    --sidebar-border-color: #18BEFF;
+    --icons-color: rgb(211, 211, 211);
+    --sidebar-border-color: rgba(6, 14, 254, 0.501);
     
     /* Enhanced Colors */
     --accent-primary: #67C5FF;
@@ -38,36 +38,36 @@
     --transition-fast: 0.2s ease;
     --transition-normal: 0.3s ease;    --transition-slow: 0.5s ease;
     
-    /* Background & Content */
-    --background-text-color: rgba(193, 240, 255, 0.9);
-    --user-text-color: rgba(48, 48, 48, 0.974);
-    --ai-text-color: rgba(48, 48, 48, 0.974);
-    --completion-color: #10B981;
-    --completed-bg-color: rgba(16, 185, 129, 0.1);
-    --late-color: #F59E0B;
-    --in-progress-color: #3B82F6;
-    --not-done-color: #EF4444;
-    --profile-background-color: rgba(255, 255, 255, 0.95);
-}
-
-[data-theme="dark"] {
-    --title-text-color: rgb(146, 255, 253);
-    --background-color: rgb(42, 40, 40);
-    --text-color: rgb(218, 223, 249);
-    --text-shadow-color: rgb(33, 39, 195);
-    --button-bg-color: rgba(99, 106, 105, 0.558);
-    --button-hover-bg-color: rgb(26, 25, 79);
-    --button-active-bg-color: rgb(6, 14, 254);
-    --button-text-color: rgb(161, 178, 193);
-    --text-line: rgb(30, 30, 30);
-    --icons-color: rgb(211, 211, 211);
-    --sidebar-border-color: rgba(6, 14, 254, 0.501); /* Dark theme border color */
-    --background-text-color:  rgba(69, 69, 69, 0.858);
+    /* Background & Content - Dark Theme Only */
+    --background-text-color: rgba(69, 69, 69, 0.858);
     --user-text-color: rgb(221, 221, 221);
     --ai-text-color: rgb(215, 215, 215);
     --ai-avatar-bg-color: rgba(69, 69, 69, 0.858);
+    --completion-color: #10B981;
     --completed-bg-color: rgba(41, 229, 41, 0.15);
+    --late-color: #F59E0B;
+    --in-progress-color: #3B82F6;
+    --not-done-color: #EF4444;
     --profile-background-color: rgb(24, 24, 24);
+}
+
+/* Dark theme is now the only theme */
+
+/* Additional dark mode enforcement */
+.dark-mode-enforced {
+    background-color: #121212 !important;
+    color: rgb(218, 223, 249) !important;
+}
+
+.dark-mode-enforced * {
+    color: inherit;
+}
+
+/* Force dark backgrounds for all major containers */
+.main-content,
+.container,
+.page-container {
+    background-color: #121212 !important;
 }
 
 * {
@@ -77,7 +77,7 @@
 }
 
 body {
-    background-color: var(--background-color);
+    background-color: #121212; /* Force dark background */
     font-family: monospace;
     overflow-x: hidden;
     transition: background-color 0.3s ease, color 0.3s ease;

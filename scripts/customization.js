@@ -38,7 +38,7 @@ function getConnectionSpeed() {
 
 // Default settings
 const DEFAULT_SETTINGS = {
-    theme: 'auto',
+    theme: 'dark',
     colors: {
         accentPrimary: '#67C5FF',
         accentSecondary: '#AA79F9',
@@ -107,7 +107,9 @@ if (!hasUserCustomizations) {
     currentSettings = { ...DEFAULT_SETTINGS };
     console.log('Initializing with default settings (first time)');
 } else {
-    console.log('User has customizations - initializing empty, will load from storage');
+    // Initialize with defaults to prevent undefined errors, will be overridden by loadSettings
+    currentSettings = { ...DEFAULT_SETTINGS };
+    console.log('User has customizations - initializing with defaults, will load from storage');
 }
 
 // Track unsaved changes
@@ -120,18 +122,20 @@ let originalSettings = null;
         const saved = localStorage.getItem('remiCustomization');
         if (saved) {
             const settings = JSON.parse(saved);
-            const theme = settings.theme || 'auto';
+            const theme = settings.theme || 'dark';
             
-            if (theme === 'auto') {
-                const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-            } else {
-                document.documentElement.setAttribute('data-theme', theme);
-            }
-            console.log('Early theme applied:', theme);
+            // Always apply dark theme regardless of setting
+            document.documentElement.setAttribute('data-theme', 'dark');
+            console.log('Early theme applied: dark (forced)');
+        } else {
+            // No saved settings, apply dark theme
+            document.documentElement.setAttribute('data-theme', 'dark');
+            console.log('Early theme applied: dark (default)');
         }
     } catch (error) {
         console.warn('Early theme application failed:', error);
+        // Fallback to dark theme
+        document.documentElement.setAttribute('data-theme', 'dark');
     }
 })();
 
@@ -155,13 +159,21 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Initialize coin system integration after a brief delay to ensure coin-system.js is loaded
     setTimeout(initializeCoinSystemIntegration, 100);
     
-    // Listen for system theme changes when auto mode is selected
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        if (currentSettings.theme === 'auto') {
-            console.log('System theme changed, re-applying auto theme'); // Debug log
-            applyTheme(); // Re-apply theme and colors
+    // Note: Removed system theme change listener since we always use dark theme
+    
+    // Also setup save actions with additional delay to ensure DOM is ready
+    setTimeout(() => {
+        if (document.getElementById('saveCustomizations')) {
+            console.log('Setting up save actions again to ensure proper binding...');
+            setupSaveActions();
         }
-    });
+        
+        // Setup chat element observer for dynamic content
+        setupChatElementObserver();
+        
+        // Apply initial dark theme to any existing chat elements
+        forceDarkThemeForChatElements();
+    }, 1000);
 });
 
 // ===== DEVICE MODE MANAGEMENT =====
@@ -311,12 +323,16 @@ function setupSaveActions() {
             newSaveBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 console.log('Save button clicked!');
+                console.log('Current settings:', currentSettings);
+                
                 try {
-                    saveSettings();
-                    markAsSaved();
-                    showNotification('Settings saved successfully!', 'success');
+                    const success = saveSettings();
+                    if (success) {
+                        markAsSaved();
+                        console.log('Save successful, marked as saved');
+                    }
                 } catch (error) {
-                    console.error('Error saving settings:', error);
+                    console.error('Error in save button handler:', error);
                     showNotification('Error saving settings: ' + error.message, 'error');
                 }
             });
@@ -329,10 +345,15 @@ function setupSaveActions() {
     
     // Try immediately
     if (!setupSaveButton()) {
-        // If not found, try again after a short delay
+        // If not found, try again after short delays
         setTimeout(() => {
             if (!setupSaveButton()) {
-                console.error('Save button not found after delay');
+                console.error('Save button not found after first delay, trying again...');
+                setTimeout(() => {
+                    if (!setupSaveButton()) {
+                        console.error('Save button not found after second delay');
+                    }
+                }, 500);
             }
         }, 100);
     }
@@ -427,12 +448,24 @@ async function loadSettings() {
             currentSettings = parsedSettings;
             console.log('Loading user customizations without default merge');
             
-            // Only ensure critical properties exist, don't merge all defaults
+            // Ensure critical properties exist with proper defaults
             if (!currentSettings.colors) {
-                currentSettings.colors = {};
+                currentSettings.colors = { ...DEFAULT_SETTINGS.colors };
+            } else {
+                // Merge missing color properties with defaults
+                currentSettings.colors = { ...DEFAULT_SETTINGS.colors, ...currentSettings.colors };
             }
             if (!currentSettings.backgrounds) {
-                currentSettings.backgrounds = {};
+                currentSettings.backgrounds = { ...DEFAULT_SETTINGS.backgrounds };
+            }
+            if (!currentSettings.topbar) {
+                currentSettings.topbar = { ...DEFAULT_SETTINGS.topbar };
+            }
+            if (!currentSettings.personality) {
+                currentSettings.personality = { ...DEFAULT_SETTINGS.personality };
+            }
+            if (!currentSettings.preferences) {
+                currentSettings.preferences = { ...DEFAULT_SETTINGS.preferences };
             }
         } else {
             // First time loading - merge with defaults
@@ -781,12 +814,48 @@ function checkForMissingBackgrounds() {
 }
 
 function saveSettings() {
-    // Make it async-compatible
-    saveSettingsEnhanced().catch(error => {
-        console.error('Error in saveSettings:', error);
+    try {
+        console.log('Saving settings...');
+        
+        // Create a clean copy of settings
+        const settingsToSave = JSON.parse(JSON.stringify(currentSettings));
+        
+        // Save to localStorage
+        const settingsString = JSON.stringify(settingsToSave);
+        localStorage.setItem('remiCustomization', settingsString);
+        
+        // Mark that user has made customizations
+        localStorage.setItem('hasUserCustomizations', 'true');
+        localStorage.setItem('preventDefaultReversion', 'true');
+        localStorage.setItem('lastCustomizationSave', Date.now());
+        
+        console.log('Settings saved successfully');
+        showNotification('Settings saved successfully!', 'success');
+        
+        // Dispatch custom event to notify other pages
+        window.dispatchEvent(new CustomEvent('remiCustomizationUpdated', {
+            detail: settingsToSave
+        }));
+        
+        return true;
+    } catch (error) {
+        console.error('Error saving settings:', error);
         showNotification('Error saving settings: ' + error.message, 'error');
-    });
+        return false;
+    }
 }
+
+// Backup save function for testing and fallback
+window.testSaveSettings = function() {
+    console.log('Testing save settings...');
+    console.log('Current settings:', currentSettings);
+    const result = saveSettings();
+    console.log('Save result:', result);
+    return result;
+};
+
+// Expose save function globally for debugging
+window.saveCustomizationSettings = saveSettings;
 
 // ===== ADVANCED STORAGE MANAGEMENT =====
 // IndexedDB storage for large files (fallback when localStorage is full)
@@ -1535,6 +1604,11 @@ function applySettings() {
     applyPreferences();
     updatePreview();
     
+    // Force dark theme for chat elements after all other settings
+    setTimeout(() => {
+        forceDarkThemeForChatElements();
+    }, 100);
+    
     // Ensure topbar colors are applied even if no specific preset is active
     initializeTopbarColors();
 }
@@ -1550,23 +1624,16 @@ function initializeTopbarColors() {
 // ===== THEME MANAGEMENT =====
 
 function applyTheme() {
-    const theme = currentSettings.theme;
+    const theme = 'dark'; // Always use dark theme
     const body = document.body;
     const html = document.documentElement;
     
-    console.log('Applying theme:', theme); // Debug log
+    console.log('Applying theme: dark (forced)'); // Debug log
     
-    if (theme === 'auto') {
-        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const effectiveTheme = isDark ? 'dark' : 'light';
-        body.setAttribute('data-theme', effectiveTheme);
-        html.setAttribute('data-theme', effectiveTheme);
-        console.log('Auto theme applied as:', effectiveTheme); // Debug log
-    } else {
-        body.setAttribute('data-theme', theme);
-        html.setAttribute('data-theme', theme);
-        console.log('Fixed theme applied:', theme); // Debug log
-    }
+    // Always apply dark theme
+    body.setAttribute('data-theme', 'dark');
+    html.setAttribute('data-theme', 'dark');
+    console.log('Dark theme applied (forced)'); // Debug log
     
     // Force DOM update
     body.offsetHeight;
@@ -1580,8 +1647,8 @@ function applyTheme() {
     // Dispatch theme change event for other systems
     document.dispatchEvent(new CustomEvent('themeChanged', {
         detail: { 
-            theme: theme,
-            effectiveTheme: body.getAttribute('data-theme')
+            theme: 'dark',
+            effectiveTheme: 'dark'
         }
     }));
 }
@@ -1590,16 +1657,22 @@ function applyTheme() {
 
 function applyColors() {
     const root = document.documentElement;
+    
+    // Ensure colors exist, use defaults if not
+    if (!currentSettings.colors) {
+        currentSettings.colors = { ...DEFAULT_SETTINGS.colors };
+    }
+    
     const colors = currentSettings.colors;
     const currentTheme = getCurrentTheme(); // Get effective theme (light/dark)
     
     // Apply custom colors to CSS variables
-    root.style.setProperty('--accent-primary', colors.accentPrimary);
-    root.style.setProperty('--accent-secondary', colors.accentSecondary);
-    root.style.setProperty('--sidebar-border-color', colors.sidebarBorderColor);
-    root.style.setProperty('--success-color', colors.successColor);
-    root.style.setProperty('--warning-color', colors.warningColor);
-    root.style.setProperty('--error-color', colors.errorColor);
+    root.style.setProperty('--accent-primary', colors.accentPrimary || DEFAULT_SETTINGS.colors.accentPrimary);
+    root.style.setProperty('--accent-secondary', colors.accentSecondary || DEFAULT_SETTINGS.colors.accentSecondary);
+    root.style.setProperty('--sidebar-border-color', colors.sidebarBorderColor || DEFAULT_SETTINGS.colors.sidebarBorderColor);
+    root.style.setProperty('--success-color', colors.successColor || DEFAULT_SETTINGS.colors.successColor);
+    root.style.setProperty('--warning-color', colors.warningColor || DEFAULT_SETTINGS.colors.warningColor);
+    root.style.setProperty('--error-color', colors.errorColor || DEFAULT_SETTINGS.colors.errorColor);
     
     // Apply theme-specific colors
     if (currentTheme === 'dark') {
@@ -1611,6 +1684,9 @@ function applyColors() {
         root.style.setProperty('--text-color', colors.textColor);
         document.body.style.backgroundColor = colors.backgroundColor;
     }
+    
+    // Force dark theme styling for chat containers regardless of theme
+    forceDarkThemeForChatElements();
     
     // Update gradients
     root.style.setProperty('--gradient-start', colors.accentPrimary);
@@ -1649,14 +1725,169 @@ function updateThemeIndicators(currentTheme) {
     });
 }
 
-function getCurrentTheme() {
-    const theme = currentSettings.theme;
+function forceDarkThemeForChatElements() {
+    // Force dark theme styling for all chat-related elements
+    const chatSelectors = [
+        '.chat-container',
+        '.chat-messages',
+        '.messages-container',
+        '.message',
+        '.chat-input',
+        '.chat-input-container',
+        '.chat-sidebar',
+        '.chat-header',
+        '.message-bubble',
+        '.chat-area',
+        '.conversation-area',
+        '.chat-content'
+    ];
     
-    if (theme === 'auto') {
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    const colors = currentSettings.colors;
+    const darkBgColor = colors.backgroundColorDark || '#1a1a1a';
+    const darkTextColor = colors.textColorDark || '#E5F4FF';
+    const darkBorderColor = 'rgba(255, 255, 255, 0.1)';
+    
+    chatSelectors.forEach(selector => {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach(element => {
+            // Force dark theme data attribute
+            element.setAttribute('data-theme', 'dark');
+            
+            // Apply dark theme styles directly
+            element.style.setProperty('--background-color', darkBgColor, 'important');
+            element.style.setProperty('--text-color', darkTextColor, 'important');
+            element.style.setProperty('--border-color', darkBorderColor, 'important');
+            
+            // Apply specific dark theme styles
+            if (element.style.backgroundColor && !element.style.backgroundImage) {
+                element.style.backgroundColor = darkBgColor;
+            }
+            if (element.style.color) {
+                element.style.color = darkTextColor;
+            }
+            if (element.style.borderColor) {
+                element.style.borderColor = darkBorderColor;
+            }
+            
+            // Add dark theme class for CSS targeting
+            element.classList.add('force-dark-theme');
+        });
+    });
+    
+    // Apply dark theme styles to the document for chat elements
+    const style = document.getElementById('force-dark-chat-style') || document.createElement('style');
+    style.id = 'force-dark-chat-style';
+    style.textContent = `
+        /* Force dark theme for chat elements */
+        .chat-container,
+        .chat-messages,
+        .messages-container,
+        .message,
+        .chat-input,
+        .chat-input-container,
+        .chat-sidebar,
+        .chat-header,
+        .message-bubble,
+        .chat-area,
+        .conversation-area,
+        .chat-content,
+        .force-dark-theme {
+            background-color: ${darkBgColor} !important;
+            color: ${darkTextColor} !important;
+            border-color: ${darkBorderColor} !important;
+        }
+        
+        .chat-container .message-text,
+        .chat-container .message-content,
+        .chat-container p,
+        .chat-container span,
+        .chat-container div {
+            color: ${darkTextColor} !important;
+        }
+        
+        .chat-container input,
+        .chat-container textarea,
+        .chat-container button {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            color: ${darkTextColor} !important;
+            border-color: ${darkBorderColor} !important;
+        }
+        
+        .chat-container button:hover {
+            background-color: rgba(255, 255, 255, 0.2) !important;
+        }
+        
+        /* Ensure scrollbars are dark themed */
+        .chat-container *::-webkit-scrollbar {
+            background-color: ${darkBgColor} !important;
+        }
+        
+        .chat-container *::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.3) !important;
+        }
+        
+        .chat-container *::-webkit-scrollbar-track {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+        }
+    `;
+    
+    if (!document.getElementById('force-dark-chat-style')) {
+        document.head.appendChild(style);
     }
     
-    return theme;
+    console.log('Forced dark theme styling applied to chat elements');
+}
+
+// Set up observer to watch for new chat elements and apply dark theme
+function setupChatElementObserver() {
+    // Only set up once
+    if (window.chatObserverSetup) return;
+    window.chatObserverSetup = true;
+    
+    const observer = new MutationObserver((mutations) => {
+        let shouldApplyDarkTheme = false;
+        
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+                if (node.nodeType === Node.ELEMENT_NODE) {
+                    // Check if the added node or its children are chat elements
+                    const chatSelectors = [
+                        '.chat-container', '.chat-messages', '.messages-container',
+                        '.message', '.chat-input', '.chat-area', '.conversation-area'
+                    ];
+                    
+                    const isChatElement = chatSelectors.some(selector => {
+                        return node.matches && (node.matches(selector) || node.querySelector(selector));
+                    });
+                    
+                    if (isChatElement) {
+                        shouldApplyDarkTheme = true;
+                    }
+                }
+            });
+        });
+        
+        if (shouldApplyDarkTheme) {
+            // Debounce the application to avoid excessive calls
+            clearTimeout(window.chatThemeDebounce);
+            window.chatThemeDebounce = setTimeout(() => {
+                forceDarkThemeForChatElements();
+            }, 50);
+        }
+    });
+    
+    // Start observing
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+    
+    console.log('Chat element observer setup complete');
+}
+
+function getCurrentTheme() {
+    // Always return dark theme
+    return 'dark';
 }
 
 function adjustColorForDarkTheme(lightColor) {
@@ -2503,6 +2734,53 @@ async function applyBackgroundToElement(selector, backgroundData) {
                 element.style.transform = 'translateZ(0)'; // Force GPU acceleration
                 element.style.willChange = 'auto'; // Don't force will-change on mobile
             }
+        }
+        
+        // Force dark theme styling for chat containers regardless of background
+        if (selector.includes('chat') || selector.includes('.chat-container')) {
+            element.setAttribute('data-theme', 'dark');
+            element.classList.add('force-dark-theme');
+            
+            // Apply dark theme colors with overlay for readability
+            const colors = currentSettings.colors;
+            const darkTextColor = colors.textColorDark || '#E5F4FF';
+            const overlayOpacity = currentSettings.backgrounds.overlayOpacity || 0.85;
+            
+            // Add overlay for text readability if background image exists
+            if (backgroundUrl && backgroundData.type === 'image') {
+                element.style.setProperty('--chat-overlay', `rgba(0, 0, 0, ${overlayOpacity})`, 'important');
+                element.style.color = darkTextColor;
+                
+                // Create or update overlay for better text readability
+                let overlay = element.querySelector('.chat-dark-overlay');
+                if (!overlay) {
+                    overlay = document.createElement('div');
+                    overlay.className = 'chat-dark-overlay';
+                    overlay.style.cssText = `
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background: rgba(0, 0, 0, ${overlayOpacity});
+                        pointer-events: none;
+                        z-index: 1;
+                    `;
+                    element.style.position = 'relative';
+                    element.appendChild(overlay);
+                }
+                
+                // Ensure content is above overlay
+                const children = element.children;
+                for (let i = 0; i < children.length; i++) {
+                    if (children[i] !== overlay) {
+                        children[i].style.position = 'relative';
+                        children[i].style.zIndex = '2';
+                    }
+                }
+            }
+            
+            console.log('Applied dark theme styling to chat container:', selector);
         }
     }
 }

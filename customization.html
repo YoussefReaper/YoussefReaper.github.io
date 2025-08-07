@@ -1086,7 +1086,7 @@
         // Simple and clean theme management
         class ThemeManager {
             constructor() {
-                this.currentTheme = localStorage.getItem('selectedTheme') || 'auto';
+                this.currentTheme = 'dark'; // Always use dark theme
                 this.currentColorPreset = localStorage.getItem('selectedColorPreset') || 'ocean';
                 this.init();
             }
@@ -1099,11 +1099,11 @@
             }
 
             setupEventListeners() {
-                // Theme card clicks
+                // Theme card clicks - disabled since we always use dark
                 document.querySelectorAll('.theme-card').forEach(card => {
                     card.addEventListener('click', () => {
-                        const theme = card.dataset.theme;
-                        this.setTheme(theme);
+                        // Always stay on dark theme
+                        this.setTheme('dark');
                     });
                 });
 
@@ -1118,14 +1118,7 @@
                     });
                 });
 
-                // System theme change detection
-                if (window.matchMedia) {
-                    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-                        if (this.currentTheme === 'auto') {
-                            this.applyTheme();
-                        }
-                    });
-                }
+                // Note: Removed system theme change detection since we always use dark
 
                 // Toggle switches
                 document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
@@ -1136,11 +1129,11 @@
             }
 
             setTheme(theme) {
-                this.currentTheme = theme;
-                localStorage.setItem('selectedTheme', theme);
+                this.currentTheme = 'dark'; // Always set to dark
+                localStorage.setItem('selectedTheme', 'dark');
                 this.updateThemeDisplay();
                 this.applyTheme();
-                this.showNotification(`Theme changed to ${this.getThemeName(theme)}`);
+                this.showNotification('Theme is always dark mode');
             }
 
             getThemeName(theme) {
@@ -1153,9 +1146,9 @@
             }
 
             updateThemeDisplay() {
-                // Update active state for theme cards
+                // Update active state for theme cards - always show dark as active
                 document.querySelectorAll('.theme-card').forEach(card => {
-                    card.classList.toggle('active', card.dataset.theme === this.currentTheme);
+                    card.classList.toggle('active', card.dataset.theme === 'dark');
                 });
             }
 
@@ -1163,27 +1156,23 @@
                 const body = document.body;
                 const html = document.documentElement;
                 
-                let effectiveTheme = this.currentTheme;
+                let effectiveTheme = 'dark'; // Always use dark theme
                 
-                if (this.currentTheme === 'auto') {
-                    effectiveTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                }
-
                 // Apply theme attributes
-                body.setAttribute('data-theme', effectiveTheme);
-                html.setAttribute('data-theme', effectiveTheme);
+                body.setAttribute('data-theme', 'dark');
+                html.setAttribute('data-theme', 'dark');
 
-                // Apply the current color preset with the new theme
+                // Apply the current color preset with dark theme
                 if (this.currentColorPreset) {
                     this.applyColorPreset(this.currentColorPreset, false);
                 }
 
                 // Dispatch theme change event
                 window.dispatchEvent(new CustomEvent('themeChanged', {
-                    detail: { theme: this.currentTheme, effectiveTheme }
+                    detail: { theme: 'dark', effectiveTheme: 'dark' }
                 }));
 
-                console.log(`Theme applied: ${this.currentTheme} (effective: ${effectiveTheme})`);
+                console.log('Theme applied: dark (forced)');
             }
 
             saveSettings() {
@@ -1400,14 +1389,8 @@
 
                 const preset = colorPresets[presetId];
                 if (preset) {
-                    // Get current effective theme
-                    let effectiveTheme = this.currentTheme;
-                    if (this.currentTheme === 'auto') {
-                        effectiveTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                    }
-                    
-                    // Apply the appropriate variant based on current theme
-                    const variant = preset[effectiveTheme];
+                    // Always use dark variant since we force dark theme
+                    const variant = preset.dark;
                     if (variant) {
                         const html = document.documentElement;
                         Object.entries(variant).forEach(([property, value]) => {
@@ -1419,12 +1402,12 @@
                         
                         // Show notification if requested
                         if (showNotification) {
-                            this.showNotification(`Applied ${this.getPresetName(presetId)} theme (${effectiveTheme} mode)`);
+                            this.showNotification(`Applied ${this.getPresetName(presetId)} theme (dark mode)`);
                         }
                         
                         // Dispatch color preset change event
                         window.dispatchEvent(new CustomEvent('colorPresetChanged', {
-                            detail: { presetId, variant, theme: effectiveTheme }
+                            detail: { presetId, variant, theme: 'dark' }
                         }));
                     }
                 }

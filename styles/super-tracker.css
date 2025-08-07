@@ -1,6 +1,21 @@
 /* Focus Timer - Fixed Two-Panel Layout with Slide System */
 
-/* CSS Variables for Tracker (Fallbacks if not defined in main.css) */
+/* DARK THEME ENFORCEMENT - Apply all dark theme styles globally */
+body[data-theme="dark"] {
+    /* Force dark theme colors globally */
+    color: rgb(218, 223, 249);
+    background-color: #121212;
+}
+
+/* Since we're forcing dark theme only, apply dark styles to all elements */
+.left-panel {
+    background: linear-gradient(135deg, 
+        rgba(30, 30, 30, 0.95) 0%, 
+        rgba(20, 20, 20, 0.98) 100%) !important;
+    box-shadow: var(--glass-shadow) !important;
+}
+
+/* CSS Variables for Tracker - Dark Theme Only */
 :root {
     --primary-color-alpha: rgba(52, 152, 219, 0.2);
     --success-color: #2ecc71;
@@ -11,17 +26,11 @@
     --warning-hover: #d68910;
     --error-color: #e74c3c;
     --error-hover: #c0392b;
-    --progress-background: rgba(255, 255, 255, 0.1);
+    --progress-background: rgba(255, 255, 255, 0.08);
     --disabled-background: rgba(108, 117, 125, 0.3);
     --disabled-text: rgba(108, 117, 125, 0.6);
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --hover-background: rgba(255, 255, 255, 0.05);
-}
-
-[data-theme="dark"] {
     --shadow-color: rgba(0, 0, 0, 0.3);
     --hover-background: rgba(255, 255, 255, 0.08);
-    --progress-background: rgba(255, 255, 255, 0.08);
 }
 
 /* Remove default content wrapper styles for this page */
@@ -775,10 +784,7 @@ input:checked + .slider:before {
 /* Right Panel - Timer Display with Scrollbar */
 .right-panel {
   flex: 1;
-  background: linear-gradient(135deg, 
-    var(--background-color) 0%, 
-    rgba(103, 197, 255, 0.05) 50%, 
-    rgba(170, 121, 249, 0.05) 100%);
+  background: #1d1d1d;
   display: flex;
   align-items: center;
   justify-content: center;

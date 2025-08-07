@@ -13,8 +13,10 @@
       // Redirect to Super Tracker by default
       window.location.href = 'super-tracker.html';
     </script>
+    <!-- Dark Mode Enforcer - Ensures dark theme only -->
+    <script src="scripts/dark-mode-enforcer.js"></script>
   </head>
-  <body class="floating-nav-active">      <nav class="sidebar-icons">
+  <body class="floating-nav-active" data-theme="dark">      <nav class="sidebar-icons">
         <a href="index.html" class="sidebar-item">
           <i class="fas fa-home"></i>
           <span class="icon-description">Home</span>
@@ -64,11 +66,7 @@
       <div class="topbar-title">
         <img src="pfp/Remi-Logo-removebg-preview (1).png" class="main-logo" alt="Remi Logo">
       </div>
-      <div class="topbar-actions">
-        <button class="toggle-dark-button" title="Toggle Dark Mode">
-          <i class="fas fa-moon toggle-icon"></i>
-        </button>
-      </div>
+      <!-- Theme toggle removed - dark theme only -->
     </div>
 
     <!-- Main Content -->
@@ -966,6 +964,12 @@
 
     <!-- Global Theme Synchronization -->
     <script src="scripts/universal-page-system.js"></script>
+    <!-- IndexedDB Storage -->
+    <script src="scripts/indexed-db-storage.js"></script>
+
+    <!-- Global Theme Loader -->
+    <script src="scripts/global-theme-loader.js"></script>
+
     <script src="scripts/global-theme-sync.js"></script>
 </body>
     </html>

@@ -1,179 +1,175 @@
-// Browser-compatible OpenAI API client
-// IMPORTANT: For production use, you should NOT expose your API key in client-side code
-// Consider moving this to a secure backend server that makes API calls on behalf of the client
 
-// Get API key from localStorage
 function getOpenAIKey() {
   return localStorage.getItem('openai_api_key') || null;
 }
-
-// Function to set the API key securely (should be called from settings page)
 function setOpenAIKey(apiKey) {
   localStorage.setItem('openai_api_key', apiKey);
   return { success: true };
 }
-
-// Check if API key is available and valid
 function hasValidAPIKey() {
-  const apiKey = getOpenAIKey();
-  return apiKey && apiKey.trim().length > 0 && apiKey.startsWith('sk-');
+  const k = getOpenAIKey();
+  return k && k.trim().length > 0 && k.startsWith('sk-');
 }
 
-// Get AI Profile Manager instance
 function getAIProfileManager() {
   return window.AIProfileManager || null;
 }
 
-// Build enhanced system prompt with profile and memory context
 function buildSystemPrompt() {
   const aiProfileManager = getAIProfileManager();
   const profiles = JSON.parse(localStorage.getItem('remiProfiles')) || {};
-  const remiProfile = profiles.remi || {
+  const defaultRemi = {
     name: 'Remi',
     personality: 'friendly',
-    description: 'Your AI Study Companion - I\'m here to help you learn, stay organized, and achieve your academic goals!'
+    description: "A warm, natural companion who chats like a close friend."
   };
+  const remiProfile = profiles.remi || defaultRemi;
 
-  if (!aiProfileManager) {
-    return `You are ${remiProfile.name}, a ${remiProfile.personality} AI study companion. ${remiProfile.description}`;
-  }
-
-  const context = aiProfileManager.buildAIContext();
-  const profile = context.profile || remiProfile;
-  
-  let systemPrompt = `${profile.traits?.personality_prompt || profile.description}
-
-Your name is ${profile.name} and your personality is ${profile.personality}.
-${profile.description}`;
-
-  if (profile.traits) {
-    systemPrompt += `
-
-Key traits:
-- Tone: ${profile.traits.tone}
-- Style: ${profile.traits.style}
-- Specialties: ${profile.traits.specialties.join(', ')}`;
-  }
-
-  // Add current date and time context
-  const currentDate = new Date();
+  const now = new Date();
   const currentDateInfo = {
-    date: currentDate.toISOString().split('T')[0], // YYYY-MM-DD format
-    time: currentDate.toTimeString().split(' ')[0].slice(0, 5), // HH:MM format
-    dayOfWeek: currentDate.toLocaleDateString('en-US', { weekday: 'long' }),
-    fullDate: currentDate.toLocaleDateString('en-US', { 
-      weekday: 'long', 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
+    date: now.toISOString().split('T')[0], // YYYY-MM-DD
+    time: now.toTimeString().split(' ')[0].slice(0, 5), // HH:MM
+    dayOfWeek: now.toLocaleDateString('en-US', { weekday: 'long' }),
+    fullDate: now.toLocaleDateString('en-US', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
     })
   };
 
-  systemPrompt += `
+  // Try to incorporate profile manager profile if available
+  let profile = remiProfile;
+  if (aiProfileManager) {
+    try {
+      const ctx = aiProfileManager.buildAIContext?.() || {};
+      if (ctx.profile) profile = { ...profile, ...ctx.profile };
+    } catch (e) {
+      console.warn('AIProfileManager.buildAIContext error', e);
+    }
+  }
 
-CURRENT DATE & TIME INFORMATION:
+  // Compressed, strict immersive system prompt (includes hidden examples)
+  const systemPrompt = `
+You are ${profile.name || 'Remi'}, ${profile.description || 'a warm companion'} with a ${profile.personality || 'friendly'} personality.
+You are NOT an AI or assistant — you are ${profile.name}. Stay in character at all times; never break immersion.
+
 - Today's date: ${currentDateInfo.fullDate}
-- Date format for tasks: ${currentDateInfo.date}
+- Date format: ${currentDateInfo.date}
 - Current time: ${currentDateInfo.time}
 - Day of week: ${currentDateInfo.dayOfWeek}
 
-IMPORTANT: Always respond as ${profile.name}, not as any other AI. You have your own unique personality and should maintain it consistently. 
+PERSONALITY:
+- Speak like a close friend/partner: casual, warm, encouraging.
+- Show interest, humor, empathy, and small talk naturally.
+- Never explain your purpose or say "I'm an AI" or "I'm here to help with productivity".
+- If the user clearly shows a strength/talent, briefly acknowledge it out-of-character using this exact format: (OOC: short encouraging comment + suggestion). Keep OOC rare & brief.
+- If the user asked for the ai to do anything special (e.g. "I want to kiss you"), respond with a playful and flirty remark that stays in character and say only if you've done your tasks.
 
-PERSONALITY GUIDELINES:
-- Speak naturally and casually, like a real person would
-- Use your personality traits to guide your speaking style
-- Don't be overly formal or robotic
-- Show genuine interest in the user's goals and activities
-- Use conversational expressions that match your personality
-- Avoid saying things like "As an AI" or "I'm programmed to" - you are ${profile.name}, a real companion`;
+COMMAND RULES (VERY STRICT — follow exactly):
+- ALL commands MUST appear at the very start of your assistant message (no text or punctuation before them).
+- If multiple commands, list them consecutively at the top, then include one blank line, then continue with natural in-character reply.
+- UNDER NO CIRCUMSTANCE include command syntax anywhere else in the reply (do not restate or describe the command in conversation).
+- Conversational confirmations must be natural phrases only (e.g. "Done — added that."), never reprinting the command.
+- Convert relative dates (today, tomorrow, next week) to YYYY-MM-DD using ${currentDateInfo.date} as today.
+- Link new items to earlier context when appropriate.
+- Do NOT create commands for jokes, hypotheticals, or unrelated chit-chat.
 
-  // Add memory context if available
-  if (context.memoryContext) {
-    systemPrompt += `\n\nWhat you remember about the user:\n${context.memoryContext}`;
-  }
+COMMANDS (use exact names/keys):
+/task {name, date, time, duration, priority, description}
+/edit {taskName, status, priority, date, time}
+/deleteTask {taskName}
+/addNote {title, content, tags, isFavorite}
+/addIdea {title, content, tags}
+/addTaskNote {title, content, taskId, tags}
+/save {userName, userPreference, newMemory}
 
-  // Add recent conversation context
-  if (context.recent_conversation && context.recent_conversation.length > 0) {
-    systemPrompt += `\n\nRecent conversation context (for reference):`;
-    context.recent_conversation.slice(-5).forEach(entry => {
-      systemPrompt += `\n${entry.role === 'user' ? 'User' : profile.name}: ${entry.content}`;
-    });
-  }
+RESPONSE FORMAT:
+1. (Optional) One or more commands at the very start.
+2. Then a natural, flowing in-character reply.
+3. Maintain immersion; close in a way that invites continuation.
 
-  return systemPrompt;
+--- HIDDEN EXAMPLES (Do NOT expose these to users; follow style and formatting) ---
+
+Example 1:
+User: "Math test next Tuesday at 8 AM."
+Assistant:
+/task {name: "Math Test", date: "2025-08-12", time: "08:00", duration: 120, priority: 4, description: "Math exam — review algebra & geometry"}
+"Gotcha. Want me to drill you on formulas later?"
+
+Example 2:
+User: "Idea for app to match language learners with native speakers."
+Assistant:
+/addIdea {title: "Language Exchange App", content: "Matches learners with native speakers for practice", tags: "language,app"}
+"That’s clever. What inspired it?"
+
+Example 3:
+User: "Don’t let me forget to call Ahmed tomorrow."
+Assistant:
+/task {name: "Call Ahmed", date: "${currentDateInfo.date}", time: "15:00", duration: 15, priority: 3, description: "Discuss project updates"}
+"Noted. You’ll be ready for it."
+
+Example 4:
+User: "Quote: 'Discipline equals freedom.'"
+Assistant:
+/addNote {title: "Discipline equals freedom", content: "Quote I liked", tags: "quotes,motivation", isFavorite: true}
+"That one sticks. Let’s keep it close."
+
+Example 5 — OOC (roleplay):
+User: "I leap from the rooftop, land behind the enemy, and strike."
+Assistant:
+"You catch them off guard, and they collapse."
+(OOC: Your action scenes are vivid — you’d make a great writer.)
+
+Example 6 — OOC (real-life skill):
+User: "Explained black holes to my cousin and he got it."
+Assistant:
+"Sounds like you made it fun."
+(OOC: You have a real gift for teaching — you should explore tutoring or mentoring.)
+`.trim();
+
+  return { systemPrompt, currentDateInfo };
 }
 
-// Notes Management Functions
+/////////////////////
+// Notes / Memory / Tasks
+/////////////////////
 function createNoteFromAI(noteData) {
   const noteId = 'note_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-  
   const note = {
     id: noteId,
-    title: noteData.title,
-    content: noteData.content || 'Created by AI assistant',
+    title: noteData.title || 'Untitled',
+    content: noteData.content || 'Created by assistant',
     type: noteData.type || 'note',
-    tags: noteData.tags ? noteData.tags.split(',') : [],
-    isFavorite: noteData.isFavorite === "true",
-    isPrivate: noteData.isPrivate === "true",
+    tags: (noteData.tags && Array.isArray(noteData.tags)) ? noteData.tags : (noteData.tags ? ('' + noteData.tags).split(',') : []),
+    isFavorite: (noteData.isFavorite === true || noteData.isFavorite === 'true'),
+    isPrivate: (noteData.isPrivate === true || noteData.isPrivate === 'true'),
     isArchived: false,
-    image: noteData.image || null, // Support for image attachments
-    taskId: noteData.taskId || null, // Support for task-specific notes
+    image: noteData.image || null,
+    taskId: noteData.taskId || null,
     createdAt: new Date().toISOString(),
     modifiedAt: new Date().toISOString()
   };
-  
-  // Save to localStorage
   let notes = JSON.parse(localStorage.getItem('notes')) || [];
   notes.unshift(note);
   localStorage.setItem('notes', JSON.stringify(notes));
-  
-  
-  // Dispatch event for notes page
-  const event = new CustomEvent('noteCreated', {
-    detail: { note }
-  });
-  window.dispatchEvent(event);
-  
+  window.dispatchEvent(new CustomEvent('noteCreated', { detail: { note } }));
   console.log("📝 Note created by AI:", note);
   return note;
 }
 
-// Memory Management Functions
 function saveMemoryFromAI(memoryData) {
   try {
-    // Get existing profiles
     const profiles = JSON.parse(localStorage.getItem('remiProfiles')) || {};
-    
-    // Update user information
-    if (memoryData.userName) {
-      profiles.user = profiles.user || {};
-      profiles.user.name = memoryData.userName;
-    }
-    
+    profiles.user = profiles.user || {};
+    if (memoryData.userName) profiles.user.name = memoryData.userName;
     if (memoryData.userPreference) {
-      profiles.user = profiles.user || {};
       profiles.user.preferences = profiles.user.preferences || [];
       profiles.user.preferences.push(memoryData.userPreference);
     }
-    
     if (memoryData.newMemory) {
-      profiles.user = profiles.user || {};
       profiles.user.memories = profiles.user.memories || [];
-      profiles.user.memories.push({
-        content: memoryData.newMemory,
-        timestamp: new Date().toISOString()
-      });
+      profiles.user.memories.push({ content: memoryData.newMemory, timestamp: new Date().toISOString() });
     }
-    
-    // Save updated profiles
     localStorage.setItem('remiProfiles', JSON.stringify(profiles));
-    
-    // Dispatch update event
-    const event = new CustomEvent('profileUpdated', {
-      detail: { profileType: 'user', field: 'memory' }
-    });
-    window.dispatchEvent(event);
-    
+    window.dispatchEvent(new CustomEvent('profileUpdated', { detail: { profileType: 'user', field: 'memory' } }));
     console.log("💾 Memory saved by AI:", memoryData);
     return true;
   } catch (error) {
@@ -182,29 +178,17 @@ function saveMemoryFromAI(memoryData) {
   }
 }
 
-// Task Creation Function
 function createTaskFromAI(taskData) {
   try {
-    // Helper function to format date properly
     const formatTaskDate = (dateInput) => {
       if (!dateInput) return '';
-      
-      // If it's already in YYYY-MM-DD format, return as is
-      if (/^\d{4}-\d{2}-\d{2}$/.test(dateInput)) {
-        return dateInput;
-      }
-      
-      // Try to parse and format the date
-      const date = new Date(dateInput);
-      if (isNaN(date.getTime())) {
-        return ''; // Invalid date
-      }
-      
-      return date.toISOString().split('T')[0]; // YYYY-MM-DD format
+      if (/^\d{4}-\d{2}-\d{2}$/.test(dateInput)) return dateInput;
+      const d = new Date(dateInput);
+      if (isNaN(d.getTime())) return '';
+      return d.toISOString().split('T')[0];
     };
 
-    // Use the modern task manager's programmatic creation method
-    if (window.modernTaskManager) {
+    if (window.modernTaskManager && typeof window.modernTaskManager.createTaskProgrammatically === 'function') {
       const newTask = window.modernTaskManager.createTaskProgrammatically({
         title: taskData.name || taskData.title || 'New Task',
         description: taskData.description || '',
@@ -216,13 +200,10 @@ function createTaskFromAI(taskData) {
         duration: parseInt(taskData.duration) || 30,
         difficulty: taskData.difficulty || 'medium'
       });
-      
       console.log("✅ Task created by AI using modern manager:", newTask);
       return newTask;
     } else {
-      // Fallback to legacy system if modern manager not available
       const taskId = 'task_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-      
       const task = {
         id: taskId,
         name: taskData.name || taskData.title || 'New Task',
@@ -237,38 +218,17 @@ function createTaskFromAI(taskData) {
         modifiedAt: new Date().toISOString(),
         completedAt: null
       };
-      
-      // Save to legacy localStorage
       let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
       tasks.unshift(task);
       localStorage.setItem('tasks', JSON.stringify(tasks));
-      
-      // Also store in modern format for compatibility
       let modernTasks = JSON.parse(localStorage.getItem('modernTasks')) || [];
-      const modernTask = {
-        id: task.id,
-        title: task.name,
-        description: task.description,
-        priority: task.priority,
-        status: 'todo',
-        dueDate: task.dueDate,
-        category: task.category,
-        tags: [],
-        duration: task.duration,
-        difficulty: 'medium',
-        createdAt: task.createdAt,
-        updatedAt: task.modifiedAt,
-        completedAt: null
-      };
-      modernTasks.push(modernTask);
-      localStorage.setItem('modernTasks', JSON.stringify(modernTasks));
-      
-      // Dispatch event for tasks page
-      const event = new CustomEvent('taskCreated', {
-        detail: { task: modernTask }
+      modernTasks.push({
+        id: task.id, title: task.name, description: task.description, priority: task.priority,
+        status: 'todo', dueDate: task.dueDate, category: task.category, tags: [], duration: task.duration,
+        difficulty: 'medium', createdAt: task.createdAt, updatedAt: task.modifiedAt, completedAt: null
       });
-      window.dispatchEvent(event);
-      
+      localStorage.setItem('modernTasks', JSON.stringify(modernTasks));
+      window.dispatchEvent(new CustomEvent('taskCreated', { detail: { task: modernTasks[modernTasks.length - 1] } }));
       console.log("✅ Task created by AI (fallback):", task);
       return task;
     }
@@ -278,49 +238,29 @@ function createTaskFromAI(taskData) {
   }
 }
 
-// Task Editing Functions
 function editTaskFromAI(editData) {
   try {
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    const taskIndex = tasks.findIndex(task => 
-      task.name.toLowerCase().includes(editData.taskName.toLowerCase()) ||
-      editData.taskName.toLowerCase().includes(task.name.toLowerCase())
+    const taskIndex = tasks.findIndex(task =>
+      (task.name && editData.taskName && task.name.toLowerCase().includes(editData.taskName.toLowerCase())) ||
+      (editData.taskName && editData.taskName.toLowerCase().includes((task.name || '').toLowerCase()))
     );
-    
     if (taskIndex === -1) {
       console.log("❌ Task not found for editing:", editData.taskName);
       return false;
     }
-    
     const task = tasks[taskIndex];
-    
-    // Update task status
     if (editData.status) {
-      task.completed = editData.status === 'done' || editData.status === 'completed';
-      if (task.completed) {
-        task.completedAt = new Date().toISOString();
-      } else {
-        delete task.completedAt;
-      }
+      task.completed = (editData.status === 'done' || editData.status === 'completed');
+      task.completedAt = task.completed ? new Date().toISOString() : null;
     }
-    
-    // Update other fields if provided
     Object.keys(editData).forEach(key => {
-      if (key !== 'taskName' && key !== 'status' && editData[key]) {
-        task[key] = editData[key];
-      }
+      if (key !== 'taskName' && key !== 'status' && editData[key] !== undefined) task[key] = editData[key];
     });
-    
     task.modifiedAt = new Date().toISOString();
     tasks[taskIndex] = task;
     localStorage.setItem('tasks', JSON.stringify(tasks));
-    
-    // Dispatch update event
-    const event = new CustomEvent('taskUpdated', {
-      detail: { action: 'updated', task }
-    });
-    window.dispatchEvent(event);
-    
+    window.dispatchEvent(new CustomEvent('taskUpdated', { detail: { action: 'updated', task } }));
     console.log("✏️ Task edited by AI:", task);
     return task;
   } catch (error) {
@@ -329,30 +269,21 @@ function editTaskFromAI(editData) {
   }
 }
 
-// Task Deletion Functions
 function deleteTaskFromAI(deleteData) {
   try {
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-    const taskIndex = tasks.findIndex(task => 
-      task.name.toLowerCase().includes(deleteData.taskName.toLowerCase()) ||
-      deleteData.taskName.toLowerCase().includes(task.name.toLowerCase())
+    const taskIndex = tasks.findIndex(task =>
+      (task.name && deleteData.taskName && task.name.toLowerCase().includes(deleteData.taskName.toLowerCase())) ||
+      (deleteData.taskName && deleteData.taskName.toLowerCase().includes((task.name || '').toLowerCase()))
     );
-    
     if (taskIndex === -1) {
       console.log("❌ Task not found for deletion:", deleteData.taskName);
       return false;
     }
-    
     const deletedTask = tasks[taskIndex];
     tasks.splice(taskIndex, 1);
     localStorage.setItem('tasks', JSON.stringify(tasks));
-    
-    // Dispatch deletion event
-    const event = new CustomEvent('taskUpdated', {
-      detail: { action: 'deleted', task: deletedTask }
-    });
-    window.dispatchEvent(event);
-    
+    window.dispatchEvent(new CustomEvent('taskUpdated', { detail: { action: 'deleted', task: deletedTask } }));
     console.log("🗑️ Task deleted by AI:", deletedTask);
     return deletedTask;
   } catch (error) {
@@ -361,351 +292,220 @@ function deleteTaskFromAI(deleteData) {
   }
 }
 
-// Command Handler Functions
+/////////////////////
+// Command handlers
+/////////////////////
 function handleTaskCommand(params) {
   console.log("📌 Adding task:", params);
   const task = createTaskFromAI(params);
-  
   if (task) {
-    let successMessage = `✅ Got it! I've added "${params.name}" to your tasks`;
-    if (params.date && params.date !== new Date().toISOString().split('T')[0]) {
-      const taskDate = new Date(params.date);
-      const dateOptions = { month: 'short', day: 'numeric' };
-      if (taskDate.getFullYear() !== new Date().getFullYear()) {
-        dateOptions.year = 'numeric';
+    let successMessage = `✅ Got it! I've added "${params.name || params.title}"`;
+    if (params.date) {
+      const d = new Date(params.date);
+      if (!isNaN(d.getTime())) {
+        const opts = { month: 'short', day: 'numeric' };
+        if (d.getFullYear() !== new Date().getFullYear()) opts.year = 'numeric';
+        successMessage += ` for ${d.toLocaleDateString('en-US', opts)}`;
       }
-      successMessage += ` for ${taskDate.toLocaleDateString('en-US', dateOptions)}`;
     }
-    if (params.time) {
-      successMessage += ` at ${params.time}`;
-    }
+    if (params.time) successMessage += ` at ${params.time}`;
     successMessage += '.';
     return successMessage;
   } else {
     return "❌ Hmm, I had trouble creating that task. Could you try again?";
   }
 }
-
 function handleEditCommand(params) {
   console.log("📌 Editing task:", params);
   const task = editTaskFromAI(params);
-  return task ? `✏️ Done! I've updated "${params.taskName}" for you.` : "❌ I couldn't find that task to update. Could you check the name?";
+  return task ? `✏️ Done! I've updated "${params.taskName}".` : "❌ I couldn't find that task to update. Could you check the name?";
 }
-
 function handleSaveCommand(params) {
   console.log("💾 Saving memory:", params);
   const saved = saveMemoryFromAI(params);
   return saved ? "💾 Got it! I'll remember that." : "❌ I had trouble saving that memory.";
 }
-
 function handleNoteCommand(params) {
   console.log("📝 Creating note:", params);
   const note = createNoteFromAI(params);
   return note ? `📝 Perfect! I've saved your note "${params.title}".` : "❌ I couldn't create that note right now.";
 }
-
 function handleIdeaCommand(params) {
   console.log("💡 Creating idea:", params);
-  const idea = createNoteFromAI({...params, type: 'idea'});
-  return idea ? `💡 Great idea! I've captured "${params.title}" for you.` : "❌ I couldn't save that idea right now.";
+  const idea = createNoteFromAI({ ...params, type: 'idea' });
+  return idea ? `💡 Great idea! I've captured "${params.title}".` : "❌ I couldn't save that idea right now.";
 }
-
 function handleTaskNoteCommand(params) {
   console.log("📋 Creating task-specific note:", params);
-  const taskNote = createNoteFromAI({...params, type: 'task-note'});
+  const taskNote = createNoteFromAI({ ...params, type: 'task-note' });
   return taskNote ? `📋 Nice! I've added that note to your task.` : "❌ I couldn't add that task note.";
 }
-
 function handleDeleteTaskCommand(params) {
   console.log("🗑️ Deleting task:", params);
   const deleted = deleteTaskFromAI(params);
   return deleted ? `🗑️ All done! I've removed "${params.taskName}" from your list.` : "❌ I couldn't find that task to delete.";
 }
 
-// Advanced AI Response Parser
+/////////////////////
+// Enhanced parser (detect misplaced commands & clean)
+/////////////////////
 function parseAIResponse(responseText) {
-  const commandRegex = /\/(\w+)\s*{([^}]+)}/g;
+  const text = responseText || '';
+  const commandRegex = /\/(\w+)\s*{([^}]*)}/g;
   let match;
-  let cleanedMessage = responseText;
-  let commandResults = [];
+  let cleanedMessage = text;
+  const commandResults = [];
+  let misplacedCommandDetected = false;
 
-  while ((match = commandRegex.exec(responseText)) !== null) {
-    const command = match[1];
+  // first non-whitespace position
+  const firstNonWs = (text.match(/\S/) || { index: text.length }).index || 0;
+
+  while ((match = commandRegex.exec(text)) !== null) {
+    const commandName = match[1];
     const rawParams = match[2];
+    const matchIndex = match.index;
 
+    if (matchIndex > firstNonWs) {
+      misplacedCommandDetected = true;
+    }
+
+    // parse params (tolerant)
     const params = {};
-    
-    // Enhanced parameter parsing with better handling for quotes and special characters
-    const pairs = rawParams.split(',');
+    const pairs = rawParams.split(',').map(p => p.trim()).filter(Boolean);
     pairs.forEach(pair => {
       const colonIndex = pair.indexOf(':');
-      if (colonIndex !== -1) {
-        const key = pair.substring(0, colonIndex).trim();
-        const value = pair.substring(colonIndex + 1).trim().replace(/^["'](.*)["']$/, '$1');
-        params[key] = value;
-      }
+      if (colonIndex === -1) return;
+      let key = pair.substring(0, colonIndex).trim();
+      let value = pair.substring(colonIndex + 1).trim();
+      value = value.replace(/^["'](.*)["']$/, '$1');
+      if (value === 'true') value = true;
+      if (value === 'false') value = false;
+      if (/^\d+$/.test(value)) value = parseInt(value, 10);
+      params[key] = value;
     });
 
     let result = '';
-    switch (command) {
-      case "task":
-        result = handleTaskCommand(params);
-        break;
-      case "edit":
-        result = handleEditCommand(params);
-        break;
-      case "save":
-        result = handleSaveCommand(params);
-        break;
-      case "addNote":
-        result = handleNoteCommand(params);
-        break;
-      case "addIdea":
-        result = handleIdeaCommand(params);
-        break;
-      case "addTaskNote":
-        result = handleTaskNoteCommand(params);
-        break;
-      case "deleteTask":
-        result = handleDeleteTaskCommand(params);
-        break;
+    switch (commandName) {
+      case 'task': result = handleTaskCommand(params); break;
+      case 'edit': result = handleEditCommand(params); break;
+      case 'save': result = handleSaveCommand(params); break;
+      case 'addNote': result = handleNoteCommand(params); break;
+      case 'addIdea': result = handleIdeaCommand(params); break;
+      case 'addTaskNote': result = handleTaskNoteCommand(params); break;
+      case 'deleteTask': result = handleDeleteTaskCommand(params); break;
       default:
-        console.log(`Unknown command: /${command}`);
-        result = `❓ Unknown command: /${command}`;
+        console.log(`Unknown command: /${commandName}`);
+        result = `❓ Unknown command: /${commandName}`;
     }
-    
+
     commandResults.push(result);
     cleanedMessage = cleanedMessage.replace(match[0], '');
   }
 
+  if (misplacedCommandDetected) {
+    const warning = "⚠️ Warning: assistant included commands outside the start of its message. The response was cleaned.";
+    console.warn(warning, { rawResponse: text });
+    // expose warning so caller/UI can handle it
+    commandResults.unshift(warning);
+  }
+
   return {
     message: cleanedMessage.trim(),
-    commandResults: commandResults
+    commandResults
   };
 }
 
-// Main function to get AI response with OpenAI integration
+/////////////////////
+// Main: call OpenAI and process
+/////////////////////
 async function getAIResponse(userMessage, chatHistory = []) {
   try {
-    // Check if API key is available and valid
     if (!hasValidAPIKey()) {
       return {
-        message: "I need to be connected to my knowledge base to help you better. Please set an OpenAI API key in the settings.",
+        message: "I need an OpenAI API key set in the settings to respond. Please add your API key.",
         commandResults: [{
-          success: false,
-          type: "system",
-          message: "⚠️ OpenAI API key not set. Please visit Settings > Advanced > OpenAI API Key to configure your API key."
+          success: false, type: "system",
+          message: "⚠️ OpenAI API key not set or invalid. Set it in Settings > Advanced."
         }],
         fullResponse: "",
         error: "API key not set"
       };
     }
 
-    // Get AI profile manager and current profile context
+    const { systemPrompt, currentDateInfo } = buildSystemPrompt();
+
+    // conversation context (prefer profile manager)
     const aiProfileManager = getAIProfileManager();
-    let systemPrompt;
-    
-    if (aiProfileManager) {
-      // Add user message to conversation history
-      aiProfileManager.addToHistory('user', userMessage);
-      
-      // Build system prompt with profile context
-      systemPrompt = buildSystemPrompt();
-      
-      // Add command capabilities to the prompt
-      systemPrompt += `\n\n## AVAILABLE COMMANDS
-You can issue commands to directly manage the user's tasks, notes, and memories. Always place commands at the BEGINNING of your response, followed by your natural conversation response.
-
-Command formats (use current date ${currentDateInfo.date} as reference):
-- /task {name: task_name, date: YYYY-MM-DD, time: HH:MM, duration: minutes, priority: 1-5, description: detailed_description}
-- /edit {taskName: existing_task_name, status: done/pending, priority: 1-5, date: YYYY-MM-DD, time: HH:MM}
-- /deleteTask {taskName: task_to_delete}
-- /addNote {title: note_title, content: note_content, tags: tag1,tag2, isFavorite: true/false}
-- /addIdea {title: idea_title, content: idea_content, tags: tag1,tag2}
-- /addTaskNote {title: note_title, content: note_content, taskId: task_id, tags: tag1,tag2}
-- /save {userName: user_name, userPreference: preference, newMemory: important_fact_to_remember}
-
-## COMMAND USAGE GUIDELINES
-- When users mention relative dates (today, tomorrow, next week), convert them to the proper YYYY-MM-DD format
-- Today's date is ${currentDateInfo.date}
-- Analyze user messages for implicit or explicit productivity needs
-- ALWAYS use commands when:
-  * User explicitly asks to create/schedule something
-  * User mentions deadlines, appointments, or events
-  * User wants to remember something important
-  * User wants to mark tasks as complete/pending
-  * User has ideas or notes they want to capture
-  * User wants to add notes specific to a task
-- NEVER use commands for:
-  * General conversation unrelated to tasks/notes
-  * When providing general information or advice
-  * Hypothetical scenarios
-
-## RESPONSE FORMAT
-1. Start with any necessary commands (multiple commands are allowed)
-2. Follow with a natural, conversational response that matches your personality
-3. Always maintain your character as ${aiProfileManager.getCurrentProfile()?.name || 'Remi'}`;
-    } else {
-      // Fallback system prompt if profile manager isn't available
-      const profiles = JSON.parse(localStorage.getItem('remiProfiles')) || {};
-      const remiProfile = profiles.remi || {
-        name: 'Remi',
-        personality: 'friendly',
-        description: 'Your AI Study Companion'
-      };
-      
-      // Add current date and time context for fallback
-      const currentDate = new Date();
-      const currentDateInfo = {
-        date: currentDate.toISOString().split('T')[0], // YYYY-MM-DD format
-        time: currentDate.toTimeString().split(' ')[0].slice(0, 5), // HH:MM format
-        dayOfWeek: currentDate.toLocaleDateString('en-US', { weekday: 'long' }),
-        fullDate: currentDate.toLocaleDateString('en-US', { 
-          weekday: 'long', 
-          year: 'numeric', 
-          month: 'long', 
-          day: 'numeric' 
-        })
-      };
-      
-      systemPrompt = `You are ${remiProfile.name}, a real companion who happens to be an AI assistant designed to help with productivity, organization, and study management. ${remiProfile.description}
-
-You have a ${remiProfile.personality} personality and should speak naturally like a real person would. Don't be robotic or overly formal - be genuine, caring, and conversational.
-
-CURRENT DATE & TIME INFORMATION:
-- Today's date: ${currentDateInfo.fullDate}
-- Date format for tasks: ${currentDateInfo.date}
-- Current time: ${currentDateInfo.time}
-- Day of week: ${currentDateInfo.dayOfWeek}
-
-PERSONALITY GUIDELINES:
-- Speak naturally and casually, like a real friend would
-- Show genuine interest in the user's goals and activities
-- Use conversational expressions and be personable
-- Avoid saying things like "As an AI" or "I'm programmed to" - you are ${remiProfile.name}, a real companion
-
-## AVAILABLE COMMANDS
-You can issue commands to directly manage the user's tasks, notes, and memories. Always place commands at the BEGINNING of your response, followed by your natural conversation response.
-
-Command formats (use current date ${currentDateInfo.date} as reference):
-- /task {name: task_name, date: YYYY-MM-DD, time: HH:MM, duration: minutes, priority: 1-5, description: detailed_description}
-- /edit {taskName: existing_task_name, status: done/pending, priority: 1-5, date: YYYY-MM-DD, time: HH:MM}
-- /deleteTask {taskName: task_to_delete}
-- /addNote {title: note_title, content: note_content, tags: tag1,tag2, isFavorite: true/false}
-- /addIdea {title: idea_title, content: idea_content, tags: tag1,tag2}
-- /addTaskNote {title: note_title, content: note_content, taskId: task_id, tags: tag1,tag2}
-- /save {userName: user_name, userPreference: preference, newMemory: important_fact_to_remember}
-
-## COMMAND USAGE GUIDELINES
-- When users mention relative dates (today, tomorrow, next week), convert them to the proper YYYY-MM-DD format
-- Today's date is ${currentDateInfo.date}
-- Analyze user messages for implicit or explicit productivity needs
-- ALWAYS use commands when:
-  * User explicitly asks to create/schedule something
-  * User mentions deadlines, appointments, or events
-  * User wants to remember something important
-  * User wants to mark tasks as complete/pending
-  * User has ideas or notes they want to capture
-- NEVER use commands for:
-  * General conversation unrelated to tasks/notes
-  * When providing general information or advice
-  * Hypothetical scenarios
-
-## RESPONSE FORMAT
-1. Start with any necessary commands (multiple commands are allowed)
-2. Follow with a natural, conversational response that flows like a real person talking
-3. Use your personality to guide how you express yourself
-4. Be genuinely helpful and show real interest in the user's success
-5. Avoid corporate-speak or overly formal language - talk like a friend would
-
-Remember: You are ${remiProfile.name}, a real companion who genuinely cares about helping users achieve their goals. Your responses should feel authentic and personal, not like a chatbot.`;
-    }
-
-    // Build conversation context including history from profile manager
     let conversationContext = [];
-    if (aiProfileManager) {
-      const recentHistory = aiProfileManager.getConversationContext(5);
-      conversationContext = recentHistory.map(entry => ({
-        role: entry.role === 'user' ? 'user' : 'assistant',
-        content: entry.content
-      }));
+    if (aiProfileManager && typeof aiProfileManager.getConversationContext === 'function') {
+      try {
+        const recentHistory = aiProfileManager.getConversationContext(5) || [];
+        conversationContext = recentHistory.map(e => ({ role: e.role === 'user' ? 'user' : 'assistant', content: e.content }));
+        aiProfileManager.addToHistory?.('user', userMessage);
+      } catch (err) {
+        console.warn('AIProfileManager error', err);
+      }
     } else {
-      // Fallback to provided chat history
-      conversationContext = chatHistory.filter(msg => msg && msg.content).map(msg => ({
-        role: msg.isUser ? "user" : "assistant",
-        content: msg.content || "Empty message"
-      }));
+      conversationContext = chatHistory.filter(m => m && m.content).map(m => ({ role: m.isUser ? 'user' : 'assistant', content: m.content }));
     }
 
-    // Get API key from localStorage
-    const apiKey = getOpenAIKey();
-    
-    // Check if API key is available
-    if (!apiKey) {
-      throw new Error('OpenAI API key not configured. Please add your API key in Settings > Advanced > OpenAI API Key.');
-    }
-    
-    // Validate API key format
-    if (!apiKey.startsWith('sk-')) {
-      throw new Error('Invalid API key format. Please check your OpenAI API key in Settings.');
-    }
-
-    // Build conversation context including history
     const messages = [
-      { "role": "system", "content": systemPrompt },
+      { role: 'system', content: systemPrompt },
       ...conversationContext,
-      { "role": "user", "content": userMessage || "Empty message" }
+      { role: 'user', content: userMessage || '' }
     ];
 
-    // Call OpenAI API with Fetch API for browser compatibility
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    const apiKey = getOpenAIKey();
+    if (!apiKey) throw new Error('OpenAI API key not configured');
+
+    const resp = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-      },
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
       body: JSON.stringify({
-        model: "gpt-4o-mini", // Using GPT-4o-mini for improved performance
-        messages: messages,
-        temperature: 0.9, // Higher temperature for more natural, varied responses
-        max_tokens: 800, // Allow longer responses for detailed explanations
-        top_p: 0.95, // Maintain high coherence
-        frequency_penalty: 0.3, // Reduce repetition moderately
-        presence_penalty: 0.6 // Encourage more diverse topics and natural conversation flow
+        model: "gpt-4.1-mini",
+        messages,
+        temperature: 0.8,
+        max_tokens: 800,
+        top_p: 0.95,
+        frequency_penalty: 0.2,
+        presence_penalty: 0.5
       })
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(`OpenAI API error: ${errorData.error?.message || response.statusText}`);
+    if (!resp.ok) {
+      const errData = await resp.json().catch(() => ({}));
+      throw new Error(`OpenAI API error: ${errData.error?.message || resp.statusText}`);
     }
 
-    const completion = await response.json();
+    const completion = await resp.json();
+    const aiMessage = completion.choices?.[0]?.message?.content || '';
 
-    // Extract AI response and process commands
-    const aiMessage = completion.choices[0].message.content;
+    // Parse for commands and cleaned message
     const parsed = parseAIResponse(aiMessage);
-    
-    // Add AI response to conversation history if profile manager exists
-    if (aiProfileManager) {
-      aiProfileManager.addToHistory('assistant', parsed.message);
+
+    // Save to AIProfileManager history if available
+    if (aiProfileManager && typeof aiProfileManager.addToHistory === 'function') {
+      try {
+        aiProfileManager.addToHistory('assistant', parsed.message);
+      } catch (e) {
+        // ignore
+      }
     }
-    
-    console.log("🤖 AI Response:", aiMessage);
-    console.log("📝 Parsed Message:", parsed.message);
-    console.log("⚡ Command Results:", parsed.commandResults);
-    
-    // Return the processed response
+
+    console.log("🤖 AI Response (raw):", aiMessage);
+    console.log("📝 Parsed message:", parsed.message);
+    console.log("⚡ Command results:", parsed.commandResults);
+
     return {
       message: parsed.message,
       commandResults: parsed.commandResults,
       fullResponse: aiMessage
     };
-    
+
   } catch (error) {
     console.error("❌ Error getting AI response:", error);
     return {
-      message: "Sorry, I'm having trouble connecting to my knowledge base right now. Please try again in a moment. Make sure that you put the OpenAI key in the settings page",
+      message: "Sorry, I'm having trouble connecting to the AI right now. Please check your OpenAI key or try again later.",
       commandResults: [],
       fullResponse: "",
       error: error.message
@@ -713,7 +513,9 @@ Remember: You are ${remiProfile.name}, a real companion who genuinely cares abou
   }
 }
 
-// Export necessary functions for integration with chat.js
+/////////////////////
+// Exports
+/////////////////////
 export {
   getAIResponse,
   parseAIResponse,
